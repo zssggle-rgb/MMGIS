@@ -1,3 +1,4 @@
+import { uiMarkup, uiRenderedMarkup } from '../../../i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '../Formulae_/Formulae_'
 import L_ from '../Layers_/Layers_'
@@ -60,7 +61,7 @@ var Viewer_ = {
                 'display': 'none',
                 'cursor': 'crosshair'
             })
-        $('#viewer').append(this.imageViewer)
+        $('#viewer').append(uiRenderedMarkup(this.imageViewer))
 
         this.imagePanorama = $('<div>')
             .attr('id', 'imagePanoramaWebGL')
@@ -70,7 +71,7 @@ var Viewer_ = {
                 'height': '100%',
                 'display': 'none'
             })
-        $('#viewer').append(this.imagePanorama)
+        $('#viewer').append(uiRenderedMarkup(this.imagePanorama))
 
         this.imageModel = $('<div>')
             .attr('id', 'imageModelWebGL')
@@ -80,7 +81,7 @@ var Viewer_ = {
                 'height': '100%',
                 'display': 'none'
             })
-        $('#viewer').append(this.imageModel)
+        $('#viewer').append(uiRenderedMarkup(this.imageModel))
 
         this.imagePDF = $('<div>')
             .attr('id', 'imagePDF')
@@ -90,7 +91,7 @@ var Viewer_ = {
                 'height': '100%',
                 'display': 'none'
             })
-        $('#viewer').append(this.imagePDF)
+        $('#viewer').append(uiRenderedMarkup(this.imagePDF))
 
         const pdfInnerDiv = $('<div>')
             .css({
@@ -101,7 +102,7 @@ var Viewer_ = {
                 'display': 'flex',
                 'justify-content': 'center'
             })
-        this.imagePDF.append(pdfInnerDiv)
+        this.imagePDF.append(uiRenderedMarkup(pdfInnerDiv))
 
         const pdfViewerWrapper = $('<div>')
             .attr('id', 'pdfViewerWrapper')
@@ -113,7 +114,7 @@ var Viewer_ = {
                 'padding': '60px 0px',
                 'height': 'calc(100% - 35px)'
             })
-        pdfInnerDiv.append(pdfViewerWrapper)
+        pdfInnerDiv.append(uiRenderedMarkup(pdfViewerWrapper))
 
         this.imageVideo = $('<div>')
             .attr('id', 'imageVideo')
@@ -125,7 +126,7 @@ var Viewer_ = {
                 'display': 'none',
                 'background': 'black'
             })
-        $('#viewer').append(this.imageVideo)
+        $('#viewer').append(uiRenderedMarkup(this.imageVideo))
 
         const videoPlayer = $('<video>')
             .attr({
@@ -138,7 +139,7 @@ var Viewer_ = {
                 'height': '100%',
                 'object-fit': 'contain'
             })
-        this.imageVideo.append(videoPlayer)
+        this.imageVideo.append(uiRenderedMarkup(videoPlayer))
 
         this.imageGif = $('<div>')
             .attr('id', 'imageGif')
@@ -151,7 +152,7 @@ var Viewer_ = {
                 'justify-content': 'center',
                 'background': 'var(--color-a)'
             })
-        $('#viewer').append(this.imageGif)
+        $('#viewer').append(uiRenderedMarkup(this.imageGif))
 
         const gifImage = $('<img>')
             .attr('id', 'gifImage')
@@ -160,7 +161,7 @@ var Viewer_ = {
                 'max-height': '100%',
                 'object-fit': 'contain'
             })
-        this.imageGif.append(gifImage)
+        this.imageGif.append(uiRenderedMarkup(gifImage))
 
         this.imageIntro = $('<div>')
             .attr('id', 'imageViewerIntro')
@@ -169,7 +170,7 @@ var Viewer_ = {
                 'width': '100%',
                 'height': '100%'
             })
-        $('#viewer').append(this.imageIntro)
+        $('#viewer').append(uiRenderedMarkup(this.imageIntro))
 
         const introMessage = $('<div>')
             .css({
@@ -180,8 +181,8 @@ var Viewer_ = {
                 'width': '200px',
                 'text-align': 'center'
             })
-            .html('To begin, select any imagery-enabled feature.')
-        this.imageIntro.append(introMessage)
+            .html(uiRenderedMarkup('To begin, select any imagery-enabled feature.'))
+        this.imageIntro.append(uiRenderedMarkup(introMessage))
 
         this.lookupPath =
             'Missions/' + L_.mission + '/' + 'Data/mosaic_parameters.csv'
@@ -294,7 +295,7 @@ var Viewer_ = {
 
         let url = o.url
 
-        Viewer_.toolBarLoading.html('Loading')
+        Viewer_.toolBarLoading.html(uiRenderedMarkup('Loading'))
         this.url = url
 
         const extLow = F_.getExtension(url).toLowerCase()
@@ -338,14 +339,14 @@ var Viewer_ = {
                 function (err) {
                     if (err) {
                         console.log(err)
-                        Viewer_.toolBarLoading.html(err)
+                        Viewer_.toolBarLoading.html(uiRenderedMarkup(err))
                     } else {
-                        Viewer_.toolBarLoading.html('Loading')
+                        Viewer_.toolBarLoading.html(uiRenderedMarkup('Loading'))
                         Viewer_.modelviewer.resize()
                     }
                 },
                 function (progress) {
-                    Viewer_.toolBarLoading.html('Loading ' + progress + '%')
+                    Viewer_.toolBarLoading.html(uiRenderedMarkup('Loading ' + progress + '%'))
                     if (progress == 100) {
                         Viewer_.toolBarLoading.css('opacity', '0')
                         if (setLocAfter) {
@@ -391,7 +392,7 @@ var Viewer_ = {
                 function (err) {
                     if (err) {
                         console.log(err)
-                        Viewer_.toolBarLoading.html(err)
+                        Viewer_.toolBarLoading.html(uiRenderedMarkup(err))
                     } else {
                         Viewer_.toolBarLoading.css('opacity', '0')
                         if (setLocAfter) {
@@ -453,7 +454,7 @@ var Viewer_ = {
             }
 
             videoElement.onerror = function () {
-                Viewer_.toolBarLoading.html('Error loading video')
+                Viewer_.toolBarLoading.html(uiRenderedMarkup('Error loading video'))
                 setTimeout(() => {
                     Viewer_.toolBarLoading.css('opacity', '0')
                 }, 2000)
@@ -482,7 +483,7 @@ var Viewer_ = {
             }
 
             imgElement.onerror = function () {
-                Viewer_.toolBarLoading.html('Error loading GIF')
+                Viewer_.toolBarLoading.html(uiRenderedMarkup('Error loading GIF'))
                 setTimeout(() => {
                     Viewer_.toolBarLoading.css('opacity', '0')
                 }, 2000)
@@ -619,7 +620,7 @@ var Viewer_ = {
 }
 
 function buildToolBar() {
-    $('#viewerToolBar').html('')
+    $('#viewerToolBar').html(uiRenderedMarkup(''))
 
     const toolBarContainer = $('<div>')
         .attr('class', 'childpointerevents')
@@ -629,7 +630,7 @@ function buildToolBar() {
             'align-items': 'flex-end',
             'padding': '5px'
         })
-    $('#viewerToolBar').append(toolBarContainer)
+    $('#viewerToolBar').append(uiRenderedMarkup(toolBarContainer))
     Viewer_.toolBar = toolBarContainer
 
     Viewer_.baseToolbar = $('<div>')
@@ -639,10 +640,10 @@ function buildToolBar() {
             'flex-direction': 'column',
             'align-items': 'flex-end'
         })
-    Viewer_.toolBar.append(Viewer_.baseToolbar)
+    Viewer_.toolBar.append(uiRenderedMarkup(Viewer_.baseToolbar))
 
     // prettier-ignore
-    Viewer_.baseToolbar.append($('<div>')
+    Viewer_.baseToolbar.append(uiRenderedMarkup($('<div>')
         .attr('id', 'osd-settings')
         .css({
             'display': 'flex',
@@ -650,9 +651,9 @@ function buildToolBar() {
             'padding': '0px 6px'
         })
         .html(
-            [
+            uiRenderedMarkup([
                 '<div>',
-                    "<div id='Viewer_Settings' class='mmgisButton3' title='Link' style='height: unset; line-height: 24px; margin: unset; padding-left: unset; padding-right: unset; border-radius: unset;'>",
+                    uiMarkup("<div id='Viewer_Settings' class='mmgisButton3' title='Link' style='height: unset; line-height: 24px; margin: unset; padding-left: unset; padding-right: unset; border-radius: unset;'>"),
                         "<i class='mdi mdi-tune mdi-18px'></i>",
                     '</div>',
                     "<div id='Viewer_SettingsSettings' class='mmgisButton3' style='height: unset; line-height: 24px; margin: unset; padding-left: unset; padding-right: unset; border-radius: unset;'>",
@@ -665,44 +666,44 @@ function buildToolBar() {
                         '<ul style="position: absolute; left: 0; list-style-type: none; margin: 0; padding: 8px 8px 5px 8px; border-radius: 3px; width: 220px; background: var(--color-a);">',
                             '<li style="height: 19px; line-height: 19px;">',
                                 '<div style="display: flex; justify-content: space-between;">',
-                                    '<div style="font-size: 13px;">Rotation</div>',
+                                    uiMarkup("<div style=\"font-size: 13px;\">Rotation</div>"),
                                     '<input class="viewer_rotationslider slider2" style="background: var(--color-a3); width: 120px;" type="range" min="0" max="360" step="1" value="0" default="0">',
                                 '</div>',
                             '</li>',
                             '<li style="height: 19px; line-height: 19px;">',
                                 '<div style="display: flex; justify-content: space-between;">',
-                                    '<div style="font-size: 13px;">Brightness</div>',
+                                    uiMarkup("<div style=\"font-size: 13px;\">Brightness</div>"),
                                     '<input class="viewer_filterslider viewer_filterslider_brightness slider2" style="background: var(--color-a3); width: 120px;" type="range" min="0.25" max="2" step="0.05" value="1" default="1">',
                                 '</div>',
                             '</li>',
                             '<li style="height: 19px; line-height: 19px;">',
                                 '<div style="display: flex; justify-content: space-between;">',
-                                    '<div style="font-size: 13px;">Contrast</div>',
+                                    uiMarkup("<div style=\"font-size: 13px;\">Contrast</div>"),
                                     '<input class="viewer_filterslider viewer_filterslider_contrast slider2" style="background: var(--color-a3); width: 120px;" type="range" min="0.25" max="6" step="0.05" value="1" default="1">',
                                 '</div>',
                             '</li>',
                             '<li style="height: 19px; line-height: 19px;">',
                                 '<div style="display: flex; justify-content: space-between;">',
-                                    '<div style="font-size: 13px;">Saturation</div>',
+                                    uiMarkup("<div style=\"font-size: 13px;\">Saturation</div>"),
                                     '<input class="viewer_filterslider viewer_filterslider_saturate slider2" style="background: var(--color-a3); width: 120px;" type="range" min="0" max="2" step="0.05" value="1" default="1">',
                                 '</div>',
                             '</li>',
                         '</ul>',
                     '</div>',
                 '<div>',
-            ].join('')
-        ))
+            ].join(''))
+        )))
 
 
-    Viewer_.baseToolbar.append($('<div>')
+    Viewer_.baseToolbar.append(uiRenderedMarkup($('<div>')
         .attr('id', 'osd-zoomin')
-        .html("<i class='mdi mdi-plus mdi-18px'></i>"))
-    Viewer_.baseToolbar.append($('<div>')
+        .html(uiRenderedMarkup("<i class='mdi mdi-plus mdi-18px'></i>"))))
+    Viewer_.baseToolbar.append(uiRenderedMarkup($('<div>')
         .attr('id', 'osd-zoomout')
-        .html("<i class='mdi mdi-minus mdi-18px'></i>"))
-    Viewer_.baseToolbar.append($('<div>')
+        .html(uiRenderedMarkup("<i class='mdi mdi-minus mdi-18px'></i>"))))
+    Viewer_.baseToolbar.append(uiRenderedMarkup($('<div>')
         .attr('id', 'osd-home')
-        .html("<i class='mdi mdi-home-variant-outline mdi-18px'></i>"))
+        .html(uiRenderedMarkup("<i class='mdi mdi-home-variant-outline mdi-18px'></i>"))))
     $('#Viewer_SettingsSettings, #Viewer_Settings').click(function () {
         var display = $('#Viewer_SettingsSettingsPanel').css('display')
         if (display == 'none') {
@@ -753,28 +754,28 @@ function buildToolBar() {
 
     Viewer_.toolBarSelector = $('<div>')
         .attr('id', 'viewer_dropdownselector')
-    Viewer_.toolBar.prepend(Viewer_.toolBarSelector)
+    Viewer_.toolBar.prepend(uiRenderedMarkup(Viewer_.toolBarSelector))
 
     Viewer_.toolBarLoading = $('<div>')
         .attr('id', 'viewer_loading')
-        .html('Loading')
-    $('#viewer').append(Viewer_.toolBarLoading)
+        .html(uiRenderedMarkup('Loading'))
+    $('#viewer').append(uiRenderedMarkup(Viewer_.toolBarLoading))
 
     Viewer_.toolBarhelp = $('<div>')
         .attr('id', 'viewer_Help')
-        .html('Rotate - Left Click and Drag<br>Zoom - Mouse Wheel')
-    Viewer_.toolBar.append(Viewer_.toolBarhelp)
+        .html(uiRenderedMarkup('Rotate - Left Click and Drag<br>Zoom - Mouse Wheel'))
+    Viewer_.toolBar.append(uiRenderedMarkup(Viewer_.toolBarhelp))
 
     //I know, I know; it's not in the toolbar.
     const oc = $('<button>')
         .attr('id', 'viewerDeviceOrientationButton')
-    Viewer_.imagePanorama.append(oc)
+    Viewer_.imagePanorama.append(uiRenderedMarkup(oc))
 
-    oc.append($('<i>')
+    oc.append(uiRenderedMarkup($('<i>')
         .css('transition', 'all 0.2s ease-in')
         .attr('class', 'mdi mdi-screen-rotation mdi-24px')
-        .css('cursor', 'pointer'))
-    oc.append($('<div>').css('line-height', '27px'))
+        .css('cursor', 'pointer')))
+    oc.append(uiRenderedMarkup($('<div>').css('line-height', '27px')))
 
     var ocButton = document.getElementById('viewerDeviceOrientationButton')
     ocButton.onmouseleave = function () {
@@ -812,11 +813,11 @@ function updateDropdown(images, imgI) {
     }
 
     $('#viewer_dropdownselector').html(
-        Dropy.construct(
+        uiRenderedMarkup(Dropy.construct(
             images.map((elm) => elm.name),
             images[imgI].name,
             imgI
-        )
+        ))
     )
     Dropy.init($('#viewer_dropdownselector'), function (idx) {
         Viewer_.changeImage(idx)

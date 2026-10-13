@@ -1,3 +1,4 @@
+import { bindUiTooltips, uiRenderedMarkup, uiTemplate, uiText } from '../../../../../i18n/legacy-ui'
 //The bottom left text that describes to the user the basic mmgis state
 import $ from 'jquery'
 import F_ from '../../../Formulae_/Formulae_'
@@ -66,28 +67,28 @@ const Description = {
         // prettier-ignore
         const navPopoverMarkup = [
             `<div id="mainDescNavPopover">`,
-                `<div id="mainDescNavPopoverTitle">Feature Navigation</div>`,
+                uiTemplate`<div id="mainDescNavPopoverTitle">Feature Navigation</div>`,
                 `<div id="mainDescNavPopoverField">`,
                     `<div id="mainDescNavPopoverFieldField" class="ui dropdown short"></div>`,
                 `</div>`,
                 `<div id="mainDescNavPopoverFieldInfo">`,
-                    `<div id="mainDescNavPopoverFieldKey">Value</div>`,
+                    uiTemplate`<div id="mainDescNavPopoverFieldKey">Value</div>`,
                     `<div id="mainDescNavPopoverFieldValue"></div>`,
                 `</div>`,
                 `<div id="mainDescNavPopoverExtent">`,
-                    `<div>Restrict to Map Extent</div>`,
+                    uiTemplate`<div>Restrict to Map Extent</div>`,
                     `<div class="mmgis-checkbox"><input type="checkbox" ${false ? 'checked ' : ''}id="checkbox_dp1"/><label for="checkbox_dp1"></label></div>`,
                 `</div>`,
                 `<div id="mainDescNavPopoverTimeExtent">`,
-                    `<div>Restrict to Time Range</div>`,
+                    uiTemplate`<div>Restrict to Time Range</div>`,
                     `<div class="mmgis-checkbox"><input type="checkbox" ${false ? 'checked ' : ''}id="checkbox_dp15"/><label for="checkbox_dp15"></label></div>`,
                 `</div>`,
                 `<div id="mainDescNavPopoverGeometryType">`,
-                    `<div>Restrict to Geometry Type</div>`,
+                    uiTemplate`<div>Restrict to Geometry Type</div>`,
                     `<div class="mmgis-checkbox"><input type="checkbox" ${false ? 'checked ' : ''}id="checkbox_dp155"/><label for="checkbox_dp155"></label></div>`,
                 `</div>`,
                 `<div id="mainDescNavPopoverPanTo">`,
-                    `<div>Pan To Feature</div>`,
+                    uiTemplate`<div>Pan To Feature</div>`,
                     `<div class="mmgis-checkbox"><input type="checkbox" ${false ? 'checked ' : ''}id="checkbox_dp2"/><label for="checkbox_dp2"></label></div>`,
                 `</div>`,
                 `<div id="mainDescNavPopoverBottom">`,
@@ -108,13 +109,13 @@ const Description = {
         ].join('\n')
         this.descNav = $('<div>')
             .attr('id', 'mainDescNav')
-            .html(navMarkup)
-        this.descCont.append(this.descNav)
+            .html(uiRenderedMarkup(navMarkup))
+        this.descCont.append(uiRenderedMarkup(this.descNav))
 
         $('body')
-            .append($('<div>')
+            .append(uiRenderedMarkup($('<div>')
             .attr('id', 'mainDescNavPopover_global')
-            .html(navPopoverMarkup))
+            .html(uiRenderedMarkup(navPopoverMarkup))))
 
         document.addEventListener('toolChange', Description.alignNavPopover)
 
@@ -189,7 +190,7 @@ const Description = {
         })
 
         this.descPoint = $('<p>').attr('id', 'mainDescPoint')
-        this.descCont.append(this.descPoint)
+        this.descCont.append(uiRenderedMarkup(this.descPoint))
 
         this.descPointInner = $('<div>')
             .attr('id', 'mainDescPointInner')
@@ -203,7 +204,7 @@ const Description = {
                 'cursor': 'pointer',
                 'margin': '0'
             })
-        this.descPoint.append(this.descPointInner)
+        this.descPoint.append(uiRenderedMarkup(this.descPointInner))
 
         this.descPointLinks = $('<div>')
             .attr('id', 'mainDescPointLinks')
@@ -218,7 +219,7 @@ const Description = {
                 'margin': '0',
                 'overflow': 'hidden'
             })
-        this.descPoint.append(this.descPointLinks)
+        this.descPoint.append(uiRenderedMarkup(this.descPointLinks))
 
         Description.descPointInner.on('click', function () {
             Description.panToActive()
@@ -260,7 +261,7 @@ const Description = {
         }
 
         $('#mainDescNavPopoverFieldField').html(
-            Dropy.construct(properties, 'Field to Sort By', propIndex)
+            uiRenderedMarkup(Dropy.construct(properties, 'Field to Sort By', propIndex))
         )
         Dropy.init($('#mainDescNavPopoverFieldField'), function (idx, val) {
             Description.navPopoverField = val
@@ -936,7 +937,7 @@ const Description = {
             }
         }
 
-        this.descInfoCont.html('')
+        this.descInfoCont.html(uiRenderedMarkup(''))
 
         let infos = []
 
@@ -1048,7 +1049,7 @@ const Description = {
                 if (newInfo.length > 0) infos.push(newInfo)
             }
         }
-        this.descInfoCont.html(infos.join('\n'))
+        this.descInfoCont.html(uiRenderedMarkup(infos.join('\n')))
 
         this.descInfoCont.css('display', 'flex')
         $('.mainInfo').animate(
@@ -1184,10 +1185,10 @@ const Description = {
                 ')</div>'
 
             Description.descPointInner.html(
-                Description.L_.layers.data[activeLayer.options.layerName]
+                uiRenderedMarkup(Description.L_.layers.data[activeLayer.options.layerName]
                     .display_name +
                     ': ' +
-                    keyAsName
+                    keyAsName)
             )
 
             $('#mainDescPointLinks_global').remove()
@@ -1200,7 +1201,7 @@ const Description = {
                     dark: true,
                 }
             )
-            $('#mainDescPointLinks').html(globalConstruct)
+            $('#mainDescPointLinks').html(uiRenderedMarkup(globalConstruct))
             Dropy.init(
                 $('#mainDescPointLinks'),
                 function (idx) {
@@ -1227,23 +1228,23 @@ const Description = {
                 })
 
             if (Description.tippyMenu == null)
-                Description.tippyMenu = tippy('#mainDescNavBarMenu', {
-                    content: 'Feature Navigation',
+                Description.tippyMenu = bindUiTooltips(tippy('#mainDescNavBarMenu', {
+                    content: uiText("Feature Navigation"),
                     placement: 'bottom',
                     theme: 'blue',
-                })
+                }), "Feature Navigation")
             if (Description.tippyPrevious == null)
-                Description.tippyPrevious = tippy('#mainDescNavBarPrevious', {
-                    content: 'Previous Feature (Arrow-Left)',
+                Description.tippyPrevious = bindUiTooltips(tippy('#mainDescNavBarPrevious', {
+                    content: uiText("Previous Feature (Arrow-Left)"),
                     placement: 'bottom',
                     theme: 'blue',
-                })
+                }), "Previous Feature (Arrow-Left)")
             if (Description.tippyNext == null)
-                Description.tippyNext = tippy('#mainDescNavBarNext', {
-                    content: 'Next Feature (Arrow-Right)',
+                Description.tippyNext = bindUiTooltips(tippy('#mainDescNavBarNext', {
+                    content: uiText("Next Feature (Arrow-Right)"),
                     placement: 'bottom',
                     theme: 'blue',
-                })
+                }), "Next Feature (Arrow-Right)")
 
             // Hide/Show feature popover nav time extent check if appropriate
             const popoverTimeExtentDiv = $('#mainDescNavPopoverTimeExtent')

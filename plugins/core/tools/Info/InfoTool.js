@@ -1,3 +1,4 @@
+import { bindUiTooltips, uiMarkup, uiRenderedMarkup, uiTemplate, uiText } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
@@ -25,21 +26,21 @@ var markup = [
     "<div id='infoTool'>",
         "<div id='infoToolHeader'>",
             "<div class='left'>",
-                "<div id='infoToolTitle'>Info</div>",
+                uiMarkup("<div id='infoToolTitle'>Info</div>"),
                 Help.getComponent(helpKey),
-                "<div id='infoToolEquiv' title='Number of overlapping features'></div>",
+                uiMarkup("<div id='infoToolEquiv' title='Number of overlapping features'></div>"),
             "</div>",
             "<div class='right'>",
-                "<div id='infoToolUnhideAll' title='Reshow All Hidden Features'>",
+                uiMarkup("<div id='infoToolUnhideAll' title='Reshow All Hidden Features'>"),
                     "<i class='mdi mdi-eye-check mdi-18px'></i>",
                 "</div>",
-                "<div id='infoToolHide' title='Hide/Show Feature'>",
+                uiMarkup("<div id='infoToolHide' title='Hide/Show Feature'>"),
                     "<i class='mdi mdi-eye mdi-18px'></i>",
                 "</div>",
-                "<div id='infoToolDownload' title='Copy Feature to Clipboard'>",
+                uiMarkup("<div id='infoToolDownload' title='Copy Feature to Clipboard'>"),
                     "<i class='mdi mdi-clipboard-outline mdi-18px'></i>",
                 "</div>",
-                "<div id='infoToolLocate' title='Locate on Map'>",
+                uiMarkup("<div id='infoToolLocate' title='Locate on Map'>"),
                     "<i class='mdi mdi-crosshairs-gps mdi-18px'></i>",
                 "</div>",
             "</div>",
@@ -48,9 +49,9 @@ var markup = [
             "<div id='infoToolSelectedDropdown'></div>",
         "</div>",
         "<div id='infoToolFilter'>",
-            "<input type='text' placeholder='Filter'>",
+            uiMarkup("<input type='text' placeholder='Filter'>"),
             "<i class='mdi mdi-filter-variant mdi-18px'></i>",
-            "<div id='infoToolShowHidden' title='Toggle Hidden Properties'>",
+            uiMarkup("<div id='infoToolShowHidden' title='Toggle Hidden Properties'>"),
                 "<i class='mdi mdi-book-outline mdi-18px'></i>",
             "</div>",
         "</div>",
@@ -76,7 +77,7 @@ var markup = [
         "</div>",
         "<div id='infoToolContent'>",
             "<ul id='infoToolData'></ul>",
-            "<div id='infoToolNoneSelected'>No feature selected</div>",
+            uiMarkup("<div id='infoToolNoneSelected'>No feature selected</div>"),
         "</div>",
     "</div>"
 ].join('\n');
@@ -177,25 +178,25 @@ var InfoTool = {
         //Clear it
         toolsContainer.empty()
         //Add a semantic container
-        const tools = $('<div>').css('height', '100%').html(markup)
+        const tools = $('<div>').css('height', '100%').html(uiRenderedMarkup(markup))
         //Add the markup to tools or do it manually
-        toolsContainer.append(tools)
+        toolsContainer.append(uiRenderedMarkup(tools))
 
-        tippy('#infoToolSelected', {
-            content: 'Select An Overlapping Feature (Shift + ⇆)',
+        bindUiTooltips(tippy('#infoToolSelected', {
+            content: uiText("Select An Overlapping Feature (Shift + ⇆)"),
             placement: 'right',
             theme: 'blue',
-        })
-        tippy('#infoToolSelectedGeoDataset', {
-            content: 'Select An Associated Dataset (Ctrl/Cmd + ⇆)',
+        }), "Select An Overlapping Feature (Shift + ⇆)")
+        bindUiTooltips(tippy('#infoToolSelectedGeoDataset', {
+            content: uiText("Select An Associated Dataset (Ctrl/Cmd + ⇆)"),
             placement: 'right',
             theme: 'blue',
-        })
-        tippy('#infoToolSelectedDataset', {
-            content: 'Select An Associated Dataset (Ctrl/Cmd + ⇆)',
+        }), "Select An Associated Dataset (Ctrl/Cmd + ⇆)")
+        bindUiTooltips(tippy('#infoToolSelectedDataset', {
+            content: uiText("Select An Associated Dataset (Ctrl/Cmd + ⇆)"),
             placement: 'right',
             theme: 'blue',
-        })
+        }), "Select An Associated Dataset (Ctrl/Cmd + ⇆)")
 
         Help.finalize(helpKey)
         TC_.injectCloseButton()
@@ -223,7 +224,7 @@ var InfoTool = {
         // Update number of equivalent features
         if (this.info.length > 1) {
             $('#infoToolEquiv').text(
-                `${this.activeFeatureI + 1} of ${this.info.length}`
+                uiText("{{value0}} of {{value1}}", { value0: this.activeFeatureI + 1, value1: this.info.length, interpolation: { escapeValue: false } })
             )
             $('#infoToolEquiv').css('display', 'block')
         } else {
@@ -268,13 +269,13 @@ var InfoTool = {
         }
 
         $('#infoToolSelectedDropdown').html(
-            Dropy.construct(
+            uiRenderedMarkup(Dropy.construct(
                 nameItems,
                 `Feature${
                     this.info.length > 1 ? `s (${this.info.length})` : ''
                 }`,
                 this.activeFeatureI
-            )
+            ))
         )
         Dropy.init($('#infoToolSelectedDropdown'), function (idx) {
             InfoTool.selectedDropdownChange(idx)
@@ -442,26 +443,24 @@ var InfoTool = {
                 )
             })
             $('#infoToolSelectedGeoDatasetDropdown').html(
-                Dropy.construct(
+                uiRenderedMarkup(Dropy.construct(
                     geodatasetNames,
                     `GeoDataset`,
                     InfoTool.activeGeoDatasetI
-                )
+                ))
             )
             Dropy.init(
                 $('#infoToolSelectedGeoDatasetDropdown'),
                 function (idx) {
                     InfoTool.activeGeoDatasetI = idx
                     $('#infoToolSelectedGeoDatasetDropdownTotal').text(
-                        `${InfoTool.activeGeoDatasetI + 1} of ${
-                            geodatasetNames.length
-                        }`
+                        uiText("{{value0}} of {{value1}}", { value0: InfoTool.activeGeoDatasetI + 1, value1: geodatasetNames.length, interpolation: { escapeValue: false } })
                     )
                     InfoTool.createInfo()
                 }
             )
             $('#infoToolSelectedGeoDatasetDropdownTotal').text(
-                `${InfoTool.activeGeoDatasetI + 1} of ${geodatasetNames.length}`
+                uiText("{{value0}} of {{value1}}", { value0: InfoTool.activeGeoDatasetI + 1, value1: geodatasetNames.length, interpolation: { escapeValue: false } })
             )
 
             $('#infoToolSelectedGeoDatasetLeft').off('click')
@@ -497,21 +496,21 @@ var InfoTool = {
                     )
             })
             $('#infoToolSelectedDatasetDropdown').html(
-                Dropy.construct(
+                uiRenderedMarkup(Dropy.construct(
                     datasetNames,
                     `Dataset`,
                     InfoTool.activeDatasetI
-                )
+                ))
             )
             Dropy.init($('#infoToolSelectedDatasetDropdown'), function (idx) {
                 InfoTool.activeDatasetI = idx
                 $('#infoToolSelectedDatasetDropdownTotal').text(
-                    `${InfoTool.activeDatasetI + 1} of ${datasetNames.length}`
+                    uiText("{{value0}} of {{value1}}", { value0: InfoTool.activeDatasetI + 1, value1: datasetNames.length, interpolation: { escapeValue: false } })
                 )
                 InfoTool.createInfo()
             })
             $('#infoToolSelectedDatasetDropdownTotal').text(
-                `${InfoTool.activeDatasetI + 1} of ${datasetNames.length}`
+                uiText("{{value0}} of {{value1}}", { value0: InfoTool.activeDatasetI + 1, value1: datasetNames.length, interpolation: { escapeValue: false } })
             )
 
             $('#infoToolSelectedDatasetLeft').off('click')
@@ -573,7 +572,7 @@ var InfoTool = {
                 ) {
                     // prettier-ignore
                     $('#infoToolData').append(
-                        [
+                        uiRenderedMarkup([
                             `<li class="${type}" style="margin-left: ${depth * depthMultiplier}px;" depth=${depth}>`,
                                 '<div>',
                                     `${keys[i]}`,
@@ -581,7 +580,7 @@ var InfoTool = {
                                 '<div>',
                                 '</div>',
                             '</li>'
-                        ].join('\n'))
+                        ].join('\n')))
                     if (
                         !Array.isArray(node[keys[i]]) ||
                         node[keys[i]].length > 0
@@ -595,7 +594,7 @@ var InfoTool = {
                 } else {
                     // prettier-ignore
                     $('#infoToolData').append(
-                        [
+                        uiRenderedMarkup([
                             `<li class="${type}"  style="margin-left: ${depth * depthMultiplier}px;" depth=${depth}>`,
                                 '<div>',
                                     `${keys[i]}:`,
@@ -606,7 +605,7 @@ var InfoTool = {
                                         : node[keys[i]],
                                 '</div>',
                             '</li>'
-                        ].join('\n'))
+                        ].join('\n')))
                     lastWasAHeader = false
                 }
             }

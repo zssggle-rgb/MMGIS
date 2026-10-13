@@ -1,3 +1,4 @@
+import { uiMarkup, uiRenderedMarkup, uiTemplate } from '../../../../src/i18n/legacy-ui'
 // See https://www.asprs.org/wp-content/uploads/pers/2000journal/january/2000_jan_87-90.pdf for viewshedding algorithm
 
 //Capture all dem tiles at resolution 32, 64, 128 or 256 for current extent
@@ -31,7 +32,7 @@ let markup = [
             "<div class='mmgisToolHeader'>",
                 "<div>",
                     "<div>",
-                        "<div class='mmgisToolTitle'>Viewshed</div>",
+                        uiMarkup("<div class='mmgisToolTitle'>Viewshed</div>"),
                         Help.getComponent(helpKey),
                     "</div>",
                 "</div>",
@@ -39,10 +40,10 @@ let markup = [
             "<div id='vstSubHeader'>",
                 "<div id='vstSubHeaderLeft'>",
                     "<div id='vstToggleAll' class='checkbox on'></div>",
-                    "<div class='vstLabel'>Toggle All</div>",
+                    uiMarkup("<div class='vstLabel'>Toggle All</div>"),
                 "</div>",
                 "<div id='vstNew'>",
-                    "<div>New</div>",
+                    uiMarkup("<div>New</div>"),
                     "<i class='mdi mdi-plus mdi-18px'></i>",
                 "</div>",
             "</div>",
@@ -179,7 +180,7 @@ let ViewshedTool = {
         this.tempSheet = $(
             '<style type="text/css">.leaflet-tile { opacity: 1 !important; }</style>'
         )
-        $('html > head').append(this.tempSheet)
+        $('html > head').append(uiRenderedMarkup(this.tempSheet))
     },
     destroy: function () {
         this.MMGISInterface.separateFromMMGIS()
@@ -341,7 +342,7 @@ let ViewshedTool = {
         allCameraPresets =
             "<option value='-1' " +
             (initObj.customPreset == -1 ? 'selected' : '') +
-            '>Custom</option>\n' +
+            uiMarkup(">Custom</option>\n") +
             allCameraPresets
 
         // prettier-ignore
@@ -351,12 +352,12 @@ let ViewshedTool = {
                     "<div class='vstShedHeader'>",
                         "<div>",
                             "<div class='vstColorbox' style='background: " + initObj.color + ";'></div>",
-                            "<div class='checkbox on' title='Toggle On/Off'></div>",
-                            "<div class='activator vstEditbox' title='Toggle Edit'>",
+                            uiMarkup("<div class='checkbox on' title='Toggle On/Off'></div>"),
+                            uiMarkup("<div class='activator vstEditbox' title='Toggle Edit'>"),
                                 "<i class='off mdi mdi-checkbox-blank-circle-outline mdi-18px'></i>",
                                 "<i class='on mdi mdi-circle-edit-outline mdi-18px'></i>",
                             "</div>",
-                            "<input title='Rename' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false' value='" + initObj.name + "'></input>",
+                            uiMarkup("<input title='Rename' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false' value='") + initObj.name + "'></input>",
                         "</div>",
                         "<div>",
                             "<div class='vstShed3D' vstId='" + id + "' title='3D Viewshed'>",
@@ -369,128 +370,128 @@ let ViewshedTool = {
                     "</div>",
                     "<div class='vstShedContents' style='border-left: 6px solid " + initObj.color + ";'>",
                         "<div class='vstOptionData'>",
-                            "<div title='Dataset to viewshed.'>Data</div>",
+                            uiMarkup("<div title='Dataset to viewshed.'>Data</div>"),
                             "<select class='dropdown'>",
                                 allData,
                             "</select>",
                         "</div>",
                         "<div class='vstOptionColor'>",
-                            "<div>Color</div>",
+                            uiMarkup("<div>Color</div>"),
                             "<div id='vstId_" + id + "_color'></div>",
                         "</div>",
                         "<div class='vstOptionOpacity'>",
-                            "<div>Opacity</div>",
+                            uiMarkup("<div>Opacity</div>"),
                             "<input class='slider2' type='range' min='0' max='1' step='0.01' value='" + initObj.opacity + "' default='0.5'>",
                         "</div>",
                         "<div class='vstOptionResolution'>",
-                            "<div title='High or Ultra disables auto-regeneration.'>Resolution</div>",
+                            uiMarkup("<div title='High or Ultra disables auto-regeneration.'>Resolution</div>"),
                             "<select class='dropdown'>",
-                                "<option value='0' " + (initObj.resolution == 0 ? 'selected' : '') + ">Low</option>",
-                                "<option value='1' " + (initObj.resolution == 1 ? 'selected' : '') + ">Medium</option>",
-                                "<option value='2' " + (initObj.resolution == 2 ? 'selected' : '') + ">High</option>",
-                                "<option value='3' " + (initObj.resolution == 3 ? 'selected' : '') + ">Ultra</option>",
+                                "<option value='0' " + (initObj.resolution == 0 ? 'selected' : '') + uiMarkup(">Low</option>"),
+                                "<option value='1' " + (initObj.resolution == 1 ? 'selected' : '') + uiMarkup(">Medium</option>"),
+                                "<option value='2' " + (initObj.resolution == 2 ? 'selected' : '') + uiMarkup(">High</option>"),
+                                "<option value='3' " + (initObj.resolution == 3 ? 'selected' : '') + uiMarkup(">Ultra</option>"),
                             "</select>",
                         "</div>",
                         "<div class='vstOptionInvert'>",
-                            "<div title='Inverts the shading. True shades hidden regions.'>Reverse</div>",
+                            uiMarkup("<div title='Inverts the shading. True shades hidden regions.'>Reverse</div>"),
                             "<select class='dropdown'>",
-                                "<option value='0' " + (initObj.invert == 0 ? 'selected' : '') + ">False</option>",
-                                "<option value='1' " + (initObj.invert == 1 ? 'selected' : '') + ">True</option>",
+                                "<option value='0' " + (initObj.invert == 0 ? 'selected' : '') + uiMarkup(">False</option>"),
+                                "<option value='1' " + (initObj.invert == 1 ? 'selected' : '') + uiMarkup(">True</option>"),
                             "</select>",
                         "</div>",
                         "<div class='vstOptionCameraPresets'>",
-                            "<div title='Modifies parameters below.'>Camera Presets</div>",
+                            uiMarkup("<div title='Modifies parameters below.'>Camera Presets</div>"),
                             "<select class='dropdown'>",
                                 allCameraPresets,
                             "</select>",
                         "</div>",
                         "<div class='vstOptionHeight'>",
-                            "<div title='Height above surface of source point.'>Observer Height</div>",
+                            uiMarkup("<div title='Height above surface of source point.'>Observer Height</div>"),
                             "<div class='flexbetween'>",
                                 "<input type='number' min='0' step='1' value='" + initObj.height + "' default='2'>",
                                 "<div class='vstUnit smallFont'>m</div>",
                             "</div>",
                         "</div>",
                         "<div class='vstOptionTargetHeight'>",
-                            `<div title='Height above surface of target area.\n"Can I see the spot n meters above the surface here?"'>Target Height</div>`,
+                            uiTemplate`<div title='Height above surface of target area.\n"Can I see the spot n meters above the surface here?"'>Target Height</div>`,
                             "<div class='flexbetween'>",
                                 "<input type='number' min='0' step='1' value='" + initObj.targetHeight + "' default='0'>",
                                 "<div class='vstUnit smallFont'>m</div>",
                             "</div>",
                         "</div>",
                         "<div class='vstOptionFOVAzimuth'>",
-                            "<div title='Horizontal field of view angle.'>FOV (Az)</div>",
+                            uiMarkup("<div title='Horizontal field of view angle.'>FOV (Az)</div>"),
                             "<div class='flexbetween'>",
                                 "<input type='number' min='0' max='360' step='1' value='" + initObj.FOVAzimuth + "' default='360'>",
                                 "<div class='vstUnit'>&deg;</div>",
                             "</div>",
                         "</div>",
                         "<div class='vstOptionFOVElevation'>",
-                            "<div title='Vertical field of view angle.'>FOV (El)</div>",
+                            uiMarkup("<div title='Vertical field of view angle.'>FOV (El)</div>"),
                             "<div class='flexbetween'>",
                                 "<input type='number' min='0' max='180' step='1' value='" + initObj.FOVElevation + "' default='180'>",
                                 "<div class='vstUnit'>&deg;</div>",
                             "</div>",
                         "</div>",
                         "<div class='vstOptionCenterAzimuth'>",
-                            "<div title='Clockwise-increasing and north-is-zero view rotation angle.'>Center Azimuth</div>",
+                            uiMarkup("<div title='Clockwise-increasing and north-is-zero view rotation angle.'>Center Azimuth</div>"),
                             "<div class='flexbetween'>",
                                 "<input type='number' step='6' value='" + initObj.centerAzimuth + "' default='0'>",
                                 "<div class='vstUnit'>&deg;</div>",
                             "</div>",
                         "</div>",
                         "<div class='vstOptionCenterElevation'>",
-                            "<div title='Upwards-increasing and horizon-is-zero view tilt angle.'>Center Elevation</div>",
+                            uiMarkup("<div title='Upwards-increasing and horizon-is-zero view tilt angle.'>Center Elevation</div>"),
                             "<div class='flexbetween'>",
                                 "<input type='number' min='-90' max='90' step='1' value='" + initObj.centerElevation + "' default='0'>",
                                 "<div class='vstUnit'>&deg;</div>",
                             "</div>",
                         "</div>",
                         "<div class='vstOptionLatitude'>",
-                            "<div>Latitude</div>",
+                            uiMarkup("<div>Latitude</div>"),
                             "<div class='flexbetween'>",
                                 "<input type='number' min='0' max='180' step='1' value='" + initObj.latitude + "' default='0'>",
                                 "<div class='vstUnit'>&deg;</div>",
                             "</div>",
                         "</div>",
                         "<div class='vstOptionLongitude'>",
-                            "<div>Longitude</div>",
+                            uiMarkup("<div>Longitude</div>"),
                             "<div class='flexbetween'>",
                                 "<input type='number' min='0' max='180' step='1' value='" + initObj.longitude + "' default='0'>",
                                 "<div class='vstUnit'>&deg;</div>",
                             "</div>",
                         "</div>",
                         "<div class='vstShedBar'>",
-                            "<div class='vstDelete' title='Delete'>",
+                            uiMarkup("<div class='vstDelete' title='Delete'>"),
                                 "<i class='mdi mdi-delete mdi-18px'></i>",
                             "</div>",
-                            "<div class='vstSave' title='Save'>",
+                            uiMarkup("<div class='vstSave' title='Save'>"),
                                 "<i class='mdi mdi-content-save mdi-18px'></i>",
                             "</div>",
                             "<div class='vstShedClone' vstId='" + id + "' title='Clone Viewshed'>",
                                 "<i class='mdi mdi-plus-circle-multiple-outline mdi-18px'></i>",
                             "</div>",
                             "<div class='vstRegen changed'>",
-                                "<div>Generate</div>",
+                                uiMarkup("<div>Generate</div>"),
                                 "<span></span>",
                             "</div>",
                             "<div class='vstDeleteSure'>",
-                                "<div class='vstDeleteSureYes' title='Yes, delete!'>",
-                                    "<span>Yes</span>",
+                                uiMarkup("<div class='vstDeleteSureYes' title='Yes, delete!'>"),
+                                    uiMarkup("<span>Yes</span>"),
                                     "<i class='mdi mdi-delete mdi-18px'></i>",
                                 "</div>",
-                                '<div class="vstDeleteSureNo" title="No, keep.">',
-                                    "<span>No</span>",
+                                uiMarkup("<div class=\"vstDeleteSureNo\" title=\"No, keep.\">"),
+                                    uiMarkup("<span>No</span>"),
                                     "<i class='mdi mdi-close mdi-18px'></i>",
                                 "</div>",
-                                "<div>Are you sure?</div>",
+                                uiMarkup("<div>Are you sure?</div>"),
                             "</div>",
                         "</div>",
                     "</div>",
                 "</li>"
             ].join('\n')
 
-        $('#vstViewsheds').append(markup)
+        $('#vstViewsheds').append(uiRenderedMarkup(markup))
 
         $('#vstViewsheds #vstId_' + id + ' .activator').on(
             'click',
@@ -1171,7 +1172,7 @@ let ViewshedTool = {
                 ).css({ width: '0%' })
                 $(
                     '#vstViewsheds #vstId_' + activeElmId + ' .vstRegen div'
-                ).text('Regenerate')
+                ).html(uiRenderedMarkup(uiMarkup("<span>Regenerate</span>")))
                 // We'll use a single canvas for all tiles for capturing
                 // their dataURLs
                 let c = document.createElement('canvas')
@@ -1580,8 +1581,8 @@ function interfaceWithMMGIS() {
     //Clear it
     toolsContainer.empty()
     //Add a semantic container
-    const tools = $('<div>').css('height', '100%').html(markup)
-    toolsContainer.append(tools)
+    const tools = $('<div>').css('height', '100%').html(uiRenderedMarkup(markup))
+    toolsContainer.append(uiRenderedMarkup(tools))
 
     Help.finalize(helpKey)
 

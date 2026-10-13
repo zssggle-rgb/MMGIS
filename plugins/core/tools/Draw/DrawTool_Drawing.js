@@ -1,3 +1,4 @@
+import { uiMarkup, uiText } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
@@ -128,7 +129,7 @@ var Drawing = {
                             )
                                 noChange = true
                         } catch (error) {
-                            Toast.error('ERROR: Topology.', 2500)
+                            Toast.error(uiText("ERROR: Topology."), 2500)
                             if (d.end && d.begin) {
                                 d.end()
                                 d.begin()
@@ -204,7 +205,7 @@ var Drawing = {
                                 })(feature, i),
                                 function () {
                                     throughLoop(i + 1)
-                                    Toast.error('Failed to cut through some shapes.', 6000)
+                                    Toast.error(uiText("Failed to cut through some shapes."), 6000)
                                 }
                             )
                         }
@@ -237,7 +238,7 @@ var Drawing = {
                         d.shape.geometry = newGeometry
                     }
                 } catch (error) {
-                    Toast.error('ERROR: Topology.', 2500)
+                    Toast.error(uiText("ERROR: Topology."), 2500)
                     if (d.end && d.begin) {
                         d.end()
                         d.begin()
@@ -669,7 +670,7 @@ var drawing = {
                 }
             ).addTo(Map_.map)
 
-            CursorInfo.update(`Radius: ${d.mRadius.toFixed(3)}m`, null, false, {
+            CursorInfo.update(uiText("Radius: {{value0}}m", { value0: d.mRadius.toFixed(3) }), null, false, {
                 x: e.originalEvent.clientX + 30,
                 y: e.originalEvent.clientY - 15,
             })
@@ -1277,7 +1278,7 @@ var drawing = {
                         "_Close' class='mdi mdi-close mdi-18px'></i></div>" +
                         "<input id='" +
                         inputId +
-                        "' class='drawToolPreannotation' placeholder='Leave a note...'></input>" +
+                        uiMarkup("' class='drawToolPreannotation' placeholder='Leave a note...'></input>") +
                         "<div><i id='" +
                         inputId +
                         "_Save' class='mdi mdi-content-save mdi-18px'></i></div>" +

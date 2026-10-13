@@ -1,8 +1,11 @@
+import { useLegacyText } from "../../../../../src/i18n/legacy-ui"
 import React, { useRef, useEffect } from 'react'
 import useSightlineStore from '../store'
 import SightlineTool from '../SightlineTool'
 
 export default function SightlineResults({ elmId }) {
+    const tLegacy = useLegacyText()
+
     const el = useSightlineStore((s) => s.elements[elmId])
     const azCanvasRef = useRef(null)
     const elCanvasRef = useRef(null)
@@ -27,11 +30,11 @@ export default function SightlineResults({ elmId }) {
             <div id={`sightlineTool_indicators_${elmId}`}>
                 <div>
                     <canvas id={`sightlineTool_az_${elmId}`} ref={azCanvasRef} />
-                    <div id={`sightlineTool_azValue_${elmId}`}>Az: {raeResults?.az || '--'}</div>
+                    <div id={`sightlineTool_azValue_${elmId}`}>{tLegacy("Az:")} {raeResults?.az || '--'}</div>
                 </div>
                 <div>
                     <canvas id={`sightlineTool_el_${elmId}`} ref={elCanvasRef} />
-                    <div id={`sightlineTool_elValue_${elmId}`}>El: {raeResults?.el || '--'}</div>
+                    <div id={`sightlineTool_elValue_${elmId}`}>{tLegacy("El:")} {raeResults?.el || '--'}</div>
                 </div>
             </div>
         </div>

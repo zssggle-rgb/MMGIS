@@ -1,3 +1,4 @@
+import { uiCanonical, uiLabel, uiMarkup, uiRenderedMarkup, uiTemplate } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
@@ -656,22 +657,22 @@ var Editing = {
             "</div>",
         "</div>",
         "<div class='drawToolContextMenuHeader1 flexbetween'>",
-            "<div class='drawToolContextMenuHeaderOwner'>by <span>" + F_.sanitize(file.file_owner) + "</span></div>",
-            "<div class='drawToolContextMenuHeaderFile'>from<span>" + F_.sanitize(file.file_name) + "</span></div>",
+            uiMarkup("<div class='drawToolContextMenuHeaderOwner'>by <span>") + F_.sanitize(file.file_owner) + "</span></div>",
+            uiMarkup("<div class='drawToolContextMenuHeaderFile'>from<span>") + F_.sanitize(file.file_name) + "</span></div>",
         "</div>",
         "</div>",
 
         "<div class='drawToolContextMenuTabBar'>",
-            "<div class='drawToolContextMenuTabTitle'>Properties</div>",
+            uiMarkup("<div class='drawToolContextMenuTabTitle'>Properties</div>"),
             "<div class='drawToolContextMenuTabButtons'>",
-                "<div class='drawToolContextMenuTabButton' tab='drawToolContextMenuTabProperties' title='Properties'>",
+                uiMarkup("<div class='drawToolContextMenuTabButton' tab='drawToolContextMenuTabProperties' title='Properties'>"),
                     "<i class='mdi mdi-list-box mdi-24px'></i>",
                 "</div>",
-                (!displayOnly) ? "<div class='drawToolContextMenuTabButton' tab='drawToolContextMenuTabStyle' title='Style' style='display: " + ( (hideStyle) ? 'none' : 'inherit' ) + "'><i class='mdi mdi-palette mdi-24px'></i></div>" : "",
-                (!displayOnly && DrawTool.plugins?.Geologic) ? "<div class='drawToolContextMenuTabButton'  tab='drawToolContextMenuTabGeologic' title='Geologic'><i class='mdi mdi-earth-box mdi-24px'></i></div>" : "",
-                (!displayOnly && DrawTool.plugins?.MTTTT) ? "<div class='drawToolContextMenuTabButton' tab='drawToolContextMenuTabMTTTT' title='MTn Trail Guide'><i class='mdi mdi-image-filter-hdr mdi-24px'></i></div>" : '',
-                (DrawTool.plugins?.ScienceIntent && DrawTool.contextMenuLayers.length == 1) ? "<div class='drawToolContextMenuTabButton' tab='drawToolContextMenuTabScienceIntent' title='Science Intent'><i class='mdi mdi-microscope mdi-24px'></i></div>" : "",
-                (!displayOnly && DrawTool.plugins?.SetOperations) ? "<div class='drawToolContextMenuTabButton'  tab='drawToolContextMenuTabSetOperations' title='Set Operations'><i class='mdi mdi-vector-combine mdi-24px'></i></div>" : "",
+                (!displayOnly) ? uiMarkup("<div class='drawToolContextMenuTabButton' tab='drawToolContextMenuTabStyle' title='Style' style='display: ") + ( (hideStyle) ? 'none' : 'inherit' ) + "'><i class='mdi mdi-palette mdi-24px'></i></div>" : "",
+                (!displayOnly && DrawTool.plugins?.Geologic) ? uiMarkup("<div class='drawToolContextMenuTabButton'  tab='drawToolContextMenuTabGeologic' title='Geologic'><i class='mdi mdi-earth-box mdi-24px'></i></div>") : "",
+                (!displayOnly && DrawTool.plugins?.MTTTT) ? uiMarkup("<div class='drawToolContextMenuTabButton' tab='drawToolContextMenuTabMTTTT' title='MTn Trail Guide'><i class='mdi mdi-image-filter-hdr mdi-24px'></i></div>") : '',
+                (DrawTool.plugins?.ScienceIntent && DrawTool.contextMenuLayers.length == 1) ? uiMarkup("<div class='drawToolContextMenuTabButton' tab='drawToolContextMenuTabScienceIntent' title='Science Intent'><i class='mdi mdi-microscope mdi-24px'></i></div>") : "",
+                (!displayOnly && DrawTool.plugins?.SetOperations) ? uiMarkup("<div class='drawToolContextMenuTabButton'  tab='drawToolContextMenuTabSetOperations' title='Set Operations'><i class='mdi mdi-vector-combine mdi-24px'></i></div>") : "",
             "</div>",
         "</div>",
 
@@ -680,11 +681,11 @@ var Editing = {
             "<div class='drawToolContextMenuTab drawToolContextMenuTabProperties'>",
                 "<div class='drawToolContextMenuProperties'>",
                     "<div class='drawToolContextMenuPropertiesName flexbetween'>",
-                        "<div class='drawToolContextMenuPropertiesTitle'>Name</div>",
+                        uiMarkup("<div class='drawToolContextMenuPropertiesTitle'>Name</div>"),
                         "<input id='drawToolContextMenuPropertiesName' type='text'/>",
                     "</div>",
                     "<div class='drawToolContextMenuPropertiesDescription flexbetween'>",
-                        "<div class='drawToolContextMenuPropertiesTitle'>Description</div>",
+                        uiMarkup("<div class='drawToolContextMenuPropertiesTitle'>Description</div>"),
                         "<textarea id='drawToolContextMenuPropertiesDescription' rows='2'></textarea>",
                     "</div>",
                     (file.template != null ) ? [
@@ -696,41 +697,41 @@ var Editing = {
                             `<i class='mdi mdi-chevron-down mdi-24px'></i>`,
                         `</div>`,
                         `<div>`,
-                            `<div class='drawToolContextMenuPropertiesRecomputeTemplate'><div><i class='mdi mdi-restore mdi-18px'></i><div>Recompute Templated Fields</div></div></div>`,
+                            uiTemplate`<div class='drawToolContextMenuPropertiesRecomputeTemplate'><div><i class='mdi mdi-restore mdi-18px'></i><div>Recompute Templated Fields</div></div></div>`,
                             "<div id='drawToolContextMenuPropertiesTemplate'></div>",
                         `</div>`,
                     "</div>"].join('\n') : "",
                     "<div class='drawToolContextMenuPropertiesCollapsible state-collapsed'>",
-                        "<div class='drawToolContextMenuPropertiesTitle'><div>Metrics</div><i class='mdi mdi-chevron-down mdi-24px'></i></div>",
+                        uiMarkup("<div class='drawToolContextMenuPropertiesTitle'><div>Metrics</div><i class='mdi mdi-chevron-down mdi-24px'></i></div>"),
                         "<div>",
                         (hasLengthMetric) ? [
                             "<div class='flexbetween' style='margin: 4px 0px;'>",
-                                "<div>Length</div>",
+                                uiMarkup("<div>Length</div>"),
                                 `<div>${F_.getFeatureLength(DrawTool.contextMenuLayer.feature, true)}</div>`,
                             "</div>",
                         ].join('\n') : "",
                         (hasPerimeterMetric) ? [
                             "<div class='flexbetween' style='margin: 4px 0px;'>",
-                                "<div>Perimeter</div>",
+                                uiMarkup("<div>Perimeter</div>"),
                                 `<div>${F_.getFeatureLength(DrawTool.contextMenuLayer.feature, true)}</div>`,
                             "</div>",
                         ].join('\n') : "",
                         (hasAreaMetric) ? [
                             "<div class='flexbetween' style='margin-bottom: 4px;'>",
-                                "<div>Area</div>",
+                                uiMarkup("<div>Area</div>"),
                                 `<div>${F_.getFeatureArea(DrawTool.contextMenuLayer.feature, true)}</div>`,
                             "</div>",
                         ].join('\n') : "",
                         (DrawTool.contextMenuLayer?.feature?.properties?._radius != null) ? [
                             "<div class='flexbetween' style='margin-bottom: 4px;'>",
-                                "<div>Radius</div>",
+                                uiMarkup("<div>Radius</div>"),
                                 `<div>${DrawTool.contextMenuLayer.feature.properties._radius.toFixed(3)}m</div>`,
                             "</div>",
                         ].join('\n') : "",
                         "</div>",
                     "</div>",
                     "<div class='drawToolContextMenuPropertiesCollapsible'>",
-                        "<div class='drawToolContextMenuPropertiesTitle'><div>Properties</div><i class='mdi mdi-chevron-down mdi-24px'></i></div>",
+                        uiMarkup("<div class='drawToolContextMenuPropertiesTitle'><div>Properties</div><i class='mdi mdi-chevron-down mdi-24px'></i></div>"),
                         "<div class='drawToolContextMenuPropertiesExtended'>",
                             Object.keys(DrawTool.contextMenuLayer.feature.properties).sort().map((p) => {
                                 const pv = DrawTool.contextMenuLayer.feature.properties[p]
@@ -743,7 +744,7 @@ var Editing = {
                     "</div>",
                     (!displayOnly) ? ["<div class='drawToolContextMenuPropertiesReassignUUID flexbetween'>",
                         "<div id='drawToolContextMenuPropertiesReassignUUIDValue'>" + uuid + "</div>",
-                        "<div id='drawToolContextMenuPropertiesReassignUUID' class='drawToolButton1'>Reassign</div>",
+                        uiMarkup("<div id='drawToolContextMenuPropertiesReassignUUID' class='drawToolButton1'>Reassign</div>"),
                     "</div>"].join('\n') : "",
                 "</div>",
             "</div>",
@@ -751,10 +752,10 @@ var Editing = {
             "<div class='drawToolContextMenuTab drawToolContextMenuTabStyle'>",
                 "<div class='drawToolContextMenuStyle'>",
 
-                isGeologic ? "<div id='drawToolContextMenuStyleGeoMessage'>This shape includes geologic symbology. Standard stylings below might be overridden.</div>" : null,
+                isGeologic ? uiMarkup("<div id='drawToolContextMenuStyleGeoMessage'>This shape includes geologic symbology. Standard stylings below might be overridden.</div>") : null,
                 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasFillColor) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Fill Color<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Fill Color<div class='drawToolStyleHighlight'></div></div>"),
                 "<div class='flexbetween'>",
                     "<input id='drawToolContextMenuFillColorInput' class='styleInput' type='text' value='" + style.fillColor + "'/>",
                     "<div v='" + style.fillColor + "' pick='fillcolorpick' class='picker fillcolor stylevalue2' style='background: " + style.fillColor + "'></div>",
@@ -767,7 +768,7 @@ var Editing = {
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasFillOpacity) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Fill Opacity<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Fill Opacity<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + style.fillOpacity + "' pick='fillopacitypick' class='picker fillopacity stylevalue'>" + ( style.fillOpacity * 100 ) + '%' + "</div>",
                 "</div>",
                 "<div class='picking fillopacitypick styleOpacityPicker' style='display: " + ( (hasFillOpacity) ? 'flex' : 'none' ) + "'>",
@@ -782,7 +783,7 @@ var Editing = {
 
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasStrokeColor) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Stroke Color<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Stroke Color<div class='drawToolStyleHighlight'></div></div>"),
                 "<div class='flexbetween'>",
                     "<input id='drawToolContextMenuStrokeColorInput' class='styleInput' type='text' value='" + style.color + "'/>",
                     "<div v='" + style.color + "' pick='strokecolorpick' class='picker strokecolor stylevalue2' style='background: " + style.color + "'></div>",
@@ -792,7 +793,7 @@ var Editing = {
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasStrokeOpacity) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Stroke Opacity<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Stroke Opacity<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + style.opacity + "' pick='strokeopacitypick' class='picker strokeopacity stylevalue'>" + ( style.opacity * 100 ) + '%' + "</div>",
                 "</div>",
                 "<div class='picking strokeopacitypick styleOpacityPicker' style='display: " + ( (hasStrokeOpacity) ? 'flex' : 'none' ) + "'>",
@@ -805,7 +806,7 @@ var Editing = {
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasStrokeStyle) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Stroke Style<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Stroke Style<div class='drawToolStyleHighlight'></div></div>"),
                 "<div  v='" + style.dashArray + "' pick='strokestylepick' class='picker strokestyle stylevalue'><svg width='100%' height='100%'><line x1='0' y1='20' x2='80' y2='20' stroke='#F5F5F5' stroke-width='4' stroke-dasharray='" + style.dashArray + "' /></svg></div>",
                 "</div>",
                 "<div class='picking strokestylepick strokeStylePicker column mediumsmall' style='display: " + ( (hasStrokeStyle) ? 'flex' : 'none' ) + "'>",
@@ -817,11 +818,11 @@ var Editing = {
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasStrokeWeight) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Stroke Weight<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Stroke Weight<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + style.weight + "' pick='strokeweightpick' class='picker strokeweight stylevalue'><svg width='100%' height='100%'><line x1='0' y1='20' x2='80' y2='20' stroke='#F5F5F5' stroke-width='" + style.weight + "' /></svg></div>",
                 "</div>",
                 "<div class='picking strokeweightpick strokeWeightPicker column medium' style='display: " + ( (hasStrokeWeight) ? 'flex' : 'none' ) + "'>",
-                "<div value='0'>None</div>",
+                uiMarkup("<div value='0'>None</div>"),
                 "<div value='1'><svg width='100%' height='100%'><line x1='0' y1='10' x2='310' y2='10' stroke='#F5F5F5' stroke-width='1' /></svg></div>",
                 "<div value='2'><svg width='100%' height='100%'><line x1='0' y1='10' x2='310' y2='10' stroke='#F5F5F5' stroke-width='2' /></svg></div>",
                 "<div value='4' style='display: " + ( (featureType == 'note') ? 'none' : 'inline' ) + ";'><svg width='100%' height='100%'><line x1='0' y1='10' x2='310' y2='10' stroke='#F5F5F5' stroke-width='4' /></svg></div>",
@@ -831,18 +832,18 @@ var Editing = {
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasSymbol) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Symbol<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Symbol<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + style.symbol + "' pick='symbolpick' class='picker symbol stylevalue'>" + style.symbol + "</div>",
                 "</div>",
                 "<div class='picking symbolpick symbolPicker' style='display: " + ( (hasSymbol) ? 'flex' : 'none' ) + "'>",
-                "<div>Circle</div>",
-                "<div>Square</div>",
-                "<div>Triangle</div>",
-                "<div>Diamond</div>",
+                uiMarkup("<div>Circle</div>"),
+                uiMarkup("<div>Square</div>"),
+                uiMarkup("<div>Triangle</div>"),
+                uiMarkup("<div>Diamond</div>"),
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasRadius) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Radius<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Radius<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + style.radius + "' pick='radiuspick' class='picker radius stylevalue'>" + style.radius + "</div>",
                 "</div>",
                 "<div class='picking radiuspick radiusPicker' style='display: " + ( (hasRadius) ? 'flex' : 'none' ) + "'>",
@@ -855,7 +856,7 @@ var Editing = {
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasWidth) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Width<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Width<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + style.width + "' pick='widthpick' class='picker width stylevalue'>" + style.width + "</div>",
                 "</div>",
                 "<div class='picking widthpick widthPicker' style='display: " + ( (hasWidth) ? 'flex' : 'none' ) + "'>",
@@ -871,7 +872,7 @@ var Editing = {
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasLength) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Length<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Length<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + style.length + "' pick='lengthpick' class='picker length stylevalue'>" + style.length + "</div>",
                 "</div>",
                 "<div class='picking lengthpick lengthPicker' style='display: " + ( (hasLength) ? 'flex' : 'none' ) + "'>",
@@ -880,31 +881,31 @@ var Editing = {
                 "<div>150</div>",
                 "<div>200</div>",
                 "<div>250</div>",
-                "<div>Full</div>",
+                uiMarkup("<div>Full</div>"),
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasLineCap) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Line Cap<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Line Cap<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + style.lineCap + "' pick='linecappick' class='picker linecap stylevalue'>" + style.lineCap + "</div>",
                 "</div>",
                 "<div class='picking linecappick lineCapPicker' style='display: " + ( (hasLineCap) ? 'flex' : 'none' ) + "'>",
-                "<div>Round</div>",
-                "<div>Square</div>",
-                "<div>Butt</div>",
+                uiMarkup("<div>Round</div>"),
+                uiMarkup("<div>Square</div>"),
+                uiMarkup("<div>Butt</div>"),
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasLineJoin) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Line Join<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Line Join<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + style.lineJoin + "' pick='linejoinpick' class='picker linejoin stylevalue'>" + style.lineJoin + "</div>",
                 "</div>",
                 "<div class='picking linejoinpick lineJoinPicker' style='display: " + ( (hasLineJoin) ? 'flex' : 'none' ) + "'>",
-                "<div>Round</div>",
-                "<div>Miter</div>",
-                "<div>Bevel</div>",
+                uiMarkup("<div>Round</div>"),
+                uiMarkup("<div>Miter</div>"),
+                uiMarkup("<div>Bevel</div>"),
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasFontSize) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Font Size<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Font Size<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + (style.fontSize || '18px') + "' pick='fontsizepick' class='picker fontsize stylevalue'>" + (style.fontSize || '18px') + "</div>",
                 "</div>",
                 "<div class='picking fontsizepick fontSizePicker' style='display: " + ( (hasFontSize) ? 'flex' : 'none' ) + "'>",
@@ -917,7 +918,7 @@ var Editing = {
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasRotation) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween'>Rotation<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween'>Rotation<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + (style.rotation || '0') + "' pick='rotationpick' class='picker rotation stylevalue'>" + (style.rotation || '0') + "deg</div>",
                 "</div>",
                 "<div class='picking rotationpick rotationPicker' style='display: " + ( (hasRotation) ? 'flex' : 'none' ) + "'>",
@@ -925,12 +926,12 @@ var Editing = {
                 "</div>",
 
                 "<div class='styleprop flexbetween' style='display: " + ( (hasVisibilityRange) ? 'flex' : 'none' ) + "'>",
-                "<div class='flexbetween' title='Set which zoom levels for which this feature is visible.'>Visibility Zoom-level Range<div class='drawToolStyleHighlight'></div></div>",
+                uiMarkup("<div class='flexbetween' title='Set which zoom levels for which this feature is visible.'>Visibility Zoom-level Range<div class='drawToolStyleHighlight'></div></div>"),
                 "<div v='" + (style.minZoom || '0') + ',' + (style.maxZoom || '24') + "' pick='visibilityrangepick' class='picker visibilityrange stylevalue'>" + (style.minZoom || '0') + ' ➝ ' + (style.maxZoom || '24') + "</div>",
                 "</div>",
                 "<div class='picking visibilityrangepick small visibilityRangePicker' style='display: " + ( (hasVisibilityRange) ? 'flex' : 'none' ) + "'>",
                     "<div id='visibilityRange-slider-range' class='svelteSlider' style='width: 100%; padding: 8px; overflow: hidden; height: 100%;'></div>",
-                    `<div>Current Map Zoom-level: <span class='map-autoset-zoom'>${Map_.map.getZoom()}</span></div>`,
+                    uiTemplate`<div>Current Map Zoom-level: <span class='map-autoset-zoom'>${Map_.map.getZoom()}</span></div>`,
                 "</div>",
 
                 "</div>",
@@ -946,22 +947,22 @@ var Editing = {
             "<div class='reg drawToolContextMenuDelete drawToolButton1 " + deleteClass + "'>",
               "<i class='mdi mdi-delete mdi-18px' style='cursor: pointer;'></i>",
             "</div>",
-            "<div class='reg drawToolContextMenuReset drawToolButton1'>Reset</div>",
-            "<div class='reg drawToolContextMenuSaveChanges drawToolButton1'>Save All Changes</div>",
+            uiMarkup("<div class='reg drawToolContextMenuReset drawToolButton1'>Reset</div>"),
+            uiMarkup("<div class='reg drawToolContextMenuSaveChanges drawToolButton1'>Save All Changes</div>"),
             "<div class='sure sureq'>",
               "<div>",
                 "<i class='mdi mdi-delete mdi-24px'></i>",
-                "<div>Delete this shape?</div>",
+                uiMarkup("<div>Delete this shape?</div>"),
               "</div>",
             "</div>",
-            "<div class='sure drawToolContextMenuDeleteYes drawToolButton1'>Yes</div>",
-            "<div class='sure drawToolContextMenuDeleteNo drawToolButton1'>No</div>",
+            uiMarkup("<div class='sure drawToolContextMenuDeleteYes drawToolButton1'>Yes</div>"),
+            uiMarkup("<div class='sure drawToolContextMenuDeleteNo drawToolButton1'>No</div>"),
           "</div>",
 
         "</div>"
       ].join('\n');
         $('#uiRightPanel').empty()
-        $('#uiRightPanel').append(markup)
+        $('#uiRightPanel').append(uiRenderedMarkup(markup))
         $('#drawToolContextMenuPropertiesName').val(F_.sanitize(defaultName))
 
         // Save a deep copy of original properties for reset/cancel functionality
@@ -1339,7 +1340,7 @@ var Editing = {
             }
         })
         //STROKE COLOR
-        $('.strokecolorpick').html(F_.makeColorGrid(11, 12))
+        $('.strokecolorpick').html(uiRenderedMarkup(F_.makeColorGrid(11, 12)))
         $('.strokecolorpick .colorgridsquare').on('click', function () {
             $('.strokecolorpick .colorgridsquare').removeClass('active')
             $(this).addClass('active')
@@ -1555,7 +1556,7 @@ var Editing = {
             h = h.replace('y1="10"', 'y1="20"')
             h = h.replace('y2="10"', 'y2="20"')
 
-            $('.strokestyle').html(h)
+            $('.strokestyle').html(uiRenderedMarkup(h))
             $('.strokestyle').attr('v', v)
 
             if (!layer || (layer && typeof layer.setStyle === 'function')) {
@@ -1623,7 +1624,7 @@ var Editing = {
             h = h.replace('y1="10"', 'y1="20"')
             h = h.replace('y2="10"', 'y2="20"')
 
-            $('.strokeweight').html(h)
+            $('.strokeweight').html(uiRenderedMarkup(h))
             $('.strokeweight').attr('v', v)
 
             v = parseInt(v)
@@ -1724,7 +1725,7 @@ var Editing = {
         }
 
         //FILL COLOR
-        $('.fillcolorpick').html(F_.makeColorGrid(11, 12))
+        $('.fillcolorpick').html(uiRenderedMarkup(F_.makeColorGrid(11, 12)))
         $('.fillcolorpick .colorgridsquare').on('click', function () {
             $('.fillcolorpick .colorgridsquare').removeClass('active')
             $(this).addClass('active')
@@ -1902,11 +1903,11 @@ var Editing = {
 
         //SYMBOL
         $('.symbolpick > div').on('click', function () {
-            var v = $(this).text()
+            var v = uiCanonical(this)
             updateSymbol(v)
         })
         function updateSymbol(v, layer) {
-            $('.symbol').text(v)
+            $('.symbol').html(uiLabel(v))
             $('.symbol').attr('v', v)
 
             DrawTool.contextMenuChanges.style.symbol = true
@@ -2063,7 +2064,7 @@ var Editing = {
 
         //LENGTH
         $('.lengthpick > div').on('click', function () {
-            var v = $(this).text()
+            var v = uiCanonical(this)
             updateLength(v)
         })
         function updateLength(v, layer) {
@@ -2071,7 +2072,7 @@ var Editing = {
 
             DrawTool.contextMenuChanges.style.length = true
 
-            $('.length').text(v)
+            $('.length').html(uiLabel(v))
             $('.length').attr('v', v)
 
             if (!layer || (layer && typeof layer.setStyle === 'function')) {
@@ -2129,7 +2130,7 @@ var Editing = {
 
         //LINECAP
         $('.linecappick > div').on('click', function () {
-            var v = $(this).text()
+            var v = uiCanonical(this)
             updateLineCap(v)
         })
         function updateLineCap(v, layer) {
@@ -2137,7 +2138,7 @@ var Editing = {
 
             DrawTool.contextMenuChanges.style.lineCap = true
 
-            $('.linecap').text(v)
+            $('.linecap').html(uiLabel(v))
             $('.linecap').attr('v', v)
 
             if (!layer || (layer && typeof layer.setStyle === 'function')) {
@@ -2195,7 +2196,7 @@ var Editing = {
 
         //LINEJOIN
         $('.linejoinpick > div').on('click', function () {
-            var v = $(this).text()
+            var v = uiCanonical(this)
             updateLineJoin(v)
         })
         function updateLineJoin(v, layer) {
@@ -2203,7 +2204,7 @@ var Editing = {
 
             DrawTool.contextMenuChanges.style.lineJoin = true
 
-            $('.linejoin').text(v)
+            $('.linejoin').html(uiLabel(v))
             $('.linejoin').attr('v', v)
 
             if (!layer || (layer && typeof layer.setStyle === 'function')) {
@@ -2495,7 +2496,7 @@ var Editing = {
                 } else DrawTool.cmLayerDragOff()
 
                 DrawTool.isEditing = false
-                $(this).html('Edit')
+                $(this).html(uiRenderedMarkup('Edit'))
             } else {
                 if (
                     typeof DrawTool.contextMenuLayer.enableEdit === 'function'
@@ -2531,7 +2532,7 @@ var Editing = {
                 }
 
                 DrawTool.isEditing = true
-                $(this).html('Stop Editing')
+                $(this).html(uiRenderedMarkup('Stop Editing'))
             }
         }
 

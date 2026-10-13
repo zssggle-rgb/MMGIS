@@ -1,3 +1,4 @@
+import { uiText, useLegacyText } from '../../../../../src/i18n/legacy-ui'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import useSightlineStore, { buildSourcesList, buildDemsList, MULTI_SOURCE_COLORS } from '../store'
 import SightlineResults from './SightlineResults'
@@ -25,26 +26,26 @@ function rgbStr(c) {
 }
 
 const MODE_TABS = [
-    { value: 'static', label: 'Static' },
-    { value: 'composite', label: 'Composite' },
-    { value: 'playback', label: 'Playback' },
+    { value: 'static', label: "Static" },
+    { value: 'composite', label: "Composite" },
+    { value: 'playback', label: "Playback" },
 ]
 
 const COLOR_MODE_OPTIONS = [
-    { label: 'Continuous', value: 'continuous' },
-    { label: 'Discrete', value: 'discrete' },
+    { label: "Continuous", value: 'continuous' },
+    { label: "Discrete", value: 'discrete' },
 ]
 
 const FIT_MODE_OPTIONS = [
-    { label: 'Absolute (0–100%)', value: 'absolute' },
-    { label: 'Fit to data', value: 'fit' },
+    { label: "Absolute (0–100%)", value: 'absolute' },
+    { label: "Fit to data", value: 'fit' },
 ]
 
 // Resolution scale relative to the viewport DEM extent. Lower = faster, coarser.
 const RESOLUTION_OPTIONS = [
     { value: '1', label: '1×' },
     { value: '0.5', label: '0.5×' },
-    { value: '0.25', label: '0.25× (Default)' },
+    { value: '0.25', label: "0.25× (Default)" },
     { value: '0.125', label: '0.125×' },
 ]
 
@@ -58,15 +59,17 @@ function fmtMpp(m) {
 }
 
 const EXPORT_OPTIONS_STATIC = [
-    { value: 'png', label: 'Sightline Map (PNG)' },
-    { value: 'csv', label: 'Results (CSV)' },
-    { value: 'grid', label: 'Sightline Grid (TXT)' },
+    { value: 'png', label: "Sightline Map (PNG)" },
+    { value: 'csv', label: "Results (CSV)" },
+    { value: 'grid', label: "Sightline Grid (TXT)" },
 ]
 const EXPORT_OPTIONS_PLAYBACK = [
-    { value: 'png', label: 'Sightline Map (GIF)' },
+    { value: 'png', label: "Sightline Map (GIF)" },
 ]
 
 export default function SightlineElement({ elmId, onDragStart, onDragOver, onDragEnd, onDrop, isDropTarget, dropPosition }) {
+    const tLegacy = useLegacyText()
+
     const el = useSightlineStore((s) => s.elements[elmId])
     const vars = useSightlineStore((s) => s.vars)
     const updateElement = useSightlineStore((s) => s.updateElement)
@@ -475,14 +478,14 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                 <Collapsible open={sourceOpen} onOpenChange={setSourceOpen}>
                     <Collapsible.Trigger className="vstGroupHeader vstGroupToggle">
                         <i className={`mdi mdi-chevron-right mdi-14px vstGroupChevron ${sourceOpen ? 'vstGroupChevronOpen' : ''}`} />
-                        Source
+                        {tLegacy("Source")}
                     </Collapsible.Trigger>
                     <Collapsible.Content>
                         <div className="vstGroupContent">
                             {isCustom && (
                                 <>
                                     <div className="vstOptionRow">
-                                        <div className="vstOptionLabel">Azimuth</div>
+                                        <div className="vstOptionLabel">{tLegacy("Azimuth")}</div>
                                         <InputWithUnit
                                             unit="°"
                                             type="number"
@@ -499,7 +502,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                         />
                                     </div>
                                     <div className="vstOptionRow">
-                                        <div className="vstOptionLabel">Elevation</div>
+                                        <div className="vstOptionLabel">{tLegacy("Elevation")}</div>
                                         <InputWithUnit
                                             unit="°"
                                             type="number"
@@ -516,7 +519,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                         />
                                     </div>
                                     <div className="vstOptionRow">
-                                        <div className="vstOptionLabel">Range</div>
+                                        <div className="vstOptionLabel">{tLegacy("Range")}</div>
                                         <InputWithUnit
                                             unit="km"
                                             type="number"
@@ -540,7 +543,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                 <>
                                     <div className="vstOptionRow">
                                         <div className="vstOptionLabel" title="Ground observer for time conversions">
-                                            Observer
+                                            {tLegacy("Observer")}
                                         </div>
                                         <Select
                                             value={el.observer || ''}
@@ -554,8 +557,8 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                 </>
                             )}
                             <div className="vstOptionRow">
-                                <div className="vstOptionLabel" title="Height above surface of source point.">
-                                    Height
+                                <div className="vstOptionLabel" title={tLegacy("Height above surface of source point.")}>
+                                    {tLegacy("Height")}
                                 </div>
                                 <InputWithUnit
                                     unit="m"
@@ -596,7 +599,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                         <div className="vstOptionRow vstEffectiveResRow">
                                             <div className="vstOptionLabel" />
                                             <div className="vstEffectiveRes" title="The DEM's native (dataset) ground resolution.">
-                                                Native: {fmtMpp(nativeMpp)}
+                                                {tLegacy("Native:")} {fmtMpp(nativeMpp)}
                                             </div>
                                         </div>
                                     )}
@@ -607,14 +610,14 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                     className="vstOptionLabel"
                                     title="Resolution scale relative to viewport DEM extent. Lower = faster, coarser."
                                 >
-                                    Resolution
+                                    {tLegacy("Resolution")}
                                 </div>
                                 <Select
                                     value={String(el.resolution)}
                                     onValueChange={(v) =>
                                         handleChange('resolution', parseFloat(v))
                                     }
-                                    options={RESOLUTION_OPTIONS}
+                                    options={((RESOLUTION_OPTIONS).map(option => ({ ...option, label: tLegacy(option.label) }))).map(option => ({ ...option, label: tLegacy(option.label) }))}
                                     className="vstSelect"
                                 />
                             </div>
@@ -628,7 +631,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                             )}
                             <div className="vstOptionRow">
                                 <Tooltip content="Extends the terrain loaded for shadow computation beyond the visible map area. Terrain within this radius is read at a lower resolution so that distant features (ridges, crater rims) can cast shadows into the viewport without slowing down the full-resolution computation. Set to 0 to use only the viewport extent.">
-                                    <div className="vstOptionLabel" style={{ cursor: 'help' }}>Shadow Reach</div>
+                                    <div className="vstOptionLabel" style={{ cursor: 'help' }}>{tLegacy("Shadow Reach")}</div>
                                 </Tooltip>
                                 <InputWithUnit
                                     unit="km"
@@ -664,12 +667,12 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                 <Collapsible open={displayOpen} onOpenChange={setDisplayOpen}>
                     <Collapsible.Trigger className="vstGroupHeader vstGroupToggle">
                         <i className={`mdi mdi-chevron-right mdi-14px vstGroupChevron ${displayOpen ? 'vstGroupChevronOpen' : ''}`} />
-                        Display
+                        {tLegacy("Display")}
                     </Collapsible.Trigger>
                     <Collapsible.Content>
                         <div className="vstGroupContent">
                             <div className="vstOptionRow">
-                                <div className="vstOptionLabel">Color</div>
+                                <div className="vstOptionLabel">{tLegacy("Color")}</div>
                                 <div className="vstColorSwatchWrap" ref={colorPickerRef}>
                                     <div
                                         className="vstColorSwatch"
@@ -692,7 +695,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                 </div>
                             </div>
                             <div className="vstOptionRow">
-                                <div className="vstOptionLabel">Opacity</div>
+                                <div className="vstOptionLabel">{tLegacy("Opacity")}</div>
                                 <div style={{ width: 170 }}>
                                     <Slider
                                         value={el.opacity}
@@ -713,7 +716,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                 <Collapsible open={resultsOpen} onOpenChange={setResultsOpen}>
                     <Collapsible.Trigger className="vstGroupHeader vstGroupToggle">
                         <i className={`mdi mdi-chevron-right mdi-14px vstGroupChevron ${resultsOpen ? 'vstGroupChevronOpen' : ''}`} />
-                        Run
+                        {tLegacy("Run")}
                     </Collapsible.Trigger>
                 </Collapsible>
 
@@ -722,7 +725,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                     <Tabs
                         value={sightlineMode}
                         onValueChange={handleModeChange}
-                        tabs={MODE_TABS}
+                        tabs={((MODE_TABS).map(option => ({ ...option, label: tLegacy(option.label) }))).map(option => ({ ...option, label: tLegacy(option.label) }))}
                         size="xs"
                     />
                 </div>
@@ -765,27 +768,27 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                             {sightlineMode === 'composite' && ed && (
                                 <div className="vstSweepCardBody">
                                     <div className="vstOptionRow vstSweepCardRow">
-                                        <div className="vstOptionLabel">Mode</div>
+                                        <div className="vstOptionLabel">{tLegacy("Mode")}</div>
                                         <div style={{ width: 170 }}>
                                             <Select
                                                 value={sweepDiscrete ? 'discrete' : 'continuous'}
                                                 onValueChange={handleDiscreteChange}
-                                                options={COLOR_MODE_OPTIONS}
+                                                options={((COLOR_MODE_OPTIONS).map(option => ({ ...option, label: tLegacy(option.label) }))).map(option => ({ ...option, label: tLegacy(option.label) }))}
                                             />
                                         </div>
                                     </div>
                                     <div className="vstOptionRow vstSweepCardRow">
-                                        <div className="vstOptionLabel">Range</div>
+                                        <div className="vstOptionLabel">{tLegacy("Range")}</div>
                                         <div style={{ width: 170 }}>
                                             <Select
                                                 value={sweepFitToData ? 'fit' : 'absolute'}
                                                 onValueChange={handleFitModeChange}
-                                                options={FIT_MODE_OPTIONS}
+                                                options={((FIT_MODE_OPTIONS).map(option => ({ ...option, label: tLegacy(option.label) }))).map(option => ({ ...option, label: tLegacy(option.label) }))}
                                             />
                                         </div>
                                     </div>
                                     <div className="vstOptionRow vstSweepCardRow">
-                                        <div className="vstOptionLabel">Color Ramp</div>
+                                        <div className="vstOptionLabel">{tLegacy("Color Ramp")}</div>
                                         <div style={{ width: 170 }}>
                                             <ColorRampPicker
                                                 value={sweepColorRamp}
@@ -817,11 +820,11 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                             {currentResult && (
                                                 <div className="vstSweepCardMiniIndicators">
                                                     <div className="vstSweepCardMiniIndicator">
-                                                        <div className="vstSweepCardMiniLabel">Az: {currentResult.azimuth?.toFixed(1)}°</div>
+                                                        <div className="vstSweepCardMiniLabel">{tLegacy("Az:")} {currentResult.azimuth?.toFixed(1)}°</div>
                                                         <canvas id={azCanvasId} width="50" height="50" />
                                                     </div>
                                                     <div className="vstSweepCardMiniIndicator">
-                                                        <div className="vstSweepCardMiniLabel">El: {currentResult.elevation?.toFixed(1)}°</div>
+                                                        <div className="vstSweepCardMiniLabel">{tLegacy("El:")} {currentResult.elevation?.toFixed(1)}°</div>
                                                         <canvas id={elCanvasId} width="50" height="50" />
                                                     </div>
                                                 </div>
@@ -831,7 +834,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                     <div className="vstSweepControlsWrap vstSweepControlsInline">
                                         <div className="vstSweepPlaybarRow vstSweepPlaybarLeft">
                                             <div className="vstSweepPlaybar">
-                                                <IconButton size="md" title="Step back" onClick={() => SightlineTool.sweepStepBack()}>
+                                                <IconButton size="md" title={tLegacy("Step back")} onClick={() => SightlineTool.sweepStepBack()}>
                                                     <i className="mdi mdi-skip-previous mdi-18px" />
                                                 </IconButton>
                                                 {sweepPlaying ? (
@@ -840,7 +843,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                                     </IconButton>
                                                 ) : (
                                                     <>
-                                                        <IconButton size="md" title="Play" onClick={handlePlayNormal}>
+                                                        <IconButton size="md" title={tLegacy("Play")} onClick={handlePlayNormal}>
                                                             <i className="mdi mdi-play mdi-18px" />
                                                         </IconButton>
                                                         <IconButton size="md" title="Play fast" onClick={handlePlayFast}>
@@ -848,7 +851,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                                         </IconButton>
                                                     </>
                                                 )}
-                                                <IconButton size="md" title="Step forward" onClick={() => SightlineTool.sweepStepForward()}>
+                                                <IconButton size="md" title={tLegacy("Step forward")} onClick={() => SightlineTool.sweepStepForward()}>
                                                     <i className="mdi mdi-skip-next mdi-18px" />
                                                 </IconButton>
                                             </div>
@@ -878,7 +881,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                                                 icon={<i className="mdi mdi-chart-areaspline" />}
                                                 style={{ width: '100%', justifyContent: 'center', color: 'var(--color-a7)' }}
                                             >
-                                                Charts
+                                                {tLegacy("Charts")}
                                             </IconTextButton>
                                         </div>
                                     )}
@@ -888,19 +891,19 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
 
                             {((sightlineMode === 'static' && el?.raeResults) || ((sightlineMode === 'composite' || sightlineMode === 'playback') && ed)) && (
                                 <div className="vstResultsExport vstOptionRow">
-                                    <div className="vstOptionLabel">Export</div>
+                                    <div className="vstOptionLabel">{tLegacy("Export")}</div>
                                     <div className="vstExportControls">
                                         <div style={{ width: 170 }}>
                                             <Select
                                                 value={exportFormat}
                                                 onValueChange={setExportFormat}
-                                                options={sightlineMode === 'playback' ? EXPORT_OPTIONS_PLAYBACK : EXPORT_OPTIONS_STATIC}
+                                                options={((sightlineMode === 'playback' ? EXPORT_OPTIONS_PLAYBACK : EXPORT_OPTIONS_STATIC).map(option => ({ ...option, label: tLegacy(option.label) }))).map(option => ({ ...option, label: tLegacy(option.label) }))}
                                             />
                                         </div>
                                         {exportProgress != null ? (
                                             <span style={{ fontSize: 11, color: '#4fc3f7', minWidth: 36, textAlign: 'center' }}>{exportProgress}%</span>
                                         ) : (
-                                            <IconButton size="sm" title="Download" onClick={() => handleExport(elmId, exportFormat)}>
+                                            <IconButton size="sm" title={tLegacy("Download")} onClick={() => handleExport(elmId, exportFormat)}>
                                                 <i className="mdi mdi-download mdi-18px" />
                                             </IconButton>
                                         )}

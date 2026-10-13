@@ -1,3 +1,4 @@
+import { uiRenderedMarkup, uiTemplate, uiText, useLegacyText } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import { curveLinearClosed } from 'd3-shape'
 import F_ from '@basics/Formulae_/Formulae_'
@@ -52,6 +53,8 @@ let _refreshCounter = 0
 let _observerXY = { x: 0, y: 0, index: 0 }
 
 const Measure = () => {
+    const tLegacy = useLegacyText()
+
     const [profileData, setProfileData] = useState([])
     const [refresh, setRefresh] = useState(_refreshCounter)
     const refLine = useRef(null)
@@ -134,7 +137,7 @@ const Measure = () => {
             <div id='measureLeft'>
                 <div className='mmgisToolHeader'>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <div className='mmgisToolTitle'>Measure</div>
+                        <div className='mmgisToolTitle'>{tLegacy("Measure")}</div>
                         <div dangerouslySetInnerHTML={{ __html: Help.getComponent('MeasureTool') }} />
                         <div id='measureIcons' style={{ marginLeft: 'auto' }}>
                             <div
@@ -146,7 +149,7 @@ const Measure = () => {
                             </div>
                             <div
                                 id='measureReset'
-                                title='Reset'
+                                title={tLegacy("Reset")}
                                 onClick={MeasureTool.reset}
                             >
                                 <i className='mdi mdi-refresh mdi-18px'></i>
@@ -156,7 +159,7 @@ const Measure = () => {
                 </div>
                 {dems.length > 1 && (
                     <div id='measureDem'>
-                        <div title='Digital Elevation Model'>Dataset</div>
+                        <div title={tLegacy("Digital Elevation Model")}>{tLegacy("Dataset")}</div>
                         <select
                             className='dropdown'
                             defaultValue={dems[0].path}
@@ -164,28 +167,28 @@ const Measure = () => {
                         >
                             {dems.map((l, idx) => (
                                 <option key={idx} value={idx}>
-                                    {l.name}
+                                    {l.uiLabel ? tLegacy(l.uiLabel) : l.name}
                                 </option>
                             ))}
                         </select>
                     </div>
                 )}
                 <div id='measureMode'>
-                    <div>Mode</div>
+                    <div>{tLegacy("Mode")}</div>
                     <select
                         className='dropdown'
                         defaultValue={mode}
                         onChange={MeasureTool.changeMode}
                     >
-                        <option value='segment'>Segment</option>
-                        <option value='continuous'>Continuous</option>
+                        <option value='segment'>{tLegacy("Segment")}</option>
+                        <option value='continuous'>{tLegacy("Continuous")}</option>
                         <option value='continuous_color'>
-                            Continuous Color
+                            {tLegacy("Continuous Color")}
                         </option>
                     </select>
                 </div>
                 <div id='measureSamples'>
-                    <div>Samples</div>
+                    <div>{tLegacy("Samples")}</div>
                     <select
                         className='dropdown'
                         defaultValue='100'
@@ -199,7 +202,7 @@ const Measure = () => {
                     </select>
                 </div>
                 <div id='measureUnit'>
-                    <div>Unit</div>
+                    <div>{tLegacy("Unit")}</div>
                     <select
                         className='dropdown'
                         defaultValue='meters'
@@ -210,7 +213,7 @@ const Measure = () => {
                     </select>
                 </div>
                 <div id='measureLOS'>
-                    <div>Line of Sight</div>
+                    <div>{tLegacy("Line of Sight")}</div>
                     <div className='mmgis-checkbox small'>
                         <input
                             type='checkbox'
@@ -222,7 +225,7 @@ const Measure = () => {
                     </div>
                 </div>
                 <div id='measureObserverHeight'>
-                    <div>&nbsp;&nbsp;&nbsp;Observer Height</div>
+                    <div>   {tLegacy("Observer Height")}</div>
                     <div className='flexbetween'>
                         <input
                             type='number'
@@ -237,7 +240,7 @@ const Measure = () => {
                     </div>
                 </div>
                 <div id='measureTargetHeight'>
-                    <div>&nbsp;&nbsp;&nbsp;Target Height</div>
+                    <div>   {tLegacy("Target Height")}</div>
                     <div className='flexbetween'>
                         <input
                             type='number'
@@ -252,7 +255,7 @@ const Measure = () => {
                     </div>
                 </div>
                 <div id='measureSpeed'>
-                    <div>Travel Speed</div>
+                    <div>{tLegacy("Travel Speed")}</div>
                     <div className='flexbetween'>
                         <input
                             type='number'
@@ -305,7 +308,7 @@ const Measure = () => {
                         }),
                         datasets: [
                             {
-                                label: 'Profile',
+                                label: uiText("Profile"),
                                 data: MeasureTool.uniformData.map((d) => d.y),
                                 segment: {
                                     backgroundColor: (ctx) => {
@@ -635,35 +638,35 @@ const Measure = () => {
             </div>
             <div id='measureInfo'>
                 <div id='measureInfoLng' className='measure-info-elm'>
-                    <div>Longitude</div>
+                    <div>{tLegacy("Longitude")}</div>
                     <div>--</div>
                 </div>
                 <div id='measureInfoLat' className='measure-info-elm'>
-                    <div>Latitude</div>
+                    <div>{tLegacy("Latitude")}</div>
                     <div>--</div>
                 </div>
                 <div id='measureInfoElev' className='measure-info-elm'>
-                    <div>Elevation</div>
+                    <div>{tLegacy("Elevation")}</div>
                     <div>--</div>
                 </div>
                 <div id='measureInfo2d' className='measure-info-elm'>
-                    <div>2D Distance</div>
+                    <div>{tLegacy("2D Distance")}</div>
                     <div>--</div>
                 </div>
                 <div id='measureInfo3d' className='measure-info-elm'>
-                    <div>3D Distance</div>
+                    <div>{tLegacy("3D Distance")}</div>
                     <div>--</div>
                 </div>
                 <div id='measureInfoVis' className='measure-info-elm'>
-                    <div>Visible</div>
+                    <div>{tLegacy("Visible")}</div>
                     <div>--</div>
                 </div>
                 <div id='measureInfoSpeed' className='measure-info-elm'>
-                    <div>Speed</div>
+                    <div>{tLegacy("Speed")}</div>
                     <div>--</div>
                 </div>
                 <div id='measureInfoArrives' className='measure-info-elm'>
-                    <div>Arrives in</div>
+                    <div>{tLegacy("Arrives in")}</div>
                     <div>--</div>
                 </div>
             </div>
@@ -688,7 +691,7 @@ const Measure = () => {
                 </div>
                 <div
                     id='measureDownload'
-                    title='Download'
+                    title={tLegacy("Download")}
                     onClick={MeasureTool.download}
                 >
                     <i className='mdi mdi-download mdi-18px'></i>
@@ -886,7 +889,7 @@ let MeasureTool = {
 
         let dems = []
         if (MeasureTool.vars.dem)
-            dems.push({ name: 'Main', path: MeasureTool.vars.dem })
+            dems.push({ name: 'Main', uiLabel: 'Main', path: MeasureTool.vars.dem })
         if (MeasureTool.vars.layerDems)
             for (let name in MeasureTool.vars.layerDems) {
                 MeasureTool.vars.layerDems[name].forEach((item) => {
@@ -908,7 +911,7 @@ let MeasureTool = {
                 })
             }
         if (dems.length === 0)
-            dems.push({ name: 'Misconfigured', path: 'none' })
+            dems.push({ name: 'Misconfigured', uiLabel: 'Misconfigured', path: 'none' })
 
         return dems
     },
@@ -1108,8 +1111,8 @@ let MeasureTool = {
                 'line-height': '140px',
                 'font-size': '20px'
             })
-            .html('Click on the map!')
-        profileDiv.append(messageDiv)
+            .html(uiRenderedMarkup('Click on the map!'))
+        profileDiv.append(uiRenderedMarkup(messageDiv))
 
         MeasureTool.clearFocusPoint()
         MeasureTool.clearInfo()
@@ -1639,7 +1642,7 @@ function makeBandProfile(xy) {
                 right: 30,
                 top: 20,
                 target: document.getElementById(profileDivId),
-                x_label: 'Wavelength',
+                x_label: uiText("Wavelength"),
                 xax_format: function (d) {
                     return d + ' nm'
                 },
@@ -1789,7 +1792,7 @@ function makeGhostLine(lng, lat) {
             distUnit = 'km'
         }
         CursorInfo.update(
-            `Distance: ${distTotal}${distUnit} ${
+            uiTemplate`Distance: ${distTotal}${distUnit} ${
                 mode === 'continuous'
                     ? `<span style="font-size: 12px; font-weight: unset; color: var(--color-a5); letter-spacing: 1px;">(+${dist}${distUnit})</span>`
                     : ''

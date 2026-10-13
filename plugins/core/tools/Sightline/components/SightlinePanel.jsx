@@ -1,3 +1,4 @@
+import { useLegacyText } from '../../../../../src/i18n/legacy-ui'
 import React, { useEffect, useCallback, useMemo, useRef, useState } from 'react'
 import { utcFormat, utcParse } from 'd3-time-format'
 import useSightlineStore, { buildSourcesList } from '../store'
@@ -22,6 +23,8 @@ const stripSeconds = (s) =>
         : ''
 
 export default function SightlinePanel() {
+    const tLegacy = useLegacyText()
+
     const vars = useSightlineStore((s) => s.vars)
     const elements = useSightlineStore((s) => s.elements)
     const addElement = useSightlineStore((s) => s.addElement)
@@ -184,8 +187,7 @@ export default function SightlinePanel() {
         return (
             <div id="sightlineTool">
                 <div className="vstTimeDisabled">
-                    The Shade Tool requires that Time be enabled by the
-                    administrators.
+                    {tLegacy("The Shade Tool requires that Time be enabled by the administrators.")}
                 </div>
             </div>
         )
@@ -196,7 +198,7 @@ export default function SightlinePanel() {
             <div className="mmgisToolHeader">
                 <div>
                     <div>
-                        <div className="mmgisToolTitle">Sightline</div>
+                        <div className="mmgisToolTitle">{tLegacy("Sightline")}</div>
                         <span
                             dangerouslySetInnerHTML={{
                                 __html: Help.getComponent(helpKey),
@@ -274,7 +276,7 @@ export default function SightlinePanel() {
                                 setSweepField('sweepStep', Number.isFinite(v) ? v : '')
                             }}
                             className="vstSweepField vstTimeStep"
-                            placeholder="Step"
+                            placeholder={tLegacy("Step")}
                         />
                     </span>
                 </Tooltip>
@@ -312,7 +314,7 @@ export default function SightlinePanel() {
                         onClick={handleNew}
                     >
                         <i className="mdi mdi-plus mdi-18px" />
-                        New
+                        {tLegacy("New")}
                     </Button>
                 </div>
             </div>

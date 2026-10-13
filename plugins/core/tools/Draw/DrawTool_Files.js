@@ -1,3 +1,4 @@
+import { uiMarkup, uiRenderedMarkup, uiTemplate, uiText } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import { safeHTML } from '@essence/services/Sanitize'
 import F_ from '@basics/Formulae_/Formulae_'
@@ -164,7 +165,7 @@ var Files = {
 
                 DrawTool.setDrawingType(drawType)
             } else {
-                Toast.info(`Please select a file from the list below (by clicking on its name). If none exist, make one with the create button below.`, 6000)
+                Toast.info(uiText("Please select a file from the list below (by clicking on its name). If none exist, make one with the create button below.", { interpolation: { escapeValue: false } }), 6000)
             }
         })
 
@@ -376,13 +377,13 @@ var Files = {
                     "<div class='drawToolFileSelector flexbetween' file_id='" + file.id + "' file_owner='" + file.file_owner + "' file_intent='" + file.intent + "'>",
                     "<div class='drawToolIntentColor' style='height: 100%; width: 7px; background: " + DrawTool.categoryStyles[file.intent].color + "'></div>",
                     "<div class='drawToolFileInfo'>",
-                        "<i title='Owned by you!' class='drawToolFileOwner mdi" + (file.is_master ? ' mdi-account-tie' : isAllEdit ? ' mdi-account-group' : isListEdit ? ' mdi-account-multiple' : (ownedByUser) ? ' mdi-account' : '' ) + " mdi-18px " + ( (file.is_master || ownedByUser || isAllEdit || isListEdit) ? 'alwaysShow' : '' )  + "' style='pointer-events: " + ( (ownedByUser) ? 'all' : 'none' ) + "' file_id='" + file.id + "'></i>",
+                        uiMarkup("<i title='Owned by you!' class='drawToolFileOwner mdi") + (file.is_master ? ' mdi-account-tie' : isAllEdit ? ' mdi-account-group' : isListEdit ? ' mdi-account-multiple' : (ownedByUser) ? ' mdi-account' : '' ) + " mdi-18px " + ( (file.is_master || ownedByUser || isAllEdit || isListEdit) ? 'alwaysShow' : '' )  + "' style='pointer-events: " + ( (ownedByUser) ? 'all' : 'none' ) + "' file_id='" + file.id + "'></i>",
                         `<div class='drawToolFileName' title='${String(file.file_name).replace(/'/g, "&apos;")}\nIntent: ${String(file.intent).replace(/'/g, "&apos;")}\nAuthor: ${String(file.file_owner).replace(/'/g, "&apos;")}\nId: ${file.id}\nSelect to draw in,\nInfo button for information,\nCheck-box to toggle on,\nRight-Click for actions'>${safeHTML(file.file_name)}</div>`,
                     "</div>",
                     "</div>",
                     "<div class='flexbetween'>",
                         "<div class='flexbetween'>",
-                            "<i title='Private' class='drawToolFilePublicity mdi mdi-shield" + shieldState + " mdi-18px' style='display: " + ((shieldState == '') ? 'inherit' : 'none') + "'></i>",
+                            uiMarkup("<i title='Private' class='drawToolFilePublicity mdi mdi-shield") + shieldState + " mdi-18px' style='display: " + ((shieldState == '') ? 'inherit' : 'none') + "'></i>",
                         "</div>",
                         (!file.is_master) ? "<i class='drawToolFileEdit mdi mdi-information-outline mdi-18px' file_id='" + file.id + "'></i>" : '',
                         "<div class='drawToolFileCheckbox" + onState + "' file_id='" + file.id + "'></div>",
@@ -395,8 +396,8 @@ var Files = {
                     .attr('file_id', file.id)
                     .attr('file_name', file.file_name)
                     .attr('file_owner', file.file_owner)
-                    .html(markup)
-                $('#drawToolDrawFilesListMaster').append(masterLi)
+                    .html(uiRenderedMarkup(markup))
+                $('#drawToolDrawFilesListMaster').append(uiRenderedMarkup(masterLi))
 
                 var lastMasterName = $(
                     '#drawToolDrawFilesListMaster li:last-child .drawToolFileName'
@@ -427,7 +428,7 @@ var Files = {
                                 .attr('class', `drawToolDrawFilesGroupElem`)
                                 .attr('group_name', gEnc)
                                 .html(
-                                    [
+                                    uiRenderedMarkup([
                                         `<div class='drawToolDrawFilesGroupElemHead' state='off' group_name='${gEnc}' groupingtype='${groupingType}'>`,
                                             `<div class='${g === 'unassigned' || g === 'untagged' ? 'drawToolDrawFilesGroupElemUn' : ''}'>`,
                                                 `<div class='drawToolDrawFilesGroupElemChevron'><i class='mdi ${iconClass} mdi-18px'></i></div>`,
@@ -436,9 +437,9 @@ var Files = {
                                             `<div class='drawToolDrawFilesGroupElemCount' count='0'></div>`,
                                         `</div>`,
                                         '<div class="drawToolDrawFilesGroupListElem" style="display: none;"></div>',
-                                    ].join('\n')
+                                    ].join('\n'))
                                 )
-                            $('#drawToolDrawFilesList').append(groupElem)
+                            $('#drawToolDrawFilesList').append(uiRenderedMarkup(groupElem))
                         }
                         if (
                             $(
@@ -453,8 +454,8 @@ var Files = {
                                 .attr('file_id', file.id)
                                 .attr('file_name', file.file_name)
                                 .attr('file_owner', file.file_owner)
-                                .html(markup)
-                            $(`.drawToolDrawFilesGroupElem[group_name="${gEnc}"] .drawToolDrawFilesGroupListElem`).append(groupLi)
+                                .html(uiRenderedMarkup(markup))
+                            $(`.drawToolDrawFilesGroupElem[group_name="${gEnc}"] .drawToolDrawFilesGroupListElem`).append(uiRenderedMarkup(groupLi))
                         }
                     })
                 } else if (!efoldersOnly) {
@@ -463,8 +464,8 @@ var Files = {
                         .attr('file_id', file.id)
                         .attr('file_name', file.file_name)
                         .attr('file_owner', file.file_owner)
-                        .html(markup)
-                    $('#drawToolDrawFilesList').append(ungroupedLi)
+                        .html(uiRenderedMarkup(markup))
+                    $('#drawToolDrawFilesList').append(uiRenderedMarkup(ungroupedLi))
                 }
             }
         }
@@ -567,9 +568,9 @@ var Files = {
                     '<ul>',
                         !isHead ? [
                         `<li id="cmExport">`,
-                            `<div><i class='mdi mdi-download mdi-14px'></i><div>Export</div></div>`,
+                            uiTemplate`<div><i class='mdi mdi-download mdi-14px'></i><div>Export</div></div>`,
                             '<div>',
-                                '<div>Format</div>',
+                                uiMarkup("<div>Format</div>"),
                                 '<select id="cmExportFormat" class="dropdown">',
                                     '<option value="geojson" selected>GeoJSON</option>',
                                     '<option value="kml">KML</option>',
@@ -578,31 +579,31 @@ var Files = {
                             '</div>',
                             L_.Coordinates.mainType != 'll' ? [
                             '<div>',
-                                '<div>Coords</div>',
+                                uiMarkup("<div>Coords</div>"),
                                 '<select id="cmExportCoords" class="cmExportCoords dropdown">',
-                                    '<option value="source" selected>Source</option>',
+                                    uiMarkup("<option value=\"source\" selected>Source</option>"),
                                     `<option value="${L_.Coordinates.mainType}">Converted (${L_.Coordinates.mainType})</option>`,
                                 '</select>',
                             '</div>'] .join('\n') : '',
                             hasTemplate ? [
                             '<div>',
-                                '<div>Force Template</div>',
+                                uiMarkup("<div>Force Template</div>"),
                                 '<select class="cmExportTemplateForced dropdown">',
-                                    '<option value="false" selected>False</option>',
-                                    '<option value="true">True</option>',
+                                    uiMarkup("<option value=\"false\" selected>False</option>"),
+                                    uiMarkup("<option value=\"true\">True</option>"),
                                 '</select>',
                             '</div>'].join('\n') : '',
-                            '<div><div id="cmExportGo" class="mmgisButton5">Export</div></div>',
+                            uiMarkup("<div><div id=\"cmExportGo\" class=\"mmgisButton5\">Export</div></div>"),
                         `</li>`].join('\n') : '',
                         // Other
-                        (!isHead && !isPub) ? `<li id='cmToggleLabels'><i class='mdi mdi-label-outline mdi-14px'></i>Toggle Labels</li>` : "",
+                        (!isHead && !isPub) ? uiTemplate`<li id='cmToggleLabels'><i class='mdi mdi-label-outline mdi-14px'></i>Toggle Labels</li>` : "",
                         isHead ? `<li id='drawToolcmRenameTagFol'><i class='mdi mdi-rename-box mdi-14px'></i>Rename ${activeTagFolType === 'tags' ? "Tag" : "Folder"}</li>` : "",
                         isHead ? `<li id='drawToolcmRemoveTagFol'><i class='mdi mdi-delete-forever mdi-14px'></i>Remove ${activeTagFolType === 'tags' ? "Tag" : "Folder"}</li>` : "",
                     '</ul>',
                 '</div>',
             ].join('\n')
 
-            $('body').append(markup)
+            $('body').append(uiRenderedMarkup(markup))
 
             let body = {
                 id: elm.attr('file_id'),
@@ -724,7 +725,7 @@ var Files = {
                                         })
                                 },
                                 function (err) {
-                                    Toast.warning(`Failed to generate shapefile's .prj.`, 6000)
+                                    Toast.warning(uiText("Failed to generate shapefile's .prj.", { interpolation: { escapeValue: false } }), 6000)
                                 }
                             )
                             break
@@ -761,25 +762,21 @@ var Files = {
                                     newKeyword: newKeyword.toLowerCase(),
                                 },
                                 function () {
-                                    Toast.success(`Successfully renamed the '${headGroup}' ${
-                                            activeTagFolType === 'tags'
+                                    Toast.success(uiText("Successfully renamed the '{{value0}}' {{value1}} to '{{value2}}'!", { value0: headGroup, value1: activeTagFolType === 'tags'
                                                 ? 'tag'
-                                                : 'folder'
-                                        } to '${newKeyword}'!`, 3500)
+                                                : 'folder', value2: newKeyword, interpolation: { escapeValue: false } }), 3500)
                                     DrawTool.getFiles(function () {
                                         DrawTool.populateFiles()
                                     })
                                 },
                                 function () {
-                                    Toast.error(`Failed to remove ${
-                                            activeTagFolType === 'tags'
+                                    Toast.error(uiText("Failed to remove {{value0}}!", { value0: activeTagFolType === 'tags'
                                                 ? 'tag'
-                                                : 'folder'
-                                        }!`, 3500)
+                                                : 'folder', interpolation: { escapeValue: false } }), 3500)
                                 }
                             )
                         } else {
-                            Toast.info(`No new name entered. Nothing to do.`, 3500)
+                            Toast.info(uiText("No new name entered. Nothing to do.", { interpolation: { escapeValue: false } }), 3500)
                         }
                     }
                 })(activeTagFolType, headGroup)
@@ -806,25 +803,21 @@ var Files = {
                                     type: activeTagFolType,
                                 },
                                 function () {
-                                    Toast.success(`Successfully removed the '${headGroup}' ${
-                                            activeTagFolType === 'tags'
+                                    Toast.success(uiText("Successfully removed the '{{value0}}' {{value1}}!", { value0: headGroup, value1: activeTagFolType === 'tags'
                                                 ? 'tag'
-                                                : 'folder'
-                                        }!`, 3500)
+                                                : 'folder', interpolation: { escapeValue: false } }), 3500)
                                     DrawTool.getFiles(function () {
                                         DrawTool.populateFiles()
                                     })
                                 },
                                 function () {
-                                    Toast.error(`Failed to remove ${
-                                            activeTagFolType === 'tags'
+                                    Toast.error(uiText("Failed to remove {{value0}}!", { value0: activeTagFolType === 'tags'
                                                 ? 'tag'
-                                                : 'folder'
-                                        }!`, 3500)
+                                                : 'folder', interpolation: { escapeValue: false } }), 3500)
                                 }
                             )
                         } else {
-                            Toast.error(`Check failed. Names don't match. Entered '${newKeyword}'. Required: '${headGroup}'`, 3500)
+                            Toast.error(uiText("Check failed. Names don't match. Entered '{{value0}}'. Required: '{{value1}}'", { value0: newKeyword, value1: headGroup, interpolation: { escapeValue: false } }), 3500)
                         }
                     }
                 })(activeTagFolType, headGroup)
@@ -913,24 +906,24 @@ var Files = {
                     .attr('type', type)
                     .addClass(itemClass)
                 el.append(
-                    $('<div>')
+                    uiRenderedMarkup($('<div>')
                         .addClass('drawToolFileEditOnTagName')
-                        .text(tag)
+                        .text(tag))
                 )
                 if (showClose) {
                     el.append(
-                        $('<div>')
+                        uiRenderedMarkup($('<div>')
                             .addClass('drawToolFileEditOnTagClose')
                             .attr('title', 'Delete Tag')
                             .append(
-                                $('<i>').addClass(
+                                uiRenderedMarkup($('<i>').addClass(
                                     'mdi mdi-close mdi-14px'
-                                )
-                            )
+                                ))
+                            ))
                     )
                 } else {
                     el.append(
-                        $('<span>').css('width', '6px')
+                        uiRenderedMarkup($('<span>').css('width', '6px'))
                     )
                 }
                 return el[0].outerHTML
@@ -970,62 +963,62 @@ var Files = {
                         "<div>",
                             `<div id="drawToolFileEditOnHeadingOwner">by ${file.file_owner}${ownedByUser ? ' (you)' : ''}</div>`,
                             "<select id='drawToolFileEditOnPublicityDropdown' class='ui dropdown dropdown_2 unsetMaxWidth'>",
-                                `<option value='private' ${file.public == '0' ? 'selected' : ''}>Private</option>`,
-                                `<option value='public read_only' ${file.public == '1' && file.publicity_type != 'list_edit' && file.publicity_type != 'all_edit' ? 'selected' : ''}>Public - Read-Only</option>`,
-                                `<option value='public list_edit' ${file.public == '1' && file.publicity_type == 'list_edit' ? 'selected' : ''}>Public - List-Editors</option>`,
-                                `<option value='public all_edit' ${file.public == '1' && file.publicity_type == 'all_edit' ? 'selected' : ''}>Public - All-Edit</option>`,
+                                uiTemplate`<option value='private' ${file.public == '0' ? 'selected' : ''}>Private</option>`,
+                                uiTemplate`<option value='public read_only' ${file.public == '1' && file.publicity_type != 'list_edit' && file.publicity_type != 'all_edit' ? 'selected' : ''}>Public - Read-Only</option>`,
+                                uiTemplate`<option value='public list_edit' ${file.public == '1' && file.publicity_type == 'list_edit' ? 'selected' : ''}>Public - List-Editors</option>`,
+                                uiTemplate`<option value='public all_edit' ${file.public == '1' && file.publicity_type == 'all_edit' ? 'selected' : ''}>Public - All-Edit</option>`,
                             "</select>",
                         "</div>",
                     "</div>",
                     `<div class='drawToolFileEditListEditors' style='display: ${file.public == '1' && file.publicity_type == 'list_edit' ? 'flex' : 'none'}'>`,
-                        "<div>File Editors:</div>",
-                        `<input id='drawToolFileEditListEditors' type='text' placeholder='Comma-separated names of users who can edit this file...' value='${file.public_editors && typeof file.public_editors.join === 'function' ? file.public_editors.join(',') : ''}'></input>`,
+                        uiMarkup("<div>File Editors:</div>"),
+                        uiTemplate`<input id='drawToolFileEditListEditors' type='text' placeholder='Comma-separated names of users who can edit this file...' value='${file.public_editors && typeof file.public_editors.join === 'function' ? file.public_editors.join(',') : ''}'></input>`,
                     "</div>",
                     "<div class='drawToolFileEditOnDates'>",
                         "<div>",
-                            "<div>Created:</div>",
+                            uiMarkup("<div>Created:</div>"),
                             `<div>${file.created_on.split('.')[0].replace('T', ' ')}</div>`,
                         "</div>",
                         "<div>",
-                            "<div>Modified:</div>",
+                            uiMarkup("<div>Modified:</div>"),
                             `<div>${file.updated_on.split('.')[0].replace('T', ' ')}</div>`,
                         "</div>",
                         "<div class='drawToolFileTemplate' id='drawToolFileTemplateEdit'>",
-                            "<div>Template:</div>",
+                            uiMarkup("<div>Template:</div>"),
                             `<div><div>${file.template?.name || 'NONE'}</div><i class='mdi mdi-pencil mdi-14px'></i></div>`,
                         "</div>",
                     "</div>",
                     "<div class='drawToolFileEditOnDescription'>",
-                        "<textarea class='drawToolFileDesc' rows='9' placeholder='Description...'>" + DrawTool.stripTagsFromDescription(file.file_description) + "</textarea>",
+                        uiMarkup("<textarea class='drawToolFileDesc' rows='9' placeholder='Description...'>") + DrawTool.stripTagsFromDescription(file.file_description) + "</textarea>",
                     "</div>",
                     "<div id='drawToolFileEditOnTags'>",
 
                         "<div id='drawToolFileEditOnTagsNewCont'>",
-                            "<input id='drawToolFileEditOnTagsNew' type='text' placeholder='Add a tag, add to folder...'></input>",
+                            uiMarkup("<input id='drawToolFileEditOnTagsNew' type='text' placeholder='Add a tag, add to folder...'></input>"),
                             "<div>",
-                                isLead ? "<div id='drawToolFileEditOnEFoldersNewAdd' title='Add to Elevated Folder'><i class='mdi mdi-subdirectory-arrow-right mdi-18px'></i><i class='mdi mdi-folder-upload mdi-18px'></i></div>" : "",
-                                "<div id='drawToolFileEditOnFoldersNewAdd' title='Add to Folder'><i class='mdi mdi-subdirectory-arrow-right mdi-18px'></i><i class='mdi mdi-folder mdi-18px'></i></div>",
-                                "<div id='drawToolFileEditOnTagsNewAdd' title='Add Tag'><i class='mdi mdi-plus mdi-18px'></i><i class='mdi mdi-tag-text mdi-18px'></i></div>",
+                                isLead ? uiMarkup("<div id='drawToolFileEditOnEFoldersNewAdd' title='Add to Elevated Folder'><i class='mdi mdi-subdirectory-arrow-right mdi-18px'></i><i class='mdi mdi-folder-upload mdi-18px'></i></div>") : "",
+                                uiMarkup("<div id='drawToolFileEditOnFoldersNewAdd' title='Add to Folder'><i class='mdi mdi-subdirectory-arrow-right mdi-18px'></i><i class='mdi mdi-folder mdi-18px'></i></div>"),
+                                uiMarkup("<div id='drawToolFileEditOnTagsNewAdd' title='Add Tag'><i class='mdi mdi-plus mdi-18px'></i><i class='mdi mdi-tag-text mdi-18px'></i></div>"),
                             "</div>",
                         "</div>",
-                        "<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-folder-upload mdi-14px'></i> Elevated Folders</div>",
+                        uiMarkup("<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-folder-upload mdi-14px'></i> Elevated Folders</div>"),
                         "<div id='drawToolFileEditOnEFoldersList'>",
-                            efoldersHtml || "<div class='drawToolNoTagFol'>None</div>",
+                            efoldersHtml || uiMarkup("<div class='drawToolNoTagFol'>None</div>"),
                         "</div>",
-                        "<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-folder mdi-14px'></i> Folders</div>",
+                        uiMarkup("<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-folder mdi-14px'></i> Folders</div>"),
                         "<div id='drawToolFileEditOnFoldersList'>",
-                            foldersHtml || "<div class='drawToolNoTagFol'>None</div>",
+                            foldersHtml || uiMarkup("<div class='drawToolNoTagFol'>None</div>"),
                         "</div>",
-                        "<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-tag-text mdi-14px'></i> Tags</div>",
+                        uiMarkup("<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-tag-text mdi-14px'></i> Tags</div>"),
                         "<div id='drawToolFileEditOnTagsList'>",
-                            tagsHtml || "<div class='drawToolNoTagFol'>None</div>",
+                            tagsHtml || uiMarkup("<div class='drawToolNoTagFol'>None</div>"),
                         "</div>",
                     "</div>",
                     "<div id='drawToolFileEditOnActions'>",
-                        "<div id='drawToolFileEditOnDelete' title='Delete File'><i class='drawToolFileDelete mdi mdi-delete-forever mdi-18px'></i></div>",
+                        uiMarkup("<div id='drawToolFileEditOnDelete' title='Delete File'><i class='drawToolFileDelete mdi mdi-delete-forever mdi-18px'></i></div>"),
                         "<div class='flexbetween'>",
-                            "<div class='drawToolFileCancel drawToolButton1'>Cancel</div>",
-                            "<div class='drawToolFileSave drawToolButton1'>Save</div>",
+                            uiMarkup("<div class='drawToolFileCancel drawToolButton1'>Cancel</div>"),
+                            uiMarkup("<div class='drawToolFileSave drawToolButton1'>Save</div>"),
                         "</div>",
                     "</div>",
                 "</div>"
@@ -1049,38 +1042,38 @@ var Files = {
                     "</div>",
                     "<div class='drawToolFileEditOnDates'>",
                         "<div>",
-                            "<div>Created:</div>",
+                            uiMarkup("<div>Created:</div>"),
                             `<div>${file.created_on.split('T')[0]}</div>`,
                         "</div>",
                         "<div>",
-                            "<div>Modified:</div>",
+                            uiMarkup("<div>Modified:</div>"),
                             `<div>${file.updated_on.split('T')[0]}</div>`,
                         "</div>",
                         "<div class='drawToolFileTemplate'>",
-                            "<div>Template:</div>",
+                            uiMarkup("<div>Template:</div>"),
                             `<div><div>${template?.name || 'NONE'}</div></div>`,
                         "</div>",
                     "</div>",
                     "<div class='drawToolFileEditOnDescription'>",
-                        "<textarea class='drawToolFileDesc' rows='9' placeholder='No description...' disabled>" + DrawTool.stripTagsFromDescription(file.file_description) + "</textarea>",
+                        uiMarkup("<textarea class='drawToolFileDesc' rows='9' placeholder='No description...' disabled>") + DrawTool.stripTagsFromDescription(file.file_description) + "</textarea>",
                     "</div>",
                     "<div id='drawToolFileEditOnTags' style='padding-top: 10px;'>",
-                        "<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-folder-upload mdi-14px'></i> Elevated Folders</div>",
+                        uiMarkup("<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-folder-upload mdi-14px'></i> Elevated Folders</div>"),
                         "<div id='drawToolFileEditOnEFoldersList'>",
-                            efoldersHtml || "<div class='drawToolNoTagFol'>None</div>",
+                            efoldersHtml || uiMarkup("<div class='drawToolNoTagFol'>None</div>"),
                         "</div>",
-                        "<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-folder mdi-14px'></i> Folders</div>",
+                        uiMarkup("<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-folder mdi-14px'></i> Folders</div>"),
                         "<div id='drawToolFileEditOnFoldersList'>",
-                            foldersHtml || "<div class='drawToolNoTagFol'>None</div>",
+                            foldersHtml || uiMarkup("<div class='drawToolNoTagFol'>None</div>"),
                         "</div>",
-                        "<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-tag-text mdi-14px'></i> Tags</div>",
+                        uiMarkup("<div id='drawToolFileEditOnTagFolHead'><i class='mdi mdi-tag-text mdi-14px'></i> Tags</div>"),
                         "<div id='drawToolFileEditOnTagsList'>",
-                            tagsHtml || "<div class='drawToolNoTagFol'>None</div>",
+                            tagsHtml || uiMarkup("<div class='drawToolNoTagFol'>None</div>"),
                         "</div>",
                     "</div>",
                     "<div id='drawToolFileEditOnActions'>",
                         "<div></div>",
-                        "<div class='drawToolFileCancel drawToolButton1'>Cancel</div>",
+                        uiMarkup("<div class='drawToolFileCancel drawToolButton1'>Cancel</div>"),
                     "</div>",
                 "</div>"
                 ].join('\n')
@@ -1098,14 +1091,14 @@ var Files = {
                         const templateEditMarkup = [
                             `<div id='drawToolFileTemplateEditModal'>`,
                                 `<div id='drawToolFileTemplateEditModalTitle'>`,
-                                    `<div><i class='mdi mdi-form-select mdi-18px'></i><div>Template</div></div>`,
+                                    uiTemplate`<div><i class='mdi mdi-form-select mdi-18px'></i><div>Template</div></div>`,
                                     `<div id='drawToolFileTemplateEditModalClose'><i class='mmgisHoverBlue mdi mdi-close mdi-18px'></i></div>`,
                                 `</div>`,
                                 `<div id='drawToolFileTemplateContainer'>`,
                                 `</div>`,
                                 `<div id='drawToolFileTemplateEditModalActions'>`,
-                                    `<div id='drawToolFileTemplateEditModalActionsCancel' class='drawToolButton1'>Cancel</div>`,
-                                    `<div id='drawToolFileTemplateEditModalActionsDone' class='drawToolButton1'>Done</div>`,
+                                    uiTemplate`<div id='drawToolFileTemplateEditModalActionsCancel' class='drawToolButton1'>Cancel</div>`,
+                                    uiTemplate`<div id='drawToolFileTemplateEditModalActionsDone' class='drawToolButton1'>Done</div>`,
                                 `</div>`,
                             `</div>`
                         ].join('\n')
@@ -1165,7 +1158,7 @@ var Files = {
                                         $(
                                             `#drawToolFileTemplateEdit > div > div`
                                         )
-                                            .text('NONE')
+                                            .html(uiRenderedMarkup(uiMarkup("<span>NONE</span>")))
                                             .css({
                                                 color: 'var(--color-green)',
                                             })
@@ -1228,9 +1221,7 @@ var Files = {
                             newTag.indexOf('~') > -1 ||
                             newTag.indexOf('$') > -1
                         ) {
-                            Toast.warning(`${
-                                    type === 'tag' ? 'Tags' : 'Folders'
-                                } may not contain spaces, dollar-signs or tildes!`, 3500)
+                            Toast.warning(uiText("{{value0}} may not contain spaces, dollar-signs or tildes!", { value0: type === 'tag' ? 'Tags' : 'Folders', interpolation: { escapeValue: false } }), 3500)
                             return
                         }
 
@@ -1264,12 +1255,12 @@ var Files = {
                             .attr('type', type)
                             .addClass(itemClass)
                         tagItem.append(
-                            $('<div>')
+                            uiRenderedMarkup($('<div>')
                                 .addClass('drawToolFileEditOnTagName')
-                                .text(newTag)
+                                .text(newTag))
                         )
                         tagItem.append(
-                            $('<div>')
+                            uiRenderedMarkup($('<div>')
                                 .addClass('drawToolFileEditOnTagClose')
                                 .attr(
                                     'title',
@@ -1278,12 +1269,12 @@ var Files = {
                                         : 'Remove from Folder'
                                 )
                                 .append(
-                                    $('<i>').addClass(
+                                    uiRenderedMarkup($('<i>').addClass(
                                         'mdi mdi-close mdi-14px'
-                                    )
-                                )
+                                    ))
+                                ))
                         )
-                        $(`#${listId}`).append(tagItem)
+                        $(`#${listId}`).append(uiRenderedMarkup(tagItem))
                         $('.drawToolFileEditOnTagClose').off('click')
                         $('.drawToolFileEditOnTagClose').on(
                             'click',
@@ -1297,7 +1288,7 @@ var Files = {
                                         .parent()
                                         .parent()
                                         .append(
-                                            '<div class="drawToolNoTagFol">None</div>'
+                                            uiRenderedMarkup(uiMarkup("<div class=\"drawToolNoTagFol\">None</div>"))
                                         )
                                 const removedTag = $(this).parent().attr('tag')
                                 const removedType = $(this)
@@ -1425,7 +1416,7 @@ var Files = {
                             body,
                             function (d) {
                                 Modal.remove()
-                                Toast.success('Successfully saved changes to file!', 3500)
+                                Toast.success(uiText("Successfully saved changes to file!"), 3500)
                                 elm.find('.drawToolFileName').text(filename)
                                 var files_i = F_.objectArrayIndexOfKeyWithValue(
                                     DrawTool.files,
@@ -1440,7 +1431,7 @@ var Files = {
                                 })
                             },
                             function () {
-                                Toast.error('Failed to save changes to file!', 3500)
+                                Toast.error(uiText("Failed to save changes to file!"), 3500)
                             }
                         )
                     })
@@ -1454,14 +1445,14 @@ var Files = {
                             icon.attr('public', '1')
                             $(this)
                                 .find('.drawToolFilePublicName')
-                                .text('Public')
+                                .html(uiRenderedMarkup(uiMarkup("<span>Public</span>")))
                         } else {
                             icon.removeClass('mdi-shield-outline')
                             icon.addClass('mdi-shield')
                             icon.attr('public', '0')
                             $(this)
                                 .find('.drawToolFilePublicName')
-                                .text('Private')
+                                .html(uiRenderedMarkup(uiMarkup("<span>Private</span>")))
                         }
                     })
 
@@ -2302,7 +2293,7 @@ var Files = {
             // Only show if this is a new truncation state (wasn't truncated before, or first time loading)
             if (hitLimit && !previouslyTruncated) {
                 const fileName = DrawTool.getFileObjectWithId(parsedId)?.file_name || 'file'
-                Toast.warning(`Only showing top 1k features for ${fileName}`, 5000)
+                Toast.warning(uiText("Only showing top 1k features for {{value0}}", { value0: fileName, interpolation: { escapeValue: false } }), 5000)
             }
 
             // Don't clear features here - let refreshFile's keepGoing handle it

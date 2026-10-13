@@ -1,3 +1,5 @@
+import { bindUiTooltips, uiMarkup, uiRenderedMarkup, uiText } from '../../../../../i18n/legacy-ui'
+import { i18n } from '../../../../../i18n'
 //Coordinates sets up a div that displays the cursor's lng lat
 import $ from 'jquery'
 import F_ from '../../../Formulae_/Formulae_'
@@ -28,7 +30,7 @@ const markup = [
     "<div class='mouseLngLatPicking'>",
         "<div id='mouseDescPicking'></div>",
         "<div id='mouseLngLatPicking'></div>",
-        "<div id='mouseGoPicking' title='Go to coordinate.'>",
+        uiMarkup("<div id='mouseGoPicking' title='Go to coordinate.'>"),
             "<i class='mdi mdi-arrow-right-thick mdi-18px'></i>",
         "</div>",
     "</div>",
@@ -135,33 +137,33 @@ const Coordinates = {
 
         if (!UserInterface.isMobile) {
             $('#main-container')
-                .append($('<div>')
+                .append(uiRenderedMarkup($('<div>')
                 .attr('id', 'CoordinatesDiv')
-                .html(markup))
+                .html(uiRenderedMarkup(markup))))
         } else {
             var additionalDiv = [
                 "<div class='left'>",
-                "<div id='coordUITitle'>Coordinates</div>",
+                uiMarkup("<div id='coordUITitle'>Coordinates</div>"),
                 '</div>',
             ].join('\n')
 
             $('#tools')
-                .append($('<div>')
+                .append(uiRenderedMarkup($('<div>')
                 .attr('id', 'coordUIHeader')
-                .html(additionalDiv))
+                .html(uiRenderedMarkup(additionalDiv))))
 
             $('#tools')
-                .append($('<div>')
+                .append(uiRenderedMarkup($('<div>')
                 .attr('id', 'CoordinatesDiv')
-                .html(markup))
+                .html(uiRenderedMarkup(markup))))
         }
 
         if (!UserInterface.isMobile) {
-            tippy('#pickLngLat', {
-                content: 'Pick Coordinates',
+            bindUiTooltips(tippy('#pickLngLat', {
+                content: () => uiText('Pick Coordinates'),
                 placement: 'top',
                 theme: 'blue',
-            })
+            }), "Pick Coordinates")
 
         }
 
@@ -361,9 +363,13 @@ const Coordinates = {
             const s = Coordinates.states[state]
             if (s == null) return
             let name = ''
-            if (s.title) name += `${s.title} (`
-            name += `${s.names[0]}, ${s.names[1]}`
-            if (Coordinates.elevation != null) name += `, ${s.names[2]}`
+            const config = L_.configData.coordinates || {}
+            const prefix = state === 'cproj' ? 'coordcustomprojname' : state === 'sproj' ? 'coordsecondaryprojname' : null
+            const title = prefix && config[prefix] ? s.title : uiText(s.title || '')
+            const axisName = (index) => prefix && config[prefix + ['x', 'y', 'z'][index]] ? s.names[index] : uiText(s.names[index])
+            if (s.title) name += `${title} (`
+            name += `${axisName(0)}, ${axisName(1)}`
+            if (Coordinates.elevation != null) name += `, ${axisName(2)}`
             if (s.title) name += ')'
             names.push(name)
         })
@@ -381,10 +387,10 @@ const Coordinates = {
         )
 
         $('#changeCoordTypeDropdown').html(
-            Dropy.construct(names, 'Coordinate Type', startingIndex, {
+            uiRenderedMarkup(Dropy.construct(names, uiText('Coordinate Type'), startingIndex, {
                 openUp: true,
                 dark: true,
-            })
+            }))
         )
         Dropy.init($('#changeCoordTypeDropdown'), function (idx) {
             changeCoordType(idx)
@@ -424,7 +430,7 @@ const Coordinates = {
     //rawLngLat is same type as mouseLngLat and coordsString is whatever
     setCoords: function (rawLngLat, coordsString) {
         Coordinates.mouseLngLat = rawLngLat
-        $('#mouseLngLat').html(coordsString)
+        $('#mouseLngLat').html(uiRenderedMarkup(coordsString))
     },
     refresh: function () {
         const newCoords = Coordinates.convertLngLat(
@@ -726,7 +732,7 @@ function pickLngLat() {
         $('#pickLngLat').addClass('active')
 
         const currentDesc = $('#mouseDesc').html()
-        $('#mouseDescPicking').html(currentDesc)
+        $('#mouseDescPicking').html(uiRenderedMarkup(currentDesc))
 
         const currentDescSplit = currentDesc.replace(/ /g, '').split(',')
 
@@ -743,7 +749,7 @@ function pickLngLat() {
             `<div>${currentState.units[1]}</div>`
         ].join('\n')
 
-        $('#mouseLngLatPicking').html(markup)
+        $('#mouseLngLatPicking').html(uiRenderedMarkup(markup))
         $('#mouseLngLatPickingA').focus()
     }
 }
@@ -934,5 +940,9 @@ function interfaceWithMMWebGIS() {
         $('#CoordinatesDiv').remove()
     }
 }
+
+i18n.on('languageChanged', () => {
+    if (document.getElementById('CoordinatesDiv')) Coordinates.refreshDropdown()
+})
 
 export default Coordinates

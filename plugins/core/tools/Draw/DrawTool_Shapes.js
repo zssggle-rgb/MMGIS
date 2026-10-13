@@ -1,3 +1,4 @@
+import { uiMarkup, uiRenderedMarkup, uiTemplate, uiText } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
@@ -106,9 +107,9 @@ var Shapes = {
                                     ? 'black'
                                     : 'white',
                         })
-                        .html(file.file_name)
+                        .html(uiRenderedMarkup(file.file_name))
                     if (!skipDOMRebuild) {
-                        $('#drawToolShapesFeaturesList').append(headerLi)
+                        $('#drawToolShapesFeaturesList').append(uiRenderedMarkup(headerLi))
                     }
                 }
                 for (var i = 0; i < L_.layers.layer[l].length; i++) {
@@ -389,9 +390,9 @@ var Shapes = {
                 .attr('file_name', file.file_name)
                 .attr('intent', properties._.intent)
                 .attr('shape_id', properties._.id)
-                .html(markup)
+                .html(uiRenderedMarkup(markup))
             if (!skipDOMRebuild) {
-                $('#drawToolShapesFeaturesList').append(shapeLi)
+                $('#drawToolShapesFeaturesList').append(uiRenderedMarkup(shapeLi))
             }
 
             $('#drawToolShapeLiItem_' + layer + '_' + index)
@@ -556,7 +557,7 @@ var Shapes = {
                                 DrawTool.contextMenuLayer != null &&
                                 DrawTool.contextMenuLayers.length > 0
                             ) {
-                                Toast.warning('Grouped shapes must share intent.', 6000)
+                                Toast.warning(uiText("Grouped shapes must share intent."), 6000)
                                 return
                             }
 
@@ -972,12 +973,12 @@ var Shapes = {
         var defaultOpt = 'File...'
         $('#drawToolShapesCopyDropdown *').remove()
         $('#drawToolShapesCopyDropdown').html(
-            "<select id='drawToolShapesCopySelect' class='ui dropdown dropdown_1'></select>"
+            uiRenderedMarkup("<select id='drawToolShapesCopySelect' class='ui dropdown dropdown_1'></select>")
         )
         $('#drawToolShapesCopySelect').html(
-            "<option value='' disabled selected hidden>" +
+            uiRenderedMarkup("<option value='' disabled selected hidden>" +
                 defaultOpt +
-                '</option>'
+                '</option>')
         )
 
         if (intent) {
@@ -1029,7 +1030,7 @@ var Shapes = {
                     const leadOption = $('<option>')
                         .attr('value', DrawTool.files[i].id)
                         .text(DrawTool.files[i].file_name + ' [Lead]')
-                    $('#drawToolShapesCopySelect').append(leadOption)
+                    $('#drawToolShapesCopySelect').append(uiRenderedMarkup(leadOption))
                 } else if (
                     (mmgisglobal.user == DrawTool.files[i].file_owner ||
                         isListEdit ||
@@ -1041,7 +1042,7 @@ var Shapes = {
                     const fileOption = $('<option>')
                         .attr('value', DrawTool.files[i].id)
                         .text(DrawTool.files[i].file_name)
-                    $('#drawToolShapesCopySelect').append(fileOption)
+                    $('#drawToolShapesCopySelect').append(uiRenderedMarkup(fileOption))
                 }
             }
         }
@@ -1256,7 +1257,7 @@ var Shapes = {
                 .attr('file_name', file.file_name)
                 .attr('intent', properties._.intent)
                 .attr('shape_id', properties._.id)
-                .html(markup)
+                .html(uiRenderedMarkup(markup))
 
             // If this is the item we're about to restore, add active class immediately
             // This prevents flickering by ensuring the item is never shown in an inactive state
@@ -1269,7 +1270,7 @@ var Shapes = {
             }
 
             // Always append in filtered results handler
-            $('#drawToolShapesFeaturesList').append(shapeLi)
+            $('#drawToolShapesFeaturesList').append(uiRenderedMarkup(shapeLi))
 
             $('#drawToolShapeLiItem_all_' + idx)
                 .find('.drawToolShapeLiItemB')
@@ -1494,7 +1495,7 @@ var Shapes = {
         // Update info text
         const start = page * rowsPerPage + 1
         const end = Math.min((page + 1) * rowsPerPage, totalCount)
-        $('#drawToolPaginationInfo').text(`${start}-${end} of ${totalCount}`)
+        $('#drawToolPaginationInfo').text(uiText("{{value0}}-{{value1}} of {{value2}}", { value0: start, value1: end, value2: totalCount, interpolation: { escapeValue: false } }))
 
         // Update page input and total pages
         const totalPages = Math.ceil(totalCount / rowsPerPage)
@@ -1614,13 +1615,13 @@ var Shapes = {
             `<li class='drawToolShapes_filtering_value' id='drawToolShapes_filtering_value_${id}'>`,
                 `<div class='drawFilterDragHandle'><i class="mdi mdi-drag-vertical mdi-12px"></i></div>`,
                 "<div class='drawToolShapes_filtering_value_key'>",
-                    `<input id='drawToolShapes_filtering_value_key_input_${id}' class='drawToolShapes_filtering_value_key_input' spellcheck='false' type='text'${key} placeholder='Property...'></input>`,
+                    uiTemplate`<input id='drawToolShapes_filtering_value_key_input_${id}' class='drawToolShapes_filtering_value_key_input' spellcheck='false' type='text'${key} placeholder='Property...'></input>`,
                 "</div>",
                 "<div class='drawToolShapes_filtering_value_operator'>",
                     `<div id='drawToolShapes_filtering_value_operator_${id}' class='drawToolShapes_filtering_value_operator_select'></div>`,
                 "</div>",
                 "<div class='drawToolShapes_filtering_value_value'>",
-                    `<input id='drawToolShapes_filtering_value_value_input_${id}' class='drawToolShapes_filtering_value_value_input' spellcheck='false' type='text'${val} placeholder='Value...'></input>`,
+                    uiTemplate`<input id='drawToolShapes_filtering_value_value_input_${id}' class='drawToolShapes_filtering_value_value_input' spellcheck='false' type='text'${val} placeholder='Value...'></input>`,
                     `<div class='drawToolShapes_filtering_value_value_type'>`,
                         `<i id='drawToolShapes_filtering_value_value_type_number_${id}' style='display: none;' class='mdi mdi-numeric mdi-18px'></i>`,
                         `<i id='drawToolShapes_filtering_value_value_type_string_${id}' style='display: none;'class='mdi mdi-alphabetical-variant mdi-18px'></i>`,
@@ -1630,7 +1631,7 @@ var Shapes = {
             "</li>",
         ].join('\n')
 
-        $('#drawToolShapes_filtering_filters_list').append(valueMarkup)
+        $('#drawToolShapes_filtering_filters_list').append(uiRenderedMarkup(valueMarkup))
 
         if (value == null) {
             Shapes.filters.values.push({
@@ -1667,7 +1668,7 @@ var Shapes = {
             `<li class='drawToolShapes_filtering_group' id='drawToolShapes_filtering_group_${id}'>`,
                 `<div>`,
                     `<div class='drawFilterDragHandle'><i class="mdi mdi-drag-vertical mdi-12px"></i></div>`,
-                    "<div class='drawToolShapes_filtering_group_key'>Group</div>",
+                    uiMarkup("<div class='drawToolShapes_filtering_group_key'>Group</div>"),
                     "<div class='drawToolShapes_filtering_group_operator'>",
                         `<div id='drawToolShapes_filtering_group_operator_${id}' class='drawToolShapes_filtering_group_operator_select op_${(op || 'AND').toLowerCase()}'></div>`,
                     '</div>',
@@ -1676,7 +1677,7 @@ var Shapes = {
             '</li>',
         ].join('\n')
 
-        $('#drawToolShapes_filtering_filters_list').append(groupMarkup)
+        $('#drawToolShapes_filtering_filters_list').append(uiRenderedMarkup(groupMarkup))
 
         if (group == null) {
             Shapes.filters.values.push({
@@ -1699,10 +1700,10 @@ var Shapes = {
     // To highlight the submit button to indicate a change's been made in the form
     setSubmitButtonState: function (active) {
         if (active) {
-            $('#drawToolShapes_filtering_submit_text').text('Submit')
+            $('#drawToolShapes_filtering_submit_text').html(uiRenderedMarkup(uiMarkup("<span>Submit</span>")))
             $('#drawToolShapes_filtering_submit').addClass('active')
         } else if ($('#drawToolShapes_filtering_submit').hasClass('active')) {
-            $('#drawToolShapes_filtering_submit_text').text('Submitted')
+            $('#drawToolShapes_filtering_submit_text').html(uiRenderedMarkup(uiMarkup("<span>Submitted</span>")))
             $('#drawToolShapes_filtering_submit').removeClass('active')
         }
     },
@@ -1990,25 +1991,25 @@ var Shapes = {
         ]
         const opId = Math.max(ops.indexOf(options.op), 0)
         $(elmId).html(
-            Dropy.construct(
+            uiRenderedMarkup(Dropy.construct(
                 [
-                    `<i class='mdi mdi-equal mdi-18px' title='Equals'></i>`,
-                    `<div title='Not Equals' style='font-family: monospace;'>!=</div>`,
-                    `<div title='Comma-separated list' style='font-family: monospace;'>in</div>`,
-                    `<i class='mdi mdi-less-than mdi-18px' title='Less than'></i>`,
-                    `<i class='mdi mdi-greater-than mdi-18px' title='Greater than'></i>`,
-                    `<i class='mdi mdi-less-than-or-equal mdi-18px' title='Less than or Equal'></i>`,
-                    `<i class='mdi mdi-greater-than-or-equal mdi-18px' title='Greater than or Equal'></i>`,
-                    `<i class='mdi mdi-contain mdi-18px' title='Contains'></i>`,
-                    `<i class='mdi mdi-contain-start mdi-18px' title='Begins With'></i>`,
-                    `<i class='mdi mdi-contain-end mdi-18px' title='Ends With'></i>`,
-                    `<i class='mdi mdi-null mdi-18px' title='Is Null (No Value)'></i>`,
-                    `<i class='mdi mdi-check-circle-outline mdi-18px' title='Is Not Null (Has Value)'></i>`,
+                    uiTemplate`<i class='mdi mdi-equal mdi-18px' title='Equals'></i>`,
+                    uiTemplate`<div title='Not Equals' style='font-family: monospace;'>!=</div>`,
+                    uiTemplate`<div title='Comma-separated list' style='font-family: monospace;'>in</div>`,
+                    uiTemplate`<i class='mdi mdi-less-than mdi-18px' title='Less than'></i>`,
+                    uiTemplate`<i class='mdi mdi-greater-than mdi-18px' title='Greater than'></i>`,
+                    uiTemplate`<i class='mdi mdi-less-than-or-equal mdi-18px' title='Less than or Equal'></i>`,
+                    uiTemplate`<i class='mdi mdi-greater-than-or-equal mdi-18px' title='Greater than or Equal'></i>`,
+                    uiTemplate`<i class='mdi mdi-contain mdi-18px' title='Contains'></i>`,
+                    uiTemplate`<i class='mdi mdi-contain-start mdi-18px' title='Begins With'></i>`,
+                    uiTemplate`<i class='mdi mdi-contain-end mdi-18px' title='Ends With'></i>`,
+                    uiTemplate`<i class='mdi mdi-null mdi-18px' title='Is Null (No Value)'></i>`,
+                    uiTemplate`<i class='mdi mdi-check-circle-outline mdi-18px' title='Is Not Null (Has Value)'></i>`,
                 ],
                 'op',
                 opId,
                 { fixedItemWidth: 30, hideChevron: true }
-            )
+            ))
         )
         Dropy.init($(elmId), function (idx) {
             Shapes.filters.values[id].op = ops[idx]
@@ -2187,17 +2188,17 @@ var Shapes = {
         const ops = ['AND', 'OR', 'NOT_AND', 'NOT_OR']
         const opId = Math.max(ops.indexOf(options.op), 0)
         $(elmId).html(
-            Dropy.construct(
+            uiRenderedMarkup(Dropy.construct(
                 [
-                    `<div style='font-family: monospace;'>All Must Match (AND)</div>`,
-                    `<div style='font-family: monospace;'>Any May Match (OR)</div>`,
-                    `<div style='font-family: monospace;'>Not All May Match (NOT AND)</div>`,
-                    `<div style='font-family: monospace;'>None Must Match (NOT OR)</div>`,
+                    uiTemplate`<div style='font-family: monospace;'>All Must Match (AND)</div>`,
+                    uiTemplate`<div style='font-family: monospace;'>Any May Match (OR)</div>`,
+                    uiTemplate`<div style='font-family: monospace;'>Not All May Match (NOT AND)</div>`,
+                    uiTemplate`<div style='font-family: monospace;'>None Must Match (NOT OR)</div>`,
                 ],
                 'op',
                 opId,
                 { hideChevron: true }
-            )
+            ))
         )
         Dropy.init($(elmId), function (idx) {
             const newOp = ops[idx]
@@ -2280,9 +2281,9 @@ var Shapes = {
         const currentIndex = Math.max(properties.indexOf(currentProperty), 0)
 
         $('#drawToolShapesSortProperty').html(
-            Dropy.construct(properties, 'sort', currentIndex, {
+            uiRenderedMarkup(Dropy.construct(properties, 'sort', currentIndex, {
                 openDown: true,
-            })
+            }))
         )
 
         // Initialize Dropy
@@ -2475,7 +2476,7 @@ var Shapes = {
         // Re-append sorted items
         const list = $('#drawToolShapesFeaturesList')
         items.forEach((item) => {
-            list.append(item)
+            list.append(uiRenderedMarkup(item))
         })
     },
 
