@@ -90,9 +90,9 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
         () =>
             sourcesList.map((s, i) => ({
                 value: String(i),
-                label: s.name,
+                label: s.name === 'Custom' && (s.value === false || s.value === 'false') ? tLegacy('Custom') : s.name,
             })),
-        [sourcesList]
+        [sourcesList, tLegacy]
     )
 
     // Selectable DEMs (multi-DEM list, or the legacy single dem).
@@ -739,7 +739,7 @@ export default function SightlineElement({ elmId, onDragStart, onDragOver, onDra
                             progress={el.loadingProgress || 0}
                             onClick={handleGenerate}
                         >
-                            {generateLabel}
+                            {tLegacy(generateLabel)}
                         </ProgressButton>
                         {sightlineMode !== 'static' && el.regenerating && (
                             <button
