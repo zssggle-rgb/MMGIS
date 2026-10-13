@@ -52,7 +52,7 @@ import VideoPreview from "../components/VideoPreview/VideoPreview";
 import ColorButton from "../components/ColorButton/ColorButton";
 import ThemePreview from "../components/ThemePreview/ThemePreview";
 import InteractionEditor from "../components/Tabs/Layers/Interactions/InteractionEditor";
-import MDEditor from "@uiw/react-md-editor";
+import MDEditor, { commands as markdownCommands } from "@uiw/react-md-editor";
 import CodeMirror from "@uiw/react-codemirror";
 import { json } from "@codemirror/lang-json";
 import { Button } from "@mui/material";
@@ -867,6 +867,8 @@ const getComponent = (
       return (
         <div className="container">
           <MDEditor
+            commands={markdownCommands.getCommands()}
+            extraCommands={markdownCommands.getExtraCommands()}
             commandsFilter={localizeMarkdownCommand}
             textareaProps={{ "aria-label": configureText("editor.markdown.label") }}
             value={markdown_f}
