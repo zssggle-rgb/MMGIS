@@ -1,4 +1,12 @@
 {
+  "preview.configurationVersion": "预览配置 v{{version}}",
+  "layer.pendingUuid": "（将在保存时正式分配）",
+  "stac.failedExamples": "示例：{{ids}}",
+  "stac.itemRegex": "使用正则表达式匹配条目 ID",
+  "stac.itemSearch": "按条目 ID 搜索",
+  "stac.noMatchingItems": "未找到与“{{query}}”匹配的条目",
+  "stac.noCollectionItems": "此集合中没有条目",
+  "map.coordinates": "纬度：{{lat}}，经度：{{lng}}",
   "reference.earthDescription": "完整的地球演示，包含 20 多个图层和 14 个工具",
   "reference.lunarDescription": "月球南极立体投影项目（IAU2000:30120）",
   "reference.marsDescription": "火星示例项目，包含视线分析工具（Sol 观测点）",

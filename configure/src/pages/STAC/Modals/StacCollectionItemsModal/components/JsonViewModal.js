@@ -1,4 +1,4 @@
-import { useConfigureText } from "../../../../../i18n";
+import { useConfigureText, configureText } from "../../../../../i18n";
 import React, { useEffect, useRef, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -99,7 +99,7 @@ export default function JsonViewModal({ classes, open, onClose, item }) {
         newMap.on('mousemove', (e) => {
           const { lat, lng } = e.latlng;
           if (coordRef.current) {
-            coordRef.current.textContent = `Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}`;
+            coordRef.current.textContent = configureText("map.coordinates", { lat: lat.toFixed(6), lng: lng.toFixed(6) });
             coordRef.current.style.display = 'block';
           }
         });
