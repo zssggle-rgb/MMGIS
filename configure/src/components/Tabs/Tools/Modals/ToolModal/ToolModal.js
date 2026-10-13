@@ -314,7 +314,7 @@ const ToolModal = (props) => {
                     }}
                   />
                 }
-                label={toolActive ? "ON" : "OFF"}
+                label={ct(toolActive ? "status.enabled" : "status.disabled")}
                 labelPlacement="start"
               />
             </FormGroup>
