@@ -12,6 +12,8 @@
  */
 import React, { useState, useEffect, useRef } from 'react'
 import { createRoot } from 'react-dom/client'
+import { I18nextProvider } from 'react-i18next'
+import { i18n } from '../../../../../i18n'
 import useUIStore from '../../store/uiStore'
 
 import styles from './Modal.module.css'
@@ -117,7 +119,7 @@ function _ensureMounted() {
     _container.id = 'mmgisModalRoot'
     document.body.appendChild(_container)
     _root = createRoot(_container)
-    _root.render(<ModalHost />)
+    _root.render(<I18nextProvider i18n={i18n}><ModalHost /></I18nextProvider>)
 }
 
 const Modal = {

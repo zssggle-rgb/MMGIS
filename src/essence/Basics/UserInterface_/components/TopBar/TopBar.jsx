@@ -1,3 +1,5 @@
+import { useMapText, switchLocale, i18n } from '../../../../../i18n'
+import Toast from '../../../../../design-system/components/Toast/Toast'
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import useUIStore from '../../store/uiStore'
 import BottomBar from '../../BottomBar'
@@ -14,21 +16,51 @@ const STATUS_CONFIG = {
     RELOAD: {
         icon: 'mdi-reload-alert',
         color: 'var(--color-h)',
-        tooltip: 'Updates available — click to reload MMGIS',
+        tooltipKey: 'status.reload',
     },
     ADD_LAYER: {
         icon: 'mdi-reload',
         color: 'var(--color-green)',
-        tooltip: 'New layers available — click to update',
+        tooltipKey: 'status.layers',
     },
     DISCONNECTED: {
         icon: 'mdi-alert-outline',
         color: 'var(--color-r1)',
-        tooltip: 'WebSocket connection closed',
+        tooltipKey: 'status.disconnected',
     },
 }
 
+function LayerUpdateContent({ queue, onUpdate }) {
+    const t = useMapText()
+    return (
+        <div id="mainSettingsModal">
+            <div id="mainSettingsModalTitle">
+                <div><i className="mdi mdi-reload mdi-18px" /><div>{t('layers.updateTitle')}</div></div>
+                <button id="mainSettingsModalClose" onClick={() => Modal.remove()} aria-label={t('action.close')}>
+                    <i className="mmgisHoverBlue mdi mdi-close mdi-18px" />
+                </button>
+            </div>
+            <div id="update-modal-content" className="update-modal-section">
+                <div className="update-modal-section-title">{t('layers.changes')}</div>
+                <div className="update-modal-table-container">
+                    <table className="table" style={{ textAlign: 'left' }}>
+                        <thead><tr><th>{t('layers.action')}</th><th>{t('layers.name')}</th></tr></thead>
+                        <tbody>{queue.map(({ newLayerName, type }, index) => (
+                            <tr key={index}><td>{t('layers.' + type, { defaultValue: type })}</td><td>{newLayerName}</td></tr>
+                        ))}</tbody>
+                    </table>
+                </div>
+                <div id="update-modal-actions" className="update-modal-flex">
+                    <button className="drawToolFileCancel drawToolButton1" onClick={() => Modal.remove()}>{t('layers.cancel')}</button>
+                    <button className="drawToolFileSave drawToolButton1" onClick={onUpdate}>{t('layers.update')}</button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 function StatusIndicator() {
+    const t = useMapText()
     const statusType = useUIStore((s) => s.statusIndicator)
     const config = statusType ? STATUS_CONFIG[statusType] : null
 
@@ -36,59 +68,19 @@ function StatusIndicator() {
         if (!statusType) return
         if (statusType === 'RELOAD' || statusType === 'DISCONNECTED') {
             ConfirmationModal.prompt(
-                'Do you want to reload MMGIS to receive new updates?',
+                { translationKey: 'status.reloadConfirm' },
                 (isYes) => { if (isYes) location.reload() }
             )
         } else if (statusType === 'ADD_LAYER') {
             const L_ = require('../../../Layers_/Layers_').default
             const UserInterface_ = require('../../UserInterfaceBridge').default
-            // Show the layer update modal via LayerUpdatedControl's modal logic
-            let table = [
-                '<table class="table" style="text-align: left;">',
-                '<tr style="font-width: bold"><th style="column-width: 100px">Action</th><th>Layer name</th></tr>',
-            ]
-            const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
-            for (let i in L_.addLayerQueue) {
-                const { newLayerName, type } = L_.addLayerQueue[i]
-                const typePrettify = type.split(/(?=[A-Z])/).map((e) => e.charAt(0).toUpperCase() + e.slice(1).toLowerCase())
-                table.push(`<tr><td style="column-width: 100px">${esc(typePrettify.join(' '))}</td><td>${esc(newLayerName)}</td></tr>`)
-            }
-            table.push('</table>')
-            const modalContent = [
-                "<div id='mainSettingsModal'>",
-                    "<div id='mainSettingsModalTitle'>",
-                        "<div><i class='mdi mdi-reload mdi-18px'></i><div>Update map layers</div></div>",
-                        "<div id='mainSettingsModalClose'><i class='mmgisHoverBlue mdi mdi-close mdi-18px'></i></div>",
-                    "</div>",
-                    "<div id='update-modal-content'>",
-                        "<div class='update-modal-section'>",
-                            "<div class='update-modal-section-title'>The following changes can be updated:</div>",
-                            "<div class='update-modal-table-container'>",
-                            ...table,
-                            "</div>",
-                            "<div id='update-modal-actions'>",
-                                "<div class='update-modal-flex'>",
-                                    "<div class='drawToolFileCancel drawToolButton1'>Cancel</div>",
-                                    "<div class='drawToolFileSave drawToolButton1'>Update</div>",
-                                "</div>",
-                            "</div>",
-                        "</div>",
-                    "</div>",
-                "</div>",
-            ].join('\n')
-
-            Modal.set(modalContent, function () {
-                const $ = require('jquery')
-                $('.drawToolFileSave').on('click', function () {
-                    Modal.remove()
-                    L_.updateQueueLayers()
-                    UserInterface_.removeLayerUpdateButton()
-                })
-                $('.drawToolFileCancel').on('click', function () { Modal.remove() })
-                $('#mainSettingsModalClose').on('click', function () { Modal.remove() })
-            }, function () {})
+            Modal.set(<LayerUpdateContent queue={L_.addLayerQueue} onUpdate={() => {
+                Modal.remove()
+                L_.updateQueueLayers()
+                UserInterface_.removeLayerUpdateButton()
+            }} />)
         }
-    }, [statusType])
+    }, [statusType, t])
 
     return (
         <div
@@ -97,7 +89,7 @@ function StatusIndicator() {
             onClick={handleClick}
         >
             {config && (
-                <Tooltip content={config.tooltip} placement="bottom">
+                <Tooltip content={t(config.tooltipKey)} placement="bottom">
                     <i
                         className={`mdi ${config.icon} mdi-18px`}
                         style={{ color: config.color }}
@@ -109,6 +101,7 @@ function StatusIndicator() {
 }
 
 function TopBar({ userInterface }) {
+    const t = useMapText()
     const topBarLeftRef = useRef(null)
     const isMobile = useUIStore((s) => s.isMobile)
     const lookConfig = useUIStore((s) => s.lookConfig)
@@ -123,6 +116,7 @@ function TopBar({ userInterface }) {
     const [globeOpen, setGlobeOpen] = useState(false)
     const [username, setUsername] = useState(null)
     const userBtnRef = useRef(null)
+    const changeLanguage = (locale) => switchLocale(locale).catch(() => Toast.error(t('language.failed')))
 
     useEffect(() => {
         const el = topBarLeftRef.current
@@ -328,11 +322,11 @@ function TopBar({ userInterface }) {
                 <div id="topBarSecondary">
                     <div
                         className="mainDescription"
-                        title="Go to active item"
+                        title={t('navigation.active')}
                     ></div>
                     <div
                         className="mainInfo"
-                        title="Go to featured item"
+                        title={t('navigation.featured')}
                     ></div>
                 </div>
             </div>
@@ -345,30 +339,30 @@ function TopBar({ userInterface }) {
                     {showPanelToggles && (
                         <Toggle.Group className={styles.panelToggles}>
                             {hasViewer && (
-                                <Tooltip content="Toggle Viewer panel" placement="bottom">
+                                <Tooltip content={t('panel.toggleViewer')} placement="bottom">
                                     <Toggle
                                         pressed={viewerOpen}
                                         onPressedChange={handleToggleViewer}
                                     >
-                                        Viewer
+                                        {t('panel.viewer')}
                                     </Toggle>
                                 </Tooltip>
                             )}
-                            <Tooltip content="Toggle Map panel" placement="bottom">
+                            <Tooltip content={t('panel.toggleMap')} placement="bottom">
                                 <Toggle
                                     pressed={mapOpen}
                                     onPressedChange={handleToggleMap}
                                 >
-                                    Map
+                                    {t('panel.map')}
                                 </Toggle>
                             </Tooltip>
                             {hasGlobe && (
-                                <Tooltip content="Toggle Globe panel" placement="bottom">
+                                <Tooltip content={t('panel.toggleGlobe')} placement="bottom">
                                     <Toggle
                                         pressed={globeOpen}
                                         onPressedChange={handleToggleGlobe}
                                     >
-                                        Globe
+                                        {t('panel.globe')}
                                     </Toggle>
                                 </Tooltip>
                             )}
@@ -395,13 +389,14 @@ function TopBar({ userInterface }) {
                                         <div className={styles.userCardDivider} />
                                         <Dropdown.Item onClick={handleLogout}>
                                             <i className="mdi mdi-logout" style={{ marginRight: 6, fontSize: 14 }} />
-                                            Logout
+                                            {t('account.logout')}
                                         </Dropdown.Item>
                                     </Dropdown>
                                 </div>
                             ) : (
                                 <IconButton
                                     onClick={handleSignIn}
+                                    aria-label={t('account.login')}
                                 >
                                     <i className="mdi mdi-login" style={{ fontSize: 16 }} />
                                 </IconButton>
@@ -412,26 +407,32 @@ function TopBar({ userInterface }) {
                     {/* Right menu (kebab) */}
                     <Dropdown
                         trigger={
-                            <IconButton className={styles.menuBtn}>
+                            <IconButton className={styles.menuBtn} aria-label={t('menu.settings')}>
                                 <i className="mdi mdi-dots-vertical" style={{ fontSize: 20 }} />
                             </IconButton>
                         }
                     >
+                        <Dropdown.Item onClick={() => changeLanguage('zh-CN')} aria-current={i18n.language === 'zh-CN' ? 'true' : undefined}>
+                            {i18n.language === 'zh-CN' ? '✓ ' : ''}简体中文
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => changeLanguage('en')} aria-current={i18n.language === 'en' ? 'true' : undefined}>
+                            {i18n.language === 'en' ? '✓ ' : ''}English
+                        </Dropdown.Item>
                         {!isMobile && (
                             <Dropdown.Item onClick={() => BottomBar.toggleHotkeys(true)}>
                                 <i className="mdi mdi-keyboard" style={{ marginRight: 8, fontSize: 14 }} />
-                                Keyboard Shortcuts
+                                {t('menu.shortcuts')}
                             </Dropdown.Item>
                         )}
                         {lookConfig.settings !== false && (
                             <Dropdown.Item onClick={() => BottomBar.toggleSettings(true)}>
                                 <i className="mdi mdi-cog" style={{ marginRight: 8, fontSize: 14 }} />
-                                Settings
+                                {t('menu.settings')}
                             </Dropdown.Item>
                         )}
                         <Dropdown.Item onClick={() => BottomBar.showAboutModal()}>
                             <i className="mdi mdi-information-outline" style={{ marginRight: 8, fontSize: 14 }} />
-                            About
+                            {t('menu.about')}
                         </Dropdown.Item>
                     </Dropdown>
                 </div>

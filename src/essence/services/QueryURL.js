@@ -6,6 +6,8 @@ import T_ from '../Basics/ToolController_/ToolController_'
 import calls from '../../pre/calls'
 import TimeControl from '../Basics/TimeControl_/TimeControl'
 import TimeUI from '../Basics/TimeControl_/TimeUI'
+import { i18n } from '../../i18n'
+import { withLocale } from '../../i18n/generated/locale'
 
 var QueryURL = {
     checkIfMission: function () {
@@ -427,7 +429,7 @@ var QueryURL = {
             }
         }
 
-        var url = encodeURI(urlAppendage)
+        var url = encodeURI(urlAppendage + '&lang=' + i18n.language)
 
         if (shortenURL) {
             calls.api(
@@ -438,13 +440,13 @@ var QueryURL = {
                 function (s) {
                     //Set and update the short url
                     L_.url =
-                        window.location.href.split('?')[0] + '?s=' + s.body.url
+                        window.location.href.split('?')[0] + '?s=' + s.body.url + '&lang=' + i18n.language
                     window.history.replaceState('', '', L_.url)
                     if (typeof callback === 'function') callback()
                 },
                 function (e) {
                     //Set and update the full url
-                    L_.url = window.location.href.split('?')[0] + url
+                    L_.url = withLocale(window.location.href.split('?')[0] + url, i18n.language)
                     window.history.replaceState('', '', L_.url)
                     if (typeof callback === 'function') callback()
                 }
