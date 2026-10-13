@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useMetadataText } from "../../../../i18n";
+import { metadataText } from "../../../../i18n/metadata";
 import { makeStyles } from "@mui/styles";
 import {
   Accordion,
@@ -158,7 +160,8 @@ const InteractionItem = ({
   main,
   c,
 }) => {
-  const name = interaction?.name || interactionId;
+  const tMeta = useMetadataText();
+  const name = metadataText(interaction?.name || interactionId, tMeta);
   return (
     <Paper
       className={`${c.item} ${main ? c.itemMain : ""} ${
@@ -183,7 +186,7 @@ const InteractionItem = ({
         <Typography className={c.interactionId}>{interactionId}</Typography>
         {interaction?.description ? (
           <Typography className={c.itemDescription}>
-            {interaction.description}
+            {metadataText(interaction.description, tMeta)}
           </Typography>
         ) : null}
       </div>
@@ -222,6 +225,7 @@ export default function InteractionEditor({
   layer,
   updateConfiguration,
 }) {
+  const tMeta = useMetadataText();
   const c = useStyles();
   const [interactionConfigs, setInteractionConfigs] = useState(
     providedInteractionConfigs || null
@@ -487,7 +491,7 @@ export default function InteractionEditor({
             <Autocomplete
               className={c.addPicker}
               getOptionLabel={(interaction) =>
-                `${interaction.name || interaction.interactionId} (${
+                `${metadataText(interaction.name || interaction.interactionId, tMeta)} (${
                   interaction.interactionId
                 })`
               }
