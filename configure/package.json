@@ -41,6 +41,7 @@
     "prestart": "node ../scripts/i18n/prepare.js",
     "start": "react-scripts start",
     "build": "react-scripts build && node scripts/make-pug-index.js",
+    "postbuild": "node ../scripts/i18n/prepare.js --record-build=configure",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
