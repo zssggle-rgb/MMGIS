@@ -64,14 +64,20 @@ import './css/mmgisUI.css'
 import 'tippy.js/dist/tippy.css'
 
 import App from './App'
+import { I18nextProvider } from 'react-i18next'
+import { i18n, localeReady } from './i18n'
 import * as serviceWorker from './serviceWorker'
 
 const root = createRoot(document.getElementById('root'))
-root.render(
+localeReady.then(() => root.render(
     <StrictMode>
-        <App />
+        <I18nextProvider i18n={i18n}>
+            <App />
+        </I18nextProvider>
     </StrictMode>
-)
+)).catch(() => {
+    document.getElementById('root').textContent = '界面加载失败，请刷新页面重试。'
+})
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

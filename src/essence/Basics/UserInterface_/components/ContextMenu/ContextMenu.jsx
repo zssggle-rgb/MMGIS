@@ -10,6 +10,8 @@
  */
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { createRoot } from 'react-dom/client'
+import { I18nextProvider } from 'react-i18next'
+import { i18n, useMapText } from '../../../../../i18n'
 import L_ from '../../../Layers_/Layers_'
 import F_ from '../../../Formulae_/Formulae_'
 import Map_ from '../../../Map_/Map_'
@@ -22,6 +24,7 @@ import styles from './ContextMenu.module.css'
 // ── React component ─────────────────────────────────────────────────────
 
 function ContextMenuPopup({ x, y, featuresAtClick, contextMenuActions, onClose }) {
+    const t = useMapText()
     const menuRef = useRef(null)
     const [copiedCoords, setCopiedCoords] = useState(false)
     const [copiedKeys, setCopiedKeys] = useState({})
@@ -124,7 +127,7 @@ function ContextMenuPopup({ x, y, featuresAtClick, contextMenuActions, onClose }
             </div>
             <ul className={styles.list}>
                 <li id="contextMenuMapCopyCoords" className={styles.item} onClick={handleCopyCoords}>
-                    {copiedCoords ? 'Copied!' : 'Copy Coordinates'}
+                    {copiedCoords ? t('status.copied') : t('action.copyCoordinates')}
                 </li>
 
                 {Object.keys(L_._toolCopyables).map((key) => {
@@ -136,7 +139,7 @@ function ContextMenuPopup({ x, y, featuresAtClick, contextMenuActions, onClose }
                             className={styles.item}
                             onClick={() => handleCopyable(key, c)}
                         >
-                            {copiedKeys[key] ? 'Copied!' : c.title}
+                            {copiedKeys[key] ? t('status.copied') : c.title}
                         </li>
                     )
                 })}
@@ -235,6 +238,7 @@ function showContextMenuMap(e) {
 
     _menuRoot = createRoot(_menuContainer)
     _menuRoot.render(
+        <I18nextProvider i18n={i18n}>
         <ContextMenuPopup
             x={x}
             y={y}
@@ -242,6 +246,7 @@ function showContextMenuMap(e) {
             contextMenuActions={contextMenuActions}
             onClose={() => _cleanup()}
         />
+        </I18nextProvider>
     )
 }
 

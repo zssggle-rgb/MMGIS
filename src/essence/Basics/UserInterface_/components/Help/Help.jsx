@@ -1,3 +1,4 @@
+import { useMapText, mapText } from '../../../../../i18n'
 /**
  * Help — renders a help button that opens a markdown help modal.
  *
@@ -16,6 +17,7 @@ import styles from './Help.module.css'
 showdown.setFlavor('github')
 
 function HelpContent({ helpKey }) {
+    const t = useMapText()
     const [html, setHtml] = useState(null)
     const [loading, setLoading] = useState(true)
 
@@ -42,10 +44,11 @@ function HelpContent({ helpKey }) {
             <div className={styles.title}>
                 <div className={styles.titleLeft}>
                     <i className="mdi mdi-help-rhombus-outline mdi-18px" />
-                    <div>Help</div>
+                    <div>{t('help.title')}</div>
                 </div>
                 <div
                     className={styles.closeBtn}
+                    title={t('action.close')}
                     onClick={() => Modal.remove()}
                 >
                     <i className="mdi mdi-close mdi-18px" />
@@ -53,11 +56,11 @@ function HelpContent({ helpKey }) {
             </div>
             <div className={styles.content}>
                 {loading ? (
-                    <div>Loading...</div>
+                    <div>{t('help.loading')}</div>
                 ) : html ? (
                     <div dangerouslySetInnerHTML={{ __html: html }} />
                 ) : (
-                    <div>No help content available.</div>
+                    <div>{t('help.empty')}</div>
                 )}
             </div>
         </div>
@@ -66,7 +69,7 @@ function HelpContent({ helpKey }) {
 
 const Help = {
     getComponent: function (helpKey) {
-        return `<div id='helpModal_${helpKey}' class='mmgisButton5 mmgisHelpButton' title='Help'><i class='mdi mdi-help-rhombus-outline mdi-18px'></i></div>`
+        return `<div id='helpModal_${helpKey}' class='mmgisButton5 mmgisHelpButton' title='${mapText('help.title')}'><i class='mdi mdi-help-rhombus-outline mdi-18px'></i></div>`
     },
     finalize: function (helpKey) {
         const btn = document.getElementById(`helpModal_${helpKey}`)

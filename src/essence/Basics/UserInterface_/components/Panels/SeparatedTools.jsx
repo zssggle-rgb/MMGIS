@@ -1,3 +1,4 @@
+import { useMapText } from '../../../../../i18n'
 import React, { useCallback, useMemo } from 'react'
 import useUIStore from '../../store/uiStore'
 import { toolConfigs } from '../../../../../pre/tools'
@@ -5,6 +6,7 @@ import { toolConfigs } from '../../../../../pre/tools'
 import styles from './SeparatedTools.module.css'
 
 function SeparatedTools() {
+    const t = useMapText()
     const separatedToolsList = useUIStore((s) => s.separatedToolsList)
     const activeSeparatedTools = useUIStore((s) => s.activeSeparatedTools)
 
@@ -61,11 +63,11 @@ function SeparatedTools() {
                         {!isCustom && (
                             <div className={styles.header}>
                                 <span className={styles.headerTitle}>
-                                    {tool.name}
+                                    {t('common:tool.' + tool.name, { defaultValue: tool.name })}
                                 </span>
                                 <div
                                     className={styles.headerClose}
-                                    title="Close"
+                                    title={t('action.close')}
                                     onClick={() => handleClose(tool)}
                                 >
                                     <i
