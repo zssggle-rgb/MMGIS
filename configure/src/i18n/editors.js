@@ -51,6 +51,6 @@ const searchPanelLabels = ViewPlugin.fromClass(class {
 
 export function localizedCodeMirrorPhrases() {
   return [searchPanelLabels, EditorState.phrases.of(Object.fromEntries(codeMirrorPhrases.map((phrase) => [
-    phrase, configureText(`editor.codemirror.${phrase.toLowerCase().replace(/\$/g, "value").replace(/\W+/g, "_")}`, { defaultValue: phrase }),
+    phrase, configureText(`editor.codemirror.${phrase === "Replace" ? "replaceInput" : phrase.toLowerCase().replace(/\$/g, "value").replace(/\W+/g, "_")}`, { defaultValue: phrase }),
   ])))];
 }
