@@ -1,4 +1,6 @@
 {
+  "status.enabled": "启用",
+  "status.disabled": "停用",
   "preview.configurationVersion": "预览配置 v{{version}}",
   "layer.pendingUuid": "（将在保存时正式分配）",
   "stac.failedExamples": "示例：{{ids}}",

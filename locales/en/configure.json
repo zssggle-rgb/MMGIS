@@ -1,4 +1,6 @@
 {
+  "status.enabled": "ON",
+  "status.disabled": "OFF",
   "preview.configurationVersion": "Previewing Configuration v{{version}}",
   "layer.pendingUuid": " (Will be formally assigned upon saving)",
   "stac.failedExamples": "Examples: {{ids}}",

@@ -303,7 +303,7 @@ const ComponentModal = (props) => {
                     }}
                   />
                 }
-                label={componentActive ? "ON" : "OFF"}
+                label={ct(componentActive ? "status.enabled" : "status.disabled")}
                 labelPlacement="start"
               />
             </FormGroup>
