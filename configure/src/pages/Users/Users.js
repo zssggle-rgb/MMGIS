@@ -1,3 +1,4 @@
+import { useConfigureText, configureText } from "../../i18n";
 /* global mmgisglobal */
 
 import React, { useEffect } from "react";
@@ -235,31 +236,31 @@ const useStyles = makeStyles((theme) => ({
 const headCells = [
   {
     id: "id",
-    label: "Id",
+    get label() { return configureText("ui.id_474ae5"); },
   },
   {
     id: "username",
-    label: "Username",
+    get label() { return configureText("ui.username_84c290"); },
   },
   {
     id: "email",
-    label: "Email",
+    get label() { return configureText("ui.email_84add5"); },
   },
   {
     id: "permission",
-    label: "Role",
+    get label() { return configureText("ui.role_c3f104"); },
   },
   {
     id: "missions_managing",
-    label: "Assigned Missions",
+    get label() { return configureText("ui.assigned_missions_0b49b4"); },
   },
   {
     id: "createdAt",
-    label: "Joined",
+    get label() { return configureText("ui.joined_43a1c6"); },
   },
   {
     id: "updatedAt",
-    label: "Last Login/Update",
+    get label() { return configureText("ui.last_login_update_cb9aed"); },
   },
   {
     id: "actions",
@@ -268,6 +269,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
+  const ct = useConfigureText();
   const { order, orderBy, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -294,7 +296,7 @@ function EnhancedTableHead(props) {
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  {order === "desc" ? ct("table.sortedDescending") : ct("table.sortedAscending")}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -314,6 +316,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
+  const ct = useConfigureText();
   const c = useStyles();
   const dispatch = useDispatch();
 
@@ -325,9 +328,7 @@ function EnhancedTableToolbar(props) {
           style={{ fontWeight: "bold", fontSize: "16px", lineHeight: "29px" }}
           variant="h6"
           component="div"
-        >
-          Users
-        </Typography>
+        >{ct("ui.users_57f2b1")}</Typography>
       </div>
 
       <Button
@@ -337,9 +338,7 @@ function EnhancedTableToolbar(props) {
         onClick={() => {
           dispatch(setModal({ name: "newUser" }));
         }}
-      >
-        New User
-      </Button>
+      >{ct("ui.new_user_b85e44")}</Button>
     </Toolbar>
   );
 }
@@ -349,6 +348,7 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function Users() {
+  const ct = useConfigureText();
   const [order, setOrder] = React.useState("desc");
   const [orderBy, setOrderBy] = React.useState("permission");
   const [page, setPage] = React.useState(0);
@@ -369,7 +369,7 @@ export default function Users() {
         else
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to get User Entries.",
+              text: res?.message || ct("ui.failed_to_get_user_entries_d3ff76"),
               severity: "error",
             })
           );
@@ -377,7 +377,7 @@ export default function Users() {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to get Users Entries.",
+            text: res?.message || ct("ui.failed_to_get_users_entries_0d7d85"),
             severity: "error",
           })
         );
@@ -445,7 +445,7 @@ export default function Users() {
           <EnhancedTableToolbar />
           {authDescription != null && (
             <div className={c.authIndicator}>
-              <div>AUTH:</div>
+              <div>{ct("ui.auth_b2b1cf")}</div>
               <div>{mmgisglobal.AUTH}</div>
               <div>{authDescription}</div>
             </div>
@@ -487,11 +487,11 @@ export default function Users() {
                       <TableCell align="right">{row.email}</TableCell>
                       <TableCell align="right">
                         {row.permission === "111" ? (
-                          <div className={c.roleSuperAdmin}>SuperAdmin</div>
+                          <div className={c.roleSuperAdmin}>{ct("ui.superadmin_dd9b23")}</div>
                         ) : row.permission === "110" ? (
-                          <div className={c.roleAdmin}>Admin</div>
+                          <div className={c.roleAdmin}>{ct("ui.admin_4e7afe")}</div>
                         ) : (
-                          <div className={c.roleUser}>User</div>
+                          <div className={c.roleUser}>{ct("ui.user_9f8a23")}</div>
                         )}
                       </TableCell>
                       <TableCell align="right">
@@ -500,24 +500,20 @@ export default function Users() {
                             {row.missions_managing.join(", ")}
                           </div>
                         ) : row.permission === "111" ? (
-                          <div style={{ fontSize: "12px", fontStyle: "italic", color: "#888" }}>
-                            All Missions
-                          </div>
+                          <div style={{ fontSize: "12px", fontStyle: "italic", color: "#888" }}>{ct("ui.all_missions_39a13f")}</div>
                         ) : (
-                          <div style={{ fontSize: "12px", fontStyle: "italic", color: "#888" }}>
-                            N/A
-                          </div>
+                          <div style={{ fontSize: "12px", fontStyle: "italic", color: "#888" }}>{ct("ui.n_a_08d2e9")}</div>
                         )}
                       </TableCell>
                       <TableCell align="right">{row.createdAt}</TableCell>
                       <TableCell align="right">{row.updatedAt}</TableCell>
                       <TableCell align="right">
                         <div className={c.actions}>
-                          <Tooltip title={"Update User"} placement="top" arrow>
+                          <Tooltip title={ct("ui.update_user_e27738")} placement="top" arrow>
                             <IconButton
                               className={c.previewIcon}
-                              title="Update User"
-                              aria-label="update user"
+                              title={ct("ui.update_user_e27738")}
+                              aria-label={ct("ui.update_user_3d2255")}
                               onClick={() => {
                                 dispatch(
                                   setModal({
@@ -532,14 +528,14 @@ export default function Users() {
                           </Tooltip>
 
                           <Tooltip
-                            title={"Reset Password"}
+                            title={ct("ui.reset_password_3fb75e")}
                             placement="top"
                             arrow
                           >
                             <IconButton
                               className={c.previewIcon}
-                              title="Reset Password"
-                              aria-label="reset password"
+                              title={ct("ui.reset_password_3fb75e")}
+                              aria-label={ct("ui.reset_password_37b60e")}
                               onClick={() => {
                                 dispatch(
                                   setModal({
@@ -555,11 +551,11 @@ export default function Users() {
 
                           <Divider orientation="vertical" flexItem />
 
-                          <Tooltip title={"Delete"} placement="top" arrow>
+                          <Tooltip title={ct("ui.delete_f6fdbe")} placement="top" arrow>
                             <IconButton
                               className={c.deleteIcon}
-                              title="Delete"
-                              aria-label="delete"
+                              title={ct("ui.delete_f6fdbe")}
+                              aria-label={ct("ui.delete_948598")}
                               onClick={() => {
                                 dispatch(
                                   setModal({

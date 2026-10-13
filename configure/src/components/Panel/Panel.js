@@ -1,3 +1,4 @@
+import { useConfigureText, i18n, switchLocale } from "../../i18n";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {} from "./PanelSlice";
@@ -174,6 +175,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Panel() {
+  const ct = useConfigureText();
   const c = useStyles();
   const dispatch = useDispatch();
 
@@ -192,7 +194,7 @@ export default function Panel() {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to get user permissions.",
+            text: res?.message || ct("ui.failed_to_get_user_permissions_814cb5"),
             severity: "error",
           })
         );
@@ -230,22 +232,17 @@ export default function Panel() {
         <div className={c.title}>
           <img className={c.titleImage} src={mmgisLogo} alt="MMGIS"></img>
           <div className={c.configurationName}>
-            <span>Config</span>uration
-          </div>
+            <span>{ct("ui.config_885114")}</span>{ct("ui.uration_8b6ae6")}</div>
           {buildVersion && (
             <>
               {isVersionMismatch ? (
                 <Tooltip
                   title={
                     <div className={c.versionMismatchTooltip}>
-                      <div style={{ fontWeight: "bold", marginBottom: "4px" }}>
-                        Version Mismatch
-                      </div>
-                      <div>Configure UI: v{buildVersion}</div>
-                      <div>Server: v{serverVersion}</div>
-                      <div style={{ marginTop: "4px", fontSize: "11px" }}>
-                        Please refresh or contact admin
-                      </div>
+                      <div style={{ fontWeight: "bold", marginBottom: "4px" }}>{ct("ui.version_mismatch_63a72f")}</div>
+                      <div>{ct("ui.configure_ui_v_4fd42b")}{buildVersion}</div>
+                      <div>{ct("ui.server_v_86577e")}{serverVersion}</div>
+                      <div style={{ marginTop: "4px", fontSize: "11px" }}>{ct("ui.please_refresh_or_contact_admin_1eef22")}</div>
                     </div>
                   }
                   placement="right"
@@ -262,6 +259,17 @@ export default function Panel() {
             </>
           )}
         </div>
+        <Button
+          className={c.pageButton}
+          aria-label={ct("language.switch")}
+          onClick={() => {
+            switchLocale(i18n.language === "zh-CN" ? "en" : "zh-CN").catch(() => {
+              dispatch(setSnackBarText({ text: ct("language.failed"), severity: "error" }));
+            });
+          }}
+        >
+          {i18n.language === "zh-CN" ? "English" : "简体中文"}
+        </Button>
         {window.mmgisglobal?.permission === "111" && (
           <div className={c.newMission}>
             <Button
@@ -271,9 +279,7 @@ export default function Panel() {
               onClick={() => {
                 dispatch(setModal({ name: "newMission" }));
               }}
-            >
-              New Mission
-            </Button>
+            >{ct("ui.new_mission_41379e")}</Button>
           </div>
         )}
         <div className={c.missions}>
@@ -298,7 +304,7 @@ export default function Panel() {
                       } else {
                         dispatch(
                           setSnackBarText({
-                            text: `You don't have permission to edit the "${mission}" mission.`,
+                            text: ct("ui.you_don_t_have_permission_to_e3c254", { p0: mission }),
                             severity: "warning",
                           })
                         );
@@ -325,9 +331,7 @@ export default function Panel() {
               dispatch(setMission(null));
               dispatch(setPage({ page: "geodatasets" }));
             }}
-          >
-            GeoDatasets
-          </Button>
+          >{ct("ui.geodatasets_44f55d")}</Button>
           <Button
             className={c.pageButton}
             variant="contained"
@@ -337,9 +341,7 @@ export default function Panel() {
               dispatch(setMission(null));
               dispatch(setPage({ page: "datasets" }));
             }}
-          >
-            Datasets
-          </Button>
+          >{ct("ui.datasets_93a7f2")}</Button>
 
           {window.mmgisglobal.WITH_STAC === "true" ? (
             <Button
@@ -365,9 +367,7 @@ export default function Panel() {
               dispatch(setMission(null));
               dispatch(setPage({ page: "api_tokens" }));
             }}
-          >
-            API Tokens
-          </Button>
+          >{ct("ui.api_tokens_ee50ac")}</Button>
 
           <Button
             className={c.pageButton}
@@ -378,9 +378,7 @@ export default function Panel() {
               dispatch(setMission(null));
               dispatch(setPage({ page: "apis" }));
             }}
-          >
-            APIs
-          </Button>
+          >{ct("ui.apis_4ca0a1")}</Button>
 
           <Button
             className={c.pageButton}
@@ -391,9 +389,7 @@ export default function Panel() {
               dispatch(setMission(null));
               dispatch(setPage({ page: "webhooks" }));
             }}
-          >
-            Webhooks
-          </Button>
+          >{ct("ui.webhooks_fdfe2d")}</Button>
 
           <Button
             className={c.pageButton}
@@ -404,9 +400,7 @@ export default function Panel() {
               dispatch(setMission(null));
               dispatch(setPage({ page: "general_options" }));
             }}
-          >
-            General Options
-          </Button>
+          >{ct("ui.general_options_ba5b22")}</Button>
 
           <Button
             className={c.pageButton}
@@ -417,9 +411,7 @@ export default function Panel() {
               dispatch(setMission(null));
               dispatch(setPage({ page: "users" }));
             }}
-          >
-            Users
-          </Button>
+          >{ct("ui.users_57f2b1")}</Button>
         </div>
       </div>
       <NewMissionModal />

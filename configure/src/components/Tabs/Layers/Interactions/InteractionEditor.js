@@ -1,3 +1,4 @@
+import { useConfigureText, configureText } from "../../../../i18n";
 import React, { useEffect, useMemo, useState } from "react";
 import { useMetadataText } from "../../../../i18n";
 import { metadataText } from "../../../../i18n/metadata";
@@ -160,6 +161,7 @@ const InteractionItem = ({
   main,
   c,
 }) => {
+  useConfigureText();
   const tMeta = useMetadataText();
   const name = metadataText(interaction?.name || interactionId, tMeta);
   return (
@@ -191,7 +193,7 @@ const InteractionItem = ({
         ) : null}
       </div>
       {onRemove ? (
-        <IconButton aria-label={`Remove ${name}`} onClick={onRemove}>
+        <IconButton aria-label={ct("ui.remove_p0_b8c425", { p0: name })} onClick={onRemove}>
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -215,7 +217,7 @@ const LockedPipeline = ({ title, interactions, suppressionSources, c }) => (
         />
       ))
     ) : (
-      <div className={c.empty}>No interactions</div>
+      <div className={c.empty}>{configureText("ui.no_interactions_0d4208")}</div>
     )}
   </div>
 );
@@ -225,6 +227,7 @@ export default function InteractionEditor({
   layer,
   updateConfiguration,
 }) {
+  const ct = useConfigureText();
   const tMeta = useMetadataText();
   const c = useStyles();
   const [interactionConfigs, setInteractionConfigs] = useState(
@@ -256,8 +259,8 @@ export default function InteractionEditor({
   );
 
   if (loadError)
-    return <Alert severity="error">Failed to load interaction plugins.</Alert>;
-  if (!interactionConfigs) return <Typography>Loading interactions…</Typography>;
+    return <Alert severity="error">{ct("ui.failed_to_load_interaction_plugins_b492ff")}</Alert>;
+  if (!interactionConfigs) return <Typography>{ct("ui.loading_interactions_8ceb23")}</Typography>;
 
   const customPipeline = Array.isArray(layer.interactions?.click);
   const kind = layer.kind || "none";
@@ -339,31 +342,25 @@ export default function InteractionEditor({
     <div className={c.editor}>
       <div className={c.source}>
         <div>
-          <Typography variant="h6">Behavior source</Typography>
-          <Typography className={c.itemDescription}>
-            Use a Kind preset or customize the ordered main click interactions.
-          </Typography>
+          <Typography variant="h6">{ct("ui.behavior_source_7f1699")}</Typography>
+          <Typography className={c.itemDescription}>{ct("ui.use_a_kind_preset_or_customize_584122")}</Typography>
         </div>
         <div className={c.sourceButtons}>
           <Button
             variant={customPipeline ? "outlined" : "contained"}
             onClick={() => updateClickPipeline(null)}
-          >
-            Kind preset
-          </Button>
+          >{ct("ui.kind_preset_b5c1c0")}</Button>
           <Button
             variant={customPipeline ? "contained" : "outlined"}
             onClick={() => {
               if (!customPipeline) updateClickPipeline(presetPipeline);
             }}
-          >
-            Customize pipeline
-          </Button>
+          >{ct("ui.customize_pipeline_fa2849")}</Button>
         </div>
       </div>
 
       <FormControl className={c.preset} variant="filled" size="small">
-        <InputLabel>Kind of Layer</InputLabel>
+        <InputLabel>{ct("ui.kind_of_layer_a4c151")}</InputLabel>
         <Select
           disabled={customPipeline}
           value={kind}
@@ -380,27 +377,17 @@ export default function InteractionEditor({
       </FormControl>
 
       {customPipeline ? (
-        <Typography className={c.itemDescription}>
-          The Kind preset remains saved for easy restoration but does not control
-          the custom click pipeline.
-        </Typography>
+        <Typography className={c.itemDescription}>{ct("ui.the_kind_preset_remains_saved_for_db496c")}</Typography>
       ) : null}
 
       {!kindAvailable ? (
-        <Alert severity="warning">
-          The saved Kind “{kind}” is not provided by an enabled interaction
-          plugin for this layer type.
-        </Alert>
+        <Alert severity="warning">{ct("ui.the_saved_kind_57e80b")}{kind}{ct("ui.is_not_provided_by_an_enabled_d9d7b4")}</Alert>
       ) : null}
       {invalidIds.length > 0 ? (
-        <Alert severity="warning">
-          Unavailable or inapplicable interactions: {invalidIds.join(", ")}.
-          They remain in the layer configuration until removed.
-        </Alert>
+        <Alert severity="warning">{ct("ui.unavailable_or_inapplicable_interactions_b02022")}{invalidIds.join(", ")}{ct("ui.they_remain_in_the_layer_configuration_10d950")}</Alert>
       ) : null}
       {duplicateIds.length > 0 ? (
-        <Alert severity="warning">
-          Duplicate interactions are not allowed: {duplicateIds.join(", ")}.
+        <Alert severity="warning">{ct("ui.duplicate_interactions_are_not_allowed_0bcf1a")}{duplicateIds.join(", ")}.
         </Alert>
       ) : null}
 
@@ -408,11 +395,11 @@ export default function InteractionEditor({
       <LockedPipeline
         c={c}
         interactions={clickPreamble}
-        title="Always before"
+        title={ct("ui.always_before_c16c9c")}
       />
 
       <div className={`${c.pipeline} ${c.section}`}>
-        <Typography className={c.sectionLabel}>Main behavior</Typography>
+        <Typography className={c.sectionLabel}>{ct("ui.main_behavior_8242b3")}</Typography>
         {customPipeline ? (
           <DragDropContext
             onDragEnd={(result) => {
@@ -464,7 +451,7 @@ export default function InteractionEditor({
                   ))}
                   {provided.placeholder}
                   {selectedIds.length === 0 ? (
-                    <div className={c.empty}>No main click interactions</div>
+                    <div className={c.empty}>{ct("ui.no_main_click_interactions_396233")}</div>
                   ) : null}
                 </div>
               )}
@@ -481,7 +468,7 @@ export default function InteractionEditor({
             />
           ))
         ) : (
-          <div className={c.empty}>This Kind has no main interactions</div>
+          <div className={c.empty}>{ct("ui.this_kind_has_no_main_interactions_72f36a")}</div>
         )}
       </div>
 
@@ -500,7 +487,7 @@ export default function InteractionEditor({
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Add interaction"
+                  label={"Add interaction"}
                   size="small"
                   variant="filled"
                 />
@@ -518,17 +505,11 @@ export default function InteractionEditor({
               }}
               startIcon={<AddIcon />}
               variant="outlined"
-            >
-              Add
-            </Button>
+            >{ct("ui.add_61cc55")}</Button>
           </div>
           <div className={c.actions}>
-            <Button onClick={() => updateClickPipeline(presetPipeline)}>
-              Reset to Kind preset
-            </Button>
-            <Button onClick={() => updateClickPipeline([])}>
-              Clear custom pipeline
-            </Button>
+            <Button onClick={() => updateClickPipeline(presetPipeline)}>{ct("ui.reset_to_kind_preset_a7192f")}</Button>
+            <Button onClick={() => updateClickPipeline([])}>{ct("ui.clear_custom_pipeline_430671")}</Button>
           </div>
         </>
       ) : null}
@@ -537,24 +518,24 @@ export default function InteractionEditor({
         c={c}
         interactions={clickPostamble}
         suppressionSources={suppressionSources}
-        title="Always after"
+        title={ct("ui.always_after_46b8e8")}
       />
 
       <Accordion className={c.accordion} disableGutters>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>Pointer interactions (advanced)</Typography>
+          <Typography>{ct("ui.pointer_interactions_advanced_add46b")}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <div className={c.pointerGrid}>
             <LockedPipeline
               c={c}
               interactions={hoverDefaults}
-              title="Hover defaults"
+              title={ct("ui.hover_defaults_168d9b")}
             />
             <LockedPipeline
               c={c}
               interactions={mouseoutDefaults}
-              title="Mouseout defaults"
+              title={ct("ui.mouseout_defaults_633035")}
             />
           </div>
         </AccordionDetails>

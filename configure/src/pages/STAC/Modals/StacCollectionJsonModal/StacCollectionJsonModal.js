@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -84,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
 const MODAL_NAME = "stacCollectionJson";
 
 const StacCollectionJsonModal = () => {
+  const ct = useConfigureText();
   const c = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -111,12 +113,12 @@ const StacCollectionJsonModal = () => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <InfoIcon className={c.backgroundIcon} />
-            <div className={c.title}>Collection JSON: {modal?.collection?.id}</div>
+            <div className={c.title}>{ct("ui.collection_json_585b15")}{modal?.collection?.id}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -148,9 +150,7 @@ const StacCollectionJsonModal = () => {
         </div>
       </DialogContent>
       <DialogActions className={c.dialogActions}>
-        <Button className={c.dialogActionsClose} onClick={handleClose} variant="outlined">
-          Close
-        </Button>
+        <Button className={c.dialogActionsClose} onClick={handleClose} variant="outlined">{ct("ui.close_bbfa77")}</Button>
       </DialogActions>
     </Dialog>
   );

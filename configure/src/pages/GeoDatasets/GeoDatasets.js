@@ -1,3 +1,4 @@
+import { useConfigureText, configureText, i18n } from "../../i18n";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
@@ -194,35 +195,35 @@ const useStyles = makeStyles((theme) => ({
 const headCells = [
   {
     id: "name",
-    label: "Name",
+    get label() { return configureText("ui.name_709a23"); },
   },
   {
     id: "updated",
-    label: "Last Updated",
+    get label() { return configureText("ui.last_updated_66f3e1"); },
   },
   {
     id: "filename",
-    label: "Uploaded From",
+    get label() { return configureText("ui.uploaded_from_7a6025"); },
   },
   {
     id: "num_features",
-    label: "# of Features",
+    get label() { return configureText("ui.of_features_5e05a9"); },
   },
   {
     id: "start_time_field",
-    label: "Start Time Field",
+    get label() { return configureText("ui.start_time_field_7b78d3"); },
   },
   {
     id: "end_time_field",
-    label: "End Time Field",
+    get label() { return configureText("ui.end_time_field_221c90"); },
   },
   {
     id: "group_id_field",
-    label: "Group Id Field",
+    get label() { return configureText("ui.group_id_field_1a3c1e"); },
   },
   {
     id: "feature_id_field",
-    label: "Feature Id Field",
+    get label() { return configureText("ui.feature_id_field_32d428"); },
   },
   {
     id: "actions",
@@ -231,6 +232,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
+  const ct = useConfigureText();
   const { order, orderBy, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -257,7 +259,7 @@ function EnhancedTableHead(props) {
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  {order === "desc" ? ct("table.sortedDescending") : ct("table.sortedAscending")}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -277,6 +279,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
+  const ct = useConfigureText();
   const c = useStyles();
   const dispatch = useDispatch();
 
@@ -288,9 +291,7 @@ function EnhancedTableToolbar(props) {
           style={{ fontWeight: "bold", fontSize: "16px", lineHeight: "29px" }}
           variant="h6"
           component="div"
-        >
-          GEODATASETS
-        </Typography>
+        >{ct("ui.geodatasets_a3b5e1")}</Typography>
 
         <Typography
           style={{
@@ -302,7 +303,7 @@ function EnhancedTableToolbar(props) {
           variant="h6"
           component="div"
         >
-          {`1) Create a New GeoDataset. 2) Set a Vector Layer URL to 'geodatasets:{geodataset_name}'`}
+          {ct("ui.1_create_a_new_geodataset_2_cd924f")}
         </Typography>
       </div>
 
@@ -313,9 +314,7 @@ function EnhancedTableToolbar(props) {
         onClick={() => {
           dispatch(setModal({ name: "newGeoDataset" }));
         }}
-      >
-        New GeoDataset
-      </Button>
+      >{ct("ui.new_geodataset_2fd518")}</Button>
     </Toolbar>
   );
 }
@@ -325,6 +324,7 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function GeoDatasets() {
+  const ct = useConfigureText();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("name");
   const [page, setPage] = React.useState(0);
@@ -352,7 +352,7 @@ export default function GeoDatasets() {
         else
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to get geodatasets.",
+              text: res?.message || ct("ui.failed_to_get_geodatasets_3bd543"),
               severity: "error",
             })
           );
@@ -360,7 +360,7 @@ export default function GeoDatasets() {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to get geodatasets.",
+            text: res?.message || ct("ui.failed_to_get_geodatasets_3bd543"),
             severity: "error",
           })
         );
@@ -440,13 +440,13 @@ export default function GeoDatasets() {
                     >
                       <TableCell
                         align="left"
-                        title={`${row.name} - Click to Copy`}
+                        title={ct("ui.p0_click_to_copy_801b90", { p0: row.name })}
                         onClick={() => {
                           copyToClipboard(row.name);
 
                           dispatch(
                             setSnackBarText({
-                              text: "Copied to Clipboard!",
+                              text: ct("ui.copied_to_clipboard_848211"),
                               severity: "success",
                             })
                           );
@@ -456,18 +456,18 @@ export default function GeoDatasets() {
                       </TableCell>
                       <TableCell align="right">
                         {row.updated
-                          ? new Date(row.updated).toLocaleString()
+                          ? new Date(row.updated).toLocaleString(i18n.language)
                           : row.updated}
                       </TableCell>
                       <TableCell
                         align="right"
-                        title={`${row.filename} - Click to Copy`}
+                        title={ct("ui.p0_click_to_copy_801b90", { p0: row.filename })}
                         onClick={() => {
                           copyToClipboard(row.filename);
 
                           dispatch(
                             setSnackBarText({
-                              text: "Copied to Clipboard!",
+                              text: ct("ui.copied_to_clipboard_848211"),
                               severity: "success",
                             })
                           );
@@ -486,11 +486,11 @@ export default function GeoDatasets() {
                       </TableCell>
                       <TableCell align="right">
                         <div className={c.actions}>
-                          <Tooltip title={"Used By"} placement="top" arrow>
+                          <Tooltip title={ct("ui.used_by_fa06ca")} placement="top" arrow>
                             <IconButton
                               className={c.inIcon}
-                              title="Used By"
-                              aria-label="used by"
+                              title={ct("ui.used_by_fa06ca")}
+                              aria-label={ct("ui.used_by_dfa3ef")}
                               onClick={() => {
                                 dispatch(
                                   setModal({
@@ -509,11 +509,11 @@ export default function GeoDatasets() {
                               </Badge>
                             </IconButton>
                           </Tooltip>
-                          <Tooltip title={"Preview"} placement="top" arrow>
+                          <Tooltip title={ct("ui.preview_f1fbb2")} placement="top" arrow>
                             <IconButton
                               className={c.previewIcon}
-                              title="Preview"
-                              aria-label="preview"
+                              title={ct("ui.preview_f1fbb2")}
+                              aria-label={ct("ui.preview_1aa787")}
                               onClick={() => {
                                 dispatch(
                                   setModal({
@@ -526,11 +526,11 @@ export default function GeoDatasets() {
                               <PreviewIcon fontSize="small" />
                             </IconButton>
                           </Tooltip>
-                          <Tooltip title={"Download"} placement="top" arrow>
+                          <Tooltip title={ct("ui.download_a479c9")} placement="top" arrow>
                             <IconButton
                               className={c.downloadIcon}
-                              title="Download"
-                              aria-label="download"
+                              title={ct("ui.download_a479c9")}
+                              aria-label={ct("ui.download_817248")}
                               onClick={() => {
                                 if (row.name)
                                   calls.api(
@@ -548,7 +548,7 @@ export default function GeoDatasets() {
                                         setSnackBarText({
                                           text:
                                             res?.message ||
-                                            "Successfully downloaded GeoDataset.",
+                                            ct("ui.successfully_downloaded_geodataset_848992"),
                                           severity: "success",
                                         })
                                       );
@@ -558,7 +558,7 @@ export default function GeoDatasets() {
                                         setSnackBarText({
                                           text:
                                             res?.message ||
-                                            "Failed to download GeoDataset.",
+                                            ct("ui.failed_to_download_geodataset_df72ee"),
                                           severity: "error",
                                         })
                                       );
@@ -570,11 +570,11 @@ export default function GeoDatasets() {
                             </IconButton>
                           </Tooltip>
                           <Divider orientation="vertical" flexItem />
-                          <Tooltip title={"Append"} placement="top" arrow>
+                          <Tooltip title={ct("ui.append_6b3a60")} placement="top" arrow>
                             <IconButton
                               className={c.appendIcon}
-                              title="Append"
-                              aria-label="append"
+                              title={ct("ui.append_6b3a60")}
+                              aria-label={ct("ui.append_db43bf")}
                               onClick={() => {
                                 dispatch(
                                   setModal({
@@ -599,11 +599,11 @@ export default function GeoDatasets() {
                             </IconButton>
                           </Tooltip>
                             */}
-                          <Tooltip title={"Update"} placement="top" arrow>
+                          <Tooltip title={ct("ui.update_fb91e2")} placement="top" arrow>
                             <IconButton
                               className={c.updateIcon}
-                              title="Update"
-                              aria-label="update"
+                              title={ct("ui.update_fb91e2")}
+                              aria-label={ct("ui.update_0a25ba")}
                               onClick={() => {
                                 dispatch(
                                   setModal({
@@ -618,11 +618,11 @@ export default function GeoDatasets() {
                           </Tooltip>
                           <Divider orientation="vertical" flexItem />
 
-                          <Tooltip title={"Delete"} placement="top" arrow>
+                          <Tooltip title={ct("ui.delete_f6fdbe")} placement="top" arrow>
                             <IconButton
                               className={c.deleteIcon}
-                              title="Delete"
-                              aria-label="delete"
+                              title={ct("ui.delete_f6fdbe")}
+                              aria-label={ct("ui.delete_948598")}
                               onClick={() => {
                                 dispatch(
                                   setModal({

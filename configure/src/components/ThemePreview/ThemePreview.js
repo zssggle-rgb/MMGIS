@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../i18n";
 import React from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@mui/styles";
@@ -111,6 +112,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function ThemePreview() {
+  const ct = useConfigureText();
   const c = useStyles();
 
   const themeName = useSelector(
@@ -131,7 +133,7 @@ export default function ThemePreview() {
 
   return (
     <div className={c.wrapper}>
-      <div className={c.label}>Theme Preview — {themeName}</div>
+      <div className={c.label}>{ct("ui.theme_preview_75200c")}{themeName}</div>
       <div
         className={c.preview}
         style={{
@@ -183,19 +185,15 @@ export default function ThemePreview() {
                 boxShadow: `0 4px 12px ${shadow}`,
               }}
             >
-              <div className={c.panelTitle} style={{ color: textPrimary }}>
-                Tool Panel
-              </div>
+              <div className={c.panelTitle} style={{ color: textPrimary }}>{ct("ui.tool_panel_6d25f3")}</div>
               <div className={c.panelRow} style={{ color: textPrimary }}>
                 <span
                   className={c.accentDot}
                   style={{ background: accent }}
                 />
-                <span className={c.panelText}>Active layer</span>
+                <span className={c.panelText}>{ct("ui.active_layer_4b976d")}</span>
               </div>
-              <div className={c.panelText} style={{ color: textSecondary }}>
-                Secondary text sample
-              </div>
+              <div className={c.panelText} style={{ color: textSecondary }}>{ct("ui.secondary_text_sample_8162ea")}</div>
               <div
                 style={{
                   marginTop: "auto",

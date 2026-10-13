@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -159,6 +160,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "cloneConfig";
 const CloneConfigModal = (props) => {
+  const ct = useConfigureText();
   const { queryGeoDatasets } = props;
   const c = useStyles();
 
@@ -182,7 +184,7 @@ const CloneConfigModal = (props) => {
     if (newMissionName == "" || newMissionName == null) {
       dispatch(
         setSnackBarText({
-          text: "A new mission name to clone into needs to be specified.",
+          text: ct("ui.a_new_mission_name_to_clone_c15f47"),
           severity: "error",
         })
       );
@@ -193,7 +195,7 @@ const CloneConfigModal = (props) => {
       if (newMissionName.toLowerCase() === missions[i].toLowerCase()) {
         dispatch(
           setSnackBarText({
-            text: "Must clone into a new mission name!",
+            text: ct("ui.must_clone_into_a_new_mission_549496"),
             severity: "error",
           })
         );
@@ -211,7 +213,7 @@ const CloneConfigModal = (props) => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: `Successfully cloned this mission into '${newMissionName}'.`,
+            text: ct("ui.successfully_cloned_this_mission_into_p0_9c438d", { p0: newMissionName }),
             severity: "success",
           })
         );
@@ -224,7 +226,7 @@ const CloneConfigModal = (props) => {
           (res) => {
             dispatch(
               setSnackBarText({
-                text: res?.message || "Failed to get available missions.",
+                text: res?.message || ct("ui.failed_to_get_available_missions_4b40cf"),
                 severity: "error",
               })
             );
@@ -235,7 +237,7 @@ const CloneConfigModal = (props) => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: `Failed to clone this mission.`,
+            text: ct("ui.failed_to_clone_this_mission_634c1c"),
             severity: "error",
           })
         );
@@ -258,12 +260,12 @@ const CloneConfigModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <ContentCopyIcon className={c.backgroundIcon} />
-            <div className={c.title}>Clone a Mission</div>
+            <div className={c.title}>{ct("ui.clone_a_mission_9545a7")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -271,10 +273,10 @@ const CloneConfigModal = (props) => {
         </div>
       </DialogTitle>
       <DialogContent className={c.content}>
-        <Typography className={c.layerName}>{`Cloning: ${mission}`}</Typography>
+        <Typography className={c.layerName}>{ct("ui.cloning_p0_83789e", { p0: mission })}</Typography>
         <TextField
           className={c.confirmInput}
-          label="New Mission Name to Clone Into"
+          label={ct("ui.new_mission_name_to_clone_into_3f4c05")}
           variant="filled"
           value={newMissionName}
           onChange={(e) => {
@@ -283,7 +285,7 @@ const CloneConfigModal = (props) => {
         />
         <Typography
           className={c.confirmMessage}
-        >{`Enter a new mission name above and click 'Clone' to clone this mission.`}</Typography>
+        >{ct("ui.enter_a_new_mission_name_above_3635ac")}</Typography>
         <FormGroup className={c.checkbox}>
           <FormControlLabel
             control={
@@ -294,25 +296,21 @@ const CloneConfigModal = (props) => {
                 }}
               />
             }
-            label={"Adjust Paths"}
+            label={ct("ui.adjust_paths_43dbc7")}
           />
         </FormGroup>
         <Typography
           className={c.confirmMessage}
-        >{`Adjust new paths so that they still point to the same data (../{mission})`}</Typography>
+        >{ct("ui.adjust_new_paths_so_that_they_3eda3b")}</Typography>
       </DialogContent>
       <DialogActions className={c.dialogActions}>
-        <Button className={c.cancel} variant="outlined" onClick={handleClose}>
-          Cancel
-        </Button>
+        <Button className={c.cancel} variant="outlined" onClick={handleClose}>{ct("ui.cancel_77dfd2")}</Button>
         <Button
           className={c.submit}
           variant="contained"
           startIcon={<ContentCopyIcon size="small" />}
           onClick={handleSubmit}
-        >
-          Clone
-        </Button>
+        >{ct("ui.clone_d8cdb5")}</Button>
       </DialogActions>
     </Dialog>
   );

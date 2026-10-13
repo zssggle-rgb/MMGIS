@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -151,6 +152,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "newUser";
 const NewUserModal = (props) => {
+  const ct = useConfigureText();
   const { queryUsers } = props;
   const c = useStyles();
 
@@ -183,7 +185,7 @@ const NewUserModal = (props) => {
     ) {
       dispatch(
         setSnackBarText({
-          text: "Username and Password must be filled.",
+          text: ct("ui.username_and_password_must_be_filled_388dfa"),
           severity: "error",
         })
       );
@@ -193,7 +195,7 @@ const NewUserModal = (props) => {
     if (password !== passwordRetype) {
       dispatch(
         setSnackBarText({
-          text: "Passwords do not match.",
+          text: ct("ui.passwords_do_not_match_f7c3cd"),
           severity: "error",
         })
       );
@@ -212,7 +214,7 @@ const NewUserModal = (props) => {
         if (res.status === "success") {
           dispatch(
             setSnackBarText({
-              text: `Successfully created new user: '${userName}'.`,
+              text: ct("ui.successfully_created_new_user_p0_7090b2", { p0: userName }),
               severity: "success",
             })
           );
@@ -221,7 +223,7 @@ const NewUserModal = (props) => {
         } else {
           dispatch(
             setSnackBarText({
-              text: `Failed to create new user: ${res.message}`,
+              text: ct("ui.failed_to_create_new_user_p0_bc273f", { p0: res.message }),
               severity: "error",
             })
           );
@@ -230,7 +232,7 @@ const NewUserModal = (props) => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: `Failed to create new user: ${res.message}`,
+            text: ct("ui.failed_to_create_new_user_p0_bc273f", { p0: res.message }),
             severity: "error",
           })
         );
@@ -253,12 +255,12 @@ const NewUserModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <AccountBoxIcon className={c.backgroundIcon} />
-            <div className={c.title}>{`Create a New User`}</div>
+            <div className={c.title}>{ct("ui.create_a_new_user_2079ed")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -268,7 +270,7 @@ const NewUserModal = (props) => {
       <DialogContent className={c.content}>
         <TextField
           className={c.confirmInput}
-          label="Username"
+          label={ct("ui.username_84c290")}
           variant="filled"
           value={userName}
           inputProps={{
@@ -280,11 +282,11 @@ const NewUserModal = (props) => {
         />
         <Typography
           className={c.subtitle2}
-        >{`Username. Must be unique.`}</Typography>
+        >{ct("ui.username_must_be_unique_8b1086")}</Typography>
 
         <TextField
           className={c.confirmInput}
-          label="Email Address"
+          label={ct("ui.email_address_09ba55")}
           variant="filled"
           value={email}
           inputProps={{
@@ -296,11 +298,11 @@ const NewUserModal = (props) => {
         />
         <Typography
           className={c.subtitle2}
-        >{`The user's email. Optional but if set, must be unique.`}</Typography>
+        >{ct("ui.the_user_s_email_optional_but_bd0c34")}</Typography>
 
         <TextField
           className={c.confirmInput}
-          label="Password"
+          label={ct("ui.password_8be3c9")}
           variant="filled"
           value={password}
           inputProps={{
@@ -313,11 +315,11 @@ const NewUserModal = (props) => {
         />
         <Typography
           className={c.subtitle2}
-        >{`Passwords must be at least 8 characters long and contain at least: 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol.`}</Typography>
+        >{ct("ui.passwords_must_be_at_least_8_b9b4bd")}</Typography>
 
         <TextField
           className={c.confirmInput}
-          label="Retype Password"
+          label={ct("ui.retype_password_d3889a")}
           variant="filled"
           value={passwordRetype}
           inputProps={{
@@ -328,19 +330,15 @@ const NewUserModal = (props) => {
             setPasswordRetype(e.target.value);
           }}
         />
-        <Typography className={c.subtitle2}>{`Retype Password`}</Typography>
+        <Typography className={c.subtitle2}>{ct("ui.retype_password_d3889a")}</Typography>
       </DialogContent>
       <DialogActions className={c.dialogActions}>
         <Button
           variant="contained"
           startIcon={<AdminPanelSettingsIcon size="small" />}
           onClick={handleSubmit}
-        >
-          Create
-        </Button>
-        <Button className={c.cancel} variant="outlined" onClick={handleClose}>
-          Cancel
-        </Button>
+        >{ct("ui.create_6e157c")}</Button>
+        <Button className={c.cancel} variant="outlined" onClick={handleClose}>{ct("ui.cancel_77dfd2")}</Button>
       </DialogActions>
     </Dialog>
   );

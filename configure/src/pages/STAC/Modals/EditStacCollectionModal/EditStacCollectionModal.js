@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -35,6 +36,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 // CodeMirror for JSON editing
 import CodeMirror from "@uiw/react-codemirror";
+import { localizedCodeMirrorPhrases } from "../../../../i18n/editors";
 import { json } from "@codemirror/lang-json";
 
 const useStyles = makeStyles((theme) => ({
@@ -113,6 +115,7 @@ const useStyles = makeStyles((theme) => ({
 const MODAL_NAME = "editStacCollection";
 
 const EditStacCollectionModal = (props) => {
+  const ct = useConfigureText();
   const { querySTAC } = props;
   const c = useStyles();
 
@@ -205,7 +208,7 @@ const EditStacCollectionModal = (props) => {
     if (hasUnsavedChanges) {
       if (
         !window.confirm(
-          "You have unsaved changes. Are you sure you want to close?"
+          ct("ui.you_have_unsaved_changes_are_you_4761b5")
         )
       ) {
         return;
@@ -224,15 +227,15 @@ const EditStacCollectionModal = (props) => {
     const errors = [];
 
     if (!data.id || data.id.trim() === "") {
-      errors.push("Collection ID is required");
+      errors.push(ct("ui.collection_id_is_required_264dda"));
     }
 
     if (!data.description || data.description.trim() === "") {
-      errors.push("Description is required");
+      errors.push(ct("ui.description_is_required_b8177e"));
     }
 
     if (!data.license || data.license.trim() === "") {
-      errors.push("License is required");
+      errors.push(ct("ui.license_is_required_684868"));
     }
 
     // Validate bbox format
@@ -242,10 +245,10 @@ const EditStacCollectionModal = (props) => {
           ? JSON.parse(data.extent.spatial.bbox)
           : data.extent?.spatial?.bbox;
       if (!Array.isArray(bbox) || bbox.length === 0) {
-        errors.push("Spatial extent bbox must be a valid array");
+        errors.push(ct("ui.spatial_extent_bbox_must_be_a_023e7e"));
       }
     } catch (e) {
-      errors.push("Invalid spatial extent bbox format");
+      errors.push(ct("ui.invalid_spatial_extent_bbox_format_5f0cc5"));
     }
 
     // Validate temporal interval format
@@ -255,10 +258,10 @@ const EditStacCollectionModal = (props) => {
           ? JSON.parse(data.extent.temporal.interval)
           : data.extent?.temporal?.interval;
       if (!Array.isArray(interval) || interval.length === 0) {
-        errors.push("Temporal extent interval must be a valid array");
+        errors.push(ct("ui.temporal_extent_interval_must_be_a_8802ee"));
       }
     } catch (e) {
-      errors.push("Invalid temporal extent interval format");
+      errors.push(ct("ui.invalid_temporal_extent_interval_format_0d2b3e"));
     }
 
     return errors;
@@ -303,7 +306,7 @@ const EditStacCollectionModal = (props) => {
     } catch (e) {
       dispatch(
         setSnackBarText({
-          text: "Invalid extent format",
+          text: ct("ui.invalid_extent_format_7f85d5"),
           severity: "error",
         })
       );
@@ -345,7 +348,7 @@ const EditStacCollectionModal = (props) => {
 
         dispatch(
           setSnackBarText({
-            text: `Successfully updated collection: ${updatedCollection.id}`,
+            text: ct("ui.successfully_updated_collection_p0_e750a2", { p0: updatedCollection.id }),
             severity: "success",
           })
         );
@@ -360,7 +363,7 @@ const EditStacCollectionModal = (props) => {
       (err) => {
         dispatch(
           setSnackBarText({
-            text: err?.message || "Failed to update collection",
+            text: err?.message || ct("ui.failed_to_update_collection_6e2866"),
             severity: "error",
           })
         );
@@ -418,12 +421,12 @@ const EditStacCollectionModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <EditIcon className={c.backgroundIcon} />
-            <div className={c.title}>Edit STAC Collection</div>
+            <div className={c.title}>{ct("ui.edit_stac_collection_2136b8")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -431,21 +434,15 @@ const EditStacCollectionModal = (props) => {
         </div>
       </DialogTitle>
       <DialogContent className={c.content}>
-        <Typography className={c.subtitle}>
-          Edit collection metadata. For more, see the STAC Collection Spec:
-          https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md
-        </Typography>
+        <Typography className={c.subtitle}>{ct("ui.edit_collection_metadata_for_more_see_89d5e9")}</Typography>
 
         {occurrencesCount > 0 && (
-          <Alert severity="warning" icon={<WarningIcon />} className={c.warningBox}>
-            This collection is used by {occurrencesCount} layer(s) in {missionsCount} mission(s).
-            Metadata changes will not break existing layers.
-          </Alert>
+          <Alert severity="warning" icon={<WarningIcon />} className={c.warningBox}>{ct("ui.this_collection_is_used_by_11e757")}{occurrencesCount}{ct("ui.layer_s_in_b5968a")}{missionsCount}{ct("ui.mission_s_metadata_changes_will_not_8015d6")}</Alert>
         )}
 
         <Tabs value={currentTab} onChange={handleTabChange}>
-          <Tab label="Form" />
-          <Tab label="Current JSON" />
+          <Tab label={ct("ui.form_804463")} />
+          <Tab label={ct("ui.current_json_1f9114")} />
         </Tabs>
 
         <div className={c.tabContent}>
@@ -460,14 +457,13 @@ const EditStacCollectionModal = (props) => {
           )}
           {currentTab === 1 && (
             <Box>
-              <Typography className={c.subtitle} style={{ marginBottom: "8px" }}>
-                This shows the current state of your form data as JSON. This is read-only - edit using the Form tab.
-              </Typography>
+              <Typography className={c.subtitle} style={{ marginBottom: "8px" }}>{ct("ui.this_shows_the_current_state_of_f01ab2")}</Typography>
               <div className={c.jsonEditor}>
                 <CodeMirror
                   value={JSON.stringify(currentJson, null, 2)}
                   height="400px"
-                  extensions={[json()]}
+                  extensions={[json(), localizedCodeMirrorPhrases()]}
+                  aria-label={ct("editor.json.label")}
                   editable={false}
                   readOnly={true}
                 />
@@ -477,16 +473,14 @@ const EditStacCollectionModal = (props) => {
         </div>
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" onClick={handleClose} disabled={isSaving}>
-          Cancel
-        </Button>
+        <Button variant="outlined" onClick={handleClose} disabled={isSaving}>{ct("ui.cancel_77dfd2")}</Button>
         <Button
           variant="contained"
           onClick={handleSave}
           disabled={isSaving}
           startIcon={isSaving ? <CircularProgress size={20} /> : null}
         >
-          {isSaving ? "Saving..." : "Save Changes"}
+          {isSaving ? ct("ui.saving_ae7e88") : ct("ui.save_changes_fa2984")}
         </Button>
       </DialogActions>
     </Dialog>
