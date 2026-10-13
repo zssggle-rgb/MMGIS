@@ -1167,12 +1167,17 @@ const getComponent = (
       }
 
       const currentValue = value ?? getIn(directConf, com.field, com.options?.[0] ?? "");
+      const searchOptionLabel = (option) => {
+        const index = searchOptions.indexOf(option);
+        return com.optionLabels?.[index] ?? String(option);
+      };
 
       inner = (
         <Autocomplete
           className={c.autocomplete}
           disabled={isDisabled}
           options={searchOptions}
+          getOptionLabel={searchOptionLabel}
           value={currentValue}
           onChange={(event, newValue) => {
             if (!isDisabled && newValue !== null) {
@@ -1190,12 +1195,12 @@ const getComponent = (
           )}
           renderOption={(props, option) => (
             <li {...props}>
-              {typeof option === "string" ? option : option}
+              {searchOptionLabel(option)}
             </li>
           )}
           filterOptions={(options, { inputValue }) => {
             return options.filter((option) =>
-              option.toLowerCase().includes(inputValue.toLowerCase())
+              searchOptionLabel(option).toLowerCase().includes(inputValue.toLowerCase())
             );
           }}
           noOptionsText={configureText("field.noTileMatrixSets")}
