@@ -1,0 +1,48 @@
+# Only use a new project name and new volumes for each restore rehearsal.
+name: ${RESTORE_PROJECT:?请设置全新的恢复项目名称}
+services:
+  db:
+    image: postgis/postgis:17-3.5-alpine@sha256:894f570c0cf0664ed5576a8fd5d5bfb8fb1b19d592885b686c3a88c8bd90c41f
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: mmgis_restore
+      POSTGRES_PASSWORD: ${DB_PASS:?请设置恢复副本的数据库密码}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -h 127.0.0.1 -U mmgis_restore -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    mem_limit: 2g
+    networks: [restore]
+  app:
+    image: ${MMGIS_RESTORE_IMAGE:?请设置经过审查且固定摘要的恢复镜像}
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: ${MMGIS_RESTORE_ENV_FILE:?请指定受限权限的恢复环境文件}
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: mmgis-test
+      DB_USER: mmgis_restore
+      DB_PASS: ${DB_PASS:?请设置恢复副本的数据库密码}
+      PORT: "8888"
+      NODE_ENV: production
+      AUTH: "off"
+      HTTPS: "false"
+      ROOT_PATH: ""
+      SPICE_SCHEDULED_KERNEL_DOWNLOAD: "false"
+    volumes:
+      - missions:/usr/src/app/Missions
+      - ssl:/usr/src/app/ssl
+    mem_limit: 4g
+    networks: [restore]
+volumes:
+  pgdata:
+  missions:
+  ssl:
+networks:
+  restore:
+    internal: true
