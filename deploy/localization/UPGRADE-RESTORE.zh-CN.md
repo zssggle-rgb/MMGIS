@@ -122,10 +122,10 @@ docker compose --env-file /受限目录/restore.env \
   -f /受限目录/compose.restore.yml up -d db
 
 docker compose --env-file /受限目录/restore.env \
-  -f /受限目录/compose.restore.yml create --no-deps app
+  -f /受限目录/compose.restore.yml create --no-recreate app
 ```
 
-第二条命令只创建未启动的应用容器及两个专属文件卷，不执行应用迁移。确认新项目确实只使用其专属新卷；如名称与现有卷重复，停止该副本并重新选择项目名，不清空既有卷。
+第二条命令创建未启动的应用容器及两个专属文件卷，不执行应用迁移；`--no-recreate` 保留刚启动的数据库容器。`create` 不支持 `--no-deps`，不能使用该参数。确认新项目确实只使用其专属新卷；如名称与现有卷重复，停止该副本并重新选择项目名，不清空既有卷。
 
 数据库先只初始化维护库 `postgres`；等待其就绪后，使用 `pg_restore --create` 从 QA 快照新建 `mmgis-test` 并恢复，避免向已经初始化的应用数据库重复恢复对象。`--create` 实际恢复到归档中记录的数据库名称，因此只接受本轮 `mmgis-test` 快照。恢复命令不包含 `--clean`、删库或覆盖已有对象。`--create` 不能与 `--single-transaction` 同用，任何恢复错误都会退出；失败副本保留原状，新一轮使用新的项目名和新卷，不能在部分恢复的库上重跑。参数行为依据 [PostgreSQL 17 的 pg_restore 文档](https://www.postgresql.org/docs/17/app-pgrestore.html)。
 
@@ -162,7 +162,7 @@ docker compose --env-file /受限目录/restore.env \
   -f /受限目录/compose.restore.yml up -d app
 ```
 
-文件卷已由前面的 `create --no-deps app` 创建。执行文件恢复前仍需确认此次全新的 `${RESTORE_PROJECT}_missions` 和 `${RESTORE_PROJECT}_ssl` 卷名；禁止让 Docker 在拼错名称时创建一个无关卷后继续操作。恢复容器只挂载目标新卷，保留恢复文件所有者和权限需要 `CHOWN`、`FOWNER`、`DAC_OVERRIDE`，源卷和宿主机目录不挂载。只恢复自己制作并保存于受限目录的归档，不接收来源不明的归档。
+文件卷已由前面的 `create --no-recreate app` 创建。执行文件恢复前仍需确认此次全新的 `${RESTORE_PROJECT}_missions` 和 `${RESTORE_PROJECT}_ssl` 卷名；禁止让 Docker 在拼错名称时创建一个无关卷后继续操作。恢复容器只挂载目标新卷，保留恢复文件所有者和权限需要 `CHOWN`、`FOWNER`、`DAC_OVERRIDE`，源卷和宿主机目录不挂载。只恢复自己制作并保存于受限目录的归档，不接收来源不明的归档。
 
 候选与基线使用同一暂停窗口的快照，但分别恢复独立数据库和文件卷。**不要把旧镜像接到候选镜像已经迁移的数据库上**；旧镜像可能不兼容新结构。
 
