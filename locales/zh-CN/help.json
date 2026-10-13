@@ -1,0 +1,7 @@
+{
+    "title": "帮助",
+    "loading": "正在加载帮助…",
+    "unavailable": "帮助加载失败，请重试。",
+    "retry": "重试",
+    "close": "关闭"
+}
