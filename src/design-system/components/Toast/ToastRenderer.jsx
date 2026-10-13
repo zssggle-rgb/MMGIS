@@ -1,4 +1,5 @@
 import React from 'react'
+import { useMapText } from '../../../i18n'
 import { Toast } from '@base-ui/react/toast'
 import { toastManager } from './Toast'
 
@@ -81,11 +82,12 @@ function ToastList() {
 }
 
 export default function ToastRenderer() {
+    const t = useMapText()
     return (
         <Toast.Provider toastManager={toastManager}>
             <style>{transitionCSS}</style>
             <Toast.Portal>
-                <Toast.Viewport style={viewportStyle}>
+                <Toast.Viewport style={viewportStyle} aria-label={t('toast.notifications')}>
                     <ToastList />
                 </Toast.Viewport>
             </Toast.Portal>
