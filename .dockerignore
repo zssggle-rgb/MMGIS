@@ -38,6 +38,14 @@ docs/
 specs/
 *.md
 !README.md
+!public/helps/*.md
+!locales/help/**/*.md
+
+# Always generate locale artifacts from the checked-out source.
+src/i18n/generated/
+configure/src/i18n/generated/
+API/i18n/generated/
+public/i18n/
 
 # Tests
 tests/
