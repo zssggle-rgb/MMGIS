@@ -90,7 +90,7 @@
   "ui.manage_components_via_the_plugin_cli_6cc88d": "通过插件命令行管理组件。",
   "ui.run_b1b392": "运行",
   "ui.to_see_installed_plugins_or_1559a2": "可查看已安装的插件，运行",
-  "ui.to_scaffold_a_new_one_see_90e6ed": "可创建新组件。详见 plugins/README.md。",
+  "ui.to_scaffold_a_new_one_see_90e6ed": "可创建新插件。详见 plugins/README.md。",
   "ui.no_components_available_4eb100": "暂无可用组件",
   "ui.mdi_icon_name_optional_09cf08": "MDI 图标名称（可选）",
   "ui.no_further_configuration_bed04e": "无需其他配置",
