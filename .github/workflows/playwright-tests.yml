@@ -45,6 +45,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Prepare UI language resources
+        run: npm run i18n:prepare
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
 
