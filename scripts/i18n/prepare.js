@@ -4,6 +4,11 @@ const crypto = require('crypto')
 
 const LOCALES = ['en', 'zh-CN']
 const TARGETS = ['src/i18n/generated', 'configure/src/i18n/generated', 'API/i18n/generated']
+const TARGET_NAMESPACES = {
+    'src/i18n/generated': ['common', 'map', 'legacy', 'help', 'auth', 'feedback'],
+    'configure/src/i18n/generated': ['common', 'metadata', 'configure', 'auth', 'feedback'],
+    'API/i18n/generated': ['common', 'auth', 'feedback'],
+}
 
 function hash(value) {
     return crypto.createHash('sha256').update(value).digest('hex')
@@ -56,7 +61,6 @@ function write(root, relative, value) {
 function prepareResources(root) {
     const resources = loadCatalogs(root)
     const packageInfo = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'))
-    const serialized = JSON.stringify(resources, null, 4) + '\n'
     const runtimeNames = ['locale.js', 'engine.js', 'controller.js', 'browser.js', 'feedback.js']
     const runtime = Object.fromEntries(runtimeNames.map((name) => [name, fs.readFileSync(path.join(root, 'locales/runtime', name), 'utf8')]))
     const help = Object.fromEntries(LOCALES.map((locale) => [locale, {}]))
@@ -72,16 +76,22 @@ function prepareResources(root) {
             helpInputs.push([locale, name, hash(content)])
         }
     }
-    const canonicalHash = hash(JSON.stringify({ resources, runtime, helpInputs, legacy: fs.readFileSync(path.join(root, 'locales/runtime/legacy.js'), 'utf8') }))
+    const canonicalHash = hash(JSON.stringify({ resources, runtime, helpInputs, targetNamespaces: TARGET_NAMESPACES, legacy: fs.readFileSync(path.join(root, 'locales/runtime/legacy.js'), 'utf8') }))
     const runtimeHashes = Object.fromEntries(Object.entries(runtime).filter(([name]) => name !== 'browser.js').map(([name, content]) => [name, hash(content)]))
-    const index = { schemaVersion: 1, upstreamVersion: packageInfo.version, supportedLocales: LOCALES, canonicalHash, resourceVersion: `${packageInfo.version}-${canonicalHash.slice(0, 16)}`, resourcesHash: hash(serialized), runtimeHashes, help }
+    const index = { schemaVersion: 1, upstreamVersion: packageInfo.version, supportedLocales: LOCALES, canonicalHash, resourceVersion: `${packageInfo.version}-${canonicalHash.slice(0, 16)}`, targetResourcesHashes: {}, runtimeHashes, help }
     for (const target of TARGETS) {
+        const selected = Object.fromEntries(LOCALES.map((locale) => [locale,
+            Object.fromEntries(Object.entries(resources[locale]).filter(([namespace]) => TARGET_NAMESPACES[target].includes(namespace))),
+        ]))
+        const serialized = JSON.stringify(selected, null, 4) + '\n'
+        index.targetResourcesHashes[target] = hash(serialized)
         write(root, `${target}/resources.json`, serialized)
         for (const name of runtimeNames) {
             if (target.startsWith('API/') && name === 'browser.js') continue
             write(root, `${target}/${name}`, runtime[name])
         }
     }
+    index.resourcesHash = index.targetResourcesHashes[TARGETS[2]]
     const legacy = Object.fromEntries(LOCALES.map((locale) => [locale, Object.fromEntries(Object.entries(resources[locale]).filter(([namespace]) => ['common', 'auth', 'feedback'].includes(namespace)))]))
     write(root, 'API/i18n/generated/legacy-resources.json', JSON.stringify(legacy))
     return index
@@ -108,7 +118,7 @@ async function prepare(root) {
     const index = prepareResources(root)
     index.legacy = await buildLegacy(root)
     index.legacyHash = hash(fs.readFileSync(path.join(root, index.legacy)))
-    for (const target of TARGETS) write(root, `${target}/resource-index.json`, JSON.stringify(index, null, 4) + '\n')
+    for (const target of TARGETS) write(root, `${target}/resource-index.json`, JSON.stringify({ ...index, resourcesHash: index.targetResourcesHashes[target] }, null, 4) + '\n')
     return index
 }
 
