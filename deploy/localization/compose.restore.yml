@@ -34,8 +34,6 @@ services:
       HTTPS: "false"
       ROOT_PATH: ""
       SPICE_SCHEDULED_KERNEL_DOWNLOAD: "false"
-    ports:
-      - "127.0.0.1:${RESTORE_PORT:?请指定未占用的恢复副本端口}:8888"
     volumes:
       - missions:/usr/src/app/Missions
       - ssl:/usr/src/app/ssl
