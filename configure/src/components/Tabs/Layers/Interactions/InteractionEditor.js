@@ -161,7 +161,7 @@ const InteractionItem = ({
   main,
   c,
 }) => {
-  useConfigureText();
+  const ct = useConfigureText();
   const tMeta = useMetadataText();
   const name = metadataText(interaction?.name || interactionId, tMeta);
   return (
