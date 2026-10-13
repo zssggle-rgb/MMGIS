@@ -1,13 +1,13 @@
 function resetPassword() {
-  let token = window.location.href.split("?t=")[1];
+  let token = new URL(window.location.href).searchParams.get("t");
   if (
     document.getElementById("username").value === "" ||
     document.getElementById("pwd").value === "" ||
     token === "" ||
     token == null
   ) {
-    document.getElementById("msgError").innerHTML =
-      "Missing username, password, or reset token.";
+    document.getElementById("msgError").textContent =
+      MMGISAuth.text("Missing username, password, or reset token.");
     document.getElementById("msgError").style.opacity = 1;
     return;
   }
@@ -16,14 +16,14 @@ function resetPassword() {
     document.getElementById("pwd").value !=
     document.getElementById("pwd_retype").value
   ) {
-    document.getElementById("msgError").innerHTML = "Passwords don't match.";
+    document.getElementById("msgError").textContent = MMGISAuth.text("Passwords don't match.");
     document.getElementById("msgError").style.opacity = 1;
     return;
   }
 
   $.ajax({
     type: "POST",
-    url: "api/users/resetPassword",
+    url: MMGISAuth.link("api/users/resetPassword"),
     data: {
       username: document.getElementById("username").value,
       password: document.getElementById("pwd").value,
@@ -35,8 +35,8 @@ function resetPassword() {
         (data.hasOwnProperty("status") && data.status === "success")
       ) {
         //success
-        document.getElementById("msgSuccessMsg").innerHTML =
-          "Successfully Reset Password!";
+        document.getElementById("msgSuccessMsg").textContent =
+          MMGISAuth.text("Successfully Reset Password!");
         document.getElementById("msgSuccess").style.opacity = 1;
         document.getElementById("msgSuccess").style.pointerEvents = "all";
         document.getElementById("container").style.borderTop =
@@ -45,13 +45,13 @@ function resetPassword() {
           "4px solid #08ea67";
       } else {
         //error
-        document.getElementById("msgError").innerHTML = data.message;
+        document.getElementById("msgError").textContent = MMGISAuth.message(data);
         document.getElementById("msgError").style.opacity = 1;
       }
     },
-    error: function () {
+    error: function (xhr) {
       //error
-      document.getElementById("msgError").innerHTML = "Server error.";
+      document.getElementById("msgError").textContent = MMGISAuth.message(xhr.responseJSON || { status: "failure", message: xhr.statusText || "Server error." });
       document.getElementById("msgError").style.opacity = 1;
     },
   });
@@ -72,5 +72,5 @@ function goHome() {
   const newPath = "/" + parts.join("/");
   url.pathname = newPath === "/" ? "/" : newPath + "/";
 
-  window.location.href = url.href;
+  window.location.href = MMGISAuth.link(url.href);
 }

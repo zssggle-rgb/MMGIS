@@ -19,7 +19,7 @@ function verifyRuntime(root) {
         if (typeof filename !== 'string' || !/^public\/i18n\/[\w./-]+$/.test(filename) || filename.split('/').includes('..')) throw new Error('Invalid UI runtime resource path.')
         if (!fs.statSync(path.join(root, filename)).isFile()) throw new Error('Missing UI runtime resource.')
     }
-    for (const name of ['engine.js', 'locale.js', 'controller.js']) {
+    for (const name of ['engine.js', 'locale.js', 'controller.js', 'feedback.js']) {
         if (!fs.statSync(path.join(directory, name)).isFile()) throw new Error('Missing UI runtime module.')
         checkHash(path.join(directory, name), (index.runtimeHashes || {})[name])
     }
