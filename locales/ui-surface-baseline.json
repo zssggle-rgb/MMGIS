@@ -1,0 +1,1931 @@
+{
+  "schemaVersion": 1,
+  "upstreamVersion": "5.2.24-20260729",
+  "coverageMeaning": "File census only; not a count of strings or proof of translated UI.",
+  "surfaces": [
+    {
+      "id": "map",
+      "count": 97,
+      "files": [
+        {
+          "path": "src/essence/Basics/ComponentController_/ComponentController_.js",
+          "sha256": "f7c8d8f5d5e34a6c9052d9ef3e79c1fd036fb82441cd3d3c5252a75dedc67e15",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Formulae_/Formulae_.js",
+          "sha256": "9a817aebf6405806187f4a1098b8906484067db833ae8daa5bcd487c9a16625b",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Formulae_/subformulae/azElDistBetween.js",
+          "sha256": "944e9bb4f584df07ccc86aa2e1c65b321b4213dbb71b68dc8a248b716ae76ef3",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Globe_/CesiumMVTLayer.js",
+          "sha256": "673999927733e20d2aa6b01e8bcd925cd21fc8137d8e99e656fdb2739c15827e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Globe_/GlobeRenderer.js",
+          "sha256": "17d28fe515e74bf040b8585c32d0c6329aff4e6bdfb662c47410ab1bddf2807a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Globe_/Globe_.js",
+          "sha256": "d47d9789b99541916274914faa16f68159eeb65e91c2179458fcd44109730994",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Globe_/Projection_.js",
+          "sha256": "dbad2c3e3398d9a2feca43fdd921a9266c6defa5d502e440c3f1b56d2de4333b",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/InteractionRunner/InteractionRunner.js",
+          "sha256": "25360105619d4e57d4eadd3d3b7ea50f273b681fabd27fab571c6a0f1e0cf837",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/ExtendedGeoJSON.js",
+          "sha256": "d287fb3977a7fee5c0b438b96e2fcb946eede96e6b129d2792f58832597a57fc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/Filtering/ESFilterer.js",
+          "sha256": "047d3c21d71dbfb36c7c3d8488b4aca0bea14472f12d7a9384969108ed75023a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/Filtering/Filtering.js",
+          "sha256": "7888b3918cffbbb5f63b547bc780381b7b8ccaed19835b283b843017d67cfc8b",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/Filtering/GeodatasetFilterer.js",
+          "sha256": "df6d7a3d6775f4094f33e1bb06faf79da31da5d4fb8c983464cc6cfd3dfa951c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/Filtering/OpGridSelector.js",
+          "sha256": "91836605126c80d4a7580387ed1ee95a77309b9dd5ab6c35a17ec9fb988e4c46",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/LayerCapturer.js",
+          "sha256": "c5961fa2afb528ffbccf57d7a1321056e787714bbfa3c119f6fce1aa91089a97",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/LayerConstructors.js",
+          "sha256": "109ca81516af7376c500a9b82094d44035ebe277d3c43dfc18d9a84bfa96d3b3",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/LayerGeologic/LayerGeologic.js",
+          "sha256": "8b8c5d5c0a02ffc14b8e77a10a99fce513ac4d9f1e58d89eab938f8560dfc1c1",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/LayerUtils.js",
+          "sha256": "7fd93493238589ad88bb619d7a6574efaf36e25a426137c24970a42a0b1dcec2",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/Layers_.js",
+          "sha256": "15483d915cf8df23c4d0f32c99749a7c213764e89f39e6bca8e369a8b24de289",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/MetadataCapturer.js",
+          "sha256": "a7abdafcbf8dd6d8c9ea4f41782b2b988e0360a0f3fbb656726b2a1340d43d98",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/gradientUtils.js",
+          "sha256": "c32ff99e2005d385e0f8962b0f896d523c53a8330b8c97a2c98c00458c9942c2",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Layers_/leaflet-tilelayer-middleware.js",
+          "sha256": "9226b73d5a0ab859d698b9d9d905924ccd88c60150b6d7709a13def6fdd9ec15",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Map_/Map_.js",
+          "sha256": "0998a61393cc41542ce1f0e3542cf920fa6d6b964a41894f2e89f7ddad4e2db8",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Map_/SimplifiedVectorGrid.js",
+          "sha256": "0908a90395a37ac31e016718edff075d13002dd3527c4fa80deb73c22a8135fc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/TimeControl_/TimeControl.js",
+          "sha256": "3c9ae4554ac83c63fc2bffcf0e3721e5a21cd6f28aa05cb4a0dfe9f717974c1f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/TimeControl_/TimeUI.js",
+          "sha256": "f2acc94e22e855a4f3b8468b81e24920d20926996c7adce9ecf914aa86692b19",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/ToolController_/ToolController_.js",
+          "sha256": "176782d185d0fa7b8049a4c895efacc131009148c4c4734a55635f8438500018",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/ToolController_/toolControllerHelpers.js",
+          "sha256": "ed155212a6665d45f4acffe159c8371f9f237b56d1404316c904df9616980c05",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/BottomBar.js",
+          "sha256": "76636e45c0848fbb9887309701b9c8f2e48a31f9b0e3633d9e3c450702f21383",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/LayerUpdatedControl.js",
+          "sha256": "eec96e95de00246f897604ff6c457e9da1f43d534705edfe0caf4721c915f380",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/UserInterfaceBridge.js",
+          "sha256": "4c1c71960456af24c70c4c144027fd0cc001915f929442263117c7a9e5c6f26c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/UserInterface_.js",
+          "sha256": "06b0bcc6ffaa4b6636eee62e415209f86fc7b2087c0715515011ddcc831805ad",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Attributions/Attributions.js",
+          "sha256": "b393e294997707788de865f0fe626c7d431ace5fa63e760a9ac1cc405aefe3da",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/BottomBar/BottomBarReact.jsx",
+          "sha256": "3f306e6542282628c603430b8614bb6478d328ad834d1cf5aa8c8e7ca5e84973",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/BottomElementPositioner/BottomElementPositioner.jsx",
+          "sha256": "30cab334feb8843b94280e4e7ee03494be12919e9d5f10a3e00f2f0d89a54c2e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Compass/Compass.jsx",
+          "sha256": "f2ad65d62d832d556774d8ecabb45c25d5ce17661c0ff11fe3f22956f2907efb",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/ConfirmationModal/ConfirmationModal.jsx",
+          "sha256": "5f9f656eea1e56bb8d97b60a8e0d2a42680b98dbbdea64a5babff1628aa5fa21",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/ContextMenu/ContextMenu.jsx",
+          "sha256": "b6317a488eb30972617991be1e615c77c951f5c8665aa1054d908b422609aeb2",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Coordinates/Coordinates.js",
+          "sha256": "63db5e2cd82d4265a679322d5be18c43084c00118185719aa8bea77d42bf5753",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/CursorInfo/CursorInfo.js",
+          "sha256": "1a2f10247df693a4150c63fa097a2cf5349e335c30de1e0749dd6bb620d3cd28",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Description/Description.js",
+          "sha256": "18a5056098b46e32786a83115cec05f8807fec3e03429b5405e27f0da3b68470",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Help/Help.jsx",
+          "sha256": "5408501a5d51f066a3c4b8fc325034a31443cb8d2dc2da9b67c66c3a82fe117f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Layout/UserInterfaceLayout.jsx",
+          "sha256": "c595981884e63a44329da92c3bb33036ca342e83a8411dd6a38f6826f2f8c6f1",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Login/Login.js",
+          "sha256": "6636ef524ce17a40b74fa2ed3659718a754cfe9bc38e5bc86669207aa77a8f06",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/MapLogo/MapLogo.jsx",
+          "sha256": "4c791f2ab2c59f37ffe2d57245fe38aa4f3cfc582a18213621848477c7edeff3",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Modal/Modal.jsx",
+          "sha256": "0d456f4db8181739ef6b091523ae8aff8fd5a3cd539faabbcd437f4190bff550",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Panels/GlobePanel.jsx",
+          "sha256": "73fe21fabb017fe3c74286ede9336b5a71b7d68957378fa7d84c1a9b698a337f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Panels/MapPanel.jsx",
+          "sha256": "4e7fc55189ca4cddceed9081e8bfd6648e43babbf89611605f3881c4839f09a9",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Panels/SeparatedTools.jsx",
+          "sha256": "c342cc6aeff0f5a1ff57f800b9518c4b3d9060929806bfd41ec2d6ceeea91565",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Panels/ViewerPanel.jsx",
+          "sha256": "68a6743ba0adfad82499eb691de410500ead2f558d492d658cc31ebb60045dfd",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/RightPanel/RightPanel.jsx",
+          "sha256": "c4929104f862c5a342491f614b531cb74b06f2c4d4710165d58df8cf9a25b8f5",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/ScaleBar/ScaleBar.js",
+          "sha256": "dc069ca3826c4085406852874881b4334ce9984cd8d395d77a4be66e8cea1c06",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/ScaleBox/ScaleBox.js",
+          "sha256": "48d35e35233eeafc1c28b29019a5118c5267067935db55b7faa746c0d8c9d1b1",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/SplitScreens/SplitScreens.jsx",
+          "sha256": "13590bf7fbdabc904f7c6f89f20e1c3ede21986ba1102fba206d3c6251270a24",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Splitter/Splitter.jsx",
+          "sha256": "195f4a9ca357669a26909815ae2ddbd2799059fb97418e5b383b9705c6758b2a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/ToolPanel/ToolPanel.jsx",
+          "sha256": "82eab85a4e98e31267860a50ad7988a7ec716bc4ac64f619fe182b6e8a255ca7",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/Toolbar/Toolbar.jsx",
+          "sha256": "88ae7d7667c75123022c7451144362e6059a1ecf0626f915440ac43e8f36598e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/components/TopBar/TopBar.jsx",
+          "sha256": "b23805bd61a164627a553c4b0efe20396846320220d3b86c6f9a97f8075975e8",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/store/uiStore.js",
+          "sha256": "4fdf254054e76d0cd4e22ac6af3c1f6e652a756a852a05f9de935fbe6f56935c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/UserInterface_/store/uiStoreMath.js",
+          "sha256": "ee37bbb27a34f2cd1c2e44bd24bd8d9ff925321657faab5dbef09bbb8ca11677",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Viewer_/ModelViewer.js",
+          "sha256": "e93cd39791eadacff6d1968fd2b7fab9d699db6bbce2fbf4afb78d4be235c257",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Viewer_/PDFViewer.js",
+          "sha256": "58fef11b1f12f067443aa4d5d5ad253ae3c23b735447da606f80d96ad619b7c2",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Viewer_/Photosphere.js",
+          "sha256": "56d8e14c991d7e52b1292e475bf7a7d56d7466b3c309716fd19ea9700b1e310e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/Basics/Viewer_/Viewer_.js",
+          "sha256": "e29069466fc05cfb4d8a6ef9a5a96190b0aa1dd094991c50a857064bbe553c55",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/LandingPage/LandingPage.js",
+          "sha256": "bca5c8ca9578e034a2b6cf54c4d4efb383e846ff1b02b32eb15042dfb6df8e37",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/essence.js",
+          "sha256": "85ed5e44a6020d7e1869edf87447b32a1184c83db156e60f5ff495360a273fb5",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/mmgisAPI/mmgisAPI.js",
+          "sha256": "09ebd780014aa88f79862da95dc11c8d352f2aecbbc9a8b708584d944d45abbc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/services/DataShaders.js",
+          "sha256": "cd055028d2e19c2c082f3fe2e657383e760a3e7eaeb15425359214e7776e058a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/services/LocalFilterer.js",
+          "sha256": "66fa5b8602628eb15a438316c79c4d12a1e4628d8c0d3c541ccd6c52900b9072",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/services/QueryURL.js",
+          "sha256": "ef6b5d05f9b187987486f6538d8c8fe39e2f4b615650efa7764d192f62445066",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/services/Sanitize.js",
+          "sha256": "253c22c67cf8d081ca8e509701d664f51c4287b99e018f003cd52fdc77e068cf",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/essence/services/Sprites.js",
+          "sha256": "e55fc20bfd27a554924eb3e55846bde7e24dfc87ccd86896870d5d43e3debeed",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/Stylize.js",
+          "sha256": "3449ed347621492a461a8cc0f6c39409c9051a1807d8c0a770c7df12ab9fa3b6",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/applyTheme.js",
+          "sha256": "9bc658cfef0a857e64169c34a7fff9e119999b21ec42cd872fdbf9277886d503",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Button/Button.jsx",
+          "sha256": "89a55db9a9111c8c52cbffc84e86d7b7ef98e2eb58763cf3b52b439a77caaf6b",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Checkbox/Checkbox.jsx",
+          "sha256": "148f7705701ed45b5467c5ba8c57625cb49564c0bac716bfaa983bbcacfaf958",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Collapsible/Collapsible.jsx",
+          "sha256": "134a2ca9528a2b403ba95a13662c276e4f2b1259f7ec3520a511f6143b1f8a9e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/ColorRampPicker/ColorRampPicker.jsx",
+          "sha256": "9155cd2cadd806048e110877a7d28d381c8471e820b958fc029f5989ba424dde",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Dropdown/Dropdown.jsx",
+          "sha256": "5a6c8513c364d7a91bfc26ab2b6a66a5d7229923eee28e8c6755abfa00b0c6a6",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/IconButton/IconButton.jsx",
+          "sha256": "1b1baec72dfe69dfd3ed031e4c229ee6d128ac4e0296fe77aea63afc48f5a4d1",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/IconTextButton/IconTextButton.jsx",
+          "sha256": "423729478312cb863666ff7f076f5df108f2dc81e731192c7ea4f09fdae8679e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/InputWithUnit/InputWithUnit.jsx",
+          "sha256": "4893af9f602d44a519edf9f90db89d6c19aac199a3ef5bc43fa4088990cf6465",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Modal/Modal.jsx",
+          "sha256": "fcecf9b7d9eb8b0ca448320c9ece7631e09365ada20f74f10bc4db7825b7edd2",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/ProgressButton/ProgressButton.jsx",
+          "sha256": "80103514cb4ba0b099d969d3d329ee3495f53bc97ede2049f200f831717343db",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/RadioGroup/RadioGroup.jsx",
+          "sha256": "c70e418f45323a1c22963fb7d110a034c125bdfc6d8dfce5a54056b4b8a58fff",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/RangeSlider/RangeSlider.js",
+          "sha256": "a19f491ef6e239d3091d1b8706af41b15a8aad8d452e2406892a296b78e3bb8b",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Select/Select.jsx",
+          "sha256": "e7e35d04f44b223608d0151c12004e02c47cef19be40ea764b4804cd198fdacc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Slider/Slider.jsx",
+          "sha256": "97ae4df1f6ecf5506faf9421e0b8b842f976364b2bc91845fb9c4f4dec8720d9",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Switch/Switch.jsx",
+          "sha256": "887b5260f360f409750d9510ab199d0a5273e616ac663cf7e9ae8bf4c1b4b153",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Tabs/Tabs.jsx",
+          "sha256": "5d17f5a0bb2ef9ad958c9c675518246500a279aac39513c6065a1693d5a12a82",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Toast/Toast.js",
+          "sha256": "c8a18d2b2ba2db861b1f4f37410c673ea57a8002258e6bf44e778ec37ce97837",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Toast/ToastRenderer.jsx",
+          "sha256": "1094fdee6ed87f62cd2ed329e203622b66ba5004874ffb46f7f03ed72eeb5de8",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Toggle/Toggle.jsx",
+          "sha256": "5534f2d6d68896e80fef40eb2a747af0c534dc0426cecc28e0ed5732e9c23a3c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/Tooltip/Tooltip.jsx",
+          "sha256": "11c8bee7581c3fe54e9f05536881f9a2fd02f73ac29ba3837a28984ac839824c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/components/index.js",
+          "sha256": "ad3abcd29f2e3cb7732b3a94492f235feda354bfdd6a12cbd0bcf0484df0f0ef",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/themeApplier.js",
+          "sha256": "2499e742fddbbcfe0b2bd6bf91c3eb150536542e2112685e76558a09672b1865",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/themes.js",
+          "sha256": "fbfefb5e8e51db2ac5a77f591b64573f8d3c9e8bae3f79edc5fd04f97bea09fe",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/design-system/useTheme.js",
+          "sha256": "1e9d4a9eaef46de29cd6bfe8d3952deab678cb2b0f29a9b776d0bb3623468daa",
+          "status": "pending-context-review"
+        }
+      ]
+    },
+    {
+      "id": "map-entry",
+      "count": 2,
+      "files": [
+        {
+          "path": "src/App.js",
+          "sha256": "dbf472933ce3e93d89864468928820338f8ec293e67d9ac26337f5ced23e40cf",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "src/index.js",
+          "sha256": "6bee0b689ef3e2a825b9fd8f42eb89139d812f87a0934dd920e7ca320c62c517",
+          "status": "pending-context-review"
+        }
+      ]
+    },
+    {
+      "id": "html-entry",
+      "count": 2,
+      "files": [
+        {
+          "path": "public/index.html",
+          "sha256": "adb2d4c2e02494d823d4e96cfd365e08f7ff0284d0ead48f7959f4ea61bb3aa1",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/public/index.html",
+          "sha256": "bed5ece13e2af68145b74b7e3a9e0c7eb2f1bdb9aa8ac1d60e49e06e2f5d14fd",
+          "status": "pending-context-review"
+        }
+      ]
+    },
+    {
+      "id": "configure",
+      "count": 89,
+      "files": [
+        {
+          "path": "configure/src/components/ColorButton/ColorButton.js",
+          "sha256": "ff8a40e2078454a2e7d68fb46b0db04b606668725061a7e2b119587ddac75df2",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/ColorButton/useClickOutside.js",
+          "sha256": "3fd2795fece339a2a37a6e9cfb5731bbc5c082ce70174a169576a6964015aced",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Main/Main.js",
+          "sha256": "904e451889ef0cc2200c72dbfaebaf897b15d033d080f002b6d1f9a7bacebbfb",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Main/MainSlice.js",
+          "sha256": "83705a102cf91b2c9278a736abb24294101113a692653497e4aa9da2c5ace1bf",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Map/Map.js",
+          "sha256": "1ed0c7248e3a552a0f4e423822488744916b766ffc0141cc85fc1ae94393e1fc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Panel/Modals/NewMissionModal/NewMissionModal.js",
+          "sha256": "383d71f76e489e91ffccf7d4c5f4720c1ec7d94d8216209d544ec92c8eecb698",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Panel/Panel.js",
+          "sha256": "db817e574fa5bbb86204ef43602ababeffcc79276b33bb21f5df2232cdcedd37",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Panel/PanelSlice.js",
+          "sha256": "42e83a5c0b62fb5495c59983cfddc95577527f187def62b987320d03b0cdd7ff",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/SaveBar/Modals/PreviewModal/PreviewModal.js",
+          "sha256": "ee5aafee6bd1797fb04903ac3e2fb857faf60db9d6e62454bf905e32b4de08ab",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/SaveBar/SaveBar.js",
+          "sha256": "e5a379a756f8813a26e8959872da582b27d7ecbcb10b2a4a28f109e780c575eb",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/SaveBar/SaveBarSlice.js",
+          "sha256": "b3104d749e18a42b2faecef80835d66ca3caeb5d725e7a9df079f56573c8bfe8",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/SnackBar/SnackBar.js",
+          "sha256": "b7286196b71e08d3bda3baf0f2ba194a09be021f2216323e723b88f718349547",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Components/Components.js",
+          "sha256": "d3883a696e75cff637596827ec06de25f19d63e8bee4c26637a4250757987150",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Components/ComponentsSlice.js",
+          "sha256": "7955ed676eda29ccd6c15588a408388e0a760103f35ff1704eed444dbda654b3",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Components/Modals/ComponentModal/ComponentModal.js",
+          "sha256": "fdd4d72317f9b2a7e966c4251da9f2b71948743fe4e99ce377555cd032624ad1",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Coordinates/Coordinates.js",
+          "sha256": "d2f8936fc289f83f7e31be5748da776ec24100fa8d5d3c0772cef768367fac0c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Home/Home.js",
+          "sha256": "392ce9fcff15411ce3de7bf2a405af96dc7efe9c5ee976c89e74ad156bf2db2f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Home/HomeSlice.js",
+          "sha256": "860ff8c9fd1590efae787ac852c9bca8af908abb2b44e6468ad885b77d5d8acc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Home/Modals/CloneConfigModal/CloneConfigModal.js",
+          "sha256": "fc16b348305ae08f2b53430b7826396fcd904b33be4b6833ad7c370b09316b52",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Home/Modals/DeleteConfigModal/DeleteConfigModal.js",
+          "sha256": "191063e768fe4bf93488a6480c6fd94a4ea952c23df4b077f63a76297e521cf7",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Home/Modals/UploadConfigModal/UploadConfigModal.js",
+          "sha256": "35b33ade6153d14c19b9dd412f2af4bc1a1fe20b4abba44f8e6efa6b2b7bf58c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Home/Versions.js",
+          "sha256": "5773c5295375ca8a79a8bb666dfcb340df7e2cb7526031e81d30bac4c3a053a6",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Layers/Interactions/InteractionEditor.js",
+          "sha256": "336b88f6948113e53fdbecc195cf3bfce80ab2e4036792ce45a7af7fefc4c79f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Layers/Interactions/interactionUtils.js",
+          "sha256": "d8601e5d98e50e12ce3e6eb387b252af9d9cc7d98979898791cb8f6e1c2a0728",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Layers/Layers.js",
+          "sha256": "bd7ebf8518e603ca00edb750ecf7b27349ecfa63f92bb04c1a3c602ec40963ba",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Layers/LayersSlice.js",
+          "sha256": "860ff8c9fd1590efae787ac852c9bca8af908abb2b44e6468ad885b77d5d8acc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Layers/Modals/LayerModal/LayerModal.js",
+          "sha256": "f53b0fd04825f2ea531288f35032ddd09877479826d40b45659bb5fec8445295",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Time/Time.js",
+          "sha256": "22bd737b6953c81302f93acca37edb26f6dfc77d7925b12c8e2f8aa56f6d331f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Tools/Modals/ToolModal/ToolModal.js",
+          "sha256": "4ff5024e952b5edefebdc0071983410a6664c845523c81d4cf8bde637e2f1fb2",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Tools/Tools.js",
+          "sha256": "b2787d28a6cab9c46154cb1233983708be60e4126b8bd94dee1b504b40dbe015",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/Tools/ToolsSlice.js",
+          "sha256": "860ff8c9fd1590efae787ac852c9bca8af908abb2b44e6468ad885b77d5d8acc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/Tabs/UserInterface/UserInterface.js",
+          "sha256": "a1edcec8dec9971457c2da403b35cd49f2673f0aa5da16c0d42ba3be28191a06",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/ThemePreview/ThemePreview.js",
+          "sha256": "7ae39e4e96c2af7064f61fb54728cfb559df8454a57a719ca9e2cd762af9506f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/components/VideoPreview/VideoPreview.js",
+          "sha256": "9ddd6702be850c7a269c25d6fdac258bbefb3b7596ca55457e50a4384c43f0e9",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/Configure.js",
+          "sha256": "8a4d5d1489d3cb0bf9dcbe0833a8b9dde893fce797acf7ad6ac48f0646f76a5c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/Configure.test.js",
+          "sha256": "03661b98f4913e7411b5de4c6deb72ac399d6f3bb27b1120020b766e09f746da",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/ConfigureStore.js",
+          "sha256": "6857d772513e9f811138ed15319023df393742e84f6624d894367c9b3516b2a9",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/Maker.js",
+          "sha256": "bf82ff2ad5fc47b23b06690d422fd1cad263d705364994e6b3ecc3784a878800",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/Websocket.js",
+          "sha256": "6d9276d887e07c112af90b4a043c8f48a287dbb8ac00fb9f18b3510f2f9d605f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/calls.js",
+          "sha256": "b82d543afba74b319d6b2901b937cd0bcab20e102b4d7bf530da0a66749504fa",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/constants.js",
+          "sha256": "80130d93232f40e5bef6857227d7908b1c10cafd8e6b68cfd33cb4a230774af0",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/crsUtils.js",
+          "sha256": "bc961f3b06752cf27a76825c3ed4552ab4aab99a88849a77d842b40e64df8aa8",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/initialStore.js",
+          "sha256": "bfd25062d3c5b6e3e29c27aff856492f97b6c7a473a6128f698b5bee90d9be0c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/injectables.js",
+          "sha256": "ba5a714c5ad7d8666a874b3a399b18118f8eeed0045820bdda35ad85f3a87436",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/routes/routes.js",
+          "sha256": "6d3d04b0a77d82b646543404224f99df1545661d190b587269b3ae816356560e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/store.js",
+          "sha256": "3893d043ea591d451f592833f4197fe1051c727e2edfcdeae7a93b05bf726a8d",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/utils.js",
+          "sha256": "f95eee7068073bcd38ac8691f670cf81ec7a19b1a3a1e11efbf8141534db55dc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/core/validators.js",
+          "sha256": "ba4f283a87b6213e96cf01900b588481138db031b5197cf5689df70b39c0bedf",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/external/js-colormaps.js",
+          "sha256": "5b3e582af0718d1a5933dd221328dabc10934cdd15bdaed6f5499852295dfab9",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/external/line-navigator.js",
+          "sha256": "6b1c5b7c4b9892d18c29915a38d2110b408ca24c498beb235273b03d232fe8da",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/index.js",
+          "sha256": "e338f1cdfb87a36004f79f1f51530f079aacfecefbf08762e4920de03a6dccbc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/APITokens/APITokens.js",
+          "sha256": "ba701158d261ee890923759a0633b2494eeea7e40ce476ae3a9a3810c0958b8e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/APIs/APIs.js",
+          "sha256": "12d4d661f13d8df21396b7c8e11e59478912b478311a4a20fe91ceb80d5ac262",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/Datasets/Datasets.js",
+          "sha256": "4cd30d07886c7483238d7c28be60262880215e6be7debee494b485336cea4012",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/Datasets/Modals/DeleteDatasetModal/DeleteDatasetModal.js",
+          "sha256": "1ebd38aaf77db7046e01f9d0ef51c3c8e7053110193080a671b394395126ae81",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/Datasets/Modals/LayersUsedByModal/LayersUsedByModal.js",
+          "sha256": "b64ec32d1fb4fbe33975b6ba1bbe2812945d16e2d88e5aa3d5a14020872c243c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/Datasets/Modals/NewDatasetModal/NewDatasetModal.js",
+          "sha256": "82369287e7ab3cad568f4b2ee5a3e39fd62dedc96770e4622c5322d1dd4d2f9f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/Datasets/Modals/UpdateDatasetModal/UpdateDatasetModal.js",
+          "sha256": "9b428c5290c7790f7b8d7ee48b8eb62f3d8de047adea6a46657421d1fb006f9a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/GeneralOptions/GeneralOptions.js",
+          "sha256": "c760c66988929f10c50d627c7746cea21ebc0e19aec29ad2da8d9b5a64b8a2a3",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/GeoDatasets/GeoDatasets.js",
+          "sha256": "14bea5d5459e69035015706155b18c827a8f49f134b31ab53909fabbfc39b1d5",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/GeoDatasets/Modals/AppendGeoDatasetModal/AppendGeoDatasetModal.js",
+          "sha256": "d9091d2dee0b5263732dbbdf9b696db4b9d32a99be047cffaeec98be746b3fea",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/GeoDatasets/Modals/DeleteGeoDatasetModal/DeleteGeoDatasetModal.js",
+          "sha256": "3b05391475dd901e5342d3284587fd97f9d46385a7f644d6197621395729ba82",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/GeoDatasets/Modals/LayersUsedByModal/LayersUsedByModal.js",
+          "sha256": "a98f1cafee186b02535ae750925c85d86914392a15e91a4b581419c08e50f1ba",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/GeoDatasets/Modals/NewGeoDatasetModal/NewGeoDatasetModal.js",
+          "sha256": "5bfa7fec00d42313be3bac745b1692de28c8eafbe86713a4daa8b059be27fd6a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/GeoDatasets/Modals/PreviewGeoDatasetModal/PreviewGeoDatasetModal.js",
+          "sha256": "a79805e7eb38923ba5425f618acaea79cfd0ff374ce62d2c65527018c09719b7",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/GeoDatasets/Modals/UpdateGeoDatasetModal/UpdateGeoDatasetModal.js",
+          "sha256": "a39a985e976e62a55e008086ecf1adffae13fbea1da4c43d599c258b67c17860",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/DeleteStacCollectionModal/DeleteStacCollectionModal.js",
+          "sha256": "66c3df14e11a7bb01a63ea6da8aeca529a359d06c23ab5c8f251486bb6ba8f7f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/EditStacCollectionModal/EditStacCollectionModal.js",
+          "sha256": "f4dd9465a10830e05e1dad85581eeff3c9cdb0576efb890a7bd1f8c3652702a0",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/EditStacCollectionModal/editStacCollectionConfig.js",
+          "sha256": "cb75385cc70e57815550f9436304352ebb8bff256393a0eac0e55bc66c1a5755",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/ImportStacItemsModal/ImportStacItemsModal.js",
+          "sha256": "1d7aed2d49ecc6d768ba3624606ff76348ba15cc32a9bd9fbd4e4a2d8873c525",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/LayersUsedByModal/LayersUsedByModal.js",
+          "sha256": "b3292152405a0adfa38c96b2592b10f345f1f870f1a67d3489338c93c2c973c9",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/NewStacCollectionModal/NewStacCollectionModal.js",
+          "sha256": "7a8660d35f230268dca37baabe1fbb024f0e3738cd4196cf0f0dd31592b64c85",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/StacCollectionItemsModal/StacCollectionItemsModal.js",
+          "sha256": "5d38da405e94e1b63280b62dc409f41b5d462399e37d173918e9b391a34cfa3f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/StacCollectionItemsModal/components/BulkDeleteModal.js",
+          "sha256": "b4dde550b572a87185a9caf7196e7747c48e8c7f90a720c930e3ef6d8d90ba0e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/StacCollectionItemsModal/components/DeleteItemModal.js",
+          "sha256": "25b6073936fab31e7ddcdbc46ca6403fa31f5b9888dd2bf69c696df0ea9c9444",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/StacCollectionItemsModal/components/ItemsTable.js",
+          "sha256": "af3d34c5d91574eb79b39ccd3ab1f1e01b4a555720c83d87f5fe32b580ccec3d",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/StacCollectionItemsModal/components/JsonViewModal.js",
+          "sha256": "2ef4ba13296aa626e8f848315513262b1e046ebb2f87e0e8fd53353ea906955e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/StacCollectionItemsModal/components/SpatialFilterMap.js",
+          "sha256": "214b1ef43cf8122f8db6c23fe2c250a481516e093579e53be3127d4418b114c8",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/Modals/StacCollectionJsonModal/StacCollectionJsonModal.js",
+          "sha256": "f90b7801f6c456988f11b52a60be52d6896a39a9c5554bf565eeb9e12697ef3a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/STAC/STAC.js",
+          "sha256": "468a6f6bf2cae129558f8f59dc727ce243d7eb5284e952c196738234c74f9dc5",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/Users/Modals/DeleteUserModal/DeleteUserModal.js",
+          "sha256": "933601a5a70d0368af3aa1caea56e52d8117d35b879d16c4b9a2a564ac62534a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/Users/Modals/NewUserModal/NewUserModal.js",
+          "sha256": "259c74c7b508624648bfec48a4fb617238071a1af349c80c962cd4030547c2e6",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/Users/Modals/ResetPasswordModal/ResetPasswordModal.js",
+          "sha256": "817d70c9a69a11bbfd067b824269e2fc55e8e1954302f9a653ec796ac83f0070",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/Users/Modals/UpdateUserModal/UpdateUserModal.js",
+          "sha256": "f57b6251dbebf2c113276fd3c7a48b3fe5d0bda32a7b3e20439f528394590743",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/Users/Users.js",
+          "sha256": "ef1b1bc794765983c36afb336d4e78c13fd29394c7a07b3a60547cb344a9bde8",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/pages/WebHooks/WebHooks.js",
+          "sha256": "eb9427ff6b0e41049c135c6079e19930e94c8e00f198c4a32c017103352c3600",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/setupTests.js",
+          "sha256": "22583759d0045fdf8d62c9db0aacba9fd8bddde79c671aa08c97dcfd4e930cc6",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/themes/light.js",
+          "sha256": "09ee9d3e7ee414008d59ba660034774569ec1cb71cdf8b54072f191300c3a981",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/themes/themes.js",
+          "sha256": "f9dd2f40254263d834ae04ce2f8361966221cc95be5fef3bcd55b717e3274e32",
+          "status": "pending-context-review"
+        }
+      ]
+    },
+    {
+      "id": "plugins",
+      "count": 145,
+      "files": [
+        {
+          "path": "plugins/core/backend/Accounts/plugin.js",
+          "sha256": "826b5e8bc30695da5b5508a6e0db05808422ec34ec2258178d31b1aa353f3ce3",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Accounts/plugin.json",
+          "sha256": "00e5b9c05cbbb3f6de872ba893ff8027d6830ec742dd2c8cb0d2799e64f768ac",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Accounts/routes/accounts.js",
+          "sha256": "387a8bf1854faf93b3b0d9030953c4f0f98d69a50c7368a7a6a46660967eb154",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Config/models/config.js",
+          "sha256": "6c009075a5c4ae3d261ad00d2ee42ec1ca69a1001edad2a5c1b11f2c4c2ce486",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Config/plugin.js",
+          "sha256": "c8101bdd0b058c645cef3bdd957d39498067dba050f4f7f360cdb12d70bcd67d",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Config/plugin.json",
+          "sha256": "a1024db981f5936ed397afef295a506bd9570847354f68a309c2d5341660a6b9",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Config/routes/configs.js",
+          "sha256": "a81e0793ae2130a5f4020225e9b02f13d2395b5b899c2719edc036c6cdace8a1",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Config/uuids.js",
+          "sha256": "57402c5ab54844255733768026422557f1a7a47c6713f50fa008f02823a8164c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Config/validate.js",
+          "sha256": "3a755d2a0c58ed89b58fb86808f26124871997e0854f0fe88435e23f993e3ee9",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Datasets/models/datasets.js",
+          "sha256": "2a9431c90da7aa936241ecdb40bafc75242fc0d0e90024eceeb769204e8c1800",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Datasets/plugin.js",
+          "sha256": "94fe5f5398294f4b3832cb90b911385574ed9acc036ce9cd337b82dbcd74789e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Datasets/plugin.json",
+          "sha256": "2c5e601e87b6280c3c375d11667f0c76ac072916164210656c9b649502be89f6",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Datasets/routes/datasets.js",
+          "sha256": "ad91939e808f26af5cd17a21c254c3af49ce3acee97f521612538823725e4553",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Draw/models/filehistories.js",
+          "sha256": "539d85b041d8aeeff9344966e8dd104041cff3c909f34825f22d9e5a38fda28c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Draw/models/published.js",
+          "sha256": "ea33afacaec187764456b2d1f525d0168eaca106a3efa180ec31137c9851c1d9",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Draw/models/publishedstore.js",
+          "sha256": "eb88c54b2babb2004003a98183d256c8503171f981947db7c1bd94f5d891fc88",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Draw/models/userfeatures.js",
+          "sha256": "ac8649089841e0c63c806169cf85ec213fcec4667edd0294e6f88d8682332b3b",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Draw/models/userfiles.js",
+          "sha256": "de392cc33a7bbe7fffc9099bf831ad06feb056624ecc4f987aa910cad6387d46",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Draw/plugin.js",
+          "sha256": "98dc9bbcdcae70a6cc960e650687ce1e0701b546e26f14498fea35e4be538be1",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Draw/plugin.json",
+          "sha256": "4af78b176eefd8c7fadb4c0406383942c8339721667916337b1f005b1515ff5f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Draw/routes/aggregations.js",
+          "sha256": "3da61a0ac2083c1ec74164bb896d56eafa88ef2842a63d3d101eac3340668577",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Draw/routes/draw.js",
+          "sha256": "9281ec6f9631529afbd201d61d9afc8bacd49661858f8ca4cf66e451f762dc39",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Draw/routes/files.js",
+          "sha256": "2a1e900561cfa5cd9385ac1ca90cfbab695bc220b3d33f41bba668a0d4f21e14",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Draw/routes/filesutils.js",
+          "sha256": "3d42ba2d7a2b85b038e64b2911d08869f9cfe6242c8177d62fec06e47c087969",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/GeneralOptions/models/generaloptions.js",
+          "sha256": "e9bc4e52a8c8d6cd198046f33797391dbb4908e460d9c32f25acf318061c4d7b",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/GeneralOptions/plugin.js",
+          "sha256": "667feb9afa1c6841c3e40770edb7655181eb2fae428551123946bc891ea6661d",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/GeneralOptions/plugin.json",
+          "sha256": "2df852a0c14a69718cbc1cf75f4b9e9f6bdcb758ad9ce6b33451f3f234217267",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Geodatasets/models/geodatasets.js",
+          "sha256": "ce6d64cb544290da7200c58b891def48e421bd9179d15113d3d00606ebbd8062",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Geodatasets/plugin.js",
+          "sha256": "36e3dee2514eaebcfface7727c84474706af07dbdcd7f2f668a56458d6414c27",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Geodatasets/plugin.json",
+          "sha256": "a2f65350eb77b2b1a9faabbb5e65314292bc8176149fa3b4d973cd5f68ddb152",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Geodatasets/routes/geodatasets.js",
+          "sha256": "830a5cbf74ccce304982dcf87afe3e493a9c3ad10d8673c7d1ba011333716276",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/LongTermToken/models/longtermtokens.js",
+          "sha256": "3f09f6ba84bccbc94e5f492eeb233d42800c018eb8882e264b15a3679fc80020",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/LongTermToken/plugin.js",
+          "sha256": "37c1f6545f8d36b1b5e84b9ee074e41a6c84b493f91d0cb7e043262de99412eb",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/LongTermToken/plugin.json",
+          "sha256": "14e1c13a98fa33e43980083d75873c8e7d9e63a7fd6f7fc008c98bc83bb396f9",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/LongTermToken/routes/longtermtokens.js",
+          "sha256": "b8d88dcf7f5e8214b3893e38c28aa8e1d81cb4eca252af2d6961580badfe5eff",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Shortener/models/url_shortener.js",
+          "sha256": "a8e661ad73fc1548793bfa578473df07c6e51f3f4d806c27bdf8650471213446",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Shortener/plugin.js",
+          "sha256": "e3d3d873d5b9a2272b0543ab72642b529500ce09f3c9b2fe9c085ab554393b2e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Shortener/plugin.json",
+          "sha256": "07810b42d597f1a2e6f64b7b31961e493d6447e7d9fe20deae28a3ab732e4120",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Shortener/routes/shortener.js",
+          "sha256": "ec43adedece5c688363899c1132c39be87c4bfb6bc1e519f95bff815a577042d",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Sightline/plugin.js",
+          "sha256": "1ce38cc2009b926610fcfa3e74e39ef921f2c45b8d0c2448e85e3ff3bf39404a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Sightline/plugin.json",
+          "sha256": "349b57a13e9b86e21362d3deb391f3943b37233ce7c3d520433c8f34140f4700",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Sightline/routes/horizonprofile.js",
+          "sha256": "ccec77c48efcede855dfd4b163107f6c5bf6af10b6ea197c0e7531e1b4c1ceed",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Sightline/routes/sightmap.js",
+          "sha256": "0813c0be08593e9516c2df9321471279d24326dfd447729a000881987a27b879",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Sightline/routes/visibility.js",
+          "sha256": "0d2fb4a402324e9f75221b51fa8a3634e8300a0da364693f65e8edb30f2bd47e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Stac/plugin.js",
+          "sha256": "90a5ef94cfd9726b082a80fd2ed5685ece352c86255cb01a34c73a490bf0f3b6",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Stac/plugin.json",
+          "sha256": "3c8463e300ccffc3b69b67c32471fd0c8c3035eafc5d564a6083e2ad5bfb7b10",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Stac/routes/stac.js",
+          "sha256": "272fc68393de0e141a1c7bf198f1a8bab8d94f64051dcd652b095ab325cc2bd8",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Users/models/user.js",
+          "sha256": "770d7d1ba9c6a3cee322857eff99a334b0ae1e92950e7b60c25e339d5111ab66",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Users/plugin.js",
+          "sha256": "c79f646963104e49cbae1d86c2cd0a928e238fa33693ec6c70771ce8abd88d43",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Users/plugin.json",
+          "sha256": "e5325f5ae7a95c8d537c1e1e296418d37dfe3ff432c2a0e105c2587f25732cec",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Users/routes/users.js",
+          "sha256": "4c35d9bf4c0bd9b4aa0f276e3641babe25673f943d788e4e55f500d31c4ac001",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Utils/missionTemplates.js",
+          "sha256": "94fc281e099567c110262e143cb5040ef4371e87c8eac431214670363bc88771",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Utils/plugin.js",
+          "sha256": "0725fb62076467074d8d12ba6b95d5222fd9305e2cb8594e9b6e6d783fbb7866",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Utils/plugin.json",
+          "sha256": "e3b6c7d37990c36a2577b1852518759556e4494d1414669f0b66529431211aa0",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Utils/routes/utils.js",
+          "sha256": "0d615ec23b4cf4d1c14a3541c4529d4048242a890ec3ce387f35465618f3ddd9",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Webhooks/models/webhooks.js",
+          "sha256": "d5c2c8866179f5a1174856db1ef1e05ef56f2e2b8bc41a9e62e8bda671f498b6",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Webhooks/plugin.js",
+          "sha256": "4167726d167bfb02444527ab384f799ddc098c2fde67a8ec01261c5cb0265409",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Webhooks/plugin.json",
+          "sha256": "ed293345a53c7f9c3c45a04825b07535190e1a2f74b1b2dd9a1ace5b19418cb7",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Webhooks/processes/triggerwebhooks.js",
+          "sha256": "e3eca20a1cf3ff9baf99085dd275e7f290193c2aa5ab26b5e939b633547ecfbc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Webhooks/routes/testwebhooks.js",
+          "sha256": "39df3b75b86e91d1099c55840d8783d7cbbdb3ce76306fb84f316e6803dca156",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Webhooks/routes/webhooks.js",
+          "sha256": "46cb7006d6bef80b7d517e30cc6f64e658b337ad869460d3850d2b5808ab8d8b",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/backend/Webhooks/routes/webhookutils.js",
+          "sha256": "7f2f08a151cb7c61339ec884a367b46eec208911c30855aac424ad39ddefb8e5",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/components/OperationsClock/OperationsClock.js",
+          "sha256": "9ed3cc8752c068138289408216b194f26d50072613b7ac81045555a1fe32ab2e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/components/OperationsClock/plugin.json",
+          "sha256": "85400f398399b5d012394b07a455f1b66964424f1a9369206df0c2c5e5ecf2f7",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/components/Search/Search.js",
+          "sha256": "3a3960ace678c7418f971b1b1f0dcb943b2207bd989e437321175f1a05cd21ec",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/components/Search/SearchBar.jsx",
+          "sha256": "d1ffec6196f42b13cf84828b7cc42d8ed2280519bbf1a760b107312f0ede1f67",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/components/Search/plugin.json",
+          "sha256": "1a21f159edb307d45a62ec26bc84f962404fab55e4964335c7410171c5b3f290",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/ChemistryUse/ChemistryUse.js",
+          "sha256": "da52ebf4ec6be5fcb5387288d04a45d3f04b7feb527ed713b86d5f8a42fbd06d",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/ChemistryUse/plugin.json",
+          "sha256": "f14a2c3a42d5006882a410a321b57b47b342312a19924f123e35b5e78b99ea00",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/CursorHide/CursorHide.js",
+          "sha256": "cf63c2d0b44d81062e4cd3139d7af40dcb51fd53799a24d26289cf7da0d125fd",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/CursorHide/plugin.json",
+          "sha256": "ee81d83a47ca82abf108d6516c7beb046216dae90739933b14c64aadbe775b23",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/CursorShow/CursorShow.js",
+          "sha256": "930e6baf0e5abd0e9d69515d5ec4d3aa7b01260db0da9c3656d60d397fd647bc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/CursorShow/plugin.json",
+          "sha256": "7c63afb8ccdd15a97edbf109edc9fa3e7d505224712b54385ee1af7eb10762b3",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/DrawContextMenu/DrawContextMenu.js",
+          "sha256": "f64533471c406443acbb6bef703f106b4e4775f92893f09bd33aff1d1e6d58ce",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/DrawContextMenu/plugin.json",
+          "sha256": "067fd7c9e03e152f34da096dc1d67c3999f5cb2748d99beefd7cc840d27aedf5",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/EventNotify/EventNotify.js",
+          "sha256": "9dbb71ee23fe16ab50dbccd1b6709fd63154fc366709997aebd0703420d2714e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/EventNotify/plugin.json",
+          "sha256": "efc7f4ee11abf40df9bc14ffa264cf3a15eb3e32f616e695a623279a03602e11",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/InfoOpen/FeatureGatherer.js",
+          "sha256": "c8a794af255ea3e15ab95f7bb5bbd9dfbc87faeb1268da2b9aacf3bacf4ac8cf",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/InfoOpen/InfoOpen.js",
+          "sha256": "e46db585f8f073b79fa242d87e5d557012da186837f79259381d3ffca45fd107",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/InfoOpen/plugin.json",
+          "sha256": "150ab991940b5d88a4cf1f31b2b92d68c02a8a2cde4e95274eb23d18baa38264",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/InfoSilent/FeatureGatherer.js",
+          "sha256": "c8a794af255ea3e15ab95f7bb5bbd9dfbc87faeb1268da2b9aacf3bacf4ac8cf",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/InfoSilent/InfoSilent.js",
+          "sha256": "986383ad20057838e8d098341cad37582f70f856678cad9332b826ca3ac70ad7",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/InfoSilent/plugin.json",
+          "sha256": "8082582c586d2b594984c634d54b6a2f5f0aa64578d3febc7986b48d35600784",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/SearchUrl/SearchUrl.js",
+          "sha256": "8609ba57ae1ad2ec3dd7b98c81148c23f1d90561af81479fad3fcff96cb7fe0f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/SearchUrl/plugin.json",
+          "sha256": "6e64b8225e3e14f6afc3ed7469f0f86f3d711a6d40fcadbe81d631596fc4da46",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/Select/Select.js",
+          "sha256": "e6ec3df05ada408daadeeedf5101058aa747b4b1722ef9122d4d5f6081efcc5c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/Select/plugin.json",
+          "sha256": "94952c733d1153aa21cc87a0d25753ed104921c4c8af5ab5c8425d3e0d1a68d2",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/ViewerOpenPanel/ViewerOpenPanel.js",
+          "sha256": "0000ef9422330ff7b0f2bbc35bf55b887021932ff670fa8917e85da177c30179",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/ViewerOpenPanel/plugin.json",
+          "sha256": "a0f8836f0a007d800e1fe0e1e6407e77681c5c2c858b53f48795bd85933aafaa",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/ViewerUpdate/ViewerUpdate.js",
+          "sha256": "1470cd1da8f2071e2d9cdb85e28b5188473d0d0daa197d73f3237ac292a15786",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/ViewerUpdate/plugin.json",
+          "sha256": "f58d6f206034698c3e56185dd61e93ab79243257346349bcf21b95cf75b41376",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/WaypointImage/WaypointImage.js",
+          "sha256": "06ad5861a84078dbae769a473a2af354940e57d181e0a0c2fb2aaddee4e49042",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/WaypointImage/plugin.json",
+          "sha256": "1542e27c975e515d51663bb1a40acf687fb34750f9dccd8e45cf255047a8011d",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/WaypointModel/WaypointModel.js",
+          "sha256": "69192dcb67464503a40be731eceddff0e39d52fcffb3570677b4ddce10028a35",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/interactions/WaypointModel/plugin.json",
+          "sha256": "354c0ec6a6118e94eef747d0fb1a34b3a5f2fed8be82519f63c50b55b7caba64",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Animation/AnimationTool.js",
+          "sha256": "d54ff718c987198a258e29a9705ade4cbbc709faa96f714d2dd95762edada306",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Animation/OffscreenMapManager.js",
+          "sha256": "28a96d636d8bdde903a378551b8091fea7efb8013791b7337b12e15605962317",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Animation/plugin.json",
+          "sha256": "c32f35797bd7cef7d42568bf8abbd33955612dd1e92a99439a1015236c7499bd",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Curtain/CurtainTool.js",
+          "sha256": "ad33e89450cab7aca7ac3fa8e5ceec2d2c7442f1b35a770d07537814ec1fb218",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Curtain/plugin.json",
+          "sha256": "153dcd8ec74a788419100737f9249d72461cd04950f9913ff1bf8ad79fc13637",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/DrawTool.js",
+          "sha256": "6d36b6c89e5aae7be12b2ea2b4a741c541d71da6e0f235fb50a7786f2e6de608",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/DrawTool_Drawing.js",
+          "sha256": "e4f37563f8743e3f5c12c217ea85784ac892b9dd5f483a16da142370f8c05d21",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/DrawTool_Editing.js",
+          "sha256": "ff7d3f5fafb524b3888edabfb5032b0b809025577ecdb410dba2ece039e59553",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/DrawTool_FileModal.js",
+          "sha256": "84f451742dbaa649098c1e1a8cd63a41952eb459b9a238fde3231a11c6bc5a57",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/DrawTool_Files.js",
+          "sha256": "ad8cc02494dc66263c46b116a70f23b75b4864472e1d4cd8aff6fa9682067f5d",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/DrawTool_History.js",
+          "sha256": "474bebc4be902097a58dd26b1205f960a62f7c56e06f1c83bf02793b3d16f9a5",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/DrawTool_Publish.js",
+          "sha256": "b5a2838df8b0e7a43add6f76575fd5b610c8291cfbc9b7e4bb20d3b2a6aadde0",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/DrawTool_Shapes.js",
+          "sha256": "f63044d9035c2709471c26281ed426da144027f1776eb9ce8c65c79202b19e17",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/DrawTool_Templater.js",
+          "sha256": "2f5f795bf7c2ceabd9dfc6a6677daf25b3f3f1f23dc260332c3d2007cee3b0ba",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/Plugins/Geologic/DrawTool_Geologic.js",
+          "sha256": "929ab2890e3a2cdc24457ff559a9b91bb2eb587748f86a72851af5242f6384da",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/Plugins/SetOperations/DrawTool_SetOperations.js",
+          "sha256": "355a29d11e6101558756e9de045e1e4079664ca73e33ed63d41e5467d6845962",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Draw/plugin.json",
+          "sha256": "0aaa70c2bf6761f34a0edd5a669c8cb30bf1001ac433b1cc08fb7096356830ee",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Identifier/IdentifierTool.js",
+          "sha256": "d17248c160538514a9b716c71f072f45f825e35a38112eabc52096ae1d868423",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Identifier/plugin.json",
+          "sha256": "93340130e6ae088124c54c3b90f147fa8bff119266365afd435633e93aba70a2",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Info/InfoTool.js",
+          "sha256": "584404f16515d6881be1bbbb471abb783303c33cf5bc6d8c2b710cabe81eed17",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Info/plugin.json",
+          "sha256": "1b5f1f0d3512a151baf558891902161124b3a5b68241f838791bf20e70835d5f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Layers/LayerInfoModal/LayerInfoModal.js",
+          "sha256": "b658a0c5e41b74f2e219508e824000726350a3d35dbf3a75043e0d805722298b",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Layers/LayersTool.js",
+          "sha256": "b980de44bbe08db9e0e68286f16851edcf21ffc98bda24cf1b26aa68b6f692af",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Layers/plugin.json",
+          "sha256": "4ab6dd1d3773a0f8eaa51df95ac0c1a3b2987b125c44b6076c28ad1211bb82b2",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Legend/LegendTool.js",
+          "sha256": "086f148c9a477b265dee408d5aa72c77f34ca58d731f962db3acc9115dc7400a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Legend/plugin.json",
+          "sha256": "5aae3b33a3da6b65dc97f113f2593aa65be3d9dec9e2d72c43fbc1c38f4158bc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Measure/MeasureTool.js",
+          "sha256": "8d2f96640fdbb9e382e9c60d7eef3670a6903133dbb49feab4dac200cc28dd9c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Measure/plugin.json",
+          "sha256": "1afbe665184a29d45f093ade889de8acae79efa18c12e1f018f2feec32b62773",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/SightlineTool.js",
+          "sha256": "fb7a3790bab1dc5575486aeb8bf2e1e34bd608f587b7e6b984ea21cb3078e836",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/SightlineTool_Algorithm.js",
+          "sha256": "3f82f41606a60dedc10381994558c8bd4baa33261466cbef5e6320d88210a424",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/SightlineTool_Export.js",
+          "sha256": "d4595654ccaa24a5b6d0bc29f31152fc4d115e75e8c407fe4a4267e807fa9b16",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/SightlineTool_Graphs.js",
+          "sha256": "6ed3d214c55a430d2145ddb7174d73045f54acfe65394a93554ecfe03b65a723",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/SightlineTool_Horizon.js",
+          "sha256": "46dd6d3e2972c6f952488dbe85575be569642d118b3c9bb57c05a22e1197e325",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/SightlineTool_Indicators.js",
+          "sha256": "b4d96b4c9361bfe3962b1748afb1df623c08886354d363ad666c4796cb9126ce",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/SightlineTool_Visibility.js",
+          "sha256": "6712eb312a51cc5e3e873f2d617e4e0a8971e92996c19ddb066fdee2105cfbcf",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/components/CardLegend.jsx",
+          "sha256": "16a921c21c94d62c7375c16ba57fbe921d70eafd12cbbc72e566f5ddee582837",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/components/ExportMenu.jsx",
+          "sha256": "d5f84904ab4dcd8c8c0810fb3ff45a26088242f3c2775164be531e7de10180be",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/components/SightlineElement.jsx",
+          "sha256": "260c0c21c906bf756850274d8de485da3f27982220807f732ebfe26c501e831e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/components/SightlinePanel.jsx",
+          "sha256": "387c10bb3e80f0bf1da57ed727845e61c3d6e8501ae7f70a86eb89f6c596c5ac",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/components/SightlineResults.jsx",
+          "sha256": "50bf9cce88fb5b70befe0483ec0bfbfa31f218d908d081425755abcb851e0e86",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/components/SweepCard.jsx",
+          "sha256": "7e09c3f7702d78f018fa6e388e02d24a01ed99f36b5eb896823ded44f3e9a569",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/components/SweepSection.jsx",
+          "sha256": "f8166a8a7b451484157a8a439d3d5fcd15e863ec7176aae74054a1a290fe488d",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/plugin.json",
+          "sha256": "9f6b11b5bdbec39105e45a75dcb4b33481390585b3c12931fce9024aa766803d",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sightline/store.js",
+          "sha256": "512d19867f188cff317b0fe88a4f5f34d1536591ac64031192ed09c7b5ac99e0",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sites/SitesTool.js",
+          "sha256": "4cf792fe62918f2292d5b1f25f17583f52bcf1a849a996145340822d075c3c8c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Sites/plugin.json",
+          "sha256": "c79f7c894e37bca30f4e409d61f3ebaa76cb2ef0749fd64f6f81a62fbe5b0283",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Viewshed/ViewshedTool.js",
+          "sha256": "c99d992344e1051c00cfae9c8a02759753468a495e8282d877c73bc35b31936f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Viewshed/ViewshedTool_Algorithm.js",
+          "sha256": "9e7af7c0f3c21f5ece22601877df5e0b0ae7d9e2f7cd8409242c99b70ab4a993",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Viewshed/ViewshedTool_Manager.js",
+          "sha256": "919acdfc584b8e953c686ef06359b66b73f37c9a93d12d8158ab6766203141f4",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "plugins/core/tools/Viewshed/plugin.json",
+          "sha256": "515c9bc66688f4e9096b23ae44f9bb4090f492bda119616f3498c79986e74a34",
+          "status": "pending-context-review"
+        }
+      ]
+    },
+    {
+      "id": "auth-templates",
+      "count": 6,
+      "files": [
+        {
+          "path": "views/adminlogin.pug",
+          "sha256": "2445d1c7a6d896ced7231196107de5ed4e7d3f24d1f0ddff63259b20ab300c3a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "views/docs.pug",
+          "sha256": "99a173cc09fb1c2cc58b98b4de442fad330d17145e0cf3fe710fdf3f1a87c67a",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "views/error.pug",
+          "sha256": "0fbdb01648c4c8affe1778ad8b690d1545e1a12ba9914a57fbeaa568e61ca3bd",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "views/login.pug",
+          "sha256": "0aa2a8cf551c0b674ad653aadc5f49729655e96cbde95b51b145f2707d55517b",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "views/resetpassword.pug",
+          "sha256": "4922e7fe1ce3880e3f3a3d9f60505b8985d6eae141f02a3164b64e7cb2325653",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "views/unauthorized.pug",
+          "sha256": "88c5de920fbd25970409eb41b6b44a3bb52943dd89ca4a931a183c4b8539abd8",
+          "status": "pending-context-review"
+        }
+      ]
+    },
+    {
+      "id": "auth-scripts",
+      "count": 3,
+      "files": [
+        {
+          "path": "public/adminlogin.js",
+          "sha256": "066ff8c852f9b3d15a35024acce582da4449fb729ee214a1bb241a2c1684b814",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/login.js",
+          "sha256": "86ec4251323c059b9161f90b5bf1a156d53c78c7b7d271a2498f83a6c27354cc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/resetPassword.js",
+          "sha256": "4336ca873d16d0057f82f0588b667f6481c7def40834788a504b38e3de6dc69e",
+          "status": "pending-context-review"
+        }
+      ]
+    },
+    {
+      "id": "help",
+      "count": 14,
+      "files": [
+        {
+          "path": "public/helps/AnalysisTool.md",
+          "sha256": "010d2e527140222759fbd8f2f6130389eeb41b3552ef53a45dfc5aaaef139ae8",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/AnimationTool.md",
+          "sha256": "b0c04789a6e5a9efae547dc0fc26bd2d3c759e131c1cc20322d213c88c7d8897",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/ChemistryTool.md",
+          "sha256": "1a8a24bf9f6e5429ae4699fe01779eb406742b44a40687bff4e483902fd1e276",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/CurtainTool.md",
+          "sha256": "7cb3d007ed7fb93de1db0ecbbf89fbaade05dffb08f597c10fb020a6c9023015",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/DrawTool.md",
+          "sha256": "fc8b28e3aa8c16f10a23fbfcad32ad36643f5ef7231f4bc877d8a4870ec78fc1",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/InfoTool.md",
+          "sha256": "13dca25312fe20cc77624680de01d33713abd28270ab0a97ee9ae6971b564368",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/IsochroneTool.md",
+          "sha256": "fe4168870f2d7da4535fdbf6bc6201a1074ac107d04bce453c27f2f631bf724d",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/LayersTool-Filtering.md",
+          "sha256": "593a7306c6429c3dbf6b9996b7ac2843884fe2d5ed5000758d5d1b40c04d41e0",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/LayersTool.md",
+          "sha256": "13fc81d39f7d2367ef444da3b15e71501e061867500d52e58d76fe3650489bec",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/LegendTool.md",
+          "sha256": "1d2686062ab2979451407366d3f9769552a1fcb034a31d77cfb92f1b427cb809",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/MeasureTool.md",
+          "sha256": "7c14a160cc45f9684044b394c389a4820f0054996c6c4de29f2576ac52d45acb",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/SightlineTool.md",
+          "sha256": "12ba6fa6633cc6ff1e10d08e00b778625628ece7f0b83de3b4afeffa2d76a457",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/SitesTool.md",
+          "sha256": "584e5bf90d188f9ec41e4b20f2356d9a9cdd281319785fe473a5eecc8d59296c",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "public/helps/ViewshedTool.md",
+          "sha256": "d5573040f3da6eeb965667c69a7685cfa228af4c5470f3d4087b1b888eaec0e0",
+          "status": "pending-context-review"
+        }
+      ]
+    },
+    {
+      "id": "metadata",
+      "count": 16,
+      "files": [
+        {
+          "path": "configure/src/metaconfigs/layer-3dtiles-config.json",
+          "sha256": "b79e94486be8f8822431407f6ed7485a5cd722a5f063578f1ec4ea24cbe84706",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/layer-data-config.json",
+          "sha256": "7c114cfcd36a59cb9580f60148b08bf04b1698c408ea236d9c6917bbdaef56c3",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/layer-header-config.json",
+          "sha256": "8ce768de440082ef2b474a68927c4fda75d4f226ec309435e9cf695ef5125fcc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/layer-image-config.json",
+          "sha256": "e19d6f3941bc37452af57b0a0acc9fe3622bc0d6b04955f659d9259a9b2dec83",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/layer-model-config.json",
+          "sha256": "7ebfae54e581b085d11a77a7012620951909ce033161f6133eeda0178374cb01",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/layer-query-config.json",
+          "sha256": "3cc99d3dbe67322ac655f035b7cd39685f2231698bd622324ebfdafe09928b2f",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/layer-tile-config.json",
+          "sha256": "47e14ddb4669ee3a882be06692747ca5b20b08ea65536ba2f44fd409dfbe4cf4",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/layer-vector-config.json",
+          "sha256": "7c2c7517ad05c50b76c05b49782a6b64774e2adfa02a48cc73e8ee657d7ca543",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/layer-vectortile-config.json",
+          "sha256": "b2a8053180c8994af5ec6339977202a8aa4d2dda41c1a71942d22265029c062e",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/layer-vectortile3d-config.json",
+          "sha256": "ec11af7cb02548909492e57adcd005829addcc2e2e1f7fe06bcba53ddc18e98b",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/layer-velocity-config.json",
+          "sha256": "b5916ed794cbbdf60c1d1786b6d36c5fd3b6a87ec7435fa5a58fc60d02e773e6",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/layer-video-config.json",
+          "sha256": "cc2ebe744214c77f4efde7549d291b1ff3afa7e8187e2a470d91031fe4af27c7",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/tab-coordinates-config.json",
+          "sha256": "a557b39a8d14a174faf624441268048c1ac34df093e19c27ea4a33f7d1e3e8ba",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/tab-home-config.json",
+          "sha256": "960d1e3e3e71877896b6414cc2eea6984c9d2f4a0a54fbe820c4f858807e4fcc",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/tab-time-config.json",
+          "sha256": "9da18e0dd6f8bc3567ccebbfc9f5b920ce418de3ad95d68c1b2428fae03359f3",
+          "status": "pending-context-review"
+        },
+        {
+          "path": "configure/src/metaconfigs/tab-ui-config.json",
+          "sha256": "7c08b13b0fa54d614194d0857ac6bcbcdfbb8cddb8d3eaeea4f99fc362c555aa",
+          "status": "pending-context-review"
+        }
+      ]
+    }
+  ]
+}
