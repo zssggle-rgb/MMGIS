@@ -36,6 +36,12 @@
     "cesium"
   ],
   "scripts": {
+    "i18n:prepare": "node scripts/i18n/prepare.js",
+    "prebuild": "npm run i18n:prepare",
+    "prestart": "npm run i18n:prepare",
+    "prestart:prod": "node scripts/i18n/verify-runtime.js",
+    "prestart:prod-docker": "node scripts/i18n/verify-runtime.js",
+    "prestart:analyzer": "npm run i18n:prepare",
     "start": "node scripts/init-db.js && node scripts/server.js",
     "start:prod": "node scripts/init-db.js && cross-env NODE_ENV=production node scripts/server.js",
     "start:prod-docker": "node scripts/init-db.js && cross-env NODE_ENV=production node scripts/server.js",
@@ -133,6 +139,7 @@
     "html2canvas": "^1.4.1",
     "html2pug": "^4.0.0",
     "http-proxy-middleware": "3.0.5",
+    "i18next": "23.16.8",
     "isomorphic-ws": "5.0.0",
     "jquery": "^3.5.1",
     "lithosphere": "^1.6.0",
@@ -152,6 +159,7 @@
     "react-app-polyfill": "^3.0.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.2.0",
+    "react-i18next": "14.1.3",
     "react-pdf": "^10.4.1",
     "react-resize-detector": "^9.1.0",
     "regenerator-runtime": "^0.13.9",
