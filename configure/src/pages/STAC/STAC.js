@@ -1,3 +1,4 @@
+import { useConfigureText, configureText } from "../../i18n";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
@@ -202,11 +203,11 @@ const useStyles = makeStyles((theme) => ({
 const headCells = [
   {
     id: "id",
-    label: "Collection Id",
+    get label() { return configureText("ui.collection_id_12be57"); },
   },
   {
     id: "description",
-    label: "Description",
+    get label() { return configureText("ui.description_55f8eb"); },
   },
   {
     id: "actions",
@@ -215,6 +216,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
+  const ct = useConfigureText();
   const { order, orderBy, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -241,7 +243,7 @@ function EnhancedTableHead(props) {
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  {order === "desc" ? ct("table.sortedDescending") : ct("table.sortedAscending")}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -261,6 +263,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
+  const ct = useConfigureText();
   const c = useStyles();
   const dispatch = useDispatch();
 
@@ -286,7 +289,7 @@ function EnhancedTableToolbar(props) {
           variant="h6"
           component="div"
         >
-          {`1) Create a Collection. 2) Add COG Items to the Collection. See MMGIS/auxiliary/stac for script examples. 3) Set a Tile Layer URL to 'stac-collection:{collection_name}'`}
+          {ct("ui.1_create_a_collection_2_add_9a4901")}
         </Typography>
       </div>
 
@@ -297,9 +300,7 @@ function EnhancedTableToolbar(props) {
         onClick={() => {
           dispatch(setModal({ name: "newStacCollection" }));
         }}
-      >
-        New Collection
-      </Button>
+      >{ct("ui.new_collection_4b68c3")}</Button>
     </Toolbar>
   );
 }
@@ -309,6 +310,7 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function STAC() {
+  const ct = useConfigureText();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("name");
   const [page, setPage] = React.useState(0);
@@ -332,7 +334,7 @@ export default function STAC() {
         else
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to get STAC Collections.",
+              text: res?.message || ct("ui.failed_to_get_stac_collections_4570e6"),
               severity: "error",
             })
           );
@@ -340,7 +342,7 @@ export default function STAC() {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to get STAC Collections.",
+            text: res?.message || ct("ui.failed_to_get_stac_collections_4570e6"),
             severity: "error",
           })
         );
@@ -417,14 +419,14 @@ export default function STAC() {
           );
           dispatch(
             setSnackBarText({
-              text: `Successfully exported collection: ${collection.id}`,
+              text: ct("ui.successfully_exported_collection_p0_abb341", { p0: collection.id }),
               severity: "success",
             })
           );
         } else {
           dispatch(
             setSnackBarText({
-              text: "Failed to export collection",
+              text: ct("ui.failed_to_export_collection_59d641"),
               severity: "error",
             })
           );
@@ -433,7 +435,7 @@ export default function STAC() {
       (err) => {
         dispatch(
           setSnackBarText({
-            text: err?.message || "Failed to export collection",
+            text: err?.message || ct("ui.failed_to_export_collection_59d641"),
             severity: "error",
           })
         );
@@ -459,11 +461,11 @@ export default function STAC() {
           <div className={c.searchContainer}>
             <TextField
               fullWidth
-              label="Search Collections"
+              label={ct("ui.search_collections_31aeae")}
               variant="filled"
               value={searchTerm}
               onChange={handleSearchChange}
-              placeholder="Search by Collection ID or Description"
+              placeholder={ct("ui.search_by_collection_id_or_description_0d435a")}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -510,11 +512,11 @@ export default function STAC() {
                       <TableCell align="right">{row.description}</TableCell>
                       <TableCell align="right">
                         <div className={c.actions}>
-                          <Tooltip title={"Used By"} placement="top" arrow>
+                          <Tooltip title={ct("ui.used_by_fa06ca")} placement="top" arrow>
                             <IconButton
                               className={c.inIcon}
-                              title="Used By"
-                              aria-label="used by"
+                              title={ct("ui.used_by_fa06ca")}
+                              aria-label={ct("ui.used_by_dfa3ef")}
                               onClick={() => {
                                 dispatch(
                                   setModal({
@@ -534,11 +536,11 @@ export default function STAC() {
                             </IconButton>
                           </Tooltip>
 
-                          <Tooltip title={"Edit Collection"} placement="top" arrow>
+                          <Tooltip title={ct("ui.edit_collection_ec9e4e")} placement="top" arrow>
                             <IconButton
                               className={c.previewIcon}
-                              title="Edit Collection"
-                              aria-label="edit"
+                              title={ct("ui.edit_collection_ec9e4e")}
+                              aria-label={ct("ui.edit_9ead47")}
                               onClick={() => {
                                 dispatch(
                                   setModal({
@@ -552,11 +554,11 @@ export default function STAC() {
                             </IconButton>
                           </Tooltip>
 
-                          <Tooltip title={"Items"} placement="top" arrow>
+                          <Tooltip title={ct("ui.items_44d25b")} placement="top" arrow>
                             <IconButton
                               className={c.previewIcon}
-                              title="Items"
-                              aria-label="items"
+                              title={ct("ui.items_44d25b")}
+                              aria-label={ct("ui.items_7316c8")}
                               onClick={() => {
                                 dispatch(
                                   setModal({
@@ -570,22 +572,22 @@ export default function STAC() {
                             </IconButton>
                           </Tooltip>
 
-                          <Tooltip title={"Import Items"} placement="top" arrow>
+                          <Tooltip title={ct("ui.import_items_417415")} placement="top" arrow>
                             <IconButton
                               className={c.previewIcon}
-                              title="Import Items"
-                              aria-label="import items"
+                              title={ct("ui.import_items_417415")}
+                              aria-label={ct("ui.import_items_89bac8")}
                               onClick={() => handleOpenImportItems(row)}
                             >
                               <UploadIcon fontSize="small" />
                             </IconButton>
                           </Tooltip>
 
-                          <Tooltip title={"Export Collection + Items"} placement="top" arrow>
+                          <Tooltip title={ct("ui.export_collection_items_4b3100")} placement="top" arrow>
                             <IconButton
                               className={c.previewIcon}
-                              title="Export"
-                              aria-label="export"
+                              title={ct("ui.export_f3e4fa")}
+                              aria-label={ct("ui.export_517134")}
                               onClick={() => handleExport(row)}
                             >
                               <DownloadIcon fontSize="small" />
@@ -594,11 +596,11 @@ export default function STAC() {
 
                           <Divider orientation="vertical" flexItem />
 
-                          <Tooltip title={"Delete"} placement="top" arrow>
+                          <Tooltip title={ct("ui.delete_f6fdbe")} placement="top" arrow>
                             <IconButton
                               className={c.deleteIcon}
-                              title="Delete"
-                              aria-label="delete"
+                              title={ct("ui.delete_f6fdbe")}
+                              aria-label={ct("ui.delete_948598")}
                               onClick={() => {
                                 dispatch(
                                   setModal({

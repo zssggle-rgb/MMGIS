@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../../i18n";
 import React, { useEffect, useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -119,6 +120,7 @@ export default function SpatialFilterMap({
   onBboxChange,
   onBboxClear,
 }) {
+  const ct = useConfigureText();
   const classes = useStyles();
   const mapRef = useRef(null);
   const coordRef = useRef(null);
@@ -432,24 +434,16 @@ export default function SpatialFilterMap({
         })}
       >
         <div ref={mapRef} className={clsx(classes.mapContainer)} />
-        <div ref={coordRef} className={classes.coordinateDisplay}>
-          Lat: 0.000000, Lng: 0.000000
-        </div>
+        <div ref={coordRef} className={classes.coordinateDisplay}>{ct("ui.lat_0_000000_lng_0_000000_1d0255")}</div>
         {window?.mmgisglobal?.WITH_TITILER_PGSTAC !== "true" && (
-          <div className={classes.disabledBadge}>
-            Mosaic overlay unavailable (WITH_TITILER_PGSTAC=false)
-          </div>
+          <div className={classes.disabledBadge}>{ct("ui.mosaic_overlay_unavailable_with_titiler_pgstac_f935c1")}</div>
         )}
         {window?.mmgisglobal?.WITH_TITILER_PGSTAC === "true" &&
           currentZoom <= 4 && (
-            <div className={classes.disabledBadge}>
-              Zoom in (level &gt; 4) to view mosaic preview
-            </div>
+            <div className={classes.disabledBadge}>{ct("ui.zoom_in_level_4_to_view_d679c1")}</div>
           )}
         {isDrawing && (
-          <div className={classes.drawingInstructions}>
-            Click and drag to draw bounding box
-          </div>
+          <div className={classes.drawingInstructions}>{ct("ui.click_and_drag_to_draw_bounding_1b1399")}</div>
         )}
         <div className={classes.headerOverlay}>
           <Button
@@ -485,7 +479,7 @@ export default function SpatialFilterMap({
                 mapInstRef.current.dragging[next ? "disable" : "enable"]();
             }}
           >
-            {isDrawing ? "Drawing…" : "Draw BBox"}
+            {isDrawing ? ct("ui.drawing_270052") : ct("ui.draw_bbox_44d6fe")}
           </Button>
           <Button
             size="small"
@@ -516,9 +510,7 @@ export default function SpatialFilterMap({
                 borderColor: "#cccccc !important",
               },
             }}
-          >
-            Clear BBox
-          </Button>
+          >{ct("ui.clear_bbox_f66299")}</Button>
         </div>
       </div>
     </div>

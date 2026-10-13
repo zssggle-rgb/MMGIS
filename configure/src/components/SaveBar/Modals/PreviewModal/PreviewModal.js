@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -69,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MMGIS(props) {
+  const ct = useConfigureText();
   const { configuration } = props;
 
   React.useEffect(() => {
@@ -99,7 +101,7 @@ function MMGIS(props) {
       }}
     >
       <iframe
-        title="MMGIS - Preview"
+        title={ct("ui.mmgis_preview_9cd80f")}
         id="MMGISIframe"
         allow="fullscreen"
         style={{ width: "100%", height: "100%", border: "none" }}
@@ -110,6 +112,7 @@ function MMGIS(props) {
 
 const MODAL_NAME = "preview";
 const PreviewModal = (props) => {
+  const ct = useConfigureText();
   const {} = props;
   const c = useStyles();
 
@@ -144,13 +147,13 @@ const PreviewModal = (props) => {
             <div className={c.title}>
               {modal?.customConfig != null
                 ? `Previewing Configuration v${modal.version}`
-                : "Previewing Changes"}
+                : ct("ui.previewing_changes_1df9e3")}
             </div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />

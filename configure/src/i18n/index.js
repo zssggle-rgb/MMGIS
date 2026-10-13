@@ -15,6 +15,15 @@ export function useMetadataText() {
   return useUiTranslation("metadata", instance).t;
 }
 
+export function useConfigureText() {
+  return useUiTranslation("configure", instance).t;
+}
+
+// Used by module-level display-label getters; never for stored configuration values.
+export function configureText(key, options) {
+  return instance.t(key, { ns: "configure", ...options, interpolation: { escapeValue: false } });
+}
+
 export function switchLocale(locale) {
   return localeReady.then((controller) => controller.switchLanguage(locale));
 }

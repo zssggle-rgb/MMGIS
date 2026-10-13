@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -124,6 +125,7 @@ const useStyles = makeStyles((theme) => ({
 const MODAL_NAME = "importStacItems";
 
 const ImportStacItemsModal = (props) => {
+  const ct = useConfigureText();
   const { querySTAC } = props;
   const c = useStyles();
 
@@ -167,7 +169,7 @@ const ImportStacItemsModal = (props) => {
           } else {
             dispatch(
               setSnackBarText({
-                text: "Invalid format. Expected array of items or {items: [...]}",
+                text: ct("ui.invalid_format_expected_array_of_items_a73d1b"),
                 severity: "error",
               })
             );
@@ -180,7 +182,7 @@ const ImportStacItemsModal = (props) => {
           if (invalidItems.length > 0) {
             dispatch(
               setSnackBarText({
-                text: `${invalidItems.length} items are missing 'id' field`,
+                text: ct("ui.p0_items_are_missing_id_field_942924", { p0: invalidItems.length }),
                 severity: "error",
               })
             );
@@ -192,7 +194,7 @@ const ImportStacItemsModal = (props) => {
         } catch (error) {
           dispatch(
             setSnackBarText({
-              text: "Invalid JSON file",
+              text: ct("ui.invalid_json_file_ce32e7"),
               severity: "error",
             })
           );
@@ -204,7 +206,7 @@ const ImportStacItemsModal = (props) => {
     onDropRejected: () => {
       dispatch(
         setSnackBarText({
-          text: "Please upload a valid JSON file",
+          text: ct("ui.please_upload_a_valid_json_file_18de2b"),
           severity: "warning",
         })
       );
@@ -222,7 +224,7 @@ const ImportStacItemsModal = (props) => {
     if (!itemsData || itemsData.length === 0) {
       dispatch(
         setSnackBarText({
-          text: "No items to upload",
+          text: ct("ui.no_items_to_upload_5e053f"),
           severity: "warning",
         })
       );
@@ -232,7 +234,7 @@ const ImportStacItemsModal = (props) => {
     if (!modal?.collection) {
       dispatch(
         setSnackBarText({
-          text: "No collection selected",
+          text: ct("ui.no_collection_selected_629ba4"),
           severity: "error",
         })
       );
@@ -263,7 +265,7 @@ const ImportStacItemsModal = (props) => {
         querySTAC();
         dispatch(
           setSnackBarText({
-            text: `Successfully upserted ${itemsData.length} items!`,
+            text: ct("ui.successfully_upserted_p0_items_6e765a", { p0: itemsData.length }),
             severity: "success",
           })
         );
@@ -273,7 +275,7 @@ const ImportStacItemsModal = (props) => {
       (err) => {
         dispatch(
           setSnackBarText({
-            text: err?.message || "Failed to upload items",
+            text: err?.message || ct("ui.failed_to_upload_items_718173"),
             severity: "error",
           })
         );
@@ -297,12 +299,12 @@ const ImportStacItemsModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <UploadIcon className={c.backgroundIcon} />
-            <div className={c.title}>Import STAC Items</div>
+            <div className={c.title}>{ct("ui.import_stac_items_0afa3b")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -311,9 +313,7 @@ const ImportStacItemsModal = (props) => {
       </DialogTitle>
       <DialogContent className={c.content}>
         <Typography className={c.subtitle}>
-          {`Import STAC items into collection: ${
-            modal?.collection?.id || "Unknown"
-          }`}
+          {ct("ui.import_stac_items_into_collection_p0_fcab53", { p0: modal?.collection?.id || "Unknown" })}
         </Typography>
 
         <div className={c.dropzone}>
@@ -325,37 +325,33 @@ const ImportStacItemsModal = (props) => {
                 <div className={c.fileName}>{importFile.name}</div>
                 {itemsData && (
                   <Typography variant="body2" style={{ marginTop: 8 }}>
-                    {itemsData.length} items ready to import
-                  </Typography>
+                    {itemsData.length}{ct("ui.items_ready_to_import_ed8810")}</Typography>
                 )}
               </div>
             ) : (
               <div className={c.dropzoneMessage}>
                 <p>
                   {isDragActive
-                    ? "Drop the file here..."
-                    : "Drag & drop STAC items JSON file here"}
+                    ? ct("ui.drop_the_file_here_d01e3c")
+                    : ct("ui.drag_drop_stac_items_json_file_e54ce0")}
                 </p>
-                <p>or click to select a file</p>
+                <p>{ct("ui.or_click_to_select_a_file_dad295")}</p>
               </div>
             )}
           </div>
         </div>
 
-        <Typography variant="body2" color="textSecondary" style={{ marginTop: 16 }}>
-          Items will be upserted: existing items with matching IDs will be updated,
-          and new items will be inserted.
-        </Typography>
+        <Typography variant="body2" color="textSecondary" style={{ marginTop: 16 }}>{ct("ui.items_will_be_upserted_existing_items_b36724")}</Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleClose}>{ct("ui.cancel_77dfd2")}</Button>
         <Button
           variant="contained"
           onClick={handleUpload}
           disabled={!itemsData || isUploading}
           startIcon={isUploading ? <CircularProgress size={20} /> : <UploadIcon />}
         >
-          {isUploading ? "Uploading..." : "Upload Items"}
+          {isUploading ? ct("ui.uploading_070e32") : ct("ui.upload_items_1579e2")}
         </Button>
       </DialogActions>
     </Dialog>

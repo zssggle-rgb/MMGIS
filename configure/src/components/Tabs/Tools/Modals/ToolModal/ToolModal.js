@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../../i18n";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -162,6 +163,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "tool";
 const ToolModal = (props) => {
+  const ct = useConfigureText();
   const {} = props;
   const c = useStyles();
 
@@ -263,8 +265,8 @@ const ToolModal = (props) => {
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -321,7 +323,7 @@ const ToolModal = (props) => {
               variant="filled"
               size="small"
               value={tool?.icon || toolConfig?.defaultIcon || "puzzle-outline"}
-              label={"MDI Icon Name"}
+              label={ct("ui.mdi_icon_name_4d9d1a")}
               onChange={(e) => {
                 const nextConfiguration = JSON.parse(
                   JSON.stringify(configuration)
@@ -354,15 +356,11 @@ const ToolModal = (props) => {
             inlineHelp={true}
           />
         ) : (
-          <Typography className={c.noFurtherConf}>
-            This tool takes no further configurations.
-          </Typography>
+          <Typography className={c.noFurtherConf}>{ct("ui.this_tool_takes_no_further_configurations_524ca5")}</Typography>
         )}
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={handleClose}>
-          Done
-        </Button>
+        <Button variant="contained" onClick={handleClose}>{ct("ui.done_e9b450")}</Button>
       </DialogActions>
     </Dialog>
   );

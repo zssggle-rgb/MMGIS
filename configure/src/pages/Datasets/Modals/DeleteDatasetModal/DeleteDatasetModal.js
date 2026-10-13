@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -163,6 +164,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "deleteDataset";
 const DeleteDatasetModal = (props) => {
+  const ct = useConfigureText();
   const { queryDatasets } = props;
   const c = useStyles();
 
@@ -184,7 +186,7 @@ const DeleteDatasetModal = (props) => {
     if (!modal?.dataset?.name) {
       dispatch(
         setSnackBarText({
-          text: "Cannot delete undefined Dataset.",
+          text: ct("ui.cannot_delete_undefined_dataset_cb7086"),
           severity: "error",
         })
       );
@@ -194,7 +196,7 @@ const DeleteDatasetModal = (props) => {
     if (datasetName !== modal.dataset.name) {
       dispatch(
         setSnackBarText({
-          text: "Confirmation Dataset name does not match.",
+          text: ct("ui.confirmation_dataset_name_does_not_match_a7657f"),
           severity: "error",
         })
       );
@@ -212,7 +214,7 @@ const DeleteDatasetModal = (props) => {
         if (res.status === "success") {
           dispatch(
             setSnackBarText({
-              text: `Successfully deleted the '${modal.dataset.name}' Dataset.`,
+              text: ct("ui.successfully_deleted_the_p0_dataset_7912f7", { p0: modal.dataset.name }),
               severity: "success",
             })
           );
@@ -221,7 +223,7 @@ const DeleteDatasetModal = (props) => {
         } else {
           dispatch(
             setSnackBarText({
-              text: `Failed to delete the '${modal.dataset.name}' Dataset.`,
+              text: ct("ui.failed_to_delete_the_p0_dataset_ab8aea", { p0: modal.dataset.name }),
               severity: "error",
             })
           );
@@ -230,7 +232,7 @@ const DeleteDatasetModal = (props) => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: `Failed to delete the '${modal.dataset.name}' Dataset.`,
+            text: ct("ui.failed_to_delete_the_p0_dataset_ab8aea", { p0: modal.dataset.name }),
             severity: "error",
           })
         );
@@ -277,12 +279,12 @@ const DeleteDatasetModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <ShapeLineIcon className={c.backgroundIcon} />
-            <div className={c.title}>Delete a Dataset</div>
+            <div className={c.title}>{ct("ui.delete_a_dataset_a1b554")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -292,13 +294,13 @@ const DeleteDatasetModal = (props) => {
       <DialogContent className={c.content}>
         <Typography
           className={c.layerName}
-        >{`Deleting: ${modal?.dataset?.name}`}</Typography>
+        >{ct("ui.deleting_p0_644b33", { p0: modal?.dataset?.name })}</Typography>
         {occurrences.length > 0 && (
           <>
             <div className={c.hasOccurrencesTitle}>
               <WarningIcon />
               <Typography className={c.hasOccurrences}>
-                {`This Dataset is currently in use in the following layers:`}
+                {ct("ui.this_dataset_is_currently_in_use_bd31de")}
               </Typography>
             </div>
             <div className={c.occurrences}>{occurrences}</div>
@@ -306,7 +308,7 @@ const DeleteDatasetModal = (props) => {
         )}
         <TextField
           className={c.confirmInput}
-          label="Confirm Dataset Name"
+          label={ct("ui.confirm_dataset_name_d93178")}
           variant="filled"
           value={datasetName}
           onChange={(e) => {
@@ -315,7 +317,7 @@ const DeleteDatasetModal = (props) => {
         />
         <Typography
           className={c.confirmMessage}
-        >{`Enter '${modal?.dataset?.name}' above and click 'Delete' to confirm the permanent deletion of this Dataset.`}</Typography>
+        >{ct("ui.enter_p0_above_and_click_delete_8be576", { p0: modal?.dataset?.name })}</Typography>
       </DialogContent>
       <DialogActions className={c.dialogActions}>
         <Button
@@ -324,12 +326,8 @@ const DeleteDatasetModal = (props) => {
           startIcon={<DeleteForeverIcon size="small" />}
           onClick={() => {}}
           style={{ cursor: "not-allowed" }}
-        >
-          Not Implemented
-        </Button>
-        <Button className={c.cancel} variant="outlined" onClick={handleClose}>
-          Cancel
-        </Button>
+        >{ct("ui.not_implemented_7d027b")}</Button>
+        <Button className={c.cancel} variant="outlined" onClick={handleClose}>{ct("ui.cancel_77dfd2")}</Button>
       </DialogActions>
     </Dialog>
   );

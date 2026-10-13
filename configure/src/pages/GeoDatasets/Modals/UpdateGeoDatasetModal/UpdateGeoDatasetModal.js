@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -173,6 +174,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "updateGeoDataset";
 const UpdateGeoDatasetModal = (props) => {
+  const ct = useConfigureText();
   const { queryGeoDatasets } = props;
   const c = useStyles();
 
@@ -211,7 +213,7 @@ const UpdateGeoDatasetModal = (props) => {
     if (geojson == null || fileName === null) {
       dispatch(
         setSnackBarText({
-          text: "Please upload a file.",
+          text: ct("ui.please_upload_a_file_4b2e92"),
           severity: "error",
         })
       );
@@ -221,7 +223,7 @@ const UpdateGeoDatasetModal = (props) => {
     if (geoDatasetName == null || geoDatasetName === "") {
       dispatch(
         setSnackBarText({
-          text: "No GeoDataset found to update.",
+          text: ct("ui.no_geodataset_found_to_update_02ccf5"),
           severity: "error",
         })
       );
@@ -277,7 +279,7 @@ const UpdateGeoDatasetModal = (props) => {
                 if (res.status === "success") {
                   dispatch(
                     setSnackBarText({
-                      text: "Successfully updated GeoDataset.",
+                      text: ct("ui.successfully_updated_geodataset_a2b248"),
                       severity: "success",
                     })
                   );
@@ -286,7 +288,7 @@ const UpdateGeoDatasetModal = (props) => {
                 } else {
                   dispatch(
                     setSnackBarText({
-                      text: res?.message || "Failed to update GeoDataset.",
+                      text: res?.message || ct("ui.failed_to_update_geodataset_0cfb1d"),
                       severity: "error",
                     })
                   );
@@ -305,7 +307,7 @@ const UpdateGeoDatasetModal = (props) => {
               setProgressPercent(false);
               dispatch(
                 setSnackBarText({
-                  text: res?.message || "Failed to update GeoDataset.",
+                  text: res?.message || ct("ui.failed_to_update_geodataset_0cfb1d"),
                   severity: "error",
                 })
               );
@@ -330,7 +332,7 @@ const UpdateGeoDatasetModal = (props) => {
           if (res.status === "success") {
             dispatch(
               setSnackBarText({
-                text: "Successfully updated GeoDataset.",
+                text: ct("ui.successfully_updated_geodataset_a2b248"),
                 severity: "success",
               })
             );
@@ -339,7 +341,7 @@ const UpdateGeoDatasetModal = (props) => {
           } else {
             dispatch(
               setSnackBarText({
-                text: res?.message || "Failed to update GeoDataset.",
+                text: res?.message || ct("ui.failed_to_update_geodataset_0cfb1d"),
                 severity: "error",
               })
             );
@@ -349,7 +351,7 @@ const UpdateGeoDatasetModal = (props) => {
           setProgress(false);
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to update GeoDataset.",
+              text: res?.message || ct("ui.failed_to_update_geodataset_0cfb1d"),
               severity: "error",
             })
           );
@@ -417,12 +419,12 @@ const UpdateGeoDatasetModal = (props) => {
             <UploadIcon className={c.backgroundIcon} />
             <div
               className={c.title}
-            >{`Update/Replace this GeoDataset: ${modal?.geoDataset?.name}`}</div>
+            >{ct("ui.update_replace_this_geodataset_p0_c47255", { p0: modal?.geoDataset?.name })}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -431,20 +433,17 @@ const UpdateGeoDatasetModal = (props) => {
       </DialogTitle>
       <DialogContent className={c.content}>
         <Typography className={c.subtitle}>
-          {`Overwrites the contents of the existing GeoDataset with that of the uploaded file.`}
+          {ct("ui.overwrites_the_contents_of_the_existing_f4b19a")}
         </Typography>
         <div className={c.dropzone}>
           <div {...getRootProps({ className: "dropzone" })}>
             <input {...getInputProps()} />
-            {isDragAccept && <p>All files will be accepted</p>}
-            {isDragReject && <p>Some files will be rejected</p>}
+            {isDragAccept && <p>{ct("ui.all_files_will_be_accepted_c4d789")}</p>}
+            {isDragReject && <p>{ct("ui.some_files_will_be_rejected_658078")}</p>}
             {!isDragActive && (
               <div className={c.dropzoneMessage}>
-                <p>Drag 'n' drop or click to select files...</p>
-                <p>
-                  Only *.json, *.geojson, *.ndjson and *.ndgeojson files are
-                  accepted.
-                </p>
+                <p>{ct("ui.drag_n_drop_or_click_to_21279e")}</p>
+                <p>{ct("ui.only_json_geojson_ndjson_and_ndgeojson_7b15b9")}</p>
               </div>
             )}
           </div>
@@ -457,14 +456,14 @@ const UpdateGeoDatasetModal = (props) => {
 
         <div className={c.fileName}>
           <InsertDriveFileIcon />
-          <div>{fileName || "No File Selected"}</div>
+          <div>{fileName || ct("ui.no_file_selected_7dbe85")}</div>
         </div>
 
         <div className={c.fields}>
           <div>
             <TextField
               className={c.missionNameInput}
-              label="Start Time Field"
+              label={ct("ui.start_time_field_7b78d3")}
               variant="filled"
               value={startTimeField}
               disabled
@@ -473,13 +472,13 @@ const UpdateGeoDatasetModal = (props) => {
               }}
             />
             <Typography className={c.subtitle2}>
-              {`The name of a start time field inside each feature's "properties" object for which to create a temporal index for the geodataset. This enables time queries on GeoDatasets.`}
+              {ct("ui.the_name_of_a_start_time_d07f68")}
             </Typography>
           </div>
           <div>
             <TextField
               className={c.missionNameInput}
-              label="End Time Field"
+              label={ct("ui.end_time_field_221c90")}
               variant="filled"
               value={endTimeField}
               disabled
@@ -488,7 +487,7 @@ const UpdateGeoDatasetModal = (props) => {
               }}
             />
             <Typography className={c.subtitle2}>
-              {`The name of an end time field inside each feature's "properties" object for which to create a temporal index for the geodataset. This enables time queries on GeoDatasets.`}
+              {ct("ui.the_name_of_an_end_time_bce6a5")}
             </Typography>
           </div>
         </div>
@@ -496,7 +495,7 @@ const UpdateGeoDatasetModal = (props) => {
           <div>
             <TextField
               className={c.missionNameInput}
-              label="Group Id Field"
+              label={ct("ui.group_id_field_1a3c1e")}
               variant="filled"
               value={groupIdField}
               disabled
@@ -505,13 +504,13 @@ const UpdateGeoDatasetModal = (props) => {
               }}
             />
             <Typography className={c.subtitle2}>
-              {`The name of a field inside each feature's "properties" object to serve as a group id. This field cannot be changed after the GeoDataset is created.`}
+              {ct("ui.the_name_of_a_field_inside_bda3fc")}
             </Typography>
           </div>
           <div>
             <TextField
               className={c.missionNameInput}
-              label="Feature Id Field"
+              label={ct("ui.feature_id_field_32d428")}
               variant="filled"
               value={featureIdField}
               disabled
@@ -520,7 +519,7 @@ const UpdateGeoDatasetModal = (props) => {
               }}
             />
             <Typography className={c.subtitle2}>
-              {`The name of a field inside each feature's "properties" object to serve as a feature id. This field cannot be changed after the GeoDataset is created.`}
+              {ct("ui.the_name_of_a_field_inside_5b2e47")}
             </Typography>
           </div>
         </div>
@@ -529,14 +528,7 @@ const UpdateGeoDatasetModal = (props) => {
           <div>
             <InfoOutlinedIcon className={c.largeFileIcon} />
           </div>
-          <div>
-            Note: Uploading geojson files greater than 500mb will likely fail.
-            To upload larger files, first convert your geojson file into a
-            GeoJSONSeq/ndjson/ndgeojson (new-line delimited geojson) file with
-            either `node /MMGIS/auxiliary/geojson2ndgeojson input.geojson` or
-            `ogr2ogr -of GeoJSONSeq output.ndgeojson input.geojson` and upload
-            its result instead.
-          </div>
+          <div>{ct("ui.note_uploading_geojson_files_greater_than_f77e96")}</div>
         </div>
       </DialogContent>
       <DialogActions>
@@ -551,9 +543,7 @@ const UpdateGeoDatasetModal = (props) => {
           variant="contained"
           onClick={handleSubmit}
           disabled={fileProgress === true || progress === true}
-        >
-          Update/Replace GeoDataset
-        </Button>
+        >{ct("ui.update_replace_geodataset_2c8b37")}</Button>
       </DialogActions>
     </Dialog>
   );

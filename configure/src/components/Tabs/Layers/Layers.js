@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../i18n";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {} from "./LayersSlice";
@@ -170,6 +171,7 @@ const useStyles = makeStyles((theme) => ({
 let configuration = {};
 let savedMinLayers = "";
 export default function Layers() {
+  const ct = useConfigureText();
   const c = useStyles();
 
   const dispatch = useDispatch();
@@ -215,7 +217,7 @@ export default function Layers() {
   };
 
   if (configuration?.layers?.length == null) {
-    return <div className={c.Layers}>Not found</div>;
+    return <div className={c.Layers}>{ct("ui.not_found_475c84")}</div>;
   }
 
   const strConf = JSON.stringify(minLayers);
@@ -327,9 +329,7 @@ export default function Layers() {
             });
             dispatch(setConfiguration(nextConfiguration));
           }}
-        >
-          Add New Layer
-        </Button>
+        >{ct("ui.add_new_layer_78a66a")}</Button>
         <div className={c.verticalLines}>
           <div></div>
           <div></div>
@@ -463,8 +463,8 @@ export default function Layers() {
                                 <div className={c.positionIcons}>
                                   <IconButton
                                     className={c.rowIcon}
-                                    title="Indent Left"
-                                    aria-label="indent left"
+                                    title={ct("ui.indent_left_082258")}
+                                    aria-label={ct("ui.indent_left_fa7869")}
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       onExdent(l, idx);
@@ -474,8 +474,8 @@ export default function Layers() {
                                   </IconButton>
                                   <IconButton
                                     className={c.rowIcon}
-                                    title="Indent Right"
-                                    aria-label="indent right"
+                                    title={ct("ui.indent_right_69343b")}
+                                    aria-label={ct("ui.indent_right_a1fe4b")}
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       onIndent(l, idx);
@@ -508,14 +508,14 @@ export default function Layers() {
                                 }}
                               >
                                 <Tooltip
-                                  title="Add New Layer Here"
+                                  title={ct("ui.add_new_layer_here_fdbaf0")}
                                   placement="left"
                                   arrow
                                 >
                                   <IconButton
                                     className={c.rowIcon}
-                                    title="Indent Right"
-                                    aria-label="indent right"
+                                    title={ct("ui.indent_right_69343b")}
+                                    aria-label={ct("ui.indent_right_a1fe4b")}
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       const nextConfiguration = JSON.parse(

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useMetadataText } from "../i18n";
+import { useMetadataText, configureText } from "../i18n";
+import { localizeMarkdownCommand, localizedCodeMirrorPhrases } from "../i18n/editors";
 import { localizeMetadata } from "../i18n/metadata";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
@@ -400,7 +401,7 @@ const getComponent = (
   const isDisabled = isPlanetaryProjectionComponent && isTitilerDisabled;
   
   // Get the configurable disabled message or use a default
-  const disabledMessage = com.disabledMessage || "This feature is disabled.";
+  const disabledMessage = com.disabledMessage || configureText("field.disabled");
 
   let inner;
   let disabled = com.disabled || false;
@@ -444,7 +445,7 @@ const getComponent = (
           disabled={disabled || isDisabled}
           required={isRequired}
           error={hasError}
-          helperText={hasError ? "This field is required" : ""}
+          helperText={hasError ? configureText("field.required") : ""}
           FormHelperTextProps={{
             className: c.noMarginHelperText
           }}
@@ -476,7 +477,7 @@ const getComponent = (
                 className={c.subtitle2}
                 dangerouslySetInnerHTML={{ 
                   __html: isDisabled 
-                    ? `${com.description || ""}<br/><strong>Note:</strong> ${disabledMessage}`
+                    ? `${com.description || ""}<br/><strong>${configureText("field.note")}</strong> ${disabledMessage}`
                     : com.description || "" 
                 }}
               ></div>
@@ -485,7 +486,7 @@ const getComponent = (
             <Tooltip 
               title={
                 isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || ""
               } 
               placement="top" 
@@ -506,7 +507,7 @@ const getComponent = (
           disabled={disabled}
           required={isRequired}
           error={hasError}
-          helperText={hasError ? "This field is required" : ""}
+          helperText={hasError ? configureText("field.required") : ""}
           FormHelperTextProps={{
             className: c.noMarginHelperText
           }}
@@ -663,7 +664,7 @@ const getComponent = (
                 .catch((err) => {
                   dispatch(
                     setSnackBarText({
-                      text: `Failed to populate projection fields: ${err?.message || err}`,
+                      text: configureText("field.projectionFailed", { error: err?.message || err }),
                       severity: "error",
                     })
                   );
@@ -710,19 +711,19 @@ const getComponent = (
                     dispatch(setConfiguration(conf));
 
                     dispatch(setSnackBarText({
-                      text: `Projection settings loaded from ${selectedTileMatrixSet}`,
+                      text: configureText("field.projectionLoaded", { name: selectedTileMatrixSet }),
                       severity: "success"
                     }));
                   } else {
                     dispatch(setSnackBarText({
-                      text: "Failed to parse TileMatrixSet CRS information.",
+                      text: configureText("field.crsParseFailed"),
                       severity: "error"
                     }));
                   }
                 },
                 (err) => {
                   dispatch(setSnackBarText({
-                    text: "Failed to fetch TileMatrixSet details: " + (err.message || "Unknown error"),
+                    text: configureText("field.tmsetFailed", { error: err.message || configureText("field.unknownError") }),
                     severity: "error"
                   }));
                 }
@@ -755,12 +756,12 @@ const getComponent = (
               if (updatedLayers > 0) {
                 dispatch(setConfiguration(conf));
                 dispatch(setSnackBarText({
-                  text: `Applied ${selectedTileMatrixSet} to ${updatedLayers} TiTiler-enabled layer(s)`,
+                  text: configureText("field.tmsetApplied", { name: selectedTileMatrixSet, count: updatedLayers }),
                   severity: "success"
                 }));
               } else {
                 dispatch(setSnackBarText({
-                  text: "No TiTiler-enabled layers found to update",
+                  text: configureText("field.noTitilerLayers"),
                   severity: "info"
                 }));
               }
@@ -778,7 +779,7 @@ const getComponent = (
               <div
                 className={c.subtitle2}
                 dangerouslySetInnerHTML={{ __html: isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || "" }}
               ></div>
             </>
@@ -786,7 +787,7 @@ const getComponent = (
             <Tooltip 
               title={
                 isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || ""
               } 
               placement="top" 
@@ -814,7 +815,7 @@ const getComponent = (
           disabled={disabled}
           required={isRequired}
           error={textArrayHasError}
-          helperText={textArrayHasError ? "This field is required" : ""}
+          helperText={textArrayHasError ? configureText("field.required") : ""}
           FormHelperTextProps={{
             className: c.noMarginHelperText
           }}
@@ -866,6 +867,8 @@ const getComponent = (
       return (
         <div className="container">
           <MDEditor
+            commandsFilter={localizeMarkdownCommand}
+            textareaProps={{ "aria-label": configureText("editor.markdown.label") }}
             value={markdown_f}
             onChange={(val) => {
               updateConfiguration(forceField || com.field, val, layer);
@@ -890,7 +893,8 @@ const getComponent = (
           <CodeMirror
             value={JSON.stringify(json_f, null, 2)}
             height={com.height || "300px"}
-            extensions={[json()]}
+            extensions={[json(), localizedCodeMirrorPhrases()]}
+            aria-label={configureText("editor.json.label")}
             onChange={(val) => {
               try {
                 const v = JSON.parse(val);
@@ -912,7 +916,7 @@ const getComponent = (
           disabled={disabled}
           required={isRequired}
           error={numberHasError}
-          helperText={numberHasError ? "This field is required" : ""}
+          helperText={numberHasError ? configureText("field.required") : ""}
           FormHelperTextProps={{
             className: c.noMarginHelperText
           }}
@@ -1124,7 +1128,7 @@ const getComponent = (
               <div
                 className={c.subtitle2}
                 dangerouslySetInnerHTML={{ __html: isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || "" }}
               ></div>
             </>
@@ -1132,7 +1136,7 @@ const getComponent = (
             <Tooltip 
               title={
                 isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || ""
               } 
               placement="top" 
@@ -1194,7 +1198,7 @@ const getComponent = (
               option.toLowerCase().includes(inputValue.toLowerCase())
             );
           }}
-          noOptionsText="No matching tilematrixsets"
+          noOptionsText={configureText("field.noTileMatrixSets")}
           clearOnBlur={false}
           selectOnFocus
           handleHomeEndKeys
@@ -1208,7 +1212,7 @@ const getComponent = (
               <div
                 className={c.subtitle2}
                 dangerouslySetInnerHTML={{ __html: isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || "" }}
               ></div>
             </>
@@ -1216,7 +1220,7 @@ const getComponent = (
             <Tooltip 
               title={
                 isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || ""
               } 
               placement="top" 
@@ -1401,7 +1405,7 @@ const getComponent = (
                 !selectedLayers.includes(option)
             );
           }}
-          noOptionsText="No matching layers"
+          noOptionsText={configureText("field.noLayers")}
           clearOnBlur={false}
           selectOnFocus
           handleHomeEndKeys
@@ -1489,7 +1493,7 @@ const getComponent = (
               })}
               <IconButton
                 className={c.objectArrayRemove}
-                aria-label="remove"
+                aria-label={configureText("field.remove")}
                 onClick={() => {
                   if (tool) {
                     const t = getToolFromConfiguration(
@@ -1547,7 +1551,7 @@ const getComponent = (
             </div>
             <div className={c.objectAdd}>
               <IconButton
-                aria-label="add"
+                aria-label={configureText("field.add")}
                 onClick={() => {
                   if (tool) {
                     const t = getToolFromConfiguration(
@@ -1679,7 +1683,7 @@ const getComponent = (
                 className={c.subtitle2}
                 dangerouslySetInnerHTML={{
                   __html: isDisabled
-                    ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                    ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                     : com.description || "",
                 }}
               ></div>
@@ -1688,7 +1692,7 @@ const getComponent = (
             <Tooltip
               title={
                 isDisabled
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || ""
               }
               placement="top"
@@ -1715,7 +1719,7 @@ const makeConfigTabs = (tabs, value, onChange, c) => {
         }}
         variant="scrollable"
         scrollButtons="auto"
-        aria-label="scrollable auto tabs example"
+        aria-label={configureText("field.tabs")}
       >
         {tabs.map((tab) => (
           <Tab label={tab.name} />

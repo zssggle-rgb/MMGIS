@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../i18n";
 import React, { useEffect, useRef } from "react";
 import { makeStyles } from "@mui/styles";
 import { publicUrlMainSite } from "../../core/constants";
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const VideoPreview = ({ layer, configuration }) => {
+  const ct = useConfigureText();
   const videoRef = useRef(null);
   const c = useStyles();
 
@@ -72,7 +74,7 @@ const VideoPreview = ({ layer, configuration }) => {
   if (!fullVideoUrl) {
     return (
       <div className={c.VideoPreview}>
-        <div className={c.placeholder}>Enter a video URL to see preview</div>
+        <div className={c.placeholder}>{ct("ui.enter_a_video_url_to_see_ddf17f")}</div>
       </div>
     );
   }
@@ -87,9 +89,7 @@ const VideoPreview = ({ layer, configuration }) => {
         onLoadedData={handleVideoLoaded}
         controls={true}
       >
-        <div className={c.error}>
-          Video format not supported or failed to load
-        </div>
+        <div className={c.error}>{ct("ui.video_format_not_supported_or_failed_c7aa64")}</div>
       </video>
     </div>
   );
