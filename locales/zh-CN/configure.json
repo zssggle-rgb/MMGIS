@@ -615,7 +615,7 @@
   "editor.markdown.label": "Markdown 编辑器",
   "editor.json.label": "JSON 编辑器",
   "editor.codemirror.find": "查找",
-  "editor.codemirror.replace": "替换",
+  "editor.codemirror.replaceInput": "替换",
   "editor.codemirror.next": "下一个",
   "editor.codemirror.previous": "上一个",
   "editor.codemirror.all": "全部",
