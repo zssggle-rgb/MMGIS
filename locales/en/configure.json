@@ -615,7 +615,7 @@
   "editor.markdown.label": "Markdown editor",
   "editor.json.label": "JSON editor",
   "editor.codemirror.find": "Find",
-  "editor.codemirror.replace": "Replace",
+  "editor.codemirror.replaceInput": "Replace",
   "editor.codemirror.next": "next",
   "editor.codemirror.previous": "previous",
   "editor.codemirror.all": "all",
