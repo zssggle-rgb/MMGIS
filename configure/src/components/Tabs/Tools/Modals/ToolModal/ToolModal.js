@@ -1,4 +1,5 @@
-import { useConfigureText } from "../../../../../i18n";
+import { useConfigureText, useMetadataText } from "../../../../../i18n";
+import { metadataText } from "../../../../../i18n/metadata";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -164,6 +165,7 @@ const useStyles = makeStyles((theme) => ({
 const MODAL_NAME = "tool";
 const ToolModal = (props) => {
   const ct = useConfigureText();
+  const tMeta = useMetadataText();
   const {} = props;
   const c = useStyles();
 
@@ -261,7 +263,7 @@ const ToolModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <HandymanIcon className={c.backgroundIcon} />
-            <div className={c.title}>{toolName}</div>
+            <div className={c.title}>{metadataText(toolName, tMeta)}</div>
           </div>
           <IconButton
             className={c.closeIcon}
@@ -277,10 +279,10 @@ const ToolModal = (props) => {
         <div className={c.top}>
           <div className={c.info}>
             <Typography className={c.infoTitle}>
-              {toolConfig?.description}
+              {metadataText(toolConfig?.description, tMeta)}
             </Typography>
             <Typography className={c.infoDescription}>
-              {toolConfig?.descriptionFull?.title}
+              {metadataText(toolConfig?.descriptionFull?.title, tMeta)}
             </Typography>
           </div>
           <div className={c.topOptions}>

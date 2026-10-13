@@ -1,4 +1,5 @@
-import { useConfigureText } from "../../../../../i18n";
+import { useConfigureText, useMetadataText } from "../../../../../i18n";
+import { metadataText } from "../../../../../i18n/metadata";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -147,6 +148,7 @@ const MODAL_NAME = "component";
 
 const ComponentModal = (props) => {
   const ct = useConfigureText();
+  const tMeta = useMetadataText();
   const {} = props;
   const c = useStyles();
 
@@ -247,7 +249,7 @@ const ComponentModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <ExtensionIcon className={c.backgroundIcon} />
-            <div className={c.title}>{componentName}</div>
+            <div className={c.title}>{metadataText(componentName, tMeta)}</div>
           </div>
           <IconButton
             className={c.closeIcon}
@@ -263,10 +265,10 @@ const ComponentModal = (props) => {
         <div className={c.top}>
           <div className={c.info}>
             <Typography className={c.infoTitle}>
-              {componentConfig?.description}
+              {metadataText(componentConfig?.description, tMeta)}
             </Typography>
             <Typography className={c.infoDescription}>
-              {componentConfig?.descriptionFull?.title}
+              {metadataText(componentConfig?.descriptionFull?.title, tMeta)}
             </Typography>
           </div>
           <div className={c.topOptions}>
