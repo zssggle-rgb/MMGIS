@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../i18n";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {} from "./SaveBarSlice";
@@ -62,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SaveBar() {
+  const ct = useConfigureText();
   const c = useStyles();
 
   const dispatch = useDispatch();
@@ -81,9 +83,7 @@ export default function SaveBar() {
           onClick={() => {
             dispatch(setModal({ name: "preview" }));
           }}
-        >
-          Preview Changes
-        </Button>
+        >{ct("ui.preview_changes_126e59")}</Button>
         <Button
           className={clsx(c.save, { [c.saveDisabled]: lockConfig })}
           variant="contained"
@@ -119,7 +119,7 @@ export default function SaveBar() {
                             setSnackBarText({
                               text:
                                 res?.message ||
-                                "Failed to get configuration for mission.",
+                                ct("ui.failed_to_get_configuration_for_mission_f268ae"),
                               severity: "error",
                             })
                           );
@@ -129,9 +129,7 @@ export default function SaveBar() {
               })
             );
           }}
-        >
-          Save Changes
-        </Button>
+        >{ct("ui.save_changes_fa2984")}</Button>
       </div>
       <PreviewModal />
     </>

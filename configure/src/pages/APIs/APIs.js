@@ -1,3 +1,4 @@
+import { configureText, useConfigureText } from "../../i18n";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
@@ -13,8 +14,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 const apiCards = {
   "MMGIS API": {
     title: "MMGIS API",
-    subtitle:
-      "The Core MMGIS API provides a series of robust endpoints for managing mission configurations, datasets, geodatasets, drawing functionalities, file operations, user management and geospatial operations.",
+    get subtitle() { return configureText("ui.the_core_mmgis_api_provides_a_eac47e"); },
     description: "",
     link: `${window.location.pathname
       .replace(`/configure`, "")
@@ -23,15 +23,14 @@ const apiCards = {
   },
   "MMGIS JavaScript API": {
     title: "MMGIS JavaScript API",
-    subtitle:
-      "Client-side functions that can be called using the global window.mmgisAPI object.",
+    get subtitle() { return configureText("ui.client_side_functions_that_can_be_8a70c2"); },
     description: "",
     link: `https://nasa-ammos.github.io/MMGIS/apis/javascript`,
     active: true,
   },
   STAC: {
     title: "STAC",
-    subtitle: "FastAPI implementation of the STAC API spec.",
+    get subtitle() { return configureText("ui.fastapi_implementation_of_the_stac_api_8f3896"); },
     description: "",
     link: `${window.location.pathname
       .replace(`/configure`, "")
@@ -40,8 +39,7 @@ const apiCards = {
   },
   TiTiler: {
     title: "TiTiler",
-    subtitle:
-      "A modern dynamic tile server built on top of FastAPI and Rasterio/GDAL.",
+    get subtitle() { return configureText("ui.a_modern_dynamic_tile_server_built_53cd63"); },
     description: "",
     link: `${window.location.pathname
       .replace(`/configure`, "")
@@ -50,8 +48,7 @@ const apiCards = {
   },
   "TiTiler-PgSTAC": {
     title: "TiTIler-PgSTAC",
-    subtitle:
-      "TiTiler-PgSTAC is a TiTiler extension that connects to a PgSTAC database to create dynamic mosaics based on search queries.",
+    get subtitle() { return configureText("ui.titiler_pgstac_is_a_titiler_extension_99042a"); },
     description: "",
     link: `${window.location.pathname
       .replace(`/configure`, "")
@@ -60,8 +57,7 @@ const apiCards = {
   },
   TiPg: {
     title: "TiPg",
-    subtitle:
-      "Simple and Fast Geospatial OGC Features and Tiles API for PostGIS.",
+    get subtitle() { return configureText("ui.simple_and_fast_geospatial_ogc_features_da71df"); },
     description: "",
     link: `${window.location.pathname
       .replace(`/configure`, "")
@@ -172,6 +168,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function APIs() {
+  const ct = useConfigureText();
   const c = useStyles();
 
   const getAPICards = () => {
@@ -228,9 +225,7 @@ export default function APIs() {
               }}
               variant="h6"
               component="div"
-            >
-              APIs
-            </Typography>
+            >{ct("ui.apis_4ca0a1")}</Typography>
           </div>
         </Toolbar>
         <div>

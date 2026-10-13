@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -477,6 +478,7 @@ const config = {
 
 const MODAL_NAME = "newStacCollection";
 const NewStacCollectionModal = (props) => {
+  const ct = useConfigureText();
   const { querySTAC } = props;
   const c = useStyles();
 
@@ -516,7 +518,7 @@ const NewStacCollectionModal = (props) => {
         } catch (error) {
           dispatch(
             setSnackBarText({
-              text: "Invalid JSON file",
+              text: ct("ui.invalid_json_file_ce32e7"),
               severity: "error",
             })
           );
@@ -528,7 +530,7 @@ const NewStacCollectionModal = (props) => {
     onDropRejected: () => {
       dispatch(
         setSnackBarText({
-          text: "Please upload a valid JSON file",
+          text: ct("ui.please_upload_a_valid_json_file_18de2b"),
           severity: "warning",
         })
       );
@@ -558,7 +560,7 @@ const NewStacCollectionModal = (props) => {
       } else {
         dispatch(
           setSnackBarText({
-            text: "Invalid import format. Expected collection data.",
+            text: ct("ui.invalid_import_format_expected_collection_data_dfa463"),
             severity: "error",
           })
         );
@@ -589,7 +591,7 @@ const NewStacCollectionModal = (props) => {
     if (collectionData == null || collectionData.id == null) {
       dispatch(
         setSnackBarText({
-          text: "Please fill out a Collection ID.",
+          text: ct("ui.please_fill_out_a_collection_id_712b6e"),
           severity: "warning",
         })
       );
@@ -659,7 +661,7 @@ const NewStacCollectionModal = (props) => {
             } catch (error) {
               dispatch(
                 setSnackBarText({
-                  text: error.message || "Invalid item format",
+                  text: error.message || ct("ui.invalid_item_format_3f2c1e"),
                   severity: "error",
                 })
               );
@@ -682,7 +684,7 @@ const NewStacCollectionModal = (props) => {
                 querySTAC();
                 dispatch(
                   setSnackBarText({
-                    text: `Successfully created collection with ${itemsToImport.length} items!`,
+                    text: ct("ui.successfully_created_collection_with_p0_items_aedca3", { p0: itemsToImport.length }),
                     severity: "success",
                   })
                 );
@@ -694,7 +696,7 @@ const NewStacCollectionModal = (props) => {
                   setSnackBarText({
                     text:
                       itemsErr?.message ||
-                      "Collection created but failed to import items",
+                      ct("ui.collection_created_but_failed_to_import_d0ea2b"),
                     severity: "warning",
                   })
                 );
@@ -706,7 +708,7 @@ const NewStacCollectionModal = (props) => {
             querySTAC();
             dispatch(
               setSnackBarText({
-                text: "Successfully made a new STAC Collection!",
+                text: ct("ui.successfully_made_a_new_stac_collection_8ff7d2"),
                 severity: "success",
               })
             );
@@ -716,7 +718,7 @@ const NewStacCollectionModal = (props) => {
         } else {
           dispatch(
             setSnackBarText({
-              text: "Failed to create STAC Collections. ",
+              text: ct("ui.failed_to_create_stac_collections_b29843"),
               severity: "error",
             })
           );
@@ -726,7 +728,7 @@ const NewStacCollectionModal = (props) => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to create STAC Collections.",
+            text: res?.message || ct("ui.failed_to_create_stac_collections_5b60bb"),
             severity: "error",
           })
         );
@@ -750,12 +752,12 @@ const NewStacCollectionModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <HorizontalSplitIcon className={c.backgroundIcon} />
-            <div className={c.title}>Make a New STAC Collection</div>
+            <div className={c.title}>{ct("ui.make_a_new_stac_collection_ca4a7a")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -765,13 +767,11 @@ const NewStacCollectionModal = (props) => {
       <DialogContent className={c.content}>
         <Typography className={c.subtitle}>
           {
-            "Create a new STAC collection. For more, see the STAC Collection Spec: https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md"
+            ct("ui.create_a_new_stac_collection_for_2e58c6")
           }
         </Typography>
 
-        <Typography className={c.subtitle2}>
-          Import Collection (Optional)
-        </Typography>
+        <Typography className={c.subtitle2}>{ct("ui.import_collection_optional_df300d")}</Typography>
         <div className={c.dropzone}>
           <div {...getRootProps()}>
             <input {...getInputProps()} />
@@ -786,7 +786,7 @@ const NewStacCollectionModal = (props) => {
                           importData.items?.length ||
                           importData.features?.length
                         } items`
-                      : "Collection metadata only"}
+                      : ct("ui.collection_metadata_only_4a24b1")}
                   </Typography>
                 )}
               </div>
@@ -794,10 +794,10 @@ const NewStacCollectionModal = (props) => {
               <div className={c.dropzoneMessage}>
                 <p>
                   {isDragActive
-                    ? "Drop the file here..."
-                    : "Drag & drop a STAC collection JSON file here"}
+                    ? ct("ui.drop_the_file_here_d01e3c")
+                    : ct("ui.drag_drop_a_stac_collection_json_9f7304")}
                 </p>
-                <p>or click to select a file</p>
+                <p>{ct("ui.or_click_to_select_a_file_dad295")}</p>
               </div>
             )}
           </div>
@@ -805,9 +805,7 @@ const NewStacCollectionModal = (props) => {
 
         <Divider style={{ margin: "16px 0" }} />
 
-        <Typography className={c.subtitle2}>
-          Or Create Manually
-        </Typography>
+        <Typography className={c.subtitle2}>{ct("ui.or_create_manually_5e090b")}</Typography>
         <Maker config={config} inlineHelp={true} />
       </DialogContent>
       <DialogActions>
@@ -818,7 +816,7 @@ const NewStacCollectionModal = (props) => {
           disabled={isImporting}
           startIcon={isImporting ? <CircularProgress size={20} /> : null}
         >
-          {isImporting ? "Creating..." : "Create STAC Collection"}
+          {isImporting ? ct("ui.creating_28ea76") : ct("ui.create_stac_collection_2718db")}
         </Button>
       </DialogActions>
     </Dialog>

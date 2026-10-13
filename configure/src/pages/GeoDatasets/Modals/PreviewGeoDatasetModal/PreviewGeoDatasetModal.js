@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -72,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "previewGeoDataset";
 const PreviewGeoDatasetModal = (props) => {
+  const ct = useConfigureText();
   const {} = props;
   const c = useStyles();
 
@@ -101,7 +103,7 @@ const PreviewGeoDatasetModal = (props) => {
         (res) => {
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to get geodataset.",
+              text: res?.message || ct("ui.failed_to_get_geodataset_19b435"),
               severity: "error",
             })
           );
@@ -127,14 +129,12 @@ const PreviewGeoDatasetModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <PreviewIcon className={c.backgroundIcon} />
-            <div className={c.title}>{`Previewing GeoDataset${
-              modal?.geoDataset?.name ? `: ${modal.geoDataset.name}` : ""
-            }`}</div>
+            <div className={c.title}>{ct("ui.previewing_geodataset_p0_41ad42", { p0: modal?.geoDataset?.name ? `: ${modal.geoDataset.name}` : "" })}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />

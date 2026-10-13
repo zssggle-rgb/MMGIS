@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../i18n";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
@@ -127,6 +128,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function WebHooks() {
+  const ct = useConfigureText();
   const c = useStyles();
 
   const configuration = useSelector((state) => state.core.configuration);
@@ -148,14 +150,14 @@ export default function WebHooks() {
           if (res.status === "success") {
             dispatch(
               setSnackBarText({
-                text: "Successfully saved webhooks.",
+                text: ct("ui.successfully_saved_webhooks_bde934"),
                 severity: "success",
               })
             );
           } else
             dispatch(
               setSnackBarText({
-                text: res?.message || "Failed to save webhooks.",
+                text: res?.message || ct("ui.failed_to_save_webhooks_4b5cc2"),
                 severity: "error",
               })
             );
@@ -163,7 +165,7 @@ export default function WebHooks() {
         (res) => {
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to save webhooks.",
+              text: res?.message || ct("ui.failed_to_save_webhooks_4b5cc2"),
               severity: "error",
             })
           );
@@ -190,7 +192,7 @@ export default function WebHooks() {
         } else
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to get webhooks.",
+              text: res?.message || ct("ui.failed_to_get_webhooks_5d7732"),
               severity: "error",
             })
           );
@@ -198,7 +200,7 @@ export default function WebHooks() {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to get webhooks.",
+            text: res?.message || ct("ui.failed_to_get_webhooks_5d7732"),
             severity: "error",
           })
         );
@@ -218,9 +220,7 @@ export default function WebHooks() {
             style={{ fontWeight: "bold", fontSize: "16px", lineHeight: "29px" }}
             variant="h6"
             component="div"
-          >
-            Webhooks
-          </Typography>
+          >{ct("ui.webhooks_fdfe2d")}</Typography>
         </div>
       </Toolbar>
       <div className={c.content}>
@@ -235,9 +235,7 @@ export default function WebHooks() {
         onClick={() => {
           saveWebHooks();
         }}
-      >
-        Save Webhooks
-      </Button>
+      >{ct("ui.save_webhooks_441831")}</Button>
     </div>
   );
 }

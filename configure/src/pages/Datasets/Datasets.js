@@ -1,3 +1,4 @@
+import { useConfigureText, configureText, i18n } from "../../i18n";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
@@ -188,11 +189,11 @@ const useStyles = makeStyles((theme) => ({
 const headCells = [
   {
     id: "name",
-    label: "Name",
+    get label() { return configureText("ui.name_709a23"); },
   },
   {
     id: "updated",
-    label: "Last Updated",
+    get label() { return configureText("ui.last_updated_66f3e1"); },
   },
   {
     id: "actions",
@@ -201,6 +202,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
+  const ct = useConfigureText();
   const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -227,7 +229,7 @@ function EnhancedTableHead(props) {
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  {order === "desc" ? ct("table.sortedDescending") : ct("table.sortedAscending")}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -247,6 +249,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
+  const ct = useConfigureText();
   const c = useStyles();
   const dispatch = useDispatch();
 
@@ -258,9 +261,7 @@ function EnhancedTableToolbar(props) {
           style={{ fontWeight: "bold", fontSize: "16px", lineHeight: "29px" }}
           variant="h6"
           component="div"
-        >
-          DATASETS
-        </Typography>
+        >{ct("ui.datasets_0ca344")}</Typography>
 
         <Typography
           style={{
@@ -272,7 +273,7 @@ function EnhancedTableToolbar(props) {
           variant="h6"
           component="div"
         >
-          {`1) Create a New Dataset. 2) Connect to it through a Vector Layer's Datasets tab.`}
+          {ct("ui.1_create_a_new_dataset_2_4bc5a0")}
         </Typography>
       </div>
 
@@ -283,9 +284,7 @@ function EnhancedTableToolbar(props) {
         onClick={() => {
           dispatch(setModal({ name: "newDataset" }));
         }}
-      >
-        New Dataset
-      </Button>
+      >{ct("ui.new_dataset_e1abdf")}</Button>
     </Toolbar>
   );
 }
@@ -295,6 +294,7 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function Datasets() {
+  const ct = useConfigureText();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("name");
   const [page, setPage] = React.useState(0);
@@ -322,7 +322,7 @@ export default function Datasets() {
         else
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to get datasets.",
+              text: res?.message || ct("ui.failed_to_get_datasets_b2bcf9"),
               severity: "error",
             })
           );
@@ -330,7 +330,7 @@ export default function Datasets() {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to get datasets.",
+            text: res?.message || ct("ui.failed_to_get_datasets_b2bcf9"),
             severity: "error",
           })
         );
@@ -409,16 +409,16 @@ export default function Datasets() {
                       <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="right">
                         {row.updated
-                          ? new Date(row.updated).toLocaleString()
+                          ? new Date(row.updated).toLocaleString(i18n.language)
                           : row.updated}
                       </TableCell>
                       <TableCell align="right">
                         <div className={c.actions}>
-                          <Tooltip title={"Used By"} placement="top" arrow>
+                          <Tooltip title={ct("ui.used_by_fa06ca")} placement="top" arrow>
                             <IconButton
                               className={c.inIcon}
-                              title="Used By"
-                              aria-label="used by"
+                              title={ct("ui.used_by_fa06ca")}
+                              aria-label={ct("ui.used_by_dfa3ef")}
                               onClick={() => {
                                 console.log(row);
                                 dispatch(
@@ -438,11 +438,11 @@ export default function Datasets() {
                               </Badge>
                             </IconButton>
                           </Tooltip>
-                          <Tooltip title={"Download"} placement="top" arrow>
+                          <Tooltip title={ct("ui.download_a479c9")} placement="top" arrow>
                             <IconButton
                               className={c.downloadIcon}
-                              title="Download"
-                              aria-label="download"
+                              title={ct("ui.download_a479c9")}
+                              aria-label={ct("ui.download_817248")}
                               onClick={() => {
                                 if (row.name)
                                   calls.api(
@@ -460,7 +460,7 @@ export default function Datasets() {
                                         setSnackBarText({
                                           text:
                                             res?.message ||
-                                            "Successfully downloaded Dataset.",
+                                            ct("ui.successfully_downloaded_dataset_55b694"),
                                           severity: "success",
                                         })
                                       );
@@ -470,7 +470,7 @@ export default function Datasets() {
                                         setSnackBarText({
                                           text:
                                             res?.message ||
-                                            "Failed to download Dataset.",
+                                            ct("ui.failed_to_download_dataset_bfb68f"),
                                           severity: "error",
                                         })
                                       );
@@ -494,11 +494,11 @@ export default function Datasets() {
                             </IconButton>
                           </Tooltip>
                             */}
-                          <Tooltip title={"Update"} placement="top" arrow>
+                          <Tooltip title={ct("ui.update_fb91e2")} placement="top" arrow>
                             <IconButton
                               className={c.updateIcon}
-                              title="Update"
-                              aria-label="update"
+                              title={ct("ui.update_fb91e2")}
+                              aria-label={ct("ui.update_0a25ba")}
                               onClick={() => {
                                 dispatch(
                                   setModal({
@@ -513,11 +513,11 @@ export default function Datasets() {
                           </Tooltip>
                           <Divider orientation="vertical" flexItem />
 
-                          <Tooltip title={"Delete"} placement="top" arrow>
+                          <Tooltip title={ct("ui.delete_f6fdbe")} placement="top" arrow>
                             <IconButton
                               className={c.deleteIcon}
-                              title="Delete"
-                              aria-label="delete"
+                              title={ct("ui.delete_f6fdbe")}
+                              aria-label={ct("ui.delete_948598")}
                               onClick={() => {
                                 dispatch(
                                   setModal({

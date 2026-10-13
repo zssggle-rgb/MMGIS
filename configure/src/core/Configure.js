@@ -1,3 +1,4 @@
+import { useConfigureText } from "../i18n";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Configure() {
+  const ct = useConfigureText();
   const c = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function Configure() {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to get available missions.",
+            text: res?.message || ct("ui.failed_to_get_available_missions_4b40cf"),
             severity: "error",
           })
         );

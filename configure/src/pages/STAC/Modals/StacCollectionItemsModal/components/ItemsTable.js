@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../../i18n";
 import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -49,6 +50,7 @@ export default function ItemsTable({
   onDeleteItem,
   noItemsText,
 }) {
+  const ct = useConfigureText();
   const local = useStyles();
   const theme = useTheme();
   const hideAssets = useMediaQuery(theme.breakpoints.down('xl'));
@@ -67,9 +69,9 @@ export default function ItemsTable({
                 onChange={(e) => selectAllOnPage(e.target.checked)}
               />
             </TableCell>
-            <TableCell>Item ID</TableCell>
-            <TableCell>DateTime</TableCell>
-            {!hideAssets && <TableCell>Assets Href</TableCell>}
+            <TableCell>{ct("ui.item_id_bf1ebd")}</TableCell>
+            <TableCell>{ct("ui.datetime_f1e5ba")}</TableCell>
+            {!hideAssets && <TableCell>{ct("ui.assets_href_70796b")}</TableCell>}
             <TableCell align="center"></TableCell>
           </TableRow>
         </TableHead>
@@ -77,7 +79,7 @@ export default function ItemsTable({
           {loading ? (
             <TableRow>
               <TableCell colSpan={columnCount}>
-                <div className={local.loadingContainer}>Loading…</div>
+                <div className={local.loadingContainer}>{ct("ui.loading_33ce41")}</div>
               </TableCell>
             </TableRow>
           ) : items.length === 0 ? (
@@ -101,14 +103,14 @@ export default function ItemsTable({
                 )}
                 <TableCell align="center">
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "right" }}>
-                    <Tooltip title="View Item" placement="top" arrow>
-                      <IconButton className={classes.infoIcon} title="View Item" aria-label="view item" onClick={() => onViewJson(item)}>
+                    <Tooltip title={ct("ui.view_item_eb9345")} placement="top" arrow>
+                      <IconButton className={classes.infoIcon} title={ct("ui.view_item_eb9345")} aria-label={ct("ui.view_item_4dfe6c")} onClick={() => onViewJson(item)}>
                         <InfoIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
                     <Divider orientation="vertical" flexItem />
-                    <Tooltip title="Delete Item" placement="top" arrow>
-                      <IconButton className={classes.deleteIcon} title="Delete" aria-label="delete" onClick={() => onDeleteItem(item.id)}>
+                    <Tooltip title={ct("ui.delete_item_f39cda")} placement="top" arrow>
+                      <IconButton className={classes.deleteIcon} title={ct("ui.delete_f6fdbe")} aria-label={ct("ui.delete_948598")} onClick={() => onDeleteItem(item.id)}>
                         <DeleteForeverIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>

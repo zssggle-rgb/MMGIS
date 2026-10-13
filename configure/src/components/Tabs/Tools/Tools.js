@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../i18n";
 import React, { useEffect } from "react";
 import { useMetadataText } from "../../../i18n";
 import { metadataText } from "../../../i18n/metadata";
@@ -88,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Tools() {
+  const ct = useConfigureText();
   const tMeta = useMetadataText();
   const c = useStyles();
 
@@ -110,7 +112,7 @@ export default function Tools() {
           dispatch(
             setSnackBarText({
               text:
-                res?.message || "Failed to get tool configuration template.",
+                res?.message || ct("ui.failed_to_get_tool_configuration_template_77dadd"),
               severity: "error",
             })
           );
@@ -199,17 +201,11 @@ export default function Tools() {
             </div>
             <div className={c.cardOff}></div>
           </div>
-          <div className={c.cardName}>External Plugins</div>
+          <div className={c.cardName}>{ct("ui.external_plugins_b177a7")}</div>
           <div className={c.cardContent}>
-            <div className={c.cardContentTitle}>
-              Manage tools via the Plugin CLI.
-            </div>
-            <div className={c.cardContentBody}>
-              Run <code>npm run plugins -- list</code> to see installed plugins
-              or <code>npm run plugins -- create tool &lt;Name&gt; --container
-              &lt;container&gt;</code> to scaffold a new one. See
-              plugins/README.md for details.
-            </div>
+            <div className={c.cardContentTitle}>{ct("ui.manage_tools_via_the_plugin_cli_435be3")}</div>
+            <div className={c.cardContentBody}>{ct("ui.run_b1b392")}<code>npm run plugins -- list</code>{ct("ui.to_see_installed_plugins_or_1559a2")}<code>npm run plugins -- create tool &lt;Name&gt; --container
+              &lt;container&gt;</code>{ct("ui.to_scaffold_a_new_one_see_90e6ed")}</div>
           </div>
         </div>
       </Grid>
@@ -219,7 +215,7 @@ export default function Tools() {
   };
 
   if (configuration?.tools?.length == null) {
-    return <div className={c.Tools}>Not found</div>;
+    return <div className={c.Tools}>{ct("ui.not_found_475c84")}</div>;
   }
 
   return (

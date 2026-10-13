@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -123,6 +124,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "layersUsedByGeoDataset";
 const LayersUsedByModal = (props) => {
+  const ct = useConfigureText();
   const {} = props;
   const c = useStyles();
 
@@ -177,12 +179,12 @@ const LayersUsedByModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <ShapeLineIcon className={c.backgroundIcon} />
-            <div className={c.title}>GeoDataset is Used By</div>
+            <div className={c.title}>{ct("ui.geodataset_is_used_by_825b88")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -197,7 +199,7 @@ const LayersUsedByModal = (props) => {
           <>
             <div className={c.hasOccurrencesTitle}>
               <Typography className={c.hasOccurrences}>
-                {`This GeoDataset is currently in use in the following layers:`}
+                {ct("ui.this_geodataset_is_currently_in_use_c223d2")}
               </Typography>
             </div>
             <div className={c.occurrences}>{occurrences}</div>
@@ -205,15 +207,13 @@ const LayersUsedByModal = (props) => {
         ) : (
           <div className={c.hasOccurrencesTitle}>
             <Typography className={c.hasOccurrences}>
-              {`This GeoDataset is not in use.`}
+              {ct("ui.this_geodataset_is_not_in_use_bfd16c")}
             </Typography>
           </div>
         )}
       </DialogContent>
       <DialogActions className={c.dialogActions}>
-        <Button className={c.close} variant="outlined" onClick={handleClose}>
-          Close
-        </Button>
+        <Button className={c.close} variant="outlined" onClick={handleClose}>{ct("ui.close_bbfa77")}</Button>
       </DialogActions>
     </Dialog>
   );
