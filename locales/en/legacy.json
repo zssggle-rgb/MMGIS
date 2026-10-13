@@ -732,5 +732,10 @@
     "text.1522b0f4aac4f1b4": ".1 seconds",
     "text.a750a66c0c73175f": ".25 seconds",
     "text.47cce06d1db9d0f4": "0.5 seconds",
-    "text.1ddc33aba5b9b6a6": "1 Decade"
+    "text.1ddc33aba5b9b6a6": "1 Decade",
+    "text.964015471ad69a61": "Error loading video",
+    "text.f63109af4bb1796b": "Error loading GIF",
+    "text.3c718f6b42569b2f": "Rotate - Left Click and Drag",
+    "text.7450dcc4827b2e80": "Zoom - Mouse Wheel",
+    "text.77e48b6f803412f5": "No Imagery"
 }

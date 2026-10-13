@@ -1,4 +1,4 @@
-import { uiMarkup, uiRenderedMarkup } from '../../../i18n/legacy-ui'
+import { bindUiAttribute, uiLabel, uiMarkup, uiRenderedMarkup } from '../../../i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '../Formulae_/Formulae_'
 import L_ from '../Layers_/Layers_'
@@ -181,7 +181,7 @@ var Viewer_ = {
                 'width': '200px',
                 'text-align': 'center'
             })
-            .html(uiRenderedMarkup('To begin, select any imagery-enabled feature.'))
+            .html(uiLabel('To begin, select any imagery-enabled feature.'))
         this.imageIntro.append(uiRenderedMarkup(introMessage))
 
         this.lookupPath =
@@ -209,6 +209,10 @@ var Viewer_ = {
             //zoomPerClick: 1, //disables click to zoom for tools...
             imageSmoothingEnabled: false,
         })
+        for (const [id, message] of [['osd-zoomin', 'Zoom in'], ['osd-zoomout', 'Zoom out'], ['osd-home', 'Go home']]) {
+            const control = document.getElementById(id)
+            if (control) bindUiAttribute(control, 'title', message)
+        }
 
         this.wasInitialized = true
     },
@@ -295,7 +299,7 @@ var Viewer_ = {
 
         let url = o.url
 
-        Viewer_.toolBarLoading.html(uiRenderedMarkup('Loading'))
+        Viewer_.toolBarLoading.html(uiLabel('Loading'))
         this.url = url
 
         const extLow = F_.getExtension(url).toLowerCase()
@@ -341,12 +345,12 @@ var Viewer_ = {
                         console.log(err)
                         Viewer_.toolBarLoading.html(uiRenderedMarkup(err))
                     } else {
-                        Viewer_.toolBarLoading.html(uiRenderedMarkup('Loading'))
+                        Viewer_.toolBarLoading.html(uiLabel('Loading'))
                         Viewer_.modelviewer.resize()
                     }
                 },
                 function (progress) {
-                    Viewer_.toolBarLoading.html(uiRenderedMarkup('Loading ' + progress + '%'))
+                    Viewer_.toolBarLoading.html(uiLabel('Loading') + ' ' + progress + '%')
                     if (progress == 100) {
                         Viewer_.toolBarLoading.css('opacity', '0')
                         if (setLocAfter) {
@@ -454,7 +458,7 @@ var Viewer_ = {
             }
 
             videoElement.onerror = function () {
-                Viewer_.toolBarLoading.html(uiRenderedMarkup('Error loading video'))
+                Viewer_.toolBarLoading.html(uiLabel('Error loading video'))
                 setTimeout(() => {
                     Viewer_.toolBarLoading.css('opacity', '0')
                 }, 2000)
@@ -483,7 +487,7 @@ var Viewer_ = {
             }
 
             imgElement.onerror = function () {
-                Viewer_.toolBarLoading.html(uiRenderedMarkup('Error loading GIF'))
+                Viewer_.toolBarLoading.html(uiLabel('Error loading GIF'))
                 setTimeout(() => {
                     Viewer_.toolBarLoading.css('opacity', '0')
                 }, 2000)
@@ -758,12 +762,12 @@ function buildToolBar() {
 
     Viewer_.toolBarLoading = $('<div>')
         .attr('id', 'viewer_loading')
-        .html(uiRenderedMarkup('Loading'))
+        .html(uiLabel('Loading'))
     $('#viewer').append(uiRenderedMarkup(Viewer_.toolBarLoading))
 
     Viewer_.toolBarhelp = $('<div>')
         .attr('id', 'viewer_Help')
-        .html(uiRenderedMarkup('Rotate - Left Click and Drag<br>Zoom - Mouse Wheel'))
+        .html(uiMarkup('<span>Rotate - Left Click and Drag</span><br><span>Zoom - Mouse Wheel</span>'))
     Viewer_.toolBar.append(uiRenderedMarkup(Viewer_.toolBarhelp))
 
     //I know, I know; it's not in the toolbar.
@@ -806,6 +810,7 @@ function updateDropdown(images, imgI) {
     images = images || []
 
     const noImageryName = 'No Imagery'
+    const hasImagery = images.length > 0
 
     if (images.length == 0) {
         images = [{ name: noImageryName }]
@@ -814,8 +819,8 @@ function updateDropdown(images, imgI) {
 
     $('#viewer_dropdownselector').html(
         uiRenderedMarkup(Dropy.construct(
-            images.map((elm) => elm.name),
-            images[imgI].name,
+            images.map((elm) => hasImagery ? elm.name : uiLabel(noImageryName)),
+            hasImagery ? images[imgI].name : uiLabel(noImageryName),
             imgI
         ))
     )
