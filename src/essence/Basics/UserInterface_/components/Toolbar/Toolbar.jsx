@@ -1,3 +1,4 @@
+import { useMapText } from '../../../../../i18n'
 import React, { useEffect, useCallback, useState } from 'react'
 import useUIStore from '../../store/uiStore'
 import { toolConfigs } from '../../../../../pre/tools'
@@ -13,6 +14,7 @@ import styles from './Toolbar.module.css'
  * Replaces the jQuery-constructed coordSelect div from ToolController_.init().
  */
 function MobileCoordButton() {
+    const t = useMapText()
     const [isActive, setIsActive] = useState(false)
     const activeToolName = useUIStore((s) => s.activeToolName)
 
@@ -70,6 +72,8 @@ function MobileCoordButton() {
     return (
         <div
             id="coordinatesDiv"
+            title={t('coordinates.toggle')}
+            aria-label={t('coordinates.toggle')}
             className={'toolButton' + (isActive ? ' toolButtonActive' : '')}
             style={{
                 position: 'relative',
@@ -97,6 +101,7 @@ function MobileCoordButton() {
  * This button moves it into #tools (opening the tool panel) or back (closing).
  */
 function MobileTimeUIToggle() {
+    const t = useMapText()
     const [isActive, setIsActive] = useState(false)
     const [hasTime, setHasTime] = useState(false)
     const activeToolName = useUIStore((s) => s.activeToolName)
@@ -231,7 +236,7 @@ function MobileTimeUIToggle() {
                 flexShrink: 0,
             }}
             onClick={handleClick}
-            title="Toggle Time UI"
+            title={t('time.toggle')}
         >
             <i className="mdi mdi-clock-outline mdi-18px" style={{ lineHeight: '40px' }} />
         </div>
@@ -277,9 +282,12 @@ function MobileExtraButtons() {
  * Replaces the jQuery-constructed toolButton divs from ToolController_.init().
  */
 function ToolButton({ tool, index, isMobile, isActive, onToolClick }) {
+    const t = useMapText()
+    const displayName = t('common:tool.' + tool.name, { defaultValue: tool.name })
     const button = (
         <div
             id={'toolButton' + tool.name}
+            aria-label={displayName}
             className={'toolButton' + (isActive ? ' toolButtonActive' : '')}
             tabIndex={index + 1}
             style={{
@@ -309,7 +317,7 @@ function ToolButton({ tool, index, isMobile, isActive, onToolClick }) {
     if (isMobile) return button
 
     return (
-        <Tooltip content={tool.name} placement="right">
+        <Tooltip content={displayName} placement="right">
             {button}
         </Tooltip>
     )
@@ -319,6 +327,8 @@ function ToolButton({ tool, index, isMobile, isActive, onToolClick }) {
  * SepToolButton — a single separated tool button in the toolbar.
  */
 function SepToolButton({ tool, isActive }) {
+    const t = useMapText()
+    const displayName = t('common:tool.' + tool.name, { defaultValue: tool.name })
     const handleClick = useCallback(() => {
         const ToolController_ =
             require('../../../ToolController_/ToolController_').default
@@ -331,6 +341,7 @@ function SepToolButton({ tool, isActive }) {
     const button = (
         <div
             id={`toolButtonSeparated_${tool.name}`}
+            aria-label={displayName}
             className={'toolButton toolSep' + (isActive ? ' active' : '')}
             style={{
                 width: '100%',
@@ -355,7 +366,7 @@ function SepToolButton({ tool, isActive }) {
     )
 
     return (
-        <Tooltip content={tool.name} placement="right">
+        <Tooltip content={displayName} placement="right">
             {button}
         </Tooltip>
     )

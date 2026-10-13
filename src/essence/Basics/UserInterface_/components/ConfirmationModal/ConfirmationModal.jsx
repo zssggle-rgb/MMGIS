@@ -1,3 +1,4 @@
+import { useMapText } from '../../../../../i18n'
 /**
  * ConfirmationModal — "Are you sure?" confirmation dialog.
  *
@@ -12,16 +13,17 @@ import { Button } from '../../../../../design-system/components'
 import styles from './ConfirmationModal.module.css'
 
 function ConfirmationContent({ message, onResult }) {
+    const t = useMapText()
     return (
         <div className={styles.root}>
             <div className={styles.title}>
                 <div className={styles.titleLeft}>
                     <i className="mdi mdi-help mdi-18px" />
-                    <div>Are You Sure</div>
+                    <div>{t('confirmation.title')}</div>
                 </div>
             </div>
             <div className={styles.content}>
-                <div>{message}</div>
+                <div>{message && typeof message.translationKey === 'string' ? t(message.translationKey, message.parameters) : message}</div>
             </div>
             <div className={styles.footer}>
                 <Button
@@ -29,14 +31,14 @@ function ConfirmationContent({ message, onResult }) {
                     className={styles.noBtn}
                     onClick={() => onResult(false)}
                 >
-                    NO
+                    {t('confirmation.no')}
                 </Button>
                 <Button
                     variant="primary"
                     className={styles.yesBtn}
                     onClick={() => onResult(true)}
                 >
-                    YES
+                    {t('confirmation.yes')}
                 </Button>
             </div>
         </div>

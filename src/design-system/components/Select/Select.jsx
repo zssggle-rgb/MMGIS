@@ -1,3 +1,4 @@
+import { useMapText } from '../../../i18n'
 import React, { forwardRef } from 'react'
 import { Select as BaseSelect } from '@base-ui/react/select'
 import styles from './Select.module.css'
@@ -6,6 +7,7 @@ const Select = forwardRef(function Select(
     { value, onValueChange, options, placeholder, className, ...props },
     ref
 ) {
+    const t = useMapText()
     return (
         <BaseSelect.Root
             value={value}
@@ -17,7 +19,7 @@ const Select = forwardRef(function Select(
                 ref={ref}
                 className={`${styles.trigger} ${className || ''}`}
             >
-                <BaseSelect.Value placeholder={placeholder || 'Select...'} />
+                <BaseSelect.Value placeholder={placeholder || t('select.placeholder')} />
                 <BaseSelect.Icon className={styles.icon}>
                     <i className="mdi mdi-chevron-down mdi-14px" />
                 </BaseSelect.Icon>

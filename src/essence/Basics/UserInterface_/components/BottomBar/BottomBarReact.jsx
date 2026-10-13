@@ -1,3 +1,4 @@
+import { useMapText } from '../../../../../i18n'
 import React, { useEffect, useCallback, useState } from 'react'
 import useUIStore from '../../store/uiStore'
 import BottomBar from '../../BottomBar'
@@ -14,6 +15,7 @@ import styles from './BottomBarReact.module.css'
  * Mobile: rendered by TopBar inside the hamburger menu (#topBarMenu)
  */
 function BottomBarReact({ userInterface }) {
+    const t = useMapText()
     const isMobile = useUIStore((s) => s.isMobile)
     const lookConfig = useUIStore((s) => s.lookConfig)
     const [linkCopied, setLinkCopied] = useState(false)
@@ -60,7 +62,7 @@ function BottomBarReact({ userInterface }) {
                         <i className={`mdi ${linkCopied ? 'mdi-check-bold' : 'mdi-open-in-new'} mdi-18px`} />
                     </IconButton>
                 ) : (
-                    <Tooltip content="Copy Link" placement="right">
+                    <Tooltip content={t('action.copyLink')} placement="right">
                         <IconButton
                             id="topBarLink"
                             size="lg"
@@ -87,7 +89,7 @@ function BottomBarReact({ userInterface }) {
                         <i className="mdi mdi-camera mdi-18px" />
                     </IconButton>
                 ) : (
-                    <Tooltip content="Screenshot" placement="right">
+                    <Tooltip content={t('action.screenshot')} placement="right">
                         <IconButton
                             id="topBarScreenshot"
                             size="lg"
@@ -113,7 +115,7 @@ function BottomBarReact({ userInterface }) {
                         <i className="mdi mdi-fullscreen mdi-18px" />
                     </IconButton>
                 ) : (
-                    <Tooltip content="Fullscreen" placement="right">
+                    <Tooltip content={t('action.fullscreen')} placement="right">
                         <IconButton
                             id="topBarFullscreen"
                             size="lg"
