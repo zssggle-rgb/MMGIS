@@ -1,3 +1,4 @@
+import { uiMarkup, uiTemplate, uiText, uiTitle } from '../../../../i18n/legacy-ui'
 // Part of the LayersTool that deals with filtering
 
 import $ from 'jquery'
@@ -125,13 +126,13 @@ const Filtering = {
             "<div id='layersTool_filtering'>",
                 "<div id='layersTool_filtering_header'>",
                     "<div id='layersTool_filtering_title_left'>",
-                        "<div id='layersTool_filtering_title'>Filter</div>",
+                        uiMarkup("<div id='layersTool_filtering_title'>Filter</div>"),
                         Help.getComponent(helpKey),
                         "<div id='layersTool_filtering_count'></div>",
                     "</div>",
                     "<div id='layersTool_filtering_adds'>",
-                        "<div id='layersTool_filtering_add_group' class='mmgisButton5' title='Add New Grouping'><div>Group</div><i class='mdi mdi-plus mdi-18px'></i></div>",
-                        "<div id='layersTool_filtering_add_value' class='mmgisButton5' title='Add New Key-Value Filter'><div>Add</div><i class='mdi mdi-plus mdi-18px'></i></div>",
+                        uiMarkup("<div id='layersTool_filtering_add_group' class='mmgisButton5' title='Add New Grouping'><div>Group</div><i class='mdi mdi-plus mdi-18px'></i></div>"),
+                        uiMarkup("<div id='layersTool_filtering_add_value' class='mmgisButton5' title='Add New Key-Value Filter'><div>Add</div><i class='mdi mdi-plus mdi-18px'></i></div>"),
                     "</div>",
                 "</div>",
                 "<div id='layerTool_filtering_filters'>",
@@ -140,15 +141,15 @@ const Filtering = {
                         `<div id='layerTool_filtering_filters_spatial_draw' class='mmgisButton5' title='Place a point on the map to enable a spatial filter.'><i class='mdi mdi-pencil mdi-14px'></i><div>${spatialActive ? 'Active' : 'Place Point'}</div></div>`,
                         "<div id='layerTool_filtering_filters_spatial_radius_wrapper' title='Radius\n= 0: Queries for features that contain this point.\n> 0: Queries for features intersecting this circle.'>",
                             "<div>R:</div>",
-                            `<input id='layerTool_filtering_filters_spatial_radius' type='number' placeholder='Radius' value='${Filtering.filters[layerName].spatial.radius || 0}' min='0'></input>`,
+                            uiTemplate`<input id='layerTool_filtering_filters_spatial_radius' type='number' placeholder='Radius' value='${Filtering.filters[layerName].spatial.radius || 0}' min='0'></input>`,
                             "<div>m</div>",
                         "</div>",
                         "<div id='layerTool_filtering_filters_spatial_clear' class='mmgisButton5 layerTool_filtering_filters_clear'><i class='mdi mdi-close mdi-18px'></i></div>",
                     "</ul>",
                 "</div>",
                 `<div id='layersTool_filtering_footer'>`,
-                    "<div id='layersTool_filtering_clear' class='mmgisButton5'><div>Clear Filter</div></div>",
-                    "<div id='layersTool_filtering_submit' class='mmgisButton5'><div id='layersTool_filtering_submit_loading'><div></div></div><div id='layersTool_filtering_submit_text'>Submit</div><i class='mdi mdi-arrow-right mdi-18px'></i></div>",
+                    uiMarkup("<div id='layersTool_filtering_clear' class='mmgisButton5'><div>Clear Filter</div></div>"),
+                    uiMarkup("<div id='layersTool_filtering_submit' class='mmgisButton5'><div id='layersTool_filtering_submit_loading'><div></div></div><div id='layersTool_filtering_submit_text'>Submit</div><i class='mdi mdi-arrow-right mdi-18px'></i></div>"),
                 "</div>",
             "</div>",
         ].join('\n')
@@ -271,13 +272,13 @@ const Filtering = {
             `<li class='layersTool_filtering_value' id='layersTool_filtering_value_${F_.getSafeName(layerName)}_${id}' idx='${id}'>`,
                 `<div class='filterDragHandle'><i class="mdi mdi-drag-vertical mdi-12px"></i></div>`,
                 "<div class='layersTool_filtering_value_key'>",
-                    `<input id='layersTool_filtering_value_key_input_${F_.getSafeName(layerName)}_${id}' class='layersTool_filtering_value_key_input' spellcheck='false' type='text'${key} placeholder='Property...'></input>`,
+                    uiTemplate`<input id='layersTool_filtering_value_key_input_${F_.getSafeName(layerName)}_${id}' class='layersTool_filtering_value_key_input' spellcheck='false' type='text'${key} placeholder='Property...'></input>`,
                 "</div>",
                 "<div class='layersTool_filtering_value_operator'>",
                     `<div id='layersTool_filtering_value_operator_${F_.getSafeName(layerName)}_${id}' class='layersTool_filtering_value_operator_select'></div>`,
                 "</div>",
                 "<div class='layersTool_filtering_value_value'>",
-                    `<input id='layersTool_filtering_value_value_input_${F_.getSafeName(layerName)}_${id}' class='layersTool_filtering_value_value_input' spellcheck='false' type='text'${val} placeholder='Value...'></input>`,
+                    uiTemplate`<input id='layersTool_filtering_value_value_input_${F_.getSafeName(layerName)}_${id}' class='layersTool_filtering_value_value_input' spellcheck='false' type='text'${val} placeholder='Value...'></input>`,
                     `<div class='layersTool_filtering_value_value_type'>`,
                         `<i id='layersTool_filtering_value_value_type_number_${F_.getSafeName(layerName)}_${id}' style='display: none;' class='mdi mdi-numeric mdi-18px'></i>`,
                         `<i id='layersTool_filtering_value_value_type_string_${F_.getSafeName(layerName)}_${id}' style='display: none;'class='mdi mdi-alphabetical-variant mdi-18px'></i>`,
@@ -361,10 +362,10 @@ const Filtering = {
     // To highlight the submit button to indicate a change's been made in the form
     setSubmitButtonState: function (active) {
         if (active) {
-            $('#layersTool_filtering_submit_text').text('Submit')
+            $('#layersTool_filtering_submit_text').html(uiMarkup("<span>Submit</span>"))
             $('#layersTool_filtering_submit').addClass('active')
         } else if ($('#layersTool_filtering_submit').hasClass('active')) {
-            $('#layersTool_filtering_submit_text').text('Submitted')
+            $('#layersTool_filtering_submit_text').html(uiMarkup("<span>Submitted</span>"))
             $('#layersTool_filtering_submit').removeClass('active')
         }
     },
@@ -546,10 +547,10 @@ const Filtering = {
         const opId = Math.max(ops.indexOf(options.op), 0)
 
         const groupOpItems = [
-            { html: `<div style='font-family: monospace; font-size: 11px; white-space: nowrap;'>AND</div>`, title: 'All Must Match (AND)' },
-            { html: `<div style='font-family: monospace; font-size: 11px; white-space: nowrap;'>OR</div>`, title: 'Any May Match (OR)' },
-            { html: `<div style='font-family: monospace; font-size: 11px; white-space: nowrap;'>NAND</div>`, title: 'Not All May Match (NOT AND)' },
-            { html: `<div style='font-family: monospace; font-size: 11px; white-space: nowrap;'>NOR</div>`, title: 'None Must Match (NOT OR)' },
+            { html: `<div style='font-family: monospace; font-size: 11px; white-space: nowrap;'>AND</div>`, ...uiTitle("All Must Match (AND)") },
+            { html: `<div style='font-family: monospace; font-size: 11px; white-space: nowrap;'>OR</div>`, ...uiTitle("Any May Match (OR)") },
+            { html: `<div style='font-family: monospace; font-size: 11px; white-space: nowrap;'>NAND</div>`, ...uiTitle("Not All May Match (NOT AND)") },
+            { html: `<div style='font-family: monospace; font-size: 11px; white-space: nowrap;'>NOR</div>`, ...uiTitle("None Must Match (NOT OR)") },
         ]
 
         OpGridSelector.init($(elmId), groupOpItems, opId, {
@@ -708,18 +709,18 @@ const Filtering = {
         const opId = Math.max(ops.indexOf(options.op), 0)
 
         const valueOpItems = [
-            { html: `<i class='mdi mdi-equal mdi-18px'></i>`, title: 'Equals' },
-            { html: `<div style='font-family: monospace;'>!=</div>`, title: 'Not Equals' },
-            { html: `<div style='font-family: monospace;'>in</div>`, title: 'Comma-separated list' },
-            { html: `<i class='mdi mdi-less-than mdi-18px'></i>`, title: 'Less than' },
-            { html: `<i class='mdi mdi-greater-than mdi-18px'></i>`, title: 'Greater than' },
-            { html: `<i class='mdi mdi-less-than-or-equal mdi-18px'></i>`, title: 'Less than or Equal' },
-            { html: `<i class='mdi mdi-greater-than-or-equal mdi-18px'></i>`, title: 'Greater than or Equal' },
-            { html: `<i class='mdi mdi-contain mdi-18px'></i>`, title: 'Contains' },
-            { html: `<i class='mdi mdi-contain-start mdi-18px'></i>`, title: 'Begins With' },
-            { html: `<i class='mdi mdi-contain-end mdi-18px'></i>`, title: 'Ends With' },
-            { html: `<i class='mdi mdi-null mdi-18px'></i>`, title: 'Is Null (No Value)' },
-            { html: `<i class='mdi mdi-check-circle-outline mdi-18px'></i>`, title: 'Is Not Null (Has Value)' },
+            { html: `<i class='mdi mdi-equal mdi-18px'></i>`, ...uiTitle("Equals") },
+            { html: `<div style='font-family: monospace;'>!=</div>`, ...uiTitle("Not Equals") },
+            { html: uiMarkup("<div style='font-family: monospace;'>In List</div>"), ...uiTitle("Comma-separated list") },
+            { html: `<i class='mdi mdi-less-than mdi-18px'></i>`, ...uiTitle("Less than") },
+            { html: `<i class='mdi mdi-greater-than mdi-18px'></i>`, ...uiTitle("Greater than") },
+            { html: `<i class='mdi mdi-less-than-or-equal mdi-18px'></i>`, ...uiTitle("Less than or Equal") },
+            { html: `<i class='mdi mdi-greater-than-or-equal mdi-18px'></i>`, ...uiTitle("Greater than or Equal") },
+            { html: `<i class='mdi mdi-contain mdi-18px'></i>`, ...uiTitle("Contains") },
+            { html: `<i class='mdi mdi-contain-start mdi-18px'></i>`, ...uiTitle("Begins With") },
+            { html: `<i class='mdi mdi-contain-end mdi-18px'></i>`, ...uiTitle("Ends With") },
+            { html: `<i class='mdi mdi-null mdi-18px'></i>`, ...uiTitle("Is Null (No Value)") },
+            { html: `<i class='mdi mdi-check-circle-outline mdi-18px'></i>`, ...uiTitle("Is Not Null (Has Value)") },
         ]
 
         OpGridSelector.init($(elmId), valueOpItems, opId, {

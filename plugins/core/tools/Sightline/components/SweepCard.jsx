@@ -1,3 +1,4 @@
+import { useLegacyText } from "../../../../../src/i18n/legacy-ui"
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import useSightlineStore, { buildSourcesList } from '../store'
 import SightlineTool from '../SightlineTool'
@@ -5,6 +6,8 @@ import CardLegend from './CardLegend'
 import { ColorRampPicker, Slider } from '@design/components'
 
 export default function SweepCard({ elmId, mode, onDragStart, onDragOver, onDragEnd, onDrop, isDropTarget, dropPosition }) {
+    const tLegacy = useLegacyText()
+
     const el = useSightlineStore((s) => s.elements[elmId])
     const vars = useSightlineStore((s) => s.vars)
     const ed = useSightlineStore((s) => s.sweepElData[elmId])
@@ -130,7 +133,7 @@ export default function SweepCard({ elmId, mode, onDragStart, onDragOver, onDrag
             {mode === 'composite' && (
                 <div className="vstSweepCardBody">
                     <div className="vstOptionRow vstSweepCardRow">
-                        <div className="vstOptionLabel">Color Ramp</div>
+                        <div className="vstOptionLabel">{tLegacy("Color Ramp")}</div>
                         <div style={{ width: 145 }}>
                             <ColorRampPicker
                                 value={colorRamp}
@@ -140,7 +143,7 @@ export default function SweepCard({ elmId, mode, onDragStart, onDragOver, onDrag
                         </div>
                     </div>
                     <div className="vstOptionRow vstSweepCardRow">
-                        <div className="vstOptionLabel">Opacity</div>
+                        <div className="vstOptionLabel">{tLegacy("Opacity")}</div>
                         <div style={{ width: 145 }}>
                             <Slider
                                 value={opacity}
@@ -160,7 +163,7 @@ export default function SweepCard({ elmId, mode, onDragStart, onDragOver, onDrag
             {mode === 'playback' && (
                 <div className="vstSweepCardBody">
                     <div className="vstOptionRow vstSweepCardRow">
-                        <div className="vstOptionLabel">Opacity</div>
+                        <div className="vstOptionLabel">{tLegacy("Opacity")}</div>
                         <div style={{ width: 145 }}>
                             <Slider
                                 value={opacity}
@@ -181,11 +184,11 @@ export default function SweepCard({ elmId, mode, onDragStart, onDragOver, onDrag
                     {currentResult && (
                         <div className="vstSweepCardMiniIndicators">
                             <div className="vstSweepCardMiniIndicator">
-                                <div className="vstSweepCardMiniLabel">Az: {currentResult.azimuth?.toFixed(1)}°</div>
+                                <div className="vstSweepCardMiniLabel">{tLegacy("Az:")} {currentResult.azimuth?.toFixed(1)}°</div>
                                 <canvas id={azCanvasId} width="80" height="80" />
                             </div>
                             <div className="vstSweepCardMiniIndicator">
-                                <div className="vstSweepCardMiniLabel">El: {currentResult.elevation?.toFixed(1)}°</div>
+                                <div className="vstSweepCardMiniLabel">{tLegacy("El:")} {currentResult.elevation?.toFixed(1)}°</div>
                                 <canvas id={elCanvasId} width="80" height="80" />
                             </div>
                         </div>

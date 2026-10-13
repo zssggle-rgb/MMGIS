@@ -1,3 +1,4 @@
+import { uiText } from "../../../../src/i18n/legacy-ui"
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
 import Map_ from '@basics/Map_/Map_'
@@ -34,7 +35,7 @@ const SightlineTool_Export = {
         const layerName = 'sightline' + elmId
         const layer = L_.layers.layer[layerName]
         if (!layer || !layer._url) {
-            Toast.warning('No sightline map to export. Generate first.', 6000)
+            Toast.warning(uiText("No sightline map to export. Generate first."), 6000)
             return
         }
 
@@ -69,14 +70,14 @@ const SightlineTool_Export = {
         const el = store.elements[elmId]
 
         if (!ed?.grids || ed.grids.length === 0) {
-            Toast.warning('No playback frames to export. Run a sweep first.', 6000)
+            Toast.warning(uiText("No playback frames to export. Run a sweep first."), 6000)
             return
         }
 
         const data = ed.lastData
         const options = store.getSightlineOptions(elmId)
         if (!data || !options) {
-            Toast.warning('Missing sweep data for export.', 6000)
+            Toast.warning(uiText("Missing sweep data for export."), 6000)
             return
         }
         options.color.a = 255
@@ -231,7 +232,7 @@ const SightlineTool_Export = {
         }
 
         if (frameImages.length === 0) {
-            Toast.warning('No valid frames to export.', 6000)
+            Toast.warning(uiText("No valid frames to export."), 6000)
             return
         }
 
@@ -271,12 +272,12 @@ const SightlineTool_Export = {
                     link.click()
                     link.remove()
                     setTimeout(() => URL.revokeObjectURL(url), 10000)
-                    Toast.success('GIF exported successfully!', 3000)
+                    Toast.success(uiText("GIF exported successfully!"), 3000)
                     useSightlineStore.getState().setSweepField('exportProgress', 100)
                     setTimeout(() => useSightlineStore.getState().setSweepField('exportProgress', null), 500)
                 } else {
                     console.error('GIF export failed:', obj.errorMsg)
-                    Toast.error('GIF export failed. Try with fewer frames.', 6000)
+                    Toast.error(uiText("GIF export failed. Try with fewer frames."), 6000)
                     useSightlineStore.getState().setSweepField('exportProgress', null)
                 }
             }
@@ -294,7 +295,7 @@ const SightlineTool_Export = {
             const grid = el?.lastResultGrid
             const data = el?.lastData || store.lastData
             if (!grid || !data?.bottomLeftLatLng || !data?.cellSize) {
-                Toast.warning('No results to export. Generate first.', 6000)
+                Toast.warning(uiText("No results to export. Generate first."), 6000)
                 return
             }
             const blLat = data.bottomLeftLatLng.lat
@@ -324,7 +325,7 @@ const SightlineTool_Export = {
         const heatmap = ed?.heatmap
         const data = ed?.lastData || el?.lastData || store.lastData
         if (!heatmap || !data?.bottomLeftLatLng || !data?.cellSize) {
-            Toast.warning('No results to export. Run a sweep first.', 6000)
+            Toast.warning(uiText("No results to export. Run a sweep first."), 6000)
             return
         }
         const blLat = data.bottomLeftLatLng.lat
@@ -370,7 +371,7 @@ const SightlineTool_Export = {
             }
         }
         if (!grid || grid.length === 0) {
-            Toast.warning('No sightline grid to export. Generate first.', 6000)
+            Toast.warning(uiText("No sightline grid to export. Generate first."), 6000)
             return
         }
 

@@ -1,3 +1,4 @@
+import { uiTemplate } from '../../../../src/i18n/legacy-ui'
 import useSightlineStore from './store'
 
 let _isDragging = false
@@ -105,7 +106,7 @@ const SightlineTool_Visibility = {
             const label = document.createElement('div')
             label.className = 'sightlineVisLabel'
             label.style.color = colorStr
-            label.innerHTML = `${srcName} <span class="sightlineVisLabelSuffix">Visibility</span>`
+            label.innerHTML = uiTemplate`${srcName} <span class="sightlineVisLabelSuffix">Visibility</span>`
             label.title = srcName + ' Visibility'
             row.appendChild(label)
 

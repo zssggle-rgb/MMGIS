@@ -1,3 +1,4 @@
+import { uiRenderedMarkup, uiText } from '../../../../src/i18n/legacy-ui'
 //Finds the tile png under the mouse of all active tile layers
 //Draws those tiles their owns canvases and get the appropriate pixel value
 import $ from 'jquery'
@@ -374,12 +375,12 @@ var IdentifierTool = {
                                         $(
                                             `#identifierToolIdPixelCursorInfo_${i}_${j}`
                                         ).html(
-                                            [
+                                            uiRenderedMarkup([
                                                 '<div style="width: 100%; height: 22px; display: flex; justify-content: space-between;">',
                                                 '<div></div>',
                                                 '<div style="width: calc(100% - 2px); margin: 4px 2px 4px 0px; background: var(--color-a1);">&nbsp;</div>',
                                                 '</div>',
-                                            ].join('')
+                                            ].join(''))
                                         )
                                         let cnt = 0
                                         for (let v in value) {
@@ -429,7 +430,7 @@ var IdentifierTool = {
                                             }`
                                         ] = value
                                         L_._toolCopyables.IdentifierTool = {
-                                            title: 'Copy Last Identified Values',
+                                            title: uiText("Copy Last Identified Values"),
                                             copyable: {
                                                 lng: lnglatzoom[0],
                                                 lat: lnglatzoom[1],
@@ -438,7 +439,7 @@ var IdentifierTool = {
                                         }
                                         $(
                                             `#identifierToolIdPixelCursorInfo_${i}_${j}`
-                                        ).html(htmlValues)
+                                        ).html(uiRenderedMarkup(htmlValues))
 
                                         $('#cursorInfo ul').css({
                                             width: '',
@@ -571,7 +572,7 @@ function interfaceWithMMWebGIS() {
         const tools = $('<div>')
             .attr('class', 'center aligned ui padded grid')
             .css('height', '100%')
-        toolsContainer.append(tools)
+        toolsContainer.append(uiRenderedMarkup(tools))
         //Add the markup to tools or do it manually
         //tools.html( markup );
     }

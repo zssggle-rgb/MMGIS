@@ -1,3 +1,4 @@
+import { uiTemplate } from '../../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import L_ from '@basics/Layers_/Layers_'
 import Modal from '@basics/UserInterface_/components/Modal/Modal'
@@ -30,7 +31,7 @@ const LayerInfo = {
             [
                 `<div id='LayerInfoModal'>`,
                     `<div id='LayerInfoModalTitle' style='background: var(--color-${layer.type});'>`,
-                        `<div><i class='mdi mdi-information-outline mdi-18px'></i><div>Information</div></div>`,
+                        uiTemplate`<div><i class='mdi mdi-information-outline mdi-18px'></i><div>Information</div></div>`,
                         `<div id='LayerInfoModalClose'><i class='mmgisHoverBlue mdi mdi-close mdi-18px'></i></div>`,
                     `</div>`,
                     `<div id='LayerInfoModalContent'>`,
@@ -62,7 +63,7 @@ const LayerInfo = {
                         
                         `<div id='LayerInfoModalDescription'>`,
                             `<div id='LayerInfoModalDescriptionContent'>`,
-                                layer.description ? LayerInfo.converter.makeHtml(layer.description) : `<div class='LayerInfoModalNone'>No Description</div>`,
+                                layer.description ? LayerInfo.converter.makeHtml(layer.description) : uiTemplate`<div class='LayerInfoModalNone'>No Description</div>`,
                             `</div>`,
                         `</div>`,
                         `<div id='LayerInfoModalInnerUUID'>${layer.uuid}</div>`,

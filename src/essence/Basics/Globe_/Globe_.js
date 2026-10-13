@@ -1,4 +1,5 @@
 import F_ from '../Formulae_/Formulae_'
+import { localizeControls } from '../../../i18n/legacy-ui'
 import L_ from '../Layers_/Layers_'
 import $ from 'jquery'
 
@@ -229,6 +230,9 @@ let Globe_ = {
             },
             'TopRight'
         )
+        for (const control of ['mmgisLithoHome', 'mmgisLithoExaggerate', 'mmgisLithoObserve', 'mmgisLithoWalk', 'mmgisLithoNavigation', 'mmgisLithoCoords', 'mmgisLithoLink']) {
+            localizeControls(document.getElementById('_lithosphere_control_' + control), control === 'mmgisLithoObserve' ? { Elevation: 'Elevation Angle' } : {})
+        }
         // Subscribe to time changes for Cesium renderer
         if (
             this.rendererType === 'cesium' &&

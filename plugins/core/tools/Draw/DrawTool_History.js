@@ -1,3 +1,4 @@
+import { uiMarkup, uiRenderedMarkup } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 
@@ -19,7 +20,7 @@ var History = {
         if (file == null) {
             $('#drawToolHistoryFile')
                 .css({ background: 'var(--color-p4)', color: 'white' })
-                .text('No File Selected!')
+                .html(uiRenderedMarkup(uiMarkup("<span>No File Selected!</span>")))
             return
         }
         $('#drawToolHistoryFile')
@@ -96,8 +97,8 @@ var History = {
                     "</div>"
                 ].join('\n');
 
-            const historyLi = $('<li>').html(markup)
-            $('#drawToolHistorySequenceList ul').append(historyLi)
+            const historyLi = $('<li>').html(uiRenderedMarkup(markup))
+            $('#drawToolHistorySequenceList ul').append(uiRenderedMarkup(historyLi))
         }
     },
 }

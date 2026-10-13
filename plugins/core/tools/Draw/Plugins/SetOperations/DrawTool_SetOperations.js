@@ -1,3 +1,4 @@
+import { uiMarkup, uiText } from "../../../../../../src/i18n/legacy-ui"
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
@@ -36,10 +37,10 @@ var SetOperations = {
 
                     "<div class='drawToolContextMenuSetOperationsBar'>",
                         "<div class='drawToolContextMenuSetOperationsTabButtons'>",
-                            "<div class='drawToolContextMenuTabButtonSO' tab='drawToolContextMenuTabSOMerge' title='Merge'>",
+                            uiMarkup("<div class='drawToolContextMenuTabButtonSO' tab='drawToolContextMenuTabSOMerge' title='Merge'>"),
                                 "Merge",
                             "</div>",
-                            "<div class='drawToolContextMenuTabButtonSO' tab='drawToolContextMenuTabSOSplit' title='Split'>",
+                            uiMarkup("<div class='drawToolContextMenuTabButtonSO' tab='drawToolContextMenuTabSOSplit' title='Split'>"),
                                 "Split",
                             "</div>",
                         "</div>",
@@ -50,23 +51,23 @@ var SetOperations = {
                         "<div class='drawToolContextMenuTabSO drawToolContextMenuTabSOMerge'>",
                             "<ul>",
                                 "<li>",
-                                    "<div>Name</div>",
-                                    "<div>Persist Properties</div>",
+                                    uiMarkup("<div>Name</div>"),
+                                    uiMarkup("<div>Persist Properties</div>"),
                                 "</li>",
                                 SetOperations._makeMerge(),
                             "</ul>",
                             "<div class='drawToolContextMenuTabSOFooter'>",
-                                "<div class='drawToolButton1 drawToolContextMenuTabSOCancel'>Cancel</div>",
-                                "<div class='drawToolButton1 drawToolContextMenuTabSOMergeMerge'>Merge</div>",
+                                uiMarkup("<div class='drawToolButton1 drawToolContextMenuTabSOCancel'>Cancel</div>"),
+                                uiMarkup("<div class='drawToolButton1 drawToolContextMenuTabSOMergeMerge'>Merge</div>"),
                             "</div>",
                         "</div>",
 
                         "<div class='drawToolContextMenuTabSO drawToolContextMenuTabSOSplit'>",
                             SetOperations._makeSplit(),
                             "<div class='drawToolContextMenuTabSOFooter'>",
-                                "<div class='drawToolButton1 drawToolContextMenuTabSOCancel'>Cancel</div>",
-                                "<div class='drawToolButton1 drawToolContextMenuTabSOSplitRedraw'>Redraw</div>",
-                                "<div class='drawToolButton1 drawToolContextMenuTabSOSplitSplit'>Split</div>",
+                                uiMarkup("<div class='drawToolButton1 drawToolContextMenuTabSOCancel'>Cancel</div>"),
+                                uiMarkup("<div class='drawToolButton1 drawToolContextMenuTabSOSplitRedraw'>Redraw</div>"),
+                                uiMarkup("<div class='drawToolButton1 drawToolContextMenuTabSOSplitSplit'>Split</div>"),
                             "</div>",
                         "</div>",
 
@@ -91,7 +92,7 @@ var SetOperations = {
         return lis.join('\n')
     },
     _makeSplit: function () {
-        var lis = ['<div>Draw a line to split selected shapes.</div>']
+        var lis = [uiMarkup("<div>Draw a line to split selected shapes.</div>")]
         return lis.join('\n')
     },
     beginSplitDrawing: function () {
@@ -168,7 +169,7 @@ var SetOperations = {
                     file_id !=
                     DrawTool.contextMenuLayers[i].properties._.file_id
                 ) {
-                    Toast.warning("Warning! Can't merge shapes from separate files.", 6000)
+                    Toast.warning(uiText("Warning! Can't merge shapes from separate files."), 6000)
                     return
                 }
             }
@@ -179,7 +180,7 @@ var SetOperations = {
                 .attr('shape_id')
 
             if (propertyId == null) {
-                Toast.warning('Merge: Select a shape whose properties will persist through the merge.', 6000)
+                Toast.warning(uiText("Merge: Select a shape whose properties will persist through the merge."), 6000)
                 return
             }
 
@@ -200,7 +201,7 @@ var SetOperations = {
         //Split
         $('.drawToolContextMenuTabSOSplitSplit').on('click', function () {
             if (SetOperations.lastSplitLine == null) {
-                Toast.warning('Split: Draw a line to split against first.', 6000)
+                Toast.warning(uiText("Split: Draw a line to split against first."), 6000)
                 return
             }
 
@@ -212,7 +213,7 @@ var SetOperations = {
                     file_id !=
                     DrawTool.contextMenuLayers[i].properties._.file_id
                 ) {
-                    Toast.warning("Warning! Can't split shapes from separate files.", 6000)
+                    Toast.warning(uiText("Warning! Can't split shapes from separate files."), 6000)
                     SetOperations.endSplitDrawing()
                     return
                 }

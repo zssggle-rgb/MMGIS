@@ -3,6 +3,7 @@
 // fixed-position popup grid that escapes ancestor overflow clipping.
 
 import $ from 'jquery'
+import { bindUiAttribute, uiRenderedMarkup } from '../../../../i18n/legacy-ui'
 
 import './OpGridSelector.css'
 
@@ -42,7 +43,7 @@ function init($container, items, selectedIdx, opts = {}) {
 
     // Render trigger button showing current selection
     const triggerHtml = `<div class="op-grid-trigger">${items[currentIdx].html}</div>`
-    $container.html(triggerHtml)
+    $container.html(uiRenderedMarkup(triggerHtml))
 
     const $trigger = $container.find('.op-grid-trigger')
 
@@ -66,7 +67,10 @@ function init($container, items, selectedIdx, opts = {}) {
         }
         gridHtml += '</div>'
 
-        const $popup = $(gridHtml)
+        const $popup = $(uiRenderedMarkup(gridHtml))
+        $popup.find('.op-grid-item').each(function (index) {
+            if (items[index].uiTitleSource) bindUiAttribute(this, 'title', items[index].uiTitleSource)
+        })
         $popup.data('owner', $container[0])
         $('body').append($popup)
         activePopup = $popup
@@ -97,7 +101,7 @@ function init($container, items, selectedIdx, opts = {}) {
         $popup.on('click', '.op-grid-item', function () {
             const idx = parseInt($(this).attr('data-idx'), 10)
             currentIdx = idx
-            $trigger.html(items[idx].html)
+            $trigger.html(uiRenderedMarkup(items[idx].html))
             onSelect(idx)
             closeActivePopup()
         })

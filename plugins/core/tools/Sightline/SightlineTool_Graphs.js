@@ -1,3 +1,4 @@
+import { bindUiTooltips, uiTemplate, uiText } from '../../../../src/i18n/legacy-ui'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
 import Map_ from '@basics/Map_/Map_'
@@ -266,7 +267,7 @@ const SightlineTool_Graphs = {
         // Dual-handle log-scale range slider for horizon lookup distance
         const rangeWrap = document.createElement('div')
         rangeWrap.className = 'sightlineHorizonRangeWrap'
-        rangeWrap.innerHTML = `
+        rangeWrap.innerHTML = uiTemplate`
             <span class="sightlineHorizonRangeLabel" id="sightlineHorizonRangeLabel">Range:</span>
             <span class="sightlineHorizonRangeValue" id="sightlineHorizonMinLabel">1m</span>
             <div class="sightlineHorizonRangeTrack" id="sightlineHorizonRangeTrack">
@@ -280,7 +281,7 @@ const SightlineTool_Graphs = {
 
         const polygonWrap = document.createElement('div')
         polygonWrap.className = 'sightlineHorizonPolygonToggle'
-        polygonWrap.innerHTML = `
+        polygonWrap.innerHTML = uiTemplate`
             <span class="sightlineHorizonPolygonLabel">Horizon Polygon:</span>
             <div class="mmgis-checkbox"><input type="checkbox" id="sightlineHorizonPolygonCb"/><label for="sightlineHorizonPolygonCb"></label></div>
         `
@@ -293,7 +294,7 @@ const SightlineTool_Graphs = {
         samplingWrap.className = 'sightlineVisSamplingWrap'
         const curRate = useSightlineStore.getState().sweepVisSamplingRate || 1
         const rateOptions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
-        samplingWrap.innerHTML = `
+        samplingWrap.innerHTML = uiTemplate`
             <span class="sightlineVisSamplingLabel">Visibility Sampling:</span>
             <select class="sightlineVisSamplingSelect" id="sightlineVisSamplingSelect">
                 ${rateOptions.map((r) => `<option value="${r}"${r === curRate ? ' selected' : ''}>${r}x</option>`).join('')}
@@ -311,12 +312,12 @@ const SightlineTool_Graphs = {
             }
             const polyLabel = polygonWrap.querySelector('.sightlineHorizonPolygonLabel')
             if (polyLabel) {
-                tippy(polyLabel, {
-                    content: 'Toggle a polygon on the map showing the horizon profile outline',
+                bindUiTooltips(tippy(polyLabel, {
+                    content: uiText("Toggle a polygon on the map showing the horizon profile outline"),
                     placement: 'bottom',
                     theme: 'blue',
                     maxWidth: 260,
-                })
+                }), "Toggle a polygon on the map showing the horizon profile outline")
             }
             const samplingSel = document.getElementById('sightlineVisSamplingSelect')
             if (samplingSel) {
@@ -328,12 +329,12 @@ const SightlineTool_Graphs = {
             }
             const samplingLabel = samplingWrap.querySelector('.sightlineVisSamplingLabel')
             if (samplingLabel) {
-                tippy(samplingLabel, {
-                    content: 'Temporal sampling of the visibility timeline: 1x is one native-resolution ray per sweep timestep; higher rates compute intermediate samples for a smoother chart',
+                bindUiTooltips(tippy(samplingLabel, {
+                    content: uiText("Temporal sampling of the visibility timeline: 1x is one native-resolution ray per sweep timestep; higher rates compute intermediate samples for a smoother chart"),
                     placement: 'bottom',
                     theme: 'blue',
                     maxWidth: 300,
-                })
+                }), "Temporal sampling of the visibility timeline: 1x is one native-resolution ray per sweep timestep; higher rates compute intermediate samples for a smoother chart")
             }
         }, 0)
 
@@ -392,7 +393,7 @@ const SightlineTool_Graphs = {
         // --- Time controls bar ---
         const controls = document.createElement('div')
         controls.className = 'sightlineGraphTimeControls'
-        controls.innerHTML = `
+        controls.innerHTML = uiTemplate`
             <button class="sightlineGraphPlayBtn" id="sightlineGraphStepBack" title="Step back"><i class="mdi mdi-skip-previous mdi-18px"></i></button>
             <button class="sightlineGraphPlayBtn" id="sightlineGraphPlayPause" title="Play/Pause"><i class="mdi mdi-play mdi-18px"></i></button>
             <button class="sightlineGraphPlayBtn" id="sightlineGraphPlayFast" title="Fast forward"><i class="mdi mdi-fast-forward mdi-18px"></i></button>
@@ -714,12 +715,12 @@ const SightlineTool_Graphs = {
         // Tippy tooltip on the "Horizon:" label
         const label = document.getElementById('sightlineHorizonRangeLabel')
         if (label) {
-            tippy(label, {
-                content: 'Min/max distance for the horizon profile ray march. The left handle sets how close terrain is sampled (skip nearby clutter) and the right handle sets how far rays search for the skyline.',
+            bindUiTooltips(tippy(label, {
+                content: uiText("Min/max distance for the horizon profile ray march. The left handle sets how close terrain is sampled (skip nearby clutter) and the right handle sets how far rays search for the skyline."),
                 placement: 'bottom',
                 theme: 'blue',
                 maxWidth: 260,
-            })
+            }), "Min/max distance for the horizon profile ray march. The left handle sets how close terrain is sampled (skip nearby clutter) and the right handle sets how far rays search for the skyline.")
         }
     },
 

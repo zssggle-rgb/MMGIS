@@ -1,3 +1,4 @@
+import { bindUiTooltips, uiLabel, uiMarkup, uiRenderedMarkup, uiTemplate, uiText } from '../../../../src/i18n/legacy-ui'
 import DrawTool_Drawing from './DrawTool_Drawing'
 import DrawTool_Editing from './DrawTool_Editing'
 import DrawTool_Files from './DrawTool_Files'
@@ -49,26 +50,26 @@ var markup = [
       "<div id='drawToolHeader' class='mmgisToolHeader'>",
         "<div>",
           "<div>",
-            '<div class="mmgisToolTitle">Draw</div>',
+            uiMarkup("<div class=\"mmgisToolTitle\">Draw</div>"),
             Help.getComponent(helpKey),
           "</div>",
         "</div>",
       "</div>",
       "<div id='drawToolNotLoggedIn'>",
-        "<div>Please log in before drawing</div>",
+        uiMarkup("<div>Please log in before drawing</div>"),
       "</div>",
       "<div id='drawToolNav'>",
-        "<div type='draw' id='drawToolNavButtonDraw' class='drawToolNavButton' title='Draw'>",
+        uiMarkup("<div type='draw' id='drawToolNavButtonDraw' class='drawToolNavButton' title='Draw'>"),
           "<i class='mdi mdi-lead-pencil mdi-18px'></i>",
-          "<div>Draw</div>",
+          uiMarkup("<div>Draw</div>"),
         "</div>",
-        "<div type='shapes' class='drawToolNavButton' title='Features'>",
+        uiMarkup("<div type='shapes' class='drawToolNavButton' title='Features'>"),
           "<i class='mdi mdi-shape mdi-18px'></i>",
-          "<div>Features</div>",
+          uiMarkup("<div>Features</div>"),
         "</div>",
-        "<div type='history' class='drawToolNavButton' title='History'>",
+        uiMarkup("<div type='history' class='drawToolNavButton' title='History'>"),
           "<i id='drawToolHistoryButton' class='mdi mdi-history mdi-18px'></i>",
-          "<div>History</div>",
+          uiMarkup("<div>History</div>"),
         "</div>",
       "</div>",
       "<div id='drawToolContents'>",
@@ -78,46 +79,46 @@ var markup = [
             //"<div id='drawToolDrawingInIndicator'>Choose a file to draw in</div>",
             "<div id='drawToolDrawingCont'>",
                 "<div id='drawToolDrawingTypeDiv'>",
-                    "<div class='drawToolDrawingTypePolygon' draw='polygon' title='Polygon'><i class='mdi mdi-vector-polygon mdi-18px'></i></div>",
-                    "<div class='drawToolDrawingTypeCircle' draw='circle' title='Circle'><i class='mdi mdi-vector-circle mdi-18px'></i></div>",
-                    "<div class='drawToolDrawingTypeRectangle' draw='rectangle' title='Rectangle'><i class='mdi mdi-vector-rectangle mdi-18px'></i></div>",
-                    "<div class='drawToolDrawingTypeLine' draw='line' title='Line'><i class='mdi mdi-vector-line mdi-18px'></i></div>",
-                    "<div class='drawToolDrawingTypePoint' draw='point' title='Point'><i class='mdi mdi-square-medium-outline mdi-24px'></i></div>",
-                    "<div class='drawToolDrawingTypeText' draw='text' title='Text'><i class='mdi mdi-format-text mdi-18px'></i></div>",
-                    "<div class='drawToolDrawingTypeArrow' draw='arrow' title='Arrow'><i class='mdi mdi-arrow-top-right mdi-18px'></i></div>",
+                    uiMarkup("<div class='drawToolDrawingTypePolygon' draw='polygon' title='Polygon'><i class='mdi mdi-vector-polygon mdi-18px'></i></div>"),
+                    uiMarkup("<div class='drawToolDrawingTypeCircle' draw='circle' title='Circle'><i class='mdi mdi-vector-circle mdi-18px'></i></div>"),
+                    uiMarkup("<div class='drawToolDrawingTypeRectangle' draw='rectangle' title='Rectangle'><i class='mdi mdi-vector-rectangle mdi-18px'></i></div>"),
+                    uiMarkup("<div class='drawToolDrawingTypeLine' draw='line' title='Line'><i class='mdi mdi-vector-line mdi-18px'></i></div>"),
+                    uiMarkup("<div class='drawToolDrawingTypePoint' draw='point' title='Point'><i class='mdi mdi-square-medium-outline mdi-24px'></i></div>"),
+                    uiMarkup("<div class='drawToolDrawingTypeText' draw='text' title='Text'><i class='mdi mdi-format-text mdi-18px'></i></div>"),
+                    uiMarkup("<div class='drawToolDrawingTypeArrow' draw='arrow' title='Arrow'><i class='mdi mdi-arrow-top-right mdi-18px'></i></div>"),
                 "</div>",
-                "<div id='drawToolDrawingSettingsToggle' title='Draw Settings'><i class='mdi mdi-cog mdi-18px'></i></div>",
+                uiMarkup("<div id='drawToolDrawingSettingsToggle' title='Draw Settings'><i class='mdi mdi-cog mdi-18px'></i></div>"),
             "</div>",
             "<div id='drawToolDrawSettings'>",
                 "<div id='drawToolDrawSettingsBody'>",
                     "<ul>",
                         "<li>",
-                            "<div title='Clip drawing of existing shapes'>Draw Clipping</div>",
+                            uiMarkup("<div title='Clip drawing of existing shapes'>Draw Clipping</div>"),
                             "<div id='drawToolDrawSettingsTier' class='drawToolRadio'>",
-                                "<div value='over'>Over</div>",
-                                "<div value='under'>Under</div>",
-                                "<div value='off'>Off</div>",
+                                uiMarkup("<div value='over'>Over</div>"),
+                                uiMarkup("<div value='under'>Under</div>"),
+                                uiMarkup("<div value='off'>Off</div>"),
                             "</div>",
                         "</li>",
                         "<li>",
-                            "<div title='Auto vertex spacing or click to add'>Draw Resolution</div>",
+                            uiMarkup("<div title='Auto vertex spacing or click to add'>Draw Resolution</div>"),
                             "<div id='drawToolDrawSettingsMode' class='drawToolRadio'>",
-                                "<div value='on'><span>On</span><input id='drawToolDrawSettingsModeVertexRes' type='number' step='1' value='10'/></div>",
-                                "<div class='active' value='off'>Off</div>",
+                                uiMarkup("<div value='on'><span>On</span><input id='drawToolDrawSettingsModeVertexRes' type='number' step='1' value='10'/></div>"),
+                                uiMarkup("<div class='active' value='off'>Off</div>"),
                             "</div>",
                         "</li>",
                         "<li>",
-                            "<div title='Enable snapping in edit mode'>Edit Snapping</div>",
+                            uiMarkup("<div title='Enable snapping in edit mode'>Edit Snapping</div>"),
                             "<div id='drawToolDrawSnapMode' class='drawToolRadio'>",
-                                "<div value='on'>On</div>",
-                                "<div class='active' value='off'>Off</div>",
+                                uiMarkup("<div value='on'>On</div>"),
+                                uiMarkup("<div class='active' value='off'>Off</div>"),
                             "</div>",
                         "</li>",
                         "<li>",
-                            "<div title='Force radius in meters when drawing circles'>Circle Radius</div>",
+                            uiMarkup("<div title='Force radius in meters when drawing circles'>Circle Radius</div>"),
                             "<div id='drawToolDrawSettingsCircle' class='drawToolRadio'>",
-                                "<div value='on'><span>On</span><input id='drawToolDrawSettingsCircleR' type='number' value='100'/></div>",
-                                "<div class='active' value='off'>Off</div>",
+                                uiMarkup("<div value='on'><span>On</span><input id='drawToolDrawSettingsCircleR' type='number' value='100'/></div>"),
+                                uiMarkup("<div class='active' value='off'>Off</div>"),
                             "</div>",
                         "</li>",
                     "</ul>",
@@ -139,7 +140,7 @@ var markup = [
             "<div id='drawToolDrawFilterDiv2'>",
               //"<div id='drawToolDrawFilterCount'></div>",
               //"<div id='drawToolDrawFilterDiv'>",
-              `<input id='drawToolDrawFilter' type='text' placeholder='Filter Files' autocomplete='off' title="Filter over a file's name, author and description.\nUse '#{tag}' to search over keywords."/>`,
+              uiTemplate`<input id='drawToolDrawFilter' type='text' placeholder='Filter Files' autocomplete='off' title="Filter over a file's name, author and description.\nUse '#{tag}' to search over keywords."/>`,
                 "<div id='drawToolDrawFilterClear'><i class='mdi mdi-close mdi-18px'></i></div>",
               //"</div>",
               /*
@@ -160,16 +161,16 @@ var markup = [
 
             "<div id='drawToolDrawFilterOptions'>",
                 "<div id='drawToolDrawGroupingDiv'>",
-                    "<div type='folders' title='Group by Folder' class='active'><i class='mdi mdi-folder mdi-14px'></i></div>",
-                    "<div type='tags' title='Group by Tag'><i class='mdi mdi-tag-text mdi-18px'></i></div>",
-                    "<div type='author' title='Group by Author'><i class='mdi mdi-account-box-outline mdi-18px'></i></div>",
-                    "<div type='alphabetical' title='Group Alphabetically'><i class='mdi mdi-alphabetical-variant mdi-18px'></i></div>",
-                    "<div type='none' title='Files Ungrouped'><i class='mdi mdi-file-outline mdi-18px'></i></div>",
+                    uiMarkup("<div type='folders' title='Group by Folder' class='active'><i class='mdi mdi-folder mdi-14px'></i></div>"),
+                    uiMarkup("<div type='tags' title='Group by Tag'><i class='mdi mdi-tag-text mdi-18px'></i></div>"),
+                    uiMarkup("<div type='author' title='Group by Author'><i class='mdi mdi-account-box-outline mdi-18px'></i></div>"),
+                    uiMarkup("<div type='alphabetical' title='Group Alphabetically'><i class='mdi mdi-alphabetical-variant mdi-18px'></i></div>"),
+                    uiMarkup("<div type='none' title='Files Ungrouped'><i class='mdi mdi-file-outline mdi-18px'></i></div>"),
                 "</div>",
                 "<div id='drawToolDrawSortDiv'>",
-                    "<div type='public' title='Public Only'><i class='mdi mdi-shield-outline mdi-14px'></i></div>",
-                    "<div type='owned' title='Yours Only'><i class='mdi mdi-account mdi-18px'></i></div>",
-                    "<div type='on' title='On Only'><i class='mdi mdi-eye mdi-18px'></i></div>",
+                    uiMarkup("<div type='public' title='Public Only'><i class='mdi mdi-shield-outline mdi-14px'></i></div>"),
+                    uiMarkup("<div type='owned' title='Yours Only'><i class='mdi mdi-account mdi-18px'></i></div>"),
+                    uiMarkup("<div type='on' title='On Only'><i class='mdi mdi-eye mdi-18px'></i></div>"),
                 "</div>",
             "</div>",
           "</div>",
@@ -177,7 +178,7 @@ var markup = [
             "<div id='drawToolDrawFilesContent'>",
                 "<div id='drawToolDrawPublished'>",
                     "<div class='flexbetween'>",
-                        "<div>Latest Map</div>",
+                        uiMarkup("<div>Latest Map</div>"),
                         "<div class='drawToolDrawPublishedCheckbox'></div>",
                     "</div>",
                 "</div>",
@@ -188,10 +189,10 @@ var markup = [
                             "<div class='drawToolMasterHeaderLeftLeft'>",
                                 "<div class='drawToolMasterHeaderIntent'></div>",
                                 "<div class='drawToolMasterHeaderChevron'><i class='mdi mdi-folder-star mdi-18px'></i></div>",
-                                "<div>Lead Maps</div>",
+                                uiMarkup("<div>Lead Maps</div>"),
                             "</div>",
                             "<div class='drawToolMasterHeaderLeftRight'>",
-                                "<div class='drawToolMasterReview'>Review</div>",
+                                uiMarkup("<div class='drawToolMasterReview'>Review</div>"),
                             "</div>",
                         "</div>",
                         "<div class='drawToolFileMasterCheckbox'></div>",
@@ -223,15 +224,15 @@ var markup = [
                     //"<option value='note'>Note</option>",
                 "</select>",
                 */
-                "<div id='drawToolDrawFilesNewUpload'><div>UPLOAD</div><div><i class='mdi mdi-upload mdi-18px'></i></div></div>",
-                "<div id='drawToolDrawFilesNew'><div>CREATE</div><div><i class='mdi mdi-plus mdi-18px'></i></div></div>",
+                uiMarkup("<div id='drawToolDrawFilesNewUpload'><div>UPLOAD</div><div><i class='mdi mdi-upload mdi-18px'></i></div></div>"),
+                uiMarkup("<div id='drawToolDrawFilesNew'><div>CREATE</div><div><i class='mdi mdi-plus mdi-18px'></i></div></div>"),
             "</div>",
         "</div>",
 
         "<div id='drawToolShapes'>",
           "<div id='drawToolShapesFilterDiv'>",
             "<div id='drawToolShapesFilterAdvanced'><i class='mdi mdi-filter mdi-18px'></i></div>",
-            "<input id='drawToolShapesFilter' type='text' placeholder='Filter Shapes' />",
+            uiMarkup("<input id='drawToolShapesFilter' type='text' placeholder='Filter Shapes' />"),
             "<div id='drawToolShapesFilterClear'><i class='mdi mdi-close mdi-18px'></i></div>",
             "<div id='drawToolShapesFilterCount'></div>",
           "</div>",
@@ -239,19 +240,19 @@ var markup = [
             "<div id='drawToolShapes_filtering'>",
                 "<div id='drawToolShapes_filtering_header'>",
                     "<div id='drawToolShapes_filtering_title_left'>",
-                        "<div id='drawToolShapes_filtering_title'>Advanced Filter</div>",
+                        uiMarkup("<div id='drawToolShapes_filtering_title'>Advanced Filter</div>"),
                     "</div>",
                     "<div id='drawToolShapes_filtering_adds'>",
-                        "<div id='drawToolShapes_filtering_add_group' class='mmgisButton5' title='Add New Grouping'><div>Group</div><i class='mdi mdi-plus mdi-18px'></i></div>",
-                        "<div id='drawToolShapes_filtering_add_value' class='mmgisButton5' title='Add New Key-Value Filter'><div>Add</div><i class='mdi mdi-plus mdi-18px'></i></div>",
+                        uiMarkup("<div id='drawToolShapes_filtering_add_group' class='mmgisButton5' title='Add New Grouping'><div>Group</div><i class='mdi mdi-plus mdi-18px'></i></div>"),
+                        uiMarkup("<div id='drawToolShapes_filtering_add_value' class='mmgisButton5' title='Add New Key-Value Filter'><div>Add</div><i class='mdi mdi-plus mdi-18px'></i></div>"),
                     "</div>",
                 "</div>",
                 "<div id='drawToolShapes_filtering_filters'>",
                     "<ul id='drawToolShapes_filtering_filters_list'></ul>",
                 "</div>",
                 `<div id='drawToolShapes_filtering_footer'>`,
-                    "<div id='drawToolShapes_filtering_clear' class='mmgisButton5'><div>Clear Filter</div></div>",
-                    "<div id='drawToolShapes_filtering_submit' class='mmgisButton5'><div id='drawToolShapes_filtering_submit_loading'><div></div></div><div id='drawToolShapes_filtering_submit_text'>Submit</div><i class='mdi mdi-arrow-right mdi-18px'></i></div>",
+                    uiMarkup("<div id='drawToolShapes_filtering_clear' class='mmgisButton5'><div>Clear Filter</div></div>"),
+                    uiMarkup("<div id='drawToolShapes_filtering_submit' class='mmgisButton5'><div id='drawToolShapes_filtering_submit_loading'><div></div></div><div id='drawToolShapes_filtering_submit_text'>Submit</div><i class='mdi mdi-arrow-right mdi-18px'></i></div>"),
                 "</div>",
             "</div>",
           "</div>",
@@ -259,10 +260,10 @@ var markup = [
             "<div id='drawToolShapesSortLabel'><i class='mdi mdi-sort mdi-18px'></i></div>",
             "<div id='drawToolShapesSortProperty'></div>",
             "<div id='drawToolShapesSortButtons'>",
-              "<div id='drawToolShapesSortAsc' class='drawToolShapesSortButton active' title='Sort Ascending'>",
+              uiMarkup("<div id='drawToolShapesSortAsc' class='drawToolShapesSortButton active' title='Sort Ascending'>"),
                 "<i class='mdi mdi-sort-ascending mdi-18px'></i>",
               "</div>",
-              "<div id='drawToolShapesSortDesc' class='drawToolShapesSortButton' title='Sort Descending'>",
+              uiMarkup("<div id='drawToolShapesSortDesc' class='drawToolShapesSortButton' title='Sort Descending'>"),
                 "<i class='mdi mdi-sort-descending mdi-18px'></i>",
               "</div>",
             "</div>",
@@ -274,7 +275,7 @@ var markup = [
           "<div id='drawToolShapesModeMessage' style='display: none;'></div>",
           "<div id='drawToolShapesPagination' style='display: none;'>",
             "<div class='drawToolPagination-info'>",
-              "<span id='drawToolPaginationInfo'>0-0 of 0</span>",
+              uiMarkup("<span id='drawToolPaginationInfo'>0-0 of 0</span>"),
             "</div>",
             "<div class='drawToolPagination-controls'>",
               "<button id='drawToolPaginationPrev' class='mmgisButton5'><i class='mdi mdi-chevron-left mdi-18px'></i></button>",
@@ -283,9 +284,9 @@ var markup = [
             "</div>",
           "</div>",
           "<div id='drawToolShapesCopyDiv'>",
-            "<div>Copy to</div>",
+            uiMarkup("<div>Copy to</div>"),
             "<div id='drawToolShapesCopyDropdown'></div>",
-            "<div id='drawToolShapesCopyGo'>GO</div>",
+            uiMarkup("<div id='drawToolShapesCopyGo'>GO</div>"),
           "</div>",
           "<div id='drawToolShapesCopyMessageDiv'></div>",
         "</div>",
@@ -295,12 +296,12 @@ var markup = [
           "<div id='drawToolHistoryContent'>",
             "<div id='drawToolHistoryToolbar'>",
               "<input id='drawToolHistoryTime' />",
-              "<div id='drawToolHistoryNow'>Now</div>",
+              uiMarkup("<div id='drawToolHistoryNow'>Now</div>"),
             "</div>",
             "<div id='drawToolHistoryViewer'>",
               "<div id='drawToolHistorySequence'>",
                 "<div id='drawToolHistorySave'>",
-                  "Nothing to Undo",
+                  uiLabel("Nothing to Undo"),
                 "</div>",
                 "<div id='drawToolHistorySequenceList'>",
                   "<ul></ul>",
@@ -1312,13 +1313,13 @@ var DrawTool = {
                 if (data.status === 'success') {
                     DrawTool.getFiles(() => {
                         callback(data.body.file_id)
-                        Toast.success(`Successfully made new file: ${filename}`, 4000)
+                        Toast.success(uiText("Successfully made new file: {{value0}}", { value0: filename, interpolation: { escapeValue: false } }), 4000)
                     })
                 } else
-                    Toast.warning('Failed to add file.', 6000)
+                    Toast.warning(uiText("Failed to add file."), 6000)
             },
             function () {
-                Toast.warning('Failed to add file.', 6000)
+                Toast.warning(uiText("Failed to add file."), 6000)
             }
         )
     },
@@ -1397,7 +1398,7 @@ var DrawTool = {
         }
 
         if (body.file_id == null) {
-            Toast.warning('No file chosen. Please select or make a file for drawings.', 6000)
+            Toast.warning(uiText("No file chosen. Please select or make a file for drawings."), 6000)
             if (typeof failure === 'function') failure()
             return
         }
@@ -1759,10 +1760,10 @@ function interfaceWithMMGIS() {
     //Clear it
     toolsContainer.empty()
     //Add a semantic container
-    const tools = $('<div>').css('height', '100%').html(markup)
+    const tools = $('<div>').css('height', '100%').html(uiRenderedMarkup(markup))
 
     //Add the markup to tools or do it manually
-    toolsContainer.append(tools)
+    toolsContainer.append(uiRenderedMarkup(tools))
 
     Help.finalize(helpKey)
 
@@ -1800,15 +1801,15 @@ function interfaceWithMMGIS() {
     // Add time indicator
     if (L_.configData?.time?.enabled === true) {
         // prettier-ignore
-        $('body').append([
+        $('body').append(uiRenderedMarkup([
             `<div id="DrawTool_TimeToggle">`,
-                `<div>Temporal Drawings</div>`,
+                uiTemplate`<div>Temporal Drawings</div>`,
                 `<div class="mmgisToggleSwitch">`,
                     `<input type="checkbox" id="DrawTool_TimeToggle_switch"/>`,
-                    `<label for="DrawTool_TimeToggle_switch">Toggle</label>`,
+                    uiTemplate`<label for="DrawTool_TimeToggle_switch">Toggle</label>`,
                 `</div>`,
             `</div>`
-        ].join('\n'))
+        ].join('\n')))
         $('#DrawTool_TimeToggle').css(
             'display',
             useUIStore.getState().timeUIActive ? 'flex' : 'none'
@@ -1830,40 +1831,40 @@ function interfaceWithMMGIS() {
         L_.subscribeOnTimeUIToggle('DrawTool', (active) => {
             $('#DrawTool_TimeToggle').css('display', active ? 'flex' : 'none')
         })
-        tippy('#DrawTool_TimeToggle', {
+        bindUiTooltips(tippy('#DrawTool_TimeToggle', {
             content:
-                'Only display drawings whose templated dates fall within the current time window.',
+                uiText("Only display drawings whose templated dates fall within the current time window."),
             placement: 'bottom',
             theme: 'blue',
             maxWidth: 700,
-        })
+        }), "Only display drawings whose templated dates fall within the current time window.")
     }
 
-    tippy('#drawToolDrawFilesNew', {
-        content: 'New File',
+    bindUiTooltips(tippy('#drawToolDrawFilesNew', {
+        content: uiText("New File"),
         placement: 'right',
         theme: 'blue',
-    })
+    }), "New File")
     //Force intent mappings
-    $('#drawToolNewFileAll').html(DrawTool.intentNameMapping.all)
-    $('#drawToolNewFileROI').html(DrawTool.intentNameMapping.roi)
-    $('#drawToolNewFileCampaign').html(DrawTool.intentNameMapping.campaign)
-    $('#drawToolNewFileCampsite').html(DrawTool.intentNameMapping.campsite)
-    $('#drawToolNewFileTrail').html(DrawTool.intentNameMapping.trail)
-    $('#drawToolNewFileSignpost').html(DrawTool.intentNameMapping.signpost)
-    $('#drawToolFilterDropdownAll').html(DrawTool.intentNameMapping.all + 's')
-    $('#drawToolFilterDropdownROI').html(DrawTool.intentNameMapping.roi + 's')
+    $('#drawToolNewFileAll').html(uiRenderedMarkup(DrawTool.intentNameMapping.all))
+    $('#drawToolNewFileROI').html(uiRenderedMarkup(DrawTool.intentNameMapping.roi))
+    $('#drawToolNewFileCampaign').html(uiRenderedMarkup(DrawTool.intentNameMapping.campaign))
+    $('#drawToolNewFileCampsite').html(uiRenderedMarkup(DrawTool.intentNameMapping.campsite))
+    $('#drawToolNewFileTrail').html(uiRenderedMarkup(DrawTool.intentNameMapping.trail))
+    $('#drawToolNewFileSignpost').html(uiRenderedMarkup(DrawTool.intentNameMapping.signpost))
+    $('#drawToolFilterDropdownAll').html(uiRenderedMarkup(DrawTool.intentNameMapping.all + 's'))
+    $('#drawToolFilterDropdownROI').html(uiRenderedMarkup(DrawTool.intentNameMapping.roi + 's'))
     $('#drawToolFilterDropdownCampaign').html(
-        DrawTool.intentNameMapping.campaign + 's'
+        uiRenderedMarkup(DrawTool.intentNameMapping.campaign + 's')
     )
     $('#drawToolFilterDropdownCampsite').html(
-        DrawTool.intentNameMapping.campsite + 's'
+        uiRenderedMarkup(DrawTool.intentNameMapping.campsite + 's')
     )
     $('#drawToolFilterDropdownTrail').html(
-        DrawTool.intentNameMapping.trail + 's'
+        uiRenderedMarkup(DrawTool.intentNameMapping.trail + 's')
     )
     $('#drawToolFilterDropdownSignpost').html(
-        DrawTool.intentNameMapping.signpost + 's'
+        uiRenderedMarkup(DrawTool.intentNameMapping.signpost + 's')
     )
 
     $('#drawToolDrawingSettingsToggle').on('click', function () {
@@ -1957,7 +1958,7 @@ function interfaceWithMMGIS() {
     //Copy shapes
     $('#drawToolShapesCopyGo').on('click', function () {
         if (DrawTool.copyFileId == null) {
-            Toast.warning('Please select a file to copy shapes to.', 6000)
+            Toast.warning(uiText("Please select a file to copy shapes to."), 6000)
             return
         }
         //First check that all the selected intents match
@@ -2157,7 +2158,7 @@ function interfaceWithMMGIS() {
                 }
             }
         } else {
-            Toast.warning('Please select shapes to copy.', 6000)
+            Toast.warning(uiText("Please select shapes to copy."), 6000)
         }
     })
 

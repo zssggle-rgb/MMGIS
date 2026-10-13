@@ -1,3 +1,4 @@
+import { uiMarkup, uiRenderedMarkup, uiTemplate, uiText } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
@@ -27,7 +28,7 @@ const markup = [
         "<div id='animationToolHeader' class='mmgisToolHeader'>",
             "<div>",
                 "<div>",
-                    "<div class='mmgisToolTitle'>Animation</div>",
+                    uiMarkup("<div class='mmgisToolTitle'>Animation</div>"),
                     Help.getComponent(helpKey),
                 "</div>",
             "</div>",
@@ -36,81 +37,81 @@ const markup = [
             "<div id='animationToolSteps'>",
                 "<div class='animation-step active' data-step='1'>",
                     "<div class='step-number'>1</div>",
-                    "<div class='step-title'>Select Area</div>",
+                    uiMarkup("<div class='step-title'>Select Area</div>"),
                 "</div>",
                 "<div class='animation-step' data-step='2'>",
                     "<div class='step-number'>2</div>",
-                    "<div class='step-title'>Set Time Range</div>",
+                    uiMarkup("<div class='step-title'>Set Time Range</div>"),
                 "</div>",
                 "<div class='animation-step' data-step='3'>",
                     "<div class='step-number'>3</div>",
-                    "<div class='step-title'>Configure Playback</div>",
+                    uiMarkup("<div class='step-title'>Configure Playback</div>"),
                 "</div>",
                 "<div class='animation-step' data-step='4'>",
                     "<div class='step-number'>4</div>",
-                    "<div class='step-title'>Export</div>",
+                    uiMarkup("<div class='step-title'>Export</div>"),
                 "</div>",
             "</div>",
             "<div id='animationToolPanels'>",
                 "<div id='animationPanel1' class='animation-panel active'>",
                     "<div class='panel-content'>",
-                        "<h4>Select Animation Area</h4>",
-                        "<p>Choose a bounding box area for your animation.</p>",
+                        uiMarkup("<h4>Select Animation Area</h4>"),
+                        uiMarkup("<p>Choose a bounding box area for your animation.</p>"),
                         "<div class='bbox-controls'>",
                             "<div class='bbox-input-group'>",
-                                "<label>North:</label>",
+                                uiMarkup("<label>North:</label>"),
                                 "<input type='number' id='bboxNorth' step='0.000001' placeholder='90.0'>",
                             "</div>",
                             "<div class='bbox-input-group'>",
-                                "<label>South:</label>",
+                                uiMarkup("<label>South:</label>"),
                                 "<input type='number' id='bboxSouth' step='0.000001' placeholder='-90.0'>",
                             "</div>",
                             "<div class='bbox-input-group'>",
-                                "<label>East:</label>",
+                                uiMarkup("<label>East:</label>"),
                                 "<input type='number' id='bboxEast' step='0.000001' placeholder='180.0'>",
                             "</div>",
                             "<div class='bbox-input-group'>",
-                                "<label>West:</label>",
+                                uiMarkup("<label>West:</label>"),
                                 "<input type='number' id='bboxWest' step='0.000001' placeholder='-180.0'>",
                             "</div>",
                             "<div class='bbox-map-controls'>",
-                                "<button class='map-control-button' id='resetValues'>Reset Values</button>",
-                                "<button class='map-control-button' id='useCurrentView'>Use Current View</button>",
-                                "<button class='map-control-button' id='drawBoundingBox'>Draw on Map</button>",
+                                uiMarkup("<button class='map-control-button' id='resetValues'>Reset Values</button>"),
+                                uiMarkup("<button class='map-control-button' id='useCurrentView'>Use Current View</button>"),
+                                uiMarkup("<button class='map-control-button' id='drawBoundingBox'>Draw on Map</button>"),
                             "</div>",
                         "</div>",
                     "</div>",
                 "</div>",
                 "<div id='animationPanel2' class='animation-panel'>",
                     "<div class='panel-content'>",
-                        "<h4>Set Time Range</h4>",
-                        "<p>Define the time period for your animation.</p>",
+                        uiMarkup("<h4>Set Time Range</h4>"),
+                        uiMarkup("<p>Define the time period for your animation.</p>"),
                         "<div class='time-controls'>",
                             "<div class='time-input-group'>",
-                                "<label>Start Date:</label>",
+                                uiMarkup("<label>Start Date:</label>"),
                                 "<input type='datetime-local' id='timeStart' required>",
                             "</div>",
                             "<div class='time-input-group'>",
-                                "<label>End Date:</label>",
+                                uiMarkup("<label>End Date:</label>"),
                                 "<input type='datetime-local' id='timeEnd' required>",
                             "</div>",
                             "<div class='step-selector'>",
-                                "<label>Step:</label>",
+                                uiMarkup("<label>Step:</label>"),
                                 "<input type='number' id='timeStep' min='0' max='99' step='0.5' value='1'>",
                             "</div>",
                             "<div class='interval-selector'>",
-                                "<label>Time Interval:</label>",
+                                uiMarkup("<label>Time Interval:</label>"),
                                 "<div style='display: flex; align-items: center; gap: 10px;'>",
                                     "<select id='timeInterval'>",
-                                        "<option value='second'>Second</option>",
-                                        "<option value='minute'>Minute</option>",
-                                        "<option value='hour'>Hour</option>",
-                                        "<option value='day' selected>Day</option>",
-                                        "<option value='week'>Week</option>",
-                                        "<option value='month'>Month</option>",
-                                        "<option value='year'>Year</option>",
-                                        "<option value='decade'>Decade</option>",
-                                        "<option value='century'>Century</option>",
+                                        uiMarkup("<option value='second'>Second</option>"),
+                                        uiMarkup("<option value='minute'>Minute</option>"),
+                                        uiMarkup("<option value='hour'>Hour</option>"),
+                                        uiMarkup("<option value='day' selected>Day</option>"),
+                                        uiMarkup("<option value='week'>Week</option>"),
+                                        uiMarkup("<option value='month'>Month</option>"),
+                                        uiMarkup("<option value='year'>Year</option>"),
+                                        uiMarkup("<option value='decade'>Decade</option>"),
+                                        uiMarkup("<option value='century'>Century</option>"),
                                     "</select>",
                                 "</div>",
                             "</div>",
@@ -119,51 +120,51 @@ const markup = [
                 "</div>",
                 "<div id='animationPanel3' class='animation-panel'>",
                     "<div class='panel-content'>",
-                        "<h4>Animation Settings</h4>",
+                        uiMarkup("<h4>Animation Settings</h4>"),
                         "<div class='control-group'>",
-                            "<label>One Frame:</label>",
+                            uiMarkup("<label>One Frame:</label>"),
                             "<div class='slider-container'>",
                                 "<input type='range' id='frameRateSlider' min='0.05' max='10' step='0.05' value='1'>",
-                                "<span class='slider-value' id='frameRateValue'>Every 1s</span>",
+                                uiMarkup("<span class='slider-value' id='frameRateValue'>Every 1s</span>"),
                             "</div>",
                         "</div>",
                         "<div class='control-group'>",
-                            "<label>Play Direction:</label>",
+                            uiMarkup("<label>Play Direction:</label>"),
                             "<div class='radio-group'>",
                                 "<label class='radio-option'>",
                                     "<input type='radio' name='playDirection' value='forward' checked>",
-                                    "<span>Forward</span>",
+                                    uiMarkup("<span>Forward</span>"),
                                 "</label>",
                                 "<label class='radio-option'>",
                                     "<input type='radio' name='playDirection' value='backward'>",
-                                    "<span>Backward</span>",
+                                    uiMarkup("<span>Backward</span>"),
                                 "</label>",
                             "</div>",
                         "</div>",
                         "<div class='control-group'>",
                             "<div class='checkbox-group'>",
                                 "<input type='checkbox' id='loopAnimation' checked>",
-                                "<label for='loopAnimation'>Loop Animation</label>",
+                                uiMarkup("<label for='loopAnimation'>Loop Animation</label>"),
                             "</div>",
                         "</div>",
                         "<div class='control-group'>",
-                            "<label for='exportTitle'>Title (optional):</label>",
-                            "<input type='text' id='exportTitle' placeholder='Enter animation title'>",
+                            uiMarkup("<label for='exportTitle'>Title (optional):</label>"),
+                            uiMarkup("<input type='text' id='exportTitle' placeholder='Enter animation title'>"),
                         "</div>",
                         "<div class='control-group'>",
                             "<div class='checkbox-group'>",
                                 "<input type='checkbox' id='showTimeStep'>",
-                                "<label for='showTimeStep'>Include Time Step</label>",
+                                uiMarkup("<label for='showTimeStep'>Include Time Step</label>"),
                             "</div>",
                         "</div>",
                         "<div class='control-group'>",
                             "<div class='checkbox-group'>",
                                 "<input type='checkbox' id='showScaleBar'>",
-                                "<label for='showScaleBar'>Include Scale Bar</label>",
+                                uiMarkup("<label for='showScaleBar'>Include Scale Bar</label>"),
                             "</div>",
                         "</div>",
                         "<div class='control-group'>",
-                            "<label>Layer Refresh Rate:</label>",
+                            uiMarkup("<label>Layer Refresh Rate:</label>"),
                             "<div class='slider-container'>",
                                 "<input type='range' id='layerRefreshRateSlider' min='100' max='20000' step='100' value='1000'>",
                                 "<span class='slider-value' id='layerRefreshRateValue'>1s</span>",
@@ -173,35 +174,35 @@ const markup = [
                 "</div>",
                 "<div id='animationPanel4' class='animation-panel'>",
                     "<div class='panel-content'>",
-                        "<h4>Export Animation</h4>",
-                        "<p>Choose your preferred export format.</p>",
+                        uiMarkup("<h4>Export Animation</h4>"),
+                        uiMarkup("<p>Choose your preferred export format.</p>"),
                         "<div class='export-options'>",
                             "<div class='export-option'>",
                                 "<div class='export-option-info'>",
-                                    "<h4>GIF Animation</h4>",
-                                    "<p>Animated GIF file</p>",
+                                    uiMarkup("<h4>GIF Animation</h4>"),
+                                    uiMarkup("<p>Animated GIF file</p>"),
                                 "</div>",
-                                "<button class='export-button' id='export-gif'>Export GIF</button>",
+                                uiMarkup("<button class='export-button' id='export-gif'>Export GIF</button>"),
                             "</div>",
                             "<div class='export-option'>",
                                 "<div class='export-option-info'>",
-                                    "<h4>MP4 Video</h4>",
-                                    "<p>High-quality MP4 video file</p>",
+                                    uiMarkup("<h4>MP4 Video</h4>"),
+                                    uiMarkup("<p>High-quality MP4 video file</p>"),
                                 "</div>",
-                                "<button class='export-button' id='export-mp4'>Export MP4</button>",
+                                uiMarkup("<button class='export-button' id='export-mp4'>Export MP4</button>"),
                             "</div>",
                             "<div class='export-option'>",
                                 "<div class='export-option-info'>",
-                                    "<h4>Image Sequence</h4>",
-                                    "<p>Individual PNG frames</p>",
+                                    uiMarkup("<h4>Image Sequence</h4>"),
+                                    uiMarkup("<p>Individual PNG frames</p>"),
                                 "</div>",
-                                "<button class='export-button' id='export-sequence'>Export Images</button>",
+                                uiMarkup("<button class='export-button' id='export-sequence'>Export Images</button>"),
                             "</div>",
                         "</div>",
                         "<div id='animationProgress' style='display: none; margin-top: 20px;'>",
                             "<div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;'>",
-                                "<h4 style='margin: 0;'>Generating Animation</h4>",
-                                "<button id='animationCancelBtn' class='btn btn-secondary' style='padding: 4px 12px; font-size: 12px;'>Cancel</button>",
+                                uiMarkup("<h4 style='margin: 0;'>Generating Animation</h4>"),
+                                uiMarkup("<button id='animationCancelBtn' class='btn btn-secondary' style='padding: 4px 12px; font-size: 12px;'>Cancel</button>"),
                             "</div>",
                             "<div style='background: #2a2a2a; border-radius: 4px; padding: 3px; margin-bottom: 10px;'>",
                                 "<div id='animationProgressBar' style='height: 24px; background: linear-gradient(90deg, #4CAF50, #45a049); border-radius: 2px; width: 0%; transition: width 0.3s; display: flex; align-items: center; justify-content: center;'>",
@@ -211,7 +212,7 @@ const markup = [
                             "<div id='animationProgressStatus' style='font-size: 13px; color: #888; text-align: center;'></div>",
                         "</div>",
                         "<div id='animationDebugPreview' style='display: none; margin-top: 20px; border: 2px solid #4CAF50; border-radius: 4px; padding: 10px; background: #1a1a1a;'>",
-                            "<h4 style='margin: 0 0 10px 0; color: #4CAF50; font-size: 14px;'>Preview: Latest Captured Frame</h4>",
+                            uiMarkup("<h4 style='margin: 0 0 10px 0; color: #4CAF50; font-size: 14px;'>Preview: Latest Captured Frame</h4>"),
                             "<canvas id='animationDebugCanvas' style='display: block; width: 100%; height: auto; border: 1px solid #333;'></canvas>",
                             "<div id='animationDebugInfo' style='margin-top: 8px; font-size: 11px; color: #888; text-align: center;'></div>",
                         "</div>",
@@ -219,9 +220,9 @@ const markup = [
                 "</div>",
             "</div>",
             "<div id='animationToolFooter'>",
-                "<button id='animationPrevStep' class='btn btn-secondary' disabled>Previous</button>",
-                "<button id='animationNextStep' class='btn btn-primary'>Next</button>",
-                "<button id='animationReset' class='btn btn-outline-secondary'>Reset</button>",
+                uiMarkup("<button id='animationPrevStep' class='btn btn-secondary' disabled>Previous</button>"),
+                uiMarkup("<button id='animationNextStep' class='btn btn-primary'>Next</button>"),
+                uiMarkup("<button id='animationReset' class='btn btn-outline-secondary'>Reset</button>"),
             "</div>",
         "</div>",
     "</div>"
@@ -291,8 +292,8 @@ function interfaceWithMMGIS() {
     toolPanel.css('background', 'transparent')
     toolPanel.empty()
 
-    const tools = $('<div>').css('height', '100%').html(markup)
-    toolPanel.append(tools)
+    const tools = $('<div>').css('height', '100%').html(uiRenderedMarkup(markup))
+    toolPanel.append(uiRenderedMarkup(tools))
 
     // Update export options visibility based on config
     updateExportOptionsVisibility()
@@ -463,7 +464,7 @@ function interfaceWithMMGIS() {
     }
 
     function showModalAlert(message, title = 'Animation Tool') {
-        const modalHtml = `
+        const modalHtml = uiTemplate`
             <div class='modal-content'>
                 <h3>${title}</h3>
                 <p>${message}</p>
@@ -956,7 +957,7 @@ function interfaceWithMMGIS() {
         )
 
         // Update button text
-        $('#drawBoundingBox').text('Drawing...').prop('disabled', true)
+        $('#drawBoundingBox').html(uiRenderedMarkup(uiMarkup("<span>Drawing...</span>"))).prop('disabled', true)
         AnimationTool.isDrawing = true
     }
 
@@ -1215,7 +1216,7 @@ function interfaceWithMMGIS() {
         hideDrawingInstructions()
 
         // Reset button
-        $('#drawBoundingBox').text('Draw on Map').prop('disabled', false)
+        $('#drawBoundingBox').html(uiRenderedMarkup(uiMarkup("<span>Draw on Map</span>"))).prop('disabled', false)
     }
 
     function showDrawingInstructions(
@@ -1226,7 +1227,7 @@ function interfaceWithMMGIS() {
 
         AnimationTool.instructionsControl.onAdd = function (map) {
             const div = L.DomUtil.create('div', 'drawing-instructions')
-            div.innerHTML = `
+            div.innerHTML = uiTemplate`
                 <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid #ff6b6b;">
                     <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 8px;">
                         <i class="mdi mdi-draw" style="margin-right: 5px;"></i>
@@ -1521,7 +1522,7 @@ function interfaceWithMMGIS() {
 
         const button = $(`#export-${format}`)
         const originalText = button.text()
-        button.text('Exporting...').prop('disabled', true)
+        button.html(uiRenderedMarkup(uiMarkup("<span>Exporting...</span>"))).prop('disabled', true)
 
         // Generate animation frames
         generateAnimationFrames()
@@ -1804,7 +1805,7 @@ function interfaceWithMMGIS() {
         previewDiv.show()
 
         // Reset Cancel button state for new export
-        $('#animationCancelBtn').text('Cancel').prop('disabled', false)
+        $('#animationCancelBtn').html(uiRenderedMarkup(uiMarkup("<span>Cancel</span>"))).prop('disabled', false)
 
         updateProgress(0, totalFrames, 'Initializing...')
     }
@@ -1820,9 +1821,9 @@ function interfaceWithMMGIS() {
 
             // Update UI to show cancellation in progress
             $('#animationCancelBtn')
-                .text('Cancelling...')
+                .html(uiRenderedMarkup(uiMarkup("<span>Cancelling...</span>")))
                 .prop('disabled', true)
-            $('#animationProgressStatus').text('Cancellation requested...')
+            $('#animationProgressStatus').html(uiRenderedMarkup(uiMarkup("<span>Cancellation requested...</span>")))
 
             console.log('Animation generation cancellation requested')
         }
@@ -1860,8 +1861,8 @@ function interfaceWithMMGIS() {
                 // Update the info text with timestamp and frame number
                 const formattedTime = formatTimestampForDisplay(timestamp)
                 infoDiv.html(
-                    `<strong>Frame ${currentFrame} of ${totalFrames}</strong><br>` +
-                    `Time: ${formattedTime}`
+                    uiRenderedMarkup(`<strong>Frame ${currentFrame} of ${totalFrames}</strong><br>` +
+                    `Time: ${formattedTime}`)
                 )
             }
             img.src = frameData
@@ -1914,7 +1915,7 @@ function interfaceWithMMGIS() {
                 `Consider using a larger time interval or shorter time range.`
             )
             Modal.set(
-                `<b>Frame Limit Reached</b><br/><br/>` +
+                uiTemplate`<b>Frame Limit Reached</b><br/><br/>` +
                 `Your animation has been limited to ${MAX_FRAMES} frames to prevent memory issues. ` +
                 `Consider using a larger time interval (e.g., hour instead of minute) or a shorter time range.`
             )
@@ -2577,7 +2578,7 @@ function interfaceWithMMGIS() {
 
             // Add progress callback
             gif.on('progress', (progress) => {
-                button.text(`Creating GIF... ${Math.round(progress * 100)}%`)
+                button.text(uiText("Creating GIF... {{value0}}%", { value0: Math.round(progress * 100), interpolation: { escapeValue: false } }))
 
                 // Clear previous timeout
                 if (progressTimeout) {
@@ -2808,11 +2809,11 @@ function interfaceWithMMGIS() {
             const ffmpeg = new FFmpeg()
 
             // Show loading message
-            button.text('Loading FFmpeg...').prop('disabled', true)
+            button.html(uiRenderedMarkup(uiMarkup("<span>Loading FFmpeg...</span>"))).prop('disabled', true)
 
             // Add progress callback
             ffmpeg.on('progress', ({ progress }) => {
-                button.text(`Creating MP4... ${Math.round(progress * 100)}%`)
+                button.text(uiText("Creating MP4... {{value0}}%", { value0: Math.round(progress * 100), interpolation: { escapeValue: false } }))
             })
 
             // Load FFmpeg with local core files to avoid CSP issues
