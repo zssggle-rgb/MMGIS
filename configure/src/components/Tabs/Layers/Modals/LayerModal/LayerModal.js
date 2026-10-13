@@ -382,7 +382,7 @@ const LayerModal = (props) => {
           >{ct("ui.remove_layer_3c84dc")}</Button>
         </div>
         <div className={c.uuid}>{ct("ui.layer_uuid_p0_p1_fc4ae9", { p0: layer.uuid, p1: typeof layer.uuid === "number"
-            ? " (Will be formally assigned upon saving)"
+            ? ct("layer.pendingUuid")
             : "" })}</div>
         <div className={c.actionsRight}>
           <Tooltip title={ct("ui.clone_layer_db207c")} placement="top" arrow>

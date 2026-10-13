@@ -146,7 +146,7 @@ const PreviewModal = (props) => {
             <PreviewIcon className={c.backgroundIcon} />
             <div className={c.title}>
               {modal?.customConfig != null
-                ? `Previewing Configuration v${modal.version}`
+                ? ct("preview.configurationVersion", { version: modal.version })
                 : ct("ui.previewing_changes_1df9e3")}
             </div>
           </div>
