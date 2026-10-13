@@ -24,5 +24,11 @@ window.MMGISAuth = {
         next.searchParams.set('lang', instance.language)
         return next.href
     },
-    switchLanguage: (locale) => window.MMGISI18n.ready.then((controller) => controller.switchLanguage(locale)).then(() => window.location.reload()),
+    switchLanguage: (locale) => window.MMGISI18n.ready.then((controller) => controller.switchLanguage(locale)),
 }
+window.MMGISI18n.ready.then((controller) => controller.subscribe((next) => {
+    // Pug labels are rendered on the server. Reload after the controller's
+    // queued operation has persisted the new URL and cookie, including when
+    // another tab changed the language.
+    if (next !== locale) setTimeout(() => window.location.reload(), 0)
+}))
