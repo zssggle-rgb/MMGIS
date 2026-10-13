@@ -1,4 +1,7 @@
 import React from "react";
+import { useUiTranslation } from "../../i18n/generated/browser";
+import { i18n } from "../../i18n";
+import { feedbackMessage } from "../../i18n/feedback";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setSnackBarText } from "../../core/ConfigureStore";
@@ -21,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 let afterImage = "";
 
 const SnackBar = (props) => {
+  useUiTranslation('feedback', i18n);
   const c = useStyles();
   const dispatch = useDispatch();
 
@@ -33,7 +37,8 @@ const SnackBar = (props) => {
     dispatch(setSnackBarText(false));
   };
 
-  afterImage = snackBarText.text || afterImage;
+  const translated = snackBarText ? feedbackMessage(snackBarText) : '';
+  afterImage = translated || afterImage;
 
   return (
     <Snackbar
@@ -53,7 +58,7 @@ const SnackBar = (props) => {
         onClose={handleCloseSnackbar}
         severity={snackBarText.severity || "success"}
       >
-        {snackBarText.text || afterImage}
+        {translated || afterImage}
       </MuiAlert>
     </Snackbar>
   );

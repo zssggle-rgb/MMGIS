@@ -1,11 +1,14 @@
 // Validation functions that mirror backend validation rules
+import { feedbackDescriptor } from '../i18n/feedback';
+
+const describeErrors = (errors) => errors.map((error) => ({ ...error, ...feedbackDescriptor(error) }));
 
 export const validateConfiguration = (configuration) => {
   const errors = [];
   
   if (!configuration) {
     errors.push({ field: null, message: "Configuration is missing" });
-    return errors;
+    return describeErrors(errors);
   }
   
   // Check top-level required fields
@@ -36,7 +39,7 @@ export const validateConfiguration = (configuration) => {
     errors.push({ field: "tools", message: "Tools object is required" });
   }
   
-  return errors;
+  return describeErrors(errors);
 };
 
 export const validateLayer = (layer) => {
@@ -44,7 +47,7 @@ export const validateLayer = (layer) => {
   
   if (!layer) {
     errors.push({ field: null, message: "Layer is missing" });
-    return errors;
+    return describeErrors(errors);
   }
   
   // Check layer name
@@ -180,7 +183,7 @@ export const validateLayer = (layer) => {
       }
   }
   
-  return errors;
+  return describeErrors(errors);
 };
 
 // Check if a field should be required based on conditional logic
@@ -235,5 +238,5 @@ export const getAllValidationErrors = (configuration) => {
     traverseLayers(configuration.layers);
   }
   
-  return errors;
+  return describeErrors(errors);
 };
