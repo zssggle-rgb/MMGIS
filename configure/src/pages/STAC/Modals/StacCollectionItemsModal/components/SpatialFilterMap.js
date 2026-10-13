@@ -1,4 +1,4 @@
-import { useConfigureText } from "../../../../../i18n";
+import { useConfigureText, configureText } from "../../../../../i18n";
 import React, { useEffect, useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -236,7 +236,7 @@ export default function SpatialFilterMap({
     map.on("mousemove", (e) => {
       const { lat, lng } = e.latlng;
       if (coordRef.current) {
-        coordRef.current.textContent = `Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}`;
+        coordRef.current.textContent = configureText("map.coordinates", { lat: lat.toFixed(6), lng: lng.toFixed(6) });
         coordRef.current.style.display = "block";
       }
     });

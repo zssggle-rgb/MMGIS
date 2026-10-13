@@ -1,4 +1,12 @@
 {
+  "preview.configurationVersion": "Previewing Configuration v{{version}}",
+  "layer.pendingUuid": " (Will be formally assigned upon saving)",
+  "stac.failedExamples": "Examples: {{ids}}",
+  "stac.itemRegex": "Regex over Item ID",
+  "stac.itemSearch": "Search by Item ID",
+  "stac.noMatchingItems": "No items found matching \"{{query}}\"",
+  "stac.noCollectionItems": "No items found in this collection",
+  "map.coordinates": "Lat: {{lat}}, Lng: {{lng}}",
   "reference.earthDescription": "Comprehensive Earth demo with 20+ layers and 14 tools",
   "reference.lunarDescription": "South polar stereographic mission (IAU2000:30120)",
   "reference.marsDescription": "Mars mission stub with SightlineTool (Sol observers)",

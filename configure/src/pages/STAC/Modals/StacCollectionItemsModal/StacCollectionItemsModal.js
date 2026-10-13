@@ -709,7 +709,7 @@ const StacCollectionItemsModal = () => {
         const failedIds = failed.map((f) => f.id).slice(0, 5).join(", ");
         dispatch(
           setSnackBarText({
-            text: ct("ui.failed_to_delete_p0_item_s_aca4be", { p0: failed.length, p1: failedIds ? "Examples: " + failedIds : "" }),
+            text: ct("ui.failed_to_delete_p0_item_s_aca4be", { p0: failed.length, p1: failedIds ? ct("stac.failedExamples", { ids: failedIds }) : "" }),
             severity: "error",
           })
         );
@@ -805,7 +805,7 @@ const StacCollectionItemsModal = () => {
               value={searchTerm}
               className={c.searchInput}
               onChange={handleSearchChange}
-              placeholder={useRegex ? "Regex over Item ID" : "Search by Item ID"}
+              placeholder={ct(useRegex ? "stac.itemRegex" : "stac.itemSearch")}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -939,7 +939,7 @@ const StacCollectionItemsModal = () => {
               getAssetsHref={getAssetsHref}
               onViewJson={handleViewJson}
               onDeleteItem={handleDeleteItem}
-              noItemsText={searchTerm ? `No items found matching "${searchTerm}"` : "No items found in this collection"}
+              noItemsText={searchTerm ? ct("stac.noMatchingItems", { query: searchTerm }) : ct("stac.noCollectionItems")}
             />
 
             <TablePagination

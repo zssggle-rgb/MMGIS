@@ -487,7 +487,7 @@ export default function InteractionEditor({
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label={"Add interaction"}
+                  label={ct("ui.add_interaction_436ed6")}
                   size="small"
                   variant="filled"
                 />
