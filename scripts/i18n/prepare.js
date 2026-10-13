@@ -114,6 +114,27 @@ async function prepare(root) {
 
 const BUILDS = { map: 'build', configure: 'configure/build' }
 
+function buildCommit() {
+    const commit = process.env.MMGIS_BUILD_COMMIT || 'unknown'
+    if (commit !== 'unknown' && !/^[a-f0-9]{40}$/.test(commit)) throw new Error('Invalid source commit for UI delivery.')
+    return commit
+}
+
+function compiledFiles(root, directory) {
+    const files = []
+    function collect(relative) {
+        for (const entry of fs.readdirSync(path.join(root, relative), { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+            const filename = `${relative}/${entry.name}`
+            if (entry.name === 'i18n-build.json') continue
+            if (entry.isDirectory()) collect(filename)
+            else if (entry.isFile()) files.push({ path: filename, sha256: hash(fs.readFileSync(path.join(root, filename))) })
+            else throw new Error('Unsupported compiled UI artifact: ' + filename)
+        }
+    }
+    collect(directory)
+    return files
+}
+
 // The postbuild receipt binds each compiled frontend to the catalogs it consumed.
 function recordBuild(root, frontend) {
     const output = BUILDS[frontend]
@@ -128,6 +149,8 @@ function recordBuild(root, frontend) {
         upstreamVersion: index.upstreamVersion,
         resourceVersion: index.resourceVersion,
         canonicalHash: index.canonicalHash,
+        sourceCommit: buildCommit(),
+        files: compiledFiles(root, output),
     }, null, 4) + '\n')
     return index.resourceVersion
 }
@@ -141,7 +164,8 @@ function finalizeDelivery(root) {
     if (configureVersion !== index.upstreamVersion) throw new Error('Frontend package versions do not match.')
     for (const [frontend, output] of Object.entries(BUILDS)) {
         const receipt = JSON.parse(fs.readFileSync(path.join(root, output, 'i18n-build.json'), 'utf8'))
-        if (receipt.frontend !== frontend || receipt.resourceVersion !== resourceVersion || receipt.canonicalHash !== index.canonicalHash) throw new Error('Compiled UI resources do not match: ' + frontend)
+        if (receipt.frontend !== frontend || receipt.resourceVersion !== resourceVersion || receipt.canonicalHash !== index.canonicalHash || receipt.sourceCommit !== buildCommit()) throw new Error('Compiled UI resources do not match: ' + frontend)
+        if (JSON.stringify(receipt.files) !== JSON.stringify(compiledFiles(root, output))) throw new Error('Compiled UI artifacts changed after building: ' + frontend)
     }
 
     const files = []
@@ -158,12 +182,11 @@ function finalizeDelivery(root) {
         }
     }
     for (const directory of [...Object.values(BUILDS), 'API/i18n', 'public/i18n', 'public/helps', 'views']) collect(directory)
-    for (const relative of ['package.json', 'configure/package.json']) {
+    for (const relative of ['package.json', 'configure/package.json', 'public/login.js', 'public/adminlogin.js', 'public/resetPassword.js']) {
         const content = fs.readFileSync(path.join(root, relative))
         files.push({ path: relative, bytes: content.length, sha256: hash(content) })
     }
-    const sourceCommit = process.env.MMGIS_BUILD_COMMIT || 'unknown'
-    if (sourceCommit !== 'unknown' && !/^[a-f0-9]{40}$/.test(sourceCommit)) throw new Error('Invalid source commit for UI delivery.')
+    const sourceCommit = buildCommit()
     write(root, manifestPath, JSON.stringify({
         schemaVersion: 1,
         upstreamVersion: index.upstreamVersion,
