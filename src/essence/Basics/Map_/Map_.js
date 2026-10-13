@@ -261,18 +261,13 @@ let Map_ = {
         this.map.addControl(new HomeControl())
 
         if (Map_.mapScaleZoom) {
-            const scaleControl = L.control
+            L.control
                 .scalefactor({
                     radius: parseInt(L_.configData.msv.radius.major),
                     mapScaleZoom: Map_.mapScaleZoom,
+                    onIconUpdate: (icon) => bindUiAttribute(icon, 'title', 'Mapping Scale'),
                 })
                 .addTo(this.map)
-            const refreshScaleTitle = () => {
-                const icon = scaleControl.getContainer().querySelector('.leaflet-control-scalefactor-goto i')
-                if (icon) bindUiAttribute(icon, 'title', 'Mapping Scale')
-            }
-            refreshScaleTitle()
-            this.map.on('zoomend moveend', refreshScaleTitle)
         }
 
         //Initialize the view to that set in config
