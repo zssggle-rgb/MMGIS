@@ -112,11 +112,83 @@ async function prepare(root) {
     return index
 }
 
-if (require.main === module) prepare(path.resolve(__dirname, '../..')).then((index) => {
-    console.log('Prepared local UI resources: ' + index.resourceVersion)
-}).catch((error) => {
-    console.error('UI resource preparation failed: ' + error.message)
-    process.exitCode = 1
-})
+const BUILDS = { map: 'build', configure: 'configure/build' }
 
-module.exports = { placeholders, validateCatalogs, loadCatalogs, prepareResources, prepare }
+// The postbuild receipt binds each compiled frontend to the catalogs it consumed.
+function recordBuild(root, frontend) {
+    const output = BUILDS[frontend]
+    if (!output) throw new Error('Unknown UI build target.')
+    const generated = frontend === 'map' ? TARGETS[0] : TARGETS[1]
+    const index = JSON.parse(fs.readFileSync(path.join(root, generated, 'resource-index.json'), 'utf8'))
+    for (const filename of ['index.html', 'index.pug', 'asset-manifest.json']) {
+        if (!fs.statSync(path.join(root, output, filename)).isFile()) throw new Error('Missing compiled UI artifact: ' + frontend + '/' + filename)
+    }
+    write(root, `${output}/i18n-build.json`, JSON.stringify({
+        frontend,
+        upstreamVersion: index.upstreamVersion,
+        resourceVersion: index.resourceVersion,
+        canonicalHash: index.canonicalHash,
+    }, null, 4) + '\n')
+    return index.resourceVersion
+}
+
+function finalizeDelivery(root) {
+    // Reuse production resource validation as part of packaging, without rebuilding.
+    const { verifyRuntime } = require('./verify-runtime')
+    const resourceVersion = verifyRuntime(root)
+    const index = JSON.parse(fs.readFileSync(path.join(root, TARGETS[2], 'resource-index.json'), 'utf8'))
+    const configureVersion = JSON.parse(fs.readFileSync(path.join(root, 'configure/package.json'), 'utf8')).version
+    if (configureVersion !== index.upstreamVersion) throw new Error('Frontend package versions do not match.')
+    for (const [frontend, output] of Object.entries(BUILDS)) {
+        const receipt = JSON.parse(fs.readFileSync(path.join(root, output, 'i18n-build.json'), 'utf8'))
+        if (receipt.frontend !== frontend || receipt.resourceVersion !== resourceVersion || receipt.canonicalHash !== index.canonicalHash) throw new Error('Compiled UI resources do not match: ' + frontend)
+    }
+
+    const files = []
+    const manifestPath = `${TARGETS[2]}/delivery-manifest.json`
+    function collect(directory) {
+        for (const entry of fs.readdirSync(path.join(root, directory), { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+            const relative = `${directory}/${entry.name}`
+            if (relative === manifestPath) continue
+            if (entry.isDirectory()) collect(relative)
+            else if (entry.isFile()) {
+                const content = fs.readFileSync(path.join(root, relative))
+                files.push({ path: relative, bytes: content.length, sha256: hash(content) })
+            } else throw new Error('Unsupported UI delivery artifact: ' + relative)
+        }
+    }
+    for (const directory of [...Object.values(BUILDS), 'API/i18n', 'public/i18n', 'public/helps', 'views']) collect(directory)
+    for (const relative of ['package.json', 'configure/package.json']) {
+        const content = fs.readFileSync(path.join(root, relative))
+        files.push({ path: relative, bytes: content.length, sha256: hash(content) })
+    }
+    const sourceCommit = process.env.MMGIS_BUILD_COMMIT || 'unknown'
+    if (sourceCommit !== 'unknown' && !/^[a-f0-9]{40}$/.test(sourceCommit)) throw new Error('Invalid source commit for UI delivery.')
+    write(root, manifestPath, JSON.stringify({
+        schemaVersion: 1,
+        upstreamVersion: index.upstreamVersion,
+        sourceCommit,
+        resourceVersion,
+        canonicalHash: index.canonicalHash,
+        supportedLocales: index.supportedLocales,
+        files,
+    }, null, 4) + '\n')
+    return resourceVersion
+}
+
+if (require.main === module) {
+    const root = path.resolve(__dirname, '../..')
+    const buildArgument = process.argv.find((argument) => argument.startsWith('--record-build='))
+    Promise.resolve().then(() => {
+        if (buildArgument) return recordBuild(root, buildArgument.slice('--record-build='.length))
+        if (process.argv.includes('--finalize-delivery')) return finalizeDelivery(root)
+        return prepare(root).then((index) => index.resourceVersion)
+    }).then((version) => {
+        console.log('Prepared local UI build resources: ' + version)
+    }).catch((error) => {
+        console.error('UI resource preparation failed: ' + error.message)
+        process.exitCode = 1
+    })
+}
+
+module.exports = { placeholders, validateCatalogs, loadCatalogs, prepareResources, prepare, recordBuild, finalizeDelivery }
