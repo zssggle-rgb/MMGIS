@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -134,6 +135,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "uploadConfig";
 const UploadConfigModal = (props) => {
+  const ct = useConfigureText();
   const { queryVersions } = props;
   const c = useStyles();
 
@@ -156,7 +158,7 @@ const UploadConfigModal = (props) => {
     if (configJson == null || fileName === null) {
       dispatch(
         setSnackBarText({
-          text: "Please upload a file.",
+          text: ct("ui.please_upload_a_file_4b2e92"),
           severity: "error",
         })
       );
@@ -171,7 +173,7 @@ const UploadConfigModal = (props) => {
     ) {
       dispatch(
         setSnackBarText({
-          text: "This JSON doesn't appear to be an MMGIS Config.JSON file.",
+          text: ct("ui.this_json_doesn_t_appear_to_3d4a1e"),
           severity: "error",
         })
       );
@@ -210,7 +212,7 @@ const UploadConfigModal = (props) => {
                     setSnackBarText({
                       text:
                         res?.message ||
-                        "Failed to get configuration for mission.",
+                        ct("ui.failed_to_get_configuration_for_mission_f268ae"),
                       severity: "error",
                     })
                   );
@@ -264,12 +266,12 @@ const UploadConfigModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <UploadIcon className={c.backgroundIcon} />
-            <div className={c.title}>{`Upload a Configuration`}</div>
+            <div className={c.title}>{ct("ui.upload_a_configuration_4a4979")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -278,17 +280,17 @@ const UploadConfigModal = (props) => {
       </DialogTitle>
       <DialogContent className={c.content}>
         <Typography className={c.subtitle}>
-          {`Replaces the existing configuration for this mission with one that's uploaded.`}
+          {ct("ui.replaces_the_existing_configuration_for_this_6aa535")}
         </Typography>
         <div className={c.dropzone}>
           <div {...getRootProps({ className: "dropzone" })}>
             <input {...getInputProps()} />
-            {isDragAccept && <p>All files will be accepted</p>}
-            {isDragReject && <p>Some files will be rejected</p>}
+            {isDragAccept && <p>{ct("ui.all_files_will_be_accepted_c4d789")}</p>}
+            {isDragReject && <p>{ct("ui.some_files_will_be_rejected_658078")}</p>}
             {!isDragActive && (
               <div className={c.dropzoneMessage}>
-                <p>Drag 'n' drop or click to select files...</p>
-                <p>Only *.json MMGIS configuration files are accepted.</p>
+                <p>{ct("ui.drag_n_drop_or_click_to_21279e")}</p>
+                <p>{ct("ui.only_json_mmgis_configuration_files_are_c25a2f")}</p>
               </div>
             )}
           </div>
@@ -296,7 +298,7 @@ const UploadConfigModal = (props) => {
 
         <div className={c.fileName}>
           <InsertDriveFileIcon />
-          <div>{fileName || "No File Selected"}</div>
+          <div>{fileName || ct("ui.no_file_selected_7dbe85")}</div>
         </div>
       </DialogContent>
       <DialogActions>
@@ -304,9 +306,7 @@ const UploadConfigModal = (props) => {
           className={c.addSelected}
           variant="contained"
           onClick={handleSubmit}
-        >
-          Upload Config.JSON
-        </Button>
+        >{ct("ui.upload_config_json_814da8")}</Button>
       </DialogActions>
     </Dialog>
   );

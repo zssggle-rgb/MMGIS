@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../i18n";
 import React, { useCallback, useRef, useState } from "react";
 import { ChromePicker } from "react-color";
 
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ColorButton = ({ label, color, onChange }) => {
+  const ct = useConfigureText();
   const popover = useRef();
   const [isOpen, toggle] = useState(false);
 
@@ -87,9 +89,7 @@ const ColorButton = ({ label, color, onChange }) => {
             onClick={() => {
               onChange(null);
             }}
-          >
-            Clear Selection
-          </Button>
+          >{ct("ui.clear_selection_fae58c")}</Button>
         </div>
       )}
     </div>

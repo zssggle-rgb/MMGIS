@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -162,6 +163,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "deleteUser";
 const DeleteUserModal = (props) => {
+  const ct = useConfigureText();
   const { queryUsers } = props;
   const c = useStyles();
 
@@ -182,7 +184,7 @@ const DeleteUserModal = (props) => {
     if (!modal?.row?.id) {
       dispatch(
         setSnackBarText({
-          text: "Cannot delete undefined User.",
+          text: ct("ui.cannot_delete_undefined_user_716a32"),
           severity: "error",
         })
       );
@@ -192,7 +194,7 @@ const DeleteUserModal = (props) => {
     if (userName !== modal.row.username) {
       dispatch(
         setSnackBarText({
-          text: "Confirmation Username does not match.",
+          text: ct("ui.confirmation_username_does_not_match_137062"),
           severity: "error",
         })
       );
@@ -210,7 +212,7 @@ const DeleteUserModal = (props) => {
         if (res.body?.deleted_id === modal.row.id) {
           dispatch(
             setSnackBarText({
-              text: `Successfully deleted '${modal.row.username}'.`,
+              text: ct("ui.successfully_deleted_p0_e2198e", { p0: modal.row.username }),
               severity: "success",
             })
           );
@@ -219,7 +221,7 @@ const DeleteUserModal = (props) => {
         } else {
           dispatch(
             setSnackBarText({
-              text: `Failed to delete '${modal.row.username}'.`,
+              text: ct("ui.failed_to_delete_p0_970ca8", { p0: modal.row.username }),
               severity: "error",
             })
           );
@@ -228,7 +230,7 @@ const DeleteUserModal = (props) => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: `Failed to delete '${modal.row.username}'.`,
+            text: ct("ui.failed_to_delete_p0_970ca8", { p0: modal.row.username }),
             severity: "error",
           })
         );
@@ -251,12 +253,12 @@ const DeleteUserModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <AccountBoxIcon className={c.backgroundIcon} />
-            <div className={c.title}>Delete a User's Account</div>
+            <div className={c.title}>{ct("ui.delete_a_user_s_account_e7241d")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -266,10 +268,10 @@ const DeleteUserModal = (props) => {
       <DialogContent className={c.content}>
         <Typography
           className={c.layerName}
-        >{`Deleting: ${modal?.row?.username}`}</Typography>
+        >{ct("ui.deleting_p0_644b33", { p0: modal?.row?.username })}</Typography>
         <TextField
           className={c.confirmInput}
-          label="Confirm Username"
+          label={ct("ui.confirm_username_5edd50")}
           variant="filled"
           value={userName}
           inputProps={{
@@ -281,7 +283,7 @@ const DeleteUserModal = (props) => {
         />
         <Typography
           className={c.subtitle2}
-        >{`Enter '${modal?.row?.username}' above and click 'Delete' to confirm the permanent deletion of this user's account.`}</Typography>
+        >{ct("ui.enter_p0_above_and_click_delete_35afa3", { p0: modal?.row?.username })}</Typography>
       </DialogContent>
       <DialogActions className={c.dialogActions}>
         <Button
@@ -289,12 +291,8 @@ const DeleteUserModal = (props) => {
           variant="contained"
           startIcon={<DeleteForeverIcon size="small" />}
           onClick={handleSubmit}
-        >
-          Delete
-        </Button>
-        <Button className={c.cancel} variant="outlined" onClick={handleClose}>
-          Cancel
-        </Button>
+        >{ct("ui.delete_f6fdbe")}</Button>
+        <Button className={c.cancel} variant="outlined" onClick={handleClose}>{ct("ui.cancel_77dfd2")}</Button>
       </DialogActions>
     </Dialog>
   );

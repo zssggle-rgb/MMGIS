@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../../i18n";
 import React, { useEffect, useRef, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -56,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function JsonViewModal({ classes, open, onClose, item }) {
+  const ct = useConfigureText();
   const local = useStyles();
   const mapRef = useRef(null);
   const coordRef = useRef(null);
@@ -218,9 +220,9 @@ export default function JsonViewModal({ classes, open, onClose, item }) {
         <div className={classes.flexBetween}>
           <div className={classes.flexBetween}>
             <InfoIcon className={classes.backgroundIcon} />
-            <div className={classes.title}>STAC Item: {item?.id}</div>
+            <div className={classes.title}>{ct("ui.stac_item_8f3922")}{item?.id}</div>
           </div>
-          <IconButton className={classes.closeIcon} title="Close" aria-label="close" onClick={onClose}>
+          <IconButton className={classes.closeIcon} title={ct("ui.close_bbfa77")} aria-label={ct("ui.close_da3886")} onClick={onClose}>
             <CloseSharpIcon fontSize="inherit" />
           </IconButton>
         </div>
@@ -228,9 +230,7 @@ export default function JsonViewModal({ classes, open, onClose, item }) {
       <DialogContent className={local.jsonContent}>
         <div className={local.mapPanel}>
           <div ref={mapRef} style={{ height: '100%', width: '100%' }} />
-          <div ref={coordRef} style={{ position: 'absolute', left: 0, bottom: '63px', display: 'none', padding: '6px 10px', zIndex: 1000, fontSize: 12, background: '#555', color: '#fff', fontFamily: 'monospace' }}>
-            Lat: 0.000000, Lng: 0.000000
-          </div>
+          <div ref={coordRef} style={{ position: 'absolute', left: 0, bottom: '63px', display: 'none', padding: '6px 10px', zIndex: 1000, fontSize: 12, background: '#555', color: '#fff', fontFamily: 'monospace' }}>{ct("ui.lat_0_000000_lng_0_000000_1d0255")}</div>
         </div>
         <div className={local.jsonPanel}>
           <div className={local.jsonContainer}>
@@ -255,9 +255,7 @@ export default function JsonViewModal({ classes, open, onClose, item }) {
         </div>
       </DialogContent>
       <DialogActions className={local.jsonDialogActions}>
-        <Button className={local.jsonDialogActionsClose} onClick={onClose} variant="outlined">
-          Close
-        </Button>
+        <Button className={local.jsonDialogActionsClose} onClick={onClose} variant="outlined">{ct("ui.close_bbfa77")}</Button>
       </DialogActions>
     </Dialog>
   );

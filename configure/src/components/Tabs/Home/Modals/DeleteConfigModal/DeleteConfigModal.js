@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -167,6 +168,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "deleteConfig";
 const DeleteConfigModal = (props) => {
+  const ct = useConfigureText();
   const { queryGeoDatasets } = props;
   const c = useStyles();
 
@@ -188,7 +190,7 @@ const DeleteConfigModal = (props) => {
     if (!mission) {
       dispatch(
         setSnackBarText({
-          text: "Cannot delete undefined Mission.",
+          text: ct("ui.cannot_delete_undefined_mission_9aca84"),
           severity: "error",
         })
       );
@@ -198,7 +200,7 @@ const DeleteConfigModal = (props) => {
     if (missionName !== mission) {
       dispatch(
         setSnackBarText({
-          text: "Confirmation Mission name does not match.",
+          text: ct("ui.confirmation_mission_name_does_not_match_c58df5"),
           severity: "error",
         })
       );
@@ -213,7 +215,7 @@ const DeleteConfigModal = (props) => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: `Successfully deleted the '${mission}' Mission.`,
+            text: ct("ui.successfully_deleted_the_p0_mission_64c138", { p0: mission }),
             severity: "success",
           })
         );
@@ -227,7 +229,7 @@ const DeleteConfigModal = (props) => {
           (res) => {
             dispatch(
               setSnackBarText({
-                text: res?.message || "Failed to get available missions.",
+                text: res?.message || ct("ui.failed_to_get_available_missions_4b40cf"),
                 severity: "error",
               })
             );
@@ -238,7 +240,7 @@ const DeleteConfigModal = (props) => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: `Failed to delete the '${mission}' Mission.`,
+            text: ct("ui.failed_to_delete_the_p0_mission_97f624", { p0: mission }),
             severity: "error",
           })
         );
@@ -261,12 +263,12 @@ const DeleteConfigModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <ShapeLineIcon className={c.backgroundIcon} />
-            <div className={c.title}>Delete a Mission</div>
+            <div className={c.title}>{ct("ui.delete_a_mission_1b1ad2")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -276,10 +278,10 @@ const DeleteConfigModal = (props) => {
       <DialogContent className={c.content}>
         <Typography
           className={c.layerName}
-        >{`Deleting: ${mission}`}</Typography>
+        >{ct("ui.deleting_p0_644b33", { p0: mission })}</Typography>
         <TextField
           className={c.confirmInput}
-          label="Confirm Mission Name"
+          label={ct("ui.confirm_mission_name_c8077d")}
           variant="filled"
           value={missionName}
           onChange={(e) => {
@@ -288,7 +290,7 @@ const DeleteConfigModal = (props) => {
         />
         <Typography
           className={c.confirmMessage}
-        >{`Enter '${mission}' above and click 'Delete' to confirm the permanent deletion of this Mission. None of the mission's data files in /Missions will be deleted.`}</Typography>
+        >{ct("ui.enter_p0_above_and_click_delete_5391ae", { p0: mission })}</Typography>
       </DialogContent>
       <DialogActions className={c.dialogActions}>
         <Button
@@ -296,12 +298,8 @@ const DeleteConfigModal = (props) => {
           variant="contained"
           startIcon={<DeleteForeverIcon size="small" />}
           onClick={handleSubmit}
-        >
-          Delete
-        </Button>
-        <Button className={c.cancel} variant="outlined" onClick={handleClose}>
-          Cancel
-        </Button>
+        >{ct("ui.delete_f6fdbe")}</Button>
+        <Button className={c.cancel} variant="outlined" onClick={handleClose}>{ct("ui.cancel_77dfd2")}</Button>
       </DialogActions>
     </Dialog>
   );

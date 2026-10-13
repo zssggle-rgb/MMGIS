@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -125,6 +126,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "layersUsedByStacCollection";
 const LayersUsedByModal = (props) => {
+  const ct = useConfigureText();
   const {} = props;
   const c = useStyles();
 
@@ -179,12 +181,12 @@ const LayersUsedByModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <HorizontalSplitIcon className={c.backgroundIcon} />
-            <div className={c.title}>STAC Collection is Used By</div>
+            <div className={c.title}>{ct("ui.stac_collection_is_used_by_8d5d23")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -199,7 +201,7 @@ const LayersUsedByModal = (props) => {
           <>
             <div className={c.hasOccurrencesTitle}>
               <Typography className={c.hasOccurrences}>
-                {`This STAC Collection is currently in use in the following layers:`}
+                {ct("ui.this_stac_collection_is_currently_in_1fd851")}
               </Typography>
             </div>
             <div className={c.occurrences}>{occurrences}</div>
@@ -207,15 +209,13 @@ const LayersUsedByModal = (props) => {
         ) : (
           <div className={c.hasOccurrencesTitle}>
             <Typography className={c.hasOccurrences}>
-              {`This STAC Collection is not in use.`}
+              {ct("ui.this_stac_collection_is_not_in_ffbd93")}
             </Typography>
           </div>
         )}
       </DialogContent>
       <DialogActions className={c.dialogActions}>
-        <Button className={c.close} variant="outlined" onClick={handleClose}>
-          Close
-        </Button>
+        <Button className={c.close} variant="outlined" onClick={handleClose}>{ct("ui.close_bbfa77")}</Button>
       </DialogActions>
     </Dialog>
   );

@@ -1,3 +1,4 @@
+import { useConfigureText, configureText, i18n } from "../../../i18n";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
@@ -147,11 +148,11 @@ const useStyles = makeStyles((theme) => ({
 const headCells = [
   {
     id: "version",
-    label: "Version",
+    get label() { return configureText("ui.version_2da600"); },
   },
   {
     id: "createdAt",
-    label: "Date",
+    get label() { return configureText("ui.date_eb9a4b"); },
   },
   {
     id: "actions",
@@ -160,6 +161,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
+  const ct = useConfigureText();
   const { order, orderBy, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -186,7 +188,7 @@ function EnhancedTableHead(props) {
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  {order === "desc" ? ct("table.sortedDescending") : ct("table.sortedAscending")}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -206,6 +208,7 @@ EnhancedTableHead.propTypes = {
 };
 
 export default function Versions(props) {
+  const ct = useConfigureText();
   const { queryVersions } = props;
   const [order, setOrder] = React.useState("desc");
   const [orderBy, setOrderBy] = React.useState("version");
@@ -290,22 +293,22 @@ export default function Versions(props) {
                         <div className={c.versionCell}>
                           <div>{`v${row.version}`}</div>
                           {row.current ? (
-                            <div className={c.current}>current</div>
+                            <div className={c.current}>{ct("ui.current_405ab5")}</div>
                           ) : null}
                         </div>
                       </TableCell>
                       <TableCell align="right">
                         {row.createdAt
-                          ? new Date(row.createdAt).toLocaleString()
+                          ? new Date(row.createdAt).toLocaleString(i18n.language)
                           : row.createdAt}
                       </TableCell>
                       <TableCell align="right">
                         <div className={c.actions}>
-                          <Tooltip title={"Preview"} placement="top" arrow>
+                          <Tooltip title={ct("ui.preview_f1fbb2")} placement="top" arrow>
                             <IconButton
                               className={c.previewIcon}
-                              title="Preview"
-                              aria-label="preview"
+                              title={ct("ui.preview_f1fbb2")}
+                              aria-label={ct("ui.preview_1aa787")}
                               onClick={() => {
                                 if (row.version)
                                   calls.api(
@@ -327,7 +330,7 @@ export default function Versions(props) {
                                     (res) => {
                                       dispatch(
                                         setSnackBarText({
-                                          text: "Failed to download Configuration JSON.",
+                                          text: ct("ui.failed_to_download_configuration_json_33447f"),
                                           severity: "error",
                                         })
                                       );
@@ -338,11 +341,11 @@ export default function Versions(props) {
                               <PreviewIcon fontSize="small" />
                             </IconButton>
                           </Tooltip>
-                          <Tooltip title={"Download"} placement="top" arrow>
+                          <Tooltip title={ct("ui.download_a479c9")} placement="top" arrow>
                             <IconButton
                               className={c.downloadIcon}
-                              title="Download"
-                              aria-label="download"
+                              title={ct("ui.download_a479c9")}
+                              aria-label={ct("ui.download_817248")}
                               onClick={() => {
                                 if (row.version)
                                   calls.api(
@@ -360,7 +363,7 @@ export default function Versions(props) {
                                       );
                                       dispatch(
                                         setSnackBarText({
-                                          text: "Successfully downloaded Configuration JSON.",
+                                          text: ct("ui.successfully_downloaded_configuration_json_41522b"),
                                           severity: "success",
                                         })
                                       );
@@ -368,7 +371,7 @@ export default function Versions(props) {
                                     (res) => {
                                       dispatch(
                                         setSnackBarText({
-                                          text: "Failed to download Configuration JSON.",
+                                          text: ct("ui.failed_to_download_configuration_json_33447f"),
                                           severity: "error",
                                         })
                                       );
@@ -382,11 +385,11 @@ export default function Versions(props) {
 
                           <Divider orientation="vertical" flexItem />
 
-                          <Tooltip title={"Set"} placement="top" arrow>
+                          <Tooltip title={ct("ui.set_448ab7")} placement="top" arrow>
                             <IconButton
                               className={c.setIcon}
-                              title="Set"
-                              aria-label="set"
+                              title={ct("ui.set_448ab7")}
+                              aria-label={ct("ui.set_65c10d")}
                               onClick={() => {
                                 if (row.version)
                                   calls.api(
@@ -399,7 +402,7 @@ export default function Versions(props) {
                                     (res) => {
                                       dispatch(
                                         setSnackBarText({
-                                          text: "Successfully set Configuration JSON to this version.",
+                                          text: ct("ui.successfully_set_configuration_json_to_this_83172e"),
                                           severity: "success",
                                         })
                                       );
@@ -418,7 +421,7 @@ export default function Versions(props) {
                                                 setSnackBarText({
                                                   text:
                                                     res?.message ||
-                                                    "Failed to get configuration for mission.",
+                                                    ct("ui.failed_to_get_configuration_for_mission_f268ae"),
                                                   severity: "error",
                                                 })
                                               );
@@ -428,7 +431,7 @@ export default function Versions(props) {
                                     (res) => {
                                       dispatch(
                                         setSnackBarText({
-                                          text: "Failed to set Configuration JSON to this version.",
+                                          text: ct("ui.failed_to_set_configuration_json_to_36d36f"),
                                           severity: "error",
                                         })
                                       );
