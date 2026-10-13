@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useMetadataText } from "../../../i18n";
+import { metadataText } from "../../../i18n/metadata";
 import { useSelector, useDispatch } from "react-redux";
 import {} from "./ToolsSlice";
 import { makeStyles } from "@mui/styles";
@@ -86,6 +88,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Tools() {
+  const tMeta = useMetadataText();
   const c = useStyles();
 
   const dispatch = useDispatch();
@@ -171,13 +174,13 @@ export default function Tools() {
                     })}
                   ></div>
                 </div>
-                <div className={c.cardName}>{key}</div>
+                <div className={c.cardName}>{metadataText(key, tMeta)}</div>
                 <div className={c.cardContent}>
                   <div className={c.cardContentTitle}>
-                    {tConfig.description}
+                    {metadataText(tConfig.description, tMeta)}
                   </div>
                   <div className={c.cardContentBody}>
-                    {tConfig.descriptionFull?.title}
+                    {metadataText(tConfig.descriptionFull?.title, tMeta)}
                   </div>
                 </div>
               </div>

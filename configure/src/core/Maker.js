@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useMetadataText } from "../i18n";
+import { localizeMetadata } from "../i18n/metadata";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
 
@@ -1083,15 +1085,15 @@ const getComponent = (
     case "dropdown": {
       const isOptionObject = (o) => typeof o === "object" && o !== null;
       const optionValue = (o) => (isOptionObject(o) ? o.value : o);
-      const optionLabel = (o) =>
-        isOptionObject(o) ? o.label ?? o.value : o;
+      const optionLabel = (o, index) =>
+        com.optionLabels?.[index] ?? (isOptionObject(o) ? o.label ?? o.value : o);
       const firstOptionValue = optionValue(com.options?.[0]);
       inner = (
         <FormControl className={c.dropdown} variant="filled" size="small">
           <InputLabel>{com.name}</InputLabel>
           <Select
             disabled={disabled || isDisabled}
-            value={value || getIn(directConf, com.field, firstOptionValue)}
+            value={value ?? getIn(directConf, com.field, firstOptionValue)}
             onChange={(e) => {
               if (!isDisabled) {
                 updateConfiguration(
@@ -1102,9 +1104,9 @@ const getComponent = (
               }
             }}
           >
-            {com.options.map((o) => {
+            {com.options.map((o, index) => {
               const v = optionValue(o);
-              const l = optionLabel(o);
+              const l = optionLabel(o, index);
               return (
                 <MenuItem value={v} key={v}>
                   {typeof l === "string" ? l.toUpperCase() : l}
@@ -1160,7 +1162,7 @@ const getComponent = (
         searchOptions = com.options || [];
       }
 
-      const currentValue = value || getIn(directConf, com.field, com.options?.[0] || "");
+      const currentValue = value ?? getIn(directConf, com.field, com.options?.[0] ?? "");
 
       inner = (
         <Autocomplete
@@ -1227,7 +1229,7 @@ const getComponent = (
       );
     case "colordropdown":
       let dropdown_value =
-        value || getIn(directConf, com.field, com.options?.[0]);
+        value ?? getIn(directConf, com.field, com.options?.[0]);
       inner = (
         <FormControl className={c.dropdown} variant="filled" size="small">
           <InputLabel>{com.name}</InputLabel>
@@ -1242,8 +1244,9 @@ const getComponent = (
               );
             }}
           >
-            {com.options?.map((o) => {
-              return <MenuItem value={o}>{o.toUpperCase()}</MenuItem>;
+            {com.options?.map((o, index) => {
+              const label = com.optionLabels?.[index] ?? o;
+              return <MenuItem value={o} key={o}>{label.toUpperCase()}</MenuItem>;
             })}
           </Select>
         </FormControl>
@@ -1845,7 +1848,9 @@ const makeConfig = (
 };
 
 export default function Maker(props) {
-  const { config, layer, toolName, componentName, shadowed, inlineHelp } = props;
+  const { config: sourceConfig, layer, toolName, componentName, shadowed, inlineHelp } = props;
+  const t = useMetadataText();
+  const config = localizeMetadata(sourceConfig, t);
   const c = useStyles();
 
   const dispatch = useDispatch();
