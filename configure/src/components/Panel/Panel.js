@@ -232,7 +232,7 @@ export default function Panel() {
         <div className={c.title}>
           <img className={c.titleImage} src={mmgisLogo} alt="MMGIS"></img>
           <div className={c.configurationName}>
-            <span>{ct("ui.config_885114")}</span>{ct("ui.uration_8b6ae6")}</div>
+            <span>{ct("ui.config_885114")}</span></div>
           {buildVersion && (
             <>
               {isVersionMismatch ? (
