@@ -121,7 +121,7 @@ _计算并展示地形对轨道目标或天体目标的视线可见性。_
 | `obsBody` | string | `MOON` | SPICE 观察者天体名称 |
 | `planetRadius` | number | 0 | 行星半径，单位为米，用于曲率修正 |
 | `maxOutputDim` | number | 400 | 最大网格尺寸，上限为 4096 |
-| `shadowReach` | number | 0 | 屏幕外阴影计算额外加载的 DEM 范围，单位为米 |
+| `shadowReach` | number | 0 | 屏幕外阴影计算额外加载的 DEM 范围，单位为千米 |
 | `isCustom` | string | `'false'` | 为 `'true'` 时，使用 `customAz`／`customEl`，不使用 SPICE |
 | `customAz`, `customEl` | number | 0 | 自定义源对象方位角和仰角，单位为度 |
 
