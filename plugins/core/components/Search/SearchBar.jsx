@@ -1,3 +1,4 @@
+import { useLegacyText } from '../../../../src/i18n/legacy-ui'
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { center } from '@turf/turf'
 
@@ -164,6 +165,8 @@ function getMapZoomCoordinate(layers) {
 }
 
 function SearchBar({ componentVars }) {
+    const tLegacy = useLegacyText()
+
     const [inputValue, setInputValue] = useState('')
     const [suggestions, setSuggestions] = useState([])
     const [showSuggestions, setShowSuggestions] = useState(false)
@@ -2102,7 +2105,7 @@ function SearchBar({ componentVars }) {
                         {/* Column 1: Layers */}
                         <div className="searchUnifiedCol searchRegularColLayers">
                             <div className="searchUnifiedColHeader">
-                                <span>Layers</span>
+                                <span>{tLegacy("Layers")}</span>
                             </div>
                             <div className="searchUnifiedColBody">
                                 {layerListItems.map((item, idx) => {
@@ -2142,13 +2145,13 @@ function SearchBar({ componentVars }) {
                                         )}
                                         <span className="searchRegularLayerLabel">{item.label}</span>
                                         {item.isGroup && (
-                                            <span className="searchRegularLayerDetail">{item.layers.length} layers</span>
+                                            <span className="searchRegularLayerDetail">{item.layers.length} {tLegacy("layers")}</span>
                                         )}
                                     </div>
                                     )
                                 })}
                                 {layerListItems.length === 0 && (
-                                    <div className="searchUnifiedEmpty">No search layers</div>
+                                    <div className="searchUnifiedEmpty">{tLegacy("No search layers")}</div>
                                 )}
                             </div>
                         </div>
@@ -2156,9 +2159,9 @@ function SearchBar({ componentVars }) {
                         {/* Column 2: Values */}
                         <div className="searchUnifiedCol searchRegularColValues">
                             <div className="searchUnifiedColHeader">
-                                <span>Values</span>
+                                <span>{tLegacy("Values")}</span>
                                 {arrayToSearch.length >= 500 && (
-                                    <span className="searchValuesCount">Top 500</span>
+                                    <span className="searchValuesCount">{tLegacy("Top 500")}</span>
                                 )}
                                 {selectedGroupId && (
                                     <Tooltip
@@ -2245,7 +2248,7 @@ function SearchBar({ componentVars }) {
                         <div className="searchTimeWarning">
                             <i className="mdi mdi-clock-alert-outline mdi-24px searchTimeWarningIcon" />
                             <span className="searchTimeWarningText">
-                                Results limited — not all matches may be shown.
+                                {tLegacy("Results limited — not all matches may be shown.")}
                                 <span className="searchTimeWarningDates">
                                     {timeRangeWarning.start?.replace(/\.\d{3}Z$/, 'Z') || timeRangeWarning.start} – {timeRangeWarning.end?.replace(/\.\d{3}Z$/, 'Z') || timeRangeWarning.end}
                                 </span>
@@ -2256,7 +2259,7 @@ function SearchBar({ componentVars }) {
                                 size="sm"
                                 onClick={handleFitTimeRange}
                             >
-                                Fit time range to results
+                                {tLegacy("Fit time range to results")}
                             </Button>
                         </div>
                     )}

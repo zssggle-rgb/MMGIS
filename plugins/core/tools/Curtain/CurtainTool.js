@@ -1,3 +1,4 @@
+import { uiTemplate, useLegacyText } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
@@ -24,6 +25,8 @@ const state = {
     setActiveImageLoading: function () {},
 }
 const Curtain = () => {
+    const tLegacy = useLegacyText()
+
     const [activeFeature, setActiveFeature] = useState([])
     const [activeImages, setActiveImages] = useState([])
     const [activeImageLoading, setActiveImageLoading] = useState(false)
@@ -51,7 +54,7 @@ const Curtain = () => {
         <div className='CurtainTool'>
             <div id='curtainLeft'>
                 <div id='curtainTop'>
-                    <div id='curtainTitle'>Curtain</div>
+                    <div id='curtainTitle'>{tLegacy("Curtain")}</div>
                     <div id='curtainIcons'>
                         <div
                             id='curtainClear'
@@ -87,7 +90,7 @@ const Curtain = () => {
 
                         <div id='curtainStats'>
                             <div>
-                                <div>Sol</div>
+                                <div>{tLegacy("Sol")}</div>
                                 <div>{activeFeature?.properties?.sol}</div>
                             </div>
                             <div>
@@ -95,21 +98,21 @@ const Curtain = () => {
                                 <div>{`${activeFeature?.properties?.fromRMC} → ${activeFeature?.properties?.toRMC}`}</div>
                             </div>
                             <div>
-                                <div>Length</div>
+                                <div>{tLegacy("Length")}</div>
                                 <div>{`${activeImage.length}m`}</div>
                             </div>
                             <div>
-                                <div>Depth</div>
+                                <div>{tLegacy("Depth")}</div>
                                 <div>{`${activeImage.depth}m`}</div>
                             </div>
                             <div>
-                                <div>Top Elevation</div>
+                                <div>{tLegacy("Top Elevation")}</div>
                                 <div>{`${activeImage.topElev}m`}</div>
                             </div>
                         </div>
                         <div id='curtainBottom'>
                             <div id='curtainMode'>
-                                <div>Mode</div>
+                                <div>{tLegacy("Mode")}</div>
                                 <select
                                     className='dropdown'
                                     defaultValue={activeImageId}
@@ -128,8 +131,8 @@ const Curtain = () => {
                                 </select>
                             </div>
                             <div id='curtain3dExag'>
-                                <div title='3D Vertical Exaggeration'>
-                                    3D Vertical Exaggeration
+                                <div title={tLegacy("3D Vertical Exaggeration")}>
+                                    {tLegacy("3D Vertical Exaggeration")}
                                 </div>
                                 <div className='flexbetween'>
                                     <div className='curtainSliderLabel'>
@@ -154,8 +157,8 @@ const Curtain = () => {
                                 </div>
                             </div>
                             <div id='curtain3dOffset'>
-                                <div title='3D Vertical Offset'>
-                                    3D Vertical Offset
+                                <div title={tLegacy("3D Vertical Offset")}>
+                                    {tLegacy("3D Vertical Offset")}
                                 </div>
                                 <div className='flexbetween'>
                                     <div className='curtainSliderLabel'>
@@ -204,7 +207,7 @@ const Curtain = () => {
                             : 'curtainMessageHidden'
                     }
                 >
-                    <div>Select a valid line segment on the map to begin.</div>
+                    <div>{tLegacy("Select a valid line segment on the map to begin.")}</div>
                 </div>
                 <div
                     id='curtainLoading'
@@ -237,10 +240,10 @@ const Curtain = () => {
                 >
                     <i className='mdi mdi-arrow-expand-vertical mdi-18px'></i>
                 </div>
-                <div id='curtainReset' title='Reset View'>
+                <div id='curtainReset' title={tLegacy("Reset View")}>
                     <i className='mdi mdi-restore mdi-18px'></i>
                 </div>
-                <div id='curtainZoomIn' title='Zoom In'>
+                <div id='curtainZoomIn' title={tLegacy("Zoom In")}>
                     <i className='mdi mdi-plus mdi-18px'></i>
                 </div>
                 <div id='curtainZoomOut' title='Zoom Out'>

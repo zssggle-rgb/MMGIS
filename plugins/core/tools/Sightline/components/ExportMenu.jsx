@@ -1,8 +1,11 @@
+import { useLegacyText } from "../../../../../src/i18n/legacy-ui"
 import React, { useCallback } from 'react'
 import SightlineTool from '../SightlineTool'
 import { Button } from '@design/components'
 
 export default function ExportMenu({ elmId }) {
+    const tLegacy = useLegacyText()
+
     const handlePNG = useCallback(() => SightlineTool.exportPNG(elmId), [elmId])
     const handleCSV = useCallback(() => SightlineTool.exportCSV(elmId), [elmId])
     const handleGeoJSON = useCallback(
@@ -46,7 +49,7 @@ export default function ExportMenu({ elmId }) {
                 onClick={handleReport}
                 title="Export report as JSON"
             >
-                <i className="mdi mdi-code-json mdi-12px" /> Report
+                <i className="mdi mdi-code-json mdi-12px" /> {tLegacy("Report")}
             </Button>
         </div>
     )

@@ -1,3 +1,4 @@
+import { uiText } from "../../../../src/i18n/legacy-ui"
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { utcFormat } from 'd3-time-format'
@@ -543,7 +544,7 @@ let SightlineTool = {
 
         const selectedTargets = options.targets || []
         if (selectedTargets.length === 0) {
-            Toast.warning('Select at least one source entity.', 6000)
+            Toast.warning(uiText("Select at least one source entity."), 6000)
             return
         }
         const hasCustom = selectedTargets.some((t) => t.value === false || t.value === 'false')
@@ -554,7 +555,7 @@ let SightlineTool = {
             customRange = el.customRange
             if (isNaN(customAz) || isNaN(customEl) || isNaN(customRange)) {
                 Toast.warning(
-                    'Azimuth, Elevation and Range need to be set when using Custom Az/El source.',
+                    uiText("Azimuth, Elevation and Range need to be set when using Custom Az/El source."),
                     6000
                 )
                 return
@@ -906,7 +907,7 @@ let SightlineTool = {
 
         // 1. [transparent, color]
         ramps.push({
-            name: '_tc', label: 'Color',
+            name: '_tc', label: uiText("Color"),
             hasAlpha: true,
             colors: [[cr, cg, cb, 0], [cr, cg, cb, 1]],
             reverse: false, bins: 2,
@@ -914,7 +915,7 @@ let SightlineTool = {
 
         // 2. [transparent, color, transparent]
         ramps.push({
-            name: '_tct', label: 'Color Fade',
+            name: '_tct', label: uiText("Color Fade"),
             hasAlpha: true,
             colors: [[cr, cg, cb, 0], [cr, cg, cb, 1], [cr, cg, cb, 0]],
             reverse: false, bins: 3,
@@ -939,14 +940,14 @@ let SightlineTool = {
         // 5. Red to Green (through yellow) — RdYlGn
         const rdylgnColors = colormapData['RdYlGn'] ? colormapData['RdYlGn'].colors : []
         ramps.push({
-            name: 'RdYlGn', label: 'Red → Green',
+            name: 'RdYlGn', label: uiText("Red → Green"),
             colors: rdylgnColors,
             reverse: false, bins: 6,
         })
 
         // 6. Black to White (single gradient)
         ramps.push({
-            name: 'BlackWhite', label: 'Black → White',
+            name: 'BlackWhite', label: uiText("Black → White"),
             colors: [[0, 0, 0], [1, 1, 1]],
             reverse: false, bins: 1,
         })
@@ -1286,7 +1287,7 @@ let SightlineTool = {
         }
         // Remove TimeUI playback indicator
         TimeUI.removeIndicator(null, 'sightlinetool')
-        Toast.info('Sweep cancelled.', 3000)
+        Toast.info(uiText("Sweep cancelled."), 3000)
     },
 
     // Cancel a single element's in-flight sweep (used by the per-item
@@ -1312,7 +1313,7 @@ let SightlineTool = {
             (id) => parseInt(id) !== elmId && store.elements[id]?.regenerating
         )
         if (!othersSweeping) TimeUI.removeIndicator(null, 'sightlinetool')
-        Toast.info('Sweep cancelled.', 3000)
+        Toast.info(uiText("Sweep cancelled."), 3000)
     },
 
     sightlineSweep: function (startTime, endTime, stepMinutes, activeElmId, onComplete) {
@@ -1334,7 +1335,7 @@ let SightlineTool = {
         const options = store.getSightlineOptions(activeElmId)
         const selectedTargets = options.targets || []
         if (selectedTargets.length === 0) {
-            Toast.warning('Select at least one source entity for sweep.', 6000)
+            Toast.warning(uiText("Select at least one source entity for sweep."), 6000)
             if (onComplete) onComplete()
             return
         }
@@ -1342,13 +1343,13 @@ let SightlineTool = {
         const startMs = new Date(startTime).getTime()
         const endMs = new Date(endTime).getTime()
         if (isNaN(startMs) || isNaN(endMs) || startMs > endMs) {
-            Toast.warning('Invalid time range for sweep.', 6000)
+            Toast.warning(uiText("Invalid time range for sweep."), 6000)
             if (onComplete) onComplete()
             return
         }
 
         if (stepMinutes <= 0) {
-            Toast.warning('Step must be a positive number.', 6000)
+            Toast.warning(uiText("Step must be a positive number."), 6000)
             if (onComplete) onComplete()
             return
         }
@@ -1511,7 +1512,7 @@ let SightlineTool = {
 
             if (sweepRunId !== _sweepRunIds[activeElmId]) return
             if (frames.length === 0) {
-                Toast.error('Sightmap batch returned no results.', 6000)
+                Toast.error(uiText("Sightmap batch returned no results."), 6000)
                 useSightlineStore.getState().setSweepField('sweepProgress', '')
                 _flushSweepProgress(activeElmId, 0, undefined, true)
                 if (typeof onComplete === 'function') onComplete()
@@ -1546,7 +1547,7 @@ let SightlineTool = {
 
             const firstResult = batchResults[0]
             if (!firstResult) {
-                Toast.error('Sightmap batch returned no valid results.', 6000)
+                Toast.error(uiText("Sightmap batch returned no valid results."), 6000)
                 useSightlineStore.getState().setSweepField('sweepProgress', '')
                 _flushSweepProgress(activeElmId, 0, undefined, true)
                 if (typeof onComplete === 'function') onComplete()
@@ -1739,7 +1740,7 @@ let SightlineTool = {
         const endTime = store.sweepEnd
         const stepMinutes = store.sweepStep
         if (!startTime || !endTime || !stepMinutes) {
-            Toast.warning('Set sweep Start Time, End Time and Step Size.', 6000)
+            Toast.warning(uiText("Set sweep Start Time, End Time and Step Size."), 6000)
             return
         }
         store.setSweepField('sweepStale', false)
@@ -1782,7 +1783,7 @@ let SightlineTool = {
             (id) => store.elements[id].on
         )
         if (activeIds.length === 0) {
-            Toast.warning('Enable at least one sightline map for sweep.', 6000)
+            Toast.warning(uiText("Enable at least one sightline map for sweep."), 6000)
             return
         }
         // Initialize card order — preserve existing order for known ids, append new ones

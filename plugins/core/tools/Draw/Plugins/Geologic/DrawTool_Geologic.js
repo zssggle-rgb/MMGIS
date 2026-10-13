@@ -1,3 +1,4 @@
+import { uiMarkup, uiRenderedMarkup, uiTemplate } from '../../../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
@@ -203,7 +204,7 @@ const Geologic = {
         Geologic.setCurrentTypes()
 
         if (Geologic.invalidFeature) {
-            return "<div id='geologicUnsupported'>This feature does not support geologic symbologies.</div>"
+            return uiMarkup("<div id='geologicUnsupported'>This feature does not support geologic symbologies.</div>")
         }
 
         const previewType = Geologic.currentType === 'symbol' ? 'box' : 'row'
@@ -263,55 +264,55 @@ const Geologic = {
                                     `<div class='geologicTabName'>${tag || 'None'}</div>`,
                                     `<div class='geologicTabTitle'>${Geologic.currentType}</div>`,
                                 "</div>",
-                                "<div class='geologicTabDesc'>No Description</div>",
+                                uiMarkup("<div class='geologicTabDesc'>No Description</div>"),
                             "</div>",
                         "</div>",
                     "</div>",
                 "</div>",
                 "<div id='geologicOptions'>",
                     `<div class='geologicOption${displayOpts.color ? '' : ' geologicHidden'}' id='geologicOptionColor'>`,
-                        "<div>Color</div>",
+                        uiMarkup("<div>Color</div>"),
                         `<div>${Dropy.construct(Geologic.currentType === 'pattern' ? Geologic.patternColors : Geologic.colors, null, Math.max(0, F_.colorCodes.indexOf(Geologic.optionValues.color)))}</div>`,
                     "</div>",
                     `<div class='geologicOption${displayOpts.fillColor ? '' : ' geologicHidden'}' id='geologicOptionFillColor'>`,
-                        "<div>Back Color</div>",
+                        uiMarkup("<div>Back Color</div>"),
                         `<div>${Dropy.construct(Geologic.fillColors, null, Math.max(0, Geologic.fillColorScheme.indexOf(Geologic.optionValues.fillColor)))}</div>`,
                     "</div>",
                     `<div class='geologicOption${displayOpts.fillOpacity ? '' : ' geologicHidden'}' id='geologicOptionFillOpacity'>`,
-                        "<div>Back Opacity</div>",
+                        uiMarkup("<div>Back Opacity</div>"),
                         "<div class='flexbetween'>",
                             `<div id='geologicOptionFillOpacityLabel' class='geologicSliderLabel'>(${Geologic.optionValues.fillOpacity * 100}%)</div>`,
                             `<input id='geologicOptionFillOpacityInput' class='slider2 lighter' type='range' min='0' max='100' step='10' value='${Geologic.optionValues.fillOpacity * 100}'/>`,
                         "</div>",
                     "</div>",
                     `<div class='geologicOption${displayOpts.size ? '' : ' geologicHidden'}' id='geologicOptionSize'>`,
-                        "<div>Size</div>",
+                        uiMarkup("<div>Size</div>"),
                         "<div class='flexbetween'>",
                             `<div id='geologicOptionSizeLabel' class='geologicSliderLabel'>(${Geologic.optionValues.size * 100}%)</div>`,
                             `<input id='geologicOptionSizeInput' class='slider2 lighter' type='range' min='25' max='200' step='25' value='${Geologic.optionValues.size * 100}'/>`,
                         "</div>",
                     "</div>",
                     `<div class='geologicOption${displayOpts.rotation ? '' : ' geologicHidden'}' id='geologicOptionRotation'>`,
-                        "<div>Rotation</div>",
+                        uiMarkup("<div>Rotation</div>"),
                         "<div class='flexbetween'>",
                             `<div id='geologicOptionRotationLabel' class='geologicSliderLabel'>(${Geologic.optionValues.rotation}deg)</div>`,
                             `<input id='geologicOptionRotationInput' class='slider2 lighter' type='range' min='0' max='360' step='1' value='${Geologic.optionValues.rotation}'/>`,
                         "</div>",
                     "</div>",
                     `<div class='geologicOption${displayOpts.repetition ? '' : ' geologicHidden'}' id='geologicOptionRepetition'>`,
-                        "<div>Repetition</div>",
+                        uiMarkup("<div>Repetition</div>"),
                         "<div class='flexbetween'>",
                             `<div id='geologicOptionRepetitionLabel' class='geologicSliderLabel'>(${Geologic.optionValues.repetition}px)</div>`,
                             `<input id='geologicOptionRepetitionInput' class='slider2 lighter' type='range' min='20' max='600' step='1' value='${Geologic.optionValues.repetition}'/>`,
                         "</div>",
                     "</div>",
                     `<div class='geologicOption${displayOpts.position ? '' : ' geologicHidden'}' id='geologicOptionPosition'>`,
-                        "<div>Position</div>",
+                        uiMarkup("<div>Position</div>"),
                         "<div>",
                             "<select id='geologicOptionPositionInput' class='dropdown'>",
-                                `<option value='left'${Geologic.optionValues.position === 'left' ? ' selected': ''}>Left</option>`,
-                                `<option value='center'${Geologic.optionValues.position === 'center' ? ' selected': ''}>Center</option>`,
-                                `<option value='right'${Geologic.optionValues.position === 'right' ? ' selected': ''}>Right</option>`,
+                                uiTemplate`<option value='left'${Geologic.optionValues.position === 'left' ? ' selected': ''}>Left</option>`,
+                                uiTemplate`<option value='center'${Geologic.optionValues.position === 'center' ? ' selected': ''}>Center</option>`,
+                                uiTemplate`<option value='right'${Geologic.optionValues.position === 'right' ? ' selected': ''}>Right</option>`,
                             "</select>",
                         "</div>",
                     "</div>",
@@ -366,26 +367,26 @@ const Geologic = {
         )
         $('#geologicOptionFillOpacityInput').on('input', function () {
             Geologic.optionValues.fillOpacity = parseFloat($(this).val() / 100)
-            $('#geologicOptionFillOpacityLabel').html(`(${$(this).val()}%)`)
+            $('#geologicOptionFillOpacityLabel').html(uiRenderedMarkup(`(${$(this).val()}%)`))
 
             Geologic.updateLayer()
         })
         $('#geologicOptionSizeInput').on('input', function () {
             Geologic.optionValues.size = parseFloat($(this).val() / 100)
-            $('#geologicOptionSizeLabel').html(`(${$(this).val()}%)`)
+            $('#geologicOptionSizeLabel').html(uiRenderedMarkup(`(${$(this).val()}%)`))
 
             Geologic.updateLayer()
         })
         $('#geologicOptionRotationInput').on('input', function () {
             Geologic.optionValues.rotation = parseInt($(this).val())
-            $('#geologicOptionRotationLabel').html(`(${$(this).val()}deg)`)
+            $('#geologicOptionRotationLabel').html(uiRenderedMarkup(`(${$(this).val()}deg)`))
 
             Geologic.updateLayer()
         })
 
         $('#geologicOptionRepetitionInput').on('input', function () {
             Geologic.optionValues.repetition = parseInt($(this).val())
-            $('#geologicOptionRepetitionLabel').html(`(${$(this).val()}px)`)
+            $('#geologicOptionRepetitionLabel').html(uiRenderedMarkup(`(${$(this).val()}px)`))
 
             Geologic.updateLayer()
         })
@@ -413,7 +414,7 @@ const Geologic = {
         const contents = [
             [
                 `<div class='geologicElement' type='${type}' tag='null'>`,
-                `<div class='geologicNone'>None</div>`,
+                uiTemplate`<div class='geologicNone'>None</div>`,
                 `</div>`,
             ].join('\n'),
         ]
@@ -476,7 +477,7 @@ const Geologic = {
         ].join('\n')
 
         $('#geologicElements').empty()
-        $('#geologicElements').html(markup)
+        $('#geologicElements').html(uiRenderedMarkup(markup))
         $('.geologicElement').on('click', function () {
             const code = $(this).attr('code')
             const color = $(this).attr('color')
@@ -510,7 +511,7 @@ const Geologic = {
         const tag = LayerGeologic.getTag(Geologic.active, Geologic.activeColor)
 
         $(`#geologicTabSelected`).html(
-            Geologic.getPreview(Geologic.currentType, tag, true)
+            uiRenderedMarkup(Geologic.getPreview(Geologic.currentType, tag, true))
         )
 
         Geologic.lockUpdateLayer = true
@@ -658,12 +659,12 @@ const Geologic = {
                     }; width: ${pSize}px; height: ${pSize};'>${
                         def.style.symbol.key
                     }</div>`
-                return "<div class='geologicNone geologicNoneTall'>None</div>"
+                return uiMarkup("<div class='geologicNone geologicNoneTall'>None</div>")
             default:
                 const url = LayerGeologic.getUrl(type, tag)
                 return url
                     ? `<div style='background-image: url(${url}); background-size: ${Geologic.previewSize}px ${Geologic.previewSize}px;'></div>`
-                    : "<div class='geologicNone geologicNoneTall'>None</div>"
+                    : uiMarkup("<div class='geologicNone geologicNoneTall'>None</div>")
         }
     },
     resetGeologic: function () {

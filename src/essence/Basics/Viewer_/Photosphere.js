@@ -1,4 +1,5 @@
 import F_ from '../Formulae_/Formulae_'
+import { uiMarkup } from '../../../i18n/legacy-ui'
 import L_ from '../Layers_/Layers_'
 import Sprites from '../../services/Sprites'
 import Hammer from 'hammerjs'
@@ -175,7 +176,7 @@ export default function (domEl, lookupPath, options, Map_) {
         if (!wasInitialized) {
             if (typeof callback === 'function')
                 callback(
-                    "<div style='letter-spacing: 0px; font-size: 18px; text-align: center; font-family: roboto; color: #CCC;'><div style='margin-bottom: 5px;'>Seems like <a target='_blank' href='https://www.khronos.org/webgl/wiki/Getting_a_WebGL_Implementation'>WebGL</a> isn't supported for you.</div><div>Find out how to get it <a target='_blank' href='https://get.webgl.org/'>here</a>.</div></div>"
+                    uiMarkup("<div style='letter-spacing: 0px; font-size: 18px; text-align: center; font-family: roboto; color: #CCC;'><div style='margin-bottom: 5px;'>This browser does not support WebGL.</div><div><a target='_blank' href='https://www.khronos.org/webgl/wiki/Getting_a_WebGL_Implementation'>View WebGL support instructions</a> · <a target='_blank' href='https://get.webgl.org/'>Get a WebGL-compatible browser</a></div></div>")
                 )
         }
         geometry = feature.geometry

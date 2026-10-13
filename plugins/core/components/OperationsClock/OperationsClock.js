@@ -1,3 +1,4 @@
+import { uiMarkup, uiTemplate } from '../../../../src/i18n/legacy-ui'
 /**
  * OperationsClock - Configurable interval-based time control
  *
@@ -554,7 +555,7 @@ const OperationsClock = {
             </svg>
         `
 
-        container.innerHTML = `
+        container.innerHTML = uiTemplate`
             <div class="clock-button-group">
                 ${pastButtons.join('')}
                 <div class="clock-today-wrapper">
@@ -582,14 +583,14 @@ const OperationsClock = {
         const forecastUnitLabel = this.config.futureUnit || 'day'
 
         // Past options (0 to -N)
-        pastOptions.push('<option value="0">Today</option>')
+        pastOptions.push(uiMarkup("<option value=\"0\">Today</option>"))
         for (let i = 1; i <= this.config.pastInterval; i++) {
             const label = i === 1 ? `1 ${pastUnitLabel} ago` : `${i} days ago`
             pastOptions.push(`<option value="${-i}">-${i} (${label})</option>`)
         }
 
         // Future options (0 to +N)
-        futureOptions.push('<option value="0">Today</option>')
+        futureOptions.push(uiMarkup("<option value=\"0\">Today</option>"))
         for (let i = 1; i <= this.config.futureInterval; i++) {
             const label =
                 i === 1 ? `1 ${forecastUnitLabel} ahead` : `${i} days ahead`
@@ -606,11 +607,11 @@ const OperationsClock = {
             </svg>
         `
 
-        container.innerHTML = `
+        container.innerHTML = uiTemplate`
             <div class="clock-mobile-group">
                 ${
                     this.config.pastInterval > 0
-                        ? `<div class="clock-mobile-row">
+                        ? uiTemplate`<div class="clock-mobile-row">
                     <label>Past Days:</label>
                     <select class="clock-select clock-select-past">
                         ${pastOptions.join('')}
@@ -629,7 +630,7 @@ const OperationsClock = {
 
                 ${
                     this.config.futureInterval > 0
-                        ? `<div class="clock-mobile-row">
+                        ? uiTemplate`<div class="clock-mobile-row">
                     <label>Future Days:</label>
                     <select class="clock-select clock-select-future">
                         ${futureOptions.join('')}

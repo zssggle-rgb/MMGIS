@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import { bindUiAttribute } from '../../../i18n/legacy-ui'
 import F_ from '../Formulae_/Formulae_'
 import L_ from '../Layers_/Layers_'
 import { captureVector } from '../Layers_/LayerCapturer'
@@ -223,7 +224,20 @@ let Map_ = {
             window.mmgisglobal.customCRS.projString = projString
         }
 
-        if (this.map.zoomControl) this.map.zoomControl.setPosition('topright')
+        if (this.map.zoomControl) {
+            this.map.zoomControl.setPosition('topright')
+            const zoomControls = this.map.zoomControl.getContainer()
+            const zoomIn = zoomControls.querySelector('.leaflet-control-zoom-in')
+            const zoomOut = zoomControls.querySelector('.leaflet-control-zoom-out')
+            if (zoomIn) {
+                bindUiAttribute(zoomIn, 'title', 'Zoom in')
+                bindUiAttribute(zoomIn, 'aria-label', 'Zoom in')
+            }
+            if (zoomOut) {
+                bindUiAttribute(zoomOut, 'title', 'Zoom out')
+                bindUiAttribute(zoomOut, 'aria-label', 'Zoom out')
+            }
+        }
 
         // Home button on zoom controls (resets to configured initial view)
         var HomeControl = L.Control.extend({
@@ -233,9 +247,9 @@ let Map_ = {
                 var btn = L.DomUtil.create('a', 'leaflet-control-zoom-home', container)
                 btn.innerHTML = '<i class="mdi mdi-home-variant-outline" style="font-size:16px;line-height:30px;"></i>'
                 btn.href = '#'
-                btn.title = 'Reset View'
+                bindUiAttribute(btn, 'title', 'Reset View')
                 btn.setAttribute('role', 'button')
-                btn.setAttribute('aria-label', 'Reset View')
+                bindUiAttribute(btn, 'aria-label', 'Reset View')
                 L.DomEvent.disableClickPropagation(btn)
                 L.DomEvent.on(btn, 'click', function (e) {
                     L.DomEvent.preventDefault(e)

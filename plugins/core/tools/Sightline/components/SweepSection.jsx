@@ -1,3 +1,4 @@
+import { uiText, useLegacyText } from '../../../../../src/i18n/legacy-ui'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import useSightlineStore from '../store'
 import SightlineTool from '../SightlineTool'
@@ -16,18 +17,18 @@ function fmtUTC(t) {
 }
 
 const VIEW_MODE_TABS = [
-    { label: 'Composite', value: 'composite' },
-    { label: 'Playback', value: 'playback' },
+    { label: "Composite", value: 'composite' },
+    { label: "Playback", value: 'playback' },
 ]
 
 const COLOR_MODE_OPTIONS = [
-    { label: 'Continuous', value: 'continuous' },
-    { label: 'Discrete', value: 'discrete' },
+    { label: "Continuous", value: 'continuous' },
+    { label: "Discrete", value: 'discrete' },
 ]
 
 const FIT_MODE_OPTIONS = [
-    { label: 'Absolute (0–100%)', value: 'absolute' },
-    { label: 'Fit to data', value: 'fit' },
+    { label: "Absolute (0–100%)", value: 'absolute' },
+    { label: "Fit to data", value: 'fit' },
 ]
 
 function getTimeUIMode() {
@@ -36,6 +37,8 @@ function getTimeUIMode() {
 }
 
 export default function SweepSection() {
+    const tLegacy = useLegacyText()
+
     const sweepStart = useSightlineStore((s) => s.sweepStart)
     const sweepEnd = useSightlineStore((s) => s.sweepEnd)
     const sweepStep = useSightlineStore((s) => s.sweepStep)
@@ -207,7 +210,7 @@ export default function SweepSection() {
         <div className="vstSweepSection">
             <div className="vstSweepBody">
                 <div className="vstOptionRow">
-                    <div className="vstOptionLabel">Start Time</div>
+                    <div className="vstOptionLabel">{tLegacy("Start Time")}</div>
                     <input
                         type="text"
                         className="vstSweepInput"
@@ -219,7 +222,7 @@ export default function SweepSection() {
                     />
                 </div>
                 <div className="vstOptionRow">
-                    <div className="vstOptionLabel">End Time</div>
+                    <div className="vstOptionLabel">{tLegacy("End Time")}</div>
                     <input
                         type="text"
                         className="vstSweepInput"
@@ -231,7 +234,7 @@ export default function SweepSection() {
                     />
                 </div>
                 <div className="vstOptionRow">
-                    <div className="vstOptionLabel">Step Size</div>
+                    <div className="vstOptionLabel">{tLegacy("Step Size")}</div>
                     <InputWithUnit
                         unit="min"
                         type="number"
@@ -253,7 +256,7 @@ export default function SweepSection() {
                         onClick={handleSweep}
                         className="vstSweepButton"
                     >
-                        Sweep
+                        {tLegacy("Sweep")}
                     </ProgressButton>
                     {!!sweepProgress && !sweepProgress.startsWith('Done') && (
                         <IconButton
@@ -273,7 +276,7 @@ export default function SweepSection() {
                 {sweepStale && Object.keys(sweepElData).some((id) => sweepElData[id]?.heatmap) && (
                     <div className="vstSweepStaleMsg">
                         <i className="mdi mdi-alert-outline mdi-14px" />
-                        <span>Viewport changed — re-run sweep to update results</span>
+                        <span>{tLegacy("Viewport changed — re-run sweep to update results")}</span>
                     </div>
                 )}
             </div>
@@ -285,29 +288,29 @@ export default function SweepSection() {
                         <Tabs
                             value={sweepViewMode}
                             onValueChange={handleViewModeChange}
-                            tabs={VIEW_MODE_TABS}
+                            tabs={((VIEW_MODE_TABS).map(option => ({ ...option, label: tLegacy(option.label) }))).map(option => ({ ...option, label: tLegacy(option.label) }))}
                             size="xs"
                         />
                     </div>
                     {sweepViewMode === 'composite' && (
                         <div className="vstSweepGlobalOptions">
                             <div className="vstSweepGlobalRow">
-                                <span className="vstSweepGlobalLabel">Mode</span>
+                                <span className="vstSweepGlobalLabel">{tLegacy("Mode")}</span>
                                 <div style={{ width: 145 }}>
                                     <Select
                                         value={sweepDiscrete ? 'discrete' : 'continuous'}
                                         onValueChange={handleDiscreteChange}
-                                        options={COLOR_MODE_OPTIONS}
+                                        options={((COLOR_MODE_OPTIONS).map(option => ({ ...option, label: tLegacy(option.label) }))).map(option => ({ ...option, label: tLegacy(option.label) }))}
                                     />
                                 </div>
                             </div>
                             <div className="vstSweepGlobalRow">
-                                <span className="vstSweepGlobalLabel">Range</span>
+                                <span className="vstSweepGlobalLabel">{tLegacy("Range")}</span>
                                 <div style={{ width: 145 }}>
                                     <Select
                                         value={sweepFitToData ? 'fit' : 'absolute'}
                                         onValueChange={handleFitModeChange}
-                                        options={FIT_MODE_OPTIONS}
+                                        options={((FIT_MODE_OPTIONS).map(option => ({ ...option, label: tLegacy(option.label) }))).map(option => ({ ...option, label: tLegacy(option.label) }))}
                                     />
                                 </div>
                             </div>
@@ -342,7 +345,7 @@ export default function SweepSection() {
                         <div className="vstSweepPlaybar">
                             <IconButton
                                 size="md"
-                                title="Step back"
+                                title={tLegacy("Step back")}
                                 onClick={() => SightlineTool.sweepStepBack()}
                             >
                                 <i className="mdi mdi-skip-previous mdi-18px" />
@@ -359,7 +362,7 @@ export default function SweepSection() {
                                 <>
                                     <IconButton
                                         size="md"
-                                        title="Play"
+                                        title={tLegacy("Play")}
                                         onClick={handlePlayNormal}
                                     >
                                         <i className="mdi mdi-play mdi-18px" />
@@ -375,7 +378,7 @@ export default function SweepSection() {
                             )}
                             <IconButton
                                 size="md"
-                                title="Step forward"
+                                title={tLegacy("Step forward")}
                                 onClick={() => SightlineTool.sweepStepForward()}
                             >
                                 <i className="mdi mdi-skip-next mdi-18px" />
