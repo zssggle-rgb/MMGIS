@@ -1,4 +1,4 @@
-import { uiMarkup, uiRenderedMarkup, uiTemplate, uiText } from '../../../../src/i18n/legacy-ui'
+import { uiLabel, uiMarkup, uiRenderedMarkup, uiTemplate, uiText } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
@@ -371,7 +371,7 @@ function interfaceWithMMGIS() {
         const defaultFrameRate = 1 // Default: 1 FPS = 1 second per frame
         AnimationTool.animationSettings.frameRate = defaultFrameRate
         $('#frameRateSlider').val(defaultFrameRate)
-        $('#frameRateValue').text(fpsToEverySeconds(defaultFrameRate))
+        $('#frameRateValue').html(fpsToEverySeconds(defaultFrameRate))
 
         // Initialize layer refresh rate slider
         const defaultLayerRefreshRate = 1000 // Default: 1 second
@@ -455,11 +455,11 @@ function interfaceWithMMGIS() {
         // Convert FPS to "Every X seconds" format for display
         const seconds = 1 / fps
         if (seconds < 1) {
-            return `Every ${seconds.toFixed(1)}s`
+            return `${uiLabel('Every')} ${seconds.toFixed(1)}s`
         } else if (seconds === Math.floor(seconds)) {
-            return `Every ${seconds}s`
+            return `${uiLabel('Every')} ${seconds}s`
         } else {
-            return `Every ${seconds.toFixed(1)}s`
+            return `${uiLabel('Every')} ${seconds.toFixed(1)}s`
         }
     }
 
@@ -591,7 +591,7 @@ function interfaceWithMMGIS() {
         ) {
             AnimationTool.animationSettings.frameRate = newFPS
             $('#frameRateSlider').val(newFPS)
-            $('#frameRateValue').text(fpsToEverySeconds(newFPS))
+            $('#frameRateValue').html(fpsToEverySeconds(newFPS))
         }
     }
 
@@ -741,7 +741,7 @@ function interfaceWithMMGIS() {
         $('#frameRateSlider').on('input', (e) => {
             const value = parseFloat(e.target.value)
 
-            $('#frameRateValue').text(fpsToEverySeconds(value))
+            $('#frameRateValue').html(fpsToEverySeconds(value))
             AnimationTool.animationSettings.frameRate = value
             syncTimeUIFromAnimation()
         })
