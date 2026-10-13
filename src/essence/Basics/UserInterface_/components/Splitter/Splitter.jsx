@@ -1,3 +1,4 @@
+import { useMapText } from '../../../../../i18n'
 import React, { useCallback, useRef } from 'react'
 import useUIStore from '../../store/uiStore'
 import splitterStyles from './Splitter.module.css'
@@ -5,6 +6,7 @@ import splitterStyles from './Splitter.module.css'
 const DRAG_THRESHOLD = 1
 
 function Splitter({ type, orientation }) {
+    const t = useMapText()
     const splitterSizeHidden = useUIStore((s) => s.splitterSizeHidden)
     const splitterSize = useUIStore((s) => s.splitterSize)
     const pxIsViewer = useUIStore((s) => s.pxIsViewer)
@@ -203,8 +205,8 @@ function Splitter({ type, orientation }) {
                             }
                         }}
                     ></i>
-                    <div id="mapSplitInnerViewerInfo">Viewer</div>
-                    <div id="mapSplitInnerVMapInfo">Map</div>
+                    <div id="mapSplitInnerViewerInfo">{t('panel.viewer')}</div>
+                    <div id="mapSplitInnerVMapInfo">{t('panel.map')}</div>
                 </div>
             </div>
         )
@@ -319,8 +321,8 @@ function Splitter({ type, orientation }) {
                             }
                         }}
                     ></i>
-                    <div id="mapSplitInnerGlobeInfo">Globe</div>
-                    <div id="mapSplitInnerGMapInfo">Map</div>
+                    <div id="mapSplitInnerGlobeInfo">{t('panel.globe')}</div>
+                    <div id="mapSplitInnerGMapInfo">{t('panel.map')}</div>
                 </div>
             </div>
         )

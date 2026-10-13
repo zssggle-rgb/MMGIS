@@ -1,4 +1,6 @@
 import React from 'react'
+import { localeReady, i18n } from './i18n'
+import { withLocale } from './i18n/generated/locale'
 import essence from './essence/essence'
 import $ from 'jquery'
 import LandingPage from './essence/LandingPage/LandingPage'
@@ -16,7 +18,7 @@ import ToastRenderer from './design-system/components/Toast/ToastRenderer'
 })()
 
 //Start MMGIS
-$(document).ready(function () {
+localeReady.then(() => $(document).ready(function () {
     const browser = F_.getBrowser()
     if (browser === 'firefox') {
         $('body').css({
@@ -37,24 +39,25 @@ $(document).ready(function () {
             initApp()
         }
     )
-})
+}))
 
 function initApp() {
     if (window.mmgisglobal.FORCE_CONFIG_PATH) {
-        const u = window.location.href.split('?s=')
-        if (!u[1]) {
+        const u = new URL(window.location.href)
+        const short = u.searchParams.get('s')
+        if (!short) {
             //Not a shortened URL
             LandingPage.init(null, false, window.mmgisglobal.FORCE_CONFIG_PATH)
         } else {
             calls.api(
                 'shortener_expand',
                 {
-                    short: u[1],
+                    short,
                 },
                 function (s) {
                     //Set and update the url
-                    const url = u[0] + s.body.url
-                    window.history.replaceState('', '', url)
+                    const url = new URL(s.body.url, u.origin + u.pathname).href
+                    window.history.replaceState('', '', withLocale(url, i18n.language))
 
                     LandingPage.init(
                         null,
@@ -87,20 +90,21 @@ function initApp() {
         )
 
         function continueOn(missions) {
-            const u = window.location.href.split('?s=')
-            if (!u[1]) {
+            const u = new URL(window.location.href)
+            const short = u.searchParams.get('s')
+            if (!short) {
                 //Not a shortened URL
                 LandingPage.init(missions)
             } else {
                 calls.api(
                     'shortener_expand',
                     {
-                        short: u[1],
+                        short,
                     },
                     function (s) {
                         //Set and update the url
-                        const url = u[0] + s.body.url
-                        window.history.replaceState('', '', url)
+                        const url = new URL(s.body.url, u.origin + u.pathname).href
+                        window.history.replaceState('', '', withLocale(url, i18n.language))
                         LandingPage.init(missions)
                     },
                     function (e) {
