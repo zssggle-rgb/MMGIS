@@ -1,4 +1,5 @@
-import { useMapText, mapText } from '../../../../../i18n'
+import { useMapText } from '../../../../../i18n'
+import { uiAttribute } from '../../../../../i18n/legacy-ui'
 /**
  * Help — renders a help button that opens a markdown help modal.
  *
@@ -69,7 +70,7 @@ function HelpContent({ helpKey }) {
 
 const Help = {
     getComponent: function (helpKey) {
-        return `<div id='helpModal_${helpKey}' class='mmgisButton5 mmgisHelpButton' title='${mapText('help.title')}'><i class='mdi mdi-help-rhombus-outline mdi-18px'></i></div>`
+        return `<div id='helpModal_${helpKey}' class='mmgisButton5 mmgisHelpButton' ${uiAttribute('title', 'Help')}><i class='mdi mdi-help-rhombus-outline mdi-18px'></i></div>`
     },
     finalize: function (helpKey) {
         const btn = document.getElementById(`helpModal_${helpKey}`)
