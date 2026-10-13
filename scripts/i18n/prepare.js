@@ -57,7 +57,7 @@ function prepareResources(root) {
     const resources = loadCatalogs(root)
     const packageInfo = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'))
     const serialized = JSON.stringify(resources, null, 4) + '\n'
-    const runtimeNames = ['locale.js', 'engine.js', 'controller.js', 'browser.js']
+    const runtimeNames = ['locale.js', 'engine.js', 'controller.js', 'browser.js', 'feedback.js']
     const runtime = Object.fromEntries(runtimeNames.map((name) => [name, fs.readFileSync(path.join(root, 'locales/runtime', name), 'utf8')]))
     const help = Object.fromEntries(LOCALES.map((locale) => [locale, {}]))
     const helpInputs = []

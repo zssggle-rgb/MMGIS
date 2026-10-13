@@ -61,6 +61,7 @@ const rootDir = `${__dirname}/..`;
 
 ///////////////////////////
 const app = express();
+app.use(require('../API/i18n/http').uiLanguage);
 
 const isDocker = utils.isDocker();
 process.env.IS_DOCKER = isDocker ? "true" : "false";
