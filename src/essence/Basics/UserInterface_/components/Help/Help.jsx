@@ -112,6 +112,8 @@ const Help = {
     finalize: function (helpKey) {
         const btn = document.getElementById(`helpModal_${helpKey}`)
         if (!btn) return
+        btn.title = i18n.t('title', { ns: 'help' })
+        btn.setAttribute('aria-label', btn.title)
 
         btn.addEventListener('click', function () {
             Modal.set(<HelpContent helpKey={helpKey} />)
