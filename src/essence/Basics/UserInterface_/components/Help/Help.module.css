@@ -49,6 +49,20 @@
     max-height: 80vh;
 }
 
+.retryBtn {
+    padding: 6px 16px;
+    border: 1px solid var(--color-a3);
+    border-radius: 4px;
+    background: var(--color-a1);
+    color: var(--color-f);
+    cursor: pointer;
+}
+
+.retryBtn:hover,
+.retryBtn:focus-visible {
+    border-color: var(--color-p0);
+}
+
 .content code {
     background: var(--color-a1);
     padding: 0px 4px;
