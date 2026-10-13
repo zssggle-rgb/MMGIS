@@ -39,15 +39,8 @@ call sites (T3–T7), Chinese help (T8), or generate the final frontend/Docker
 artifact manifest (T10). Fourteen original English help URLs are retained;
 Chinese help is added by T8. Do not treat this foundation as complete UI QA.
 
-Focused checks:
-
-```sh
-PLAYWRIGHT_TEST_UNIT_ONLY=true npx playwright test tests/unit/i18n-core.spec.js --project=chromium
-npm run i18n:prepare
-node scripts/i18n/verify-runtime.js
-MMGIS_I18N_QA=true TEST_BASE_URL=http://127.0.0.1:18892 npx playwright test --config=playwright.i18n-qa.config.js
-```
-
-The last command tests public fixtures deployed to the isolated Host60 QA app
-via an SSH tunnel. Its dedicated config does not run database setup or a broad
-suite. Install root and configure dependencies before their respective builds.
+Development workflow: complete the task, run the review skill, then submit the
+formal PR automatically. Run the QA skill on Host60 only when integration
+verification is required. Do not add or run other tests independently. This
+explicit owner instruction overrides generic testing guidance for this work.
+Install root and configure dependencies before their respective builds.
