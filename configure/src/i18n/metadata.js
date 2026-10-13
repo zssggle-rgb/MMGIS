@@ -19,7 +19,7 @@ export function localizeMetadata(schema, t) {
 
 function localizeNode(node, t) {
   const result = { ...node };
-  for (const field of ["name", "subname", "description", "placeholder", "disabledMessage"]) {
+  for (const field of ["name", "subname", "description", "subdescription", "placeholder", "disabledMessage"]) {
     if (typeof node[field] === "string") result[field] = metadataText(node[field], t);
   }
   for (const field of ["tabs", "rows", "components", "object"]) {
