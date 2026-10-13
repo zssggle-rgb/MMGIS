@@ -396,7 +396,7 @@ const NewMissionModal = (props) => {
             <li>
               <strong>{ct("ui.includes_63f287")}</strong>{ct("ui.20_sample_layers_14_interactive_tools_130af7")}</li>
             <li>
-              <strong>{ct("ui.deployed_to_518a50")}oyed_to_518a50")}</strong>{" "}
+              <strong>{ct("ui.deployed_to_518a50")}</strong>{" "}
               <code>{ct("ui.missions_reference_mission_11e6b6")}</code>{ct("ui.always_overwritten_df03db")}</li>
             <li>
               <strong>{ct("ui.source_922acd")}</strong>{ct("ui.blueprint_template_at_6be054")}{" "}
