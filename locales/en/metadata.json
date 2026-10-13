@@ -1242,5 +1242,15 @@
     "text.b984f2d83f003524": "windbarbs",
     "text.9366d1e7528d97ae": "wms",
     "text.1c6163b823470649": "wmts",
-    "text.f9252d647dba25cc": "⚠️ Important: The three panel width percentages must sum to exactly 100. If they don't sum to 100, the system will fall back to the default layout (Viewer 0%, Map 100%, Globe 0%). Deeplinks with the 'panePercents' parameter will always override these configured defaults."
+    "text.f9252d647dba25cc": "⚠️ Important: The three panel width percentages must sum to exactly 100. If they don't sum to 100, the system will fall back to the default layout (Viewer 0%, Map 100%, Globe 0%). Deeplinks with the 'panePercents' parameter will always override these configured defaults.",
+    "text.dc937b59892604f5": "None",
+    "text.8de4e55655454633": "Assign tags to this layer so that they may be searched upon through the LayersTool. A category may be specified with the following pattern: 'category:tag'",
+    "text.20ef527a04dc7d60": "A freeform markdown description of the layer. In the LayersTool, users may click the information icon beside the layer's name to view this information.",
+    "text.79befa8b5d7d9b34": "Uses an icon image instead of an svg for all of the layer's point markers. If you're using this as a bearing marker, make sure the base icon is pointing north.",
+    "text.8d5255e722add558": "The property key whose value should be the hover text of each feature. If left unset, the hover key and value will be the first one listed in the feature's properties.",
+    "text.d8eda21f7b4c3f4e": "Attribution information for the dataset. If configured, the attribution will be displayed horizontally below the scalebar when the layer is visible.",
+    "text.7dc9897ccc33a2d2": "Like: { \"<internal_vector_tile_layer_name>\": { \"color\": \"#FFFFFF\", \"fill\": true, \"fillColor\": \"rgb(0, 125, 200)\", \"fillOpacity\": 0.5, \"opacity\": 1,\"radius\": 4,\"weight\": 2} }",
+    "text.e379c1326c876a67": "Controls which sublayers from the vector tiles are rendered in the 2D map and how they appear. Only sublayers listed here will be shown — all others are hidden. Example: { \"building\": { \"fill\": true, \"fillColor\": \"#cccccc\", \"fillOpacity\": 0.6, \"weight\": 0.5, \"color\": \"#999999\" } }",
+    "text.11ffcc04264cf587": "Styling options for streamlines.",
+    "text.a2ee408f24edcc99": "Styling options for particles."
 }

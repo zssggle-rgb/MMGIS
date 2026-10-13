@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useMetadataText, configureText } from "../i18n";
+import { i18n, useMetadataText, configureText } from "../i18n";
 import { localizeMarkdownCommand, localizedCodeMirrorPhrases } from "../i18n/editors";
-import { localizeMetadata } from "../i18n/metadata";
+import { localizeMetadata, metadataText } from "../i18n/metadata";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
 
@@ -1672,7 +1672,7 @@ const getComponent = (
             {tools.map((o) => {
               return (
                 <MenuItem key={o} value={o}>
-                  {typeof o === "string" ? o.toUpperCase() : o}
+                  {metadataText(o, (key, options) => i18n.t(key, options))}
                 </MenuItem>
               );
             })}
