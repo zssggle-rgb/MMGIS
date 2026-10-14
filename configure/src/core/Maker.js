@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { i18n, useMetadataText, configureText } from "../i18n";
+import { localizeMarkdownCommand, localizedCodeMirrorPhrases } from "../i18n/editors";
+import { localizeMetadata, metadataText } from "../i18n/metadata";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
 
@@ -49,7 +52,7 @@ import VideoPreview from "../components/VideoPreview/VideoPreview";
 import ColorButton from "../components/ColorButton/ColorButton";
 import ThemePreview from "../components/ThemePreview/ThemePreview";
 import InteractionEditor from "../components/Tabs/Layers/Interactions/InteractionEditor";
-import MDEditor from "@uiw/react-md-editor";
+import MDEditor, { commands as markdownCommands } from "@uiw/react-md-editor";
 import CodeMirror from "@uiw/react-codemirror";
 import { json } from "@codemirror/lang-json";
 import { Button } from "@mui/material";
@@ -398,7 +401,7 @@ const getComponent = (
   const isDisabled = isPlanetaryProjectionComponent && isTitilerDisabled;
   
   // Get the configurable disabled message or use a default
-  const disabledMessage = com.disabledMessage || "This feature is disabled.";
+  const disabledMessage = com.disabledMessage || configureText("field.disabled");
 
   let inner;
   let disabled = com.disabled || false;
@@ -442,7 +445,7 @@ const getComponent = (
           disabled={disabled || isDisabled}
           required={isRequired}
           error={hasError}
-          helperText={hasError ? "This field is required" : ""}
+          helperText={hasError ? configureText("field.required") : ""}
           FormHelperTextProps={{
             className: c.noMarginHelperText
           }}
@@ -474,7 +477,7 @@ const getComponent = (
                 className={c.subtitle2}
                 dangerouslySetInnerHTML={{ 
                   __html: isDisabled 
-                    ? `${com.description || ""}<br/><strong>Note:</strong> ${disabledMessage}`
+                    ? `${com.description || ""}<br/><strong>${configureText("field.note")}</strong> ${disabledMessage}`
                     : com.description || "" 
                 }}
               ></div>
@@ -483,7 +486,7 @@ const getComponent = (
             <Tooltip 
               title={
                 isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || ""
               } 
               placement="top" 
@@ -504,7 +507,7 @@ const getComponent = (
           disabled={disabled}
           required={isRequired}
           error={hasError}
-          helperText={hasError ? "This field is required" : ""}
+          helperText={hasError ? configureText("field.required") : ""}
           FormHelperTextProps={{
             className: c.noMarginHelperText
           }}
@@ -661,7 +664,7 @@ const getComponent = (
                 .catch((err) => {
                   dispatch(
                     setSnackBarText({
-                      text: `Failed to populate projection fields: ${err?.message || err}`,
+                      text: configureText("field.projectionFailed", { error: err?.message || err }),
                       severity: "error",
                     })
                   );
@@ -708,19 +711,19 @@ const getComponent = (
                     dispatch(setConfiguration(conf));
 
                     dispatch(setSnackBarText({
-                      text: `Projection settings loaded from ${selectedTileMatrixSet}`,
+                      text: configureText("field.projectionLoaded", { name: selectedTileMatrixSet }),
                       severity: "success"
                     }));
                   } else {
                     dispatch(setSnackBarText({
-                      text: "Failed to parse TileMatrixSet CRS information.",
+                      text: configureText("field.crsParseFailed"),
                       severity: "error"
                     }));
                   }
                 },
                 (err) => {
                   dispatch(setSnackBarText({
-                    text: "Failed to fetch TileMatrixSet details: " + (err.message || "Unknown error"),
+                    text: configureText("field.tmsetFailed", { error: err.message || configureText("field.unknownError") }),
                     severity: "error"
                   }));
                 }
@@ -753,12 +756,12 @@ const getComponent = (
               if (updatedLayers > 0) {
                 dispatch(setConfiguration(conf));
                 dispatch(setSnackBarText({
-                  text: `Applied ${selectedTileMatrixSet} to ${updatedLayers} TiTiler-enabled layer(s)`,
+                  text: configureText("field.tmsetApplied", { name: selectedTileMatrixSet, count: updatedLayers }),
                   severity: "success"
                 }));
               } else {
                 dispatch(setSnackBarText({
-                  text: "No TiTiler-enabled layers found to update",
+                  text: configureText("field.noTitilerLayers"),
                   severity: "info"
                 }));
               }
@@ -776,7 +779,7 @@ const getComponent = (
               <div
                 className={c.subtitle2}
                 dangerouslySetInnerHTML={{ __html: isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || "" }}
               ></div>
             </>
@@ -784,7 +787,7 @@ const getComponent = (
             <Tooltip 
               title={
                 isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || ""
               } 
               placement="top" 
@@ -812,7 +815,7 @@ const getComponent = (
           disabled={disabled}
           required={isRequired}
           error={textArrayHasError}
-          helperText={textArrayHasError ? "This field is required" : ""}
+          helperText={textArrayHasError ? configureText("field.required") : ""}
           FormHelperTextProps={{
             className: c.noMarginHelperText
           }}
@@ -864,6 +867,10 @@ const getComponent = (
       return (
         <div className="container">
           <MDEditor
+            commands={markdownCommands.getCommands()}
+            extraCommands={markdownCommands.getExtraCommands()}
+            commandsFilter={localizeMarkdownCommand}
+            textareaProps={{ "aria-label": configureText("editor.markdown.label") }}
             value={markdown_f}
             onChange={(val) => {
               updateConfiguration(forceField || com.field, val, layer);
@@ -888,7 +895,8 @@ const getComponent = (
           <CodeMirror
             value={JSON.stringify(json_f, null, 2)}
             height={com.height || "300px"}
-            extensions={[json()]}
+            extensions={[json(), localizedCodeMirrorPhrases()]}
+            aria-label={configureText("editor.json.label")}
             onChange={(val) => {
               try {
                 const v = JSON.parse(val);
@@ -910,7 +918,7 @@ const getComponent = (
           disabled={disabled}
           required={isRequired}
           error={numberHasError}
-          helperText={numberHasError ? "This field is required" : ""}
+          helperText={numberHasError ? configureText("field.required") : ""}
           FormHelperTextProps={{
             className: c.noMarginHelperText
           }}
@@ -1083,15 +1091,15 @@ const getComponent = (
     case "dropdown": {
       const isOptionObject = (o) => typeof o === "object" && o !== null;
       const optionValue = (o) => (isOptionObject(o) ? o.value : o);
-      const optionLabel = (o) =>
-        isOptionObject(o) ? o.label ?? o.value : o;
+      const optionLabel = (o, index) =>
+        com.optionLabels?.[index] ?? (isOptionObject(o) ? o.label ?? o.value : o);
       const firstOptionValue = optionValue(com.options?.[0]);
       inner = (
         <FormControl className={c.dropdown} variant="filled" size="small">
           <InputLabel>{com.name}</InputLabel>
           <Select
             disabled={disabled || isDisabled}
-            value={value || getIn(directConf, com.field, firstOptionValue)}
+            value={value ?? getIn(directConf, com.field, firstOptionValue)}
             onChange={(e) => {
               if (!isDisabled) {
                 updateConfiguration(
@@ -1102,9 +1110,9 @@ const getComponent = (
               }
             }}
           >
-            {com.options.map((o) => {
+            {com.options.map((o, index) => {
               const v = optionValue(o);
-              const l = optionLabel(o);
+              const l = optionLabel(o, index);
               return (
                 <MenuItem value={v} key={v}>
                   {typeof l === "string" ? l.toUpperCase() : l}
@@ -1122,7 +1130,7 @@ const getComponent = (
               <div
                 className={c.subtitle2}
                 dangerouslySetInnerHTML={{ __html: isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || "" }}
               ></div>
             </>
@@ -1130,7 +1138,7 @@ const getComponent = (
             <Tooltip 
               title={
                 isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || ""
               } 
               placement="top" 
@@ -1160,13 +1168,18 @@ const getComponent = (
         searchOptions = com.options || [];
       }
 
-      const currentValue = value || getIn(directConf, com.field, com.options?.[0] || "");
+      const currentValue = value ?? getIn(directConf, com.field, com.options?.[0] ?? "");
+      const searchOptionLabel = (option) => {
+        const index = searchOptions.indexOf(option);
+        return com.optionLabels?.[index] ?? String(option);
+      };
 
       inner = (
         <Autocomplete
           className={c.autocomplete}
           disabled={isDisabled}
           options={searchOptions}
+          getOptionLabel={searchOptionLabel}
           value={currentValue}
           onChange={(event, newValue) => {
             if (!isDisabled && newValue !== null) {
@@ -1184,15 +1197,15 @@ const getComponent = (
           )}
           renderOption={(props, option) => (
             <li {...props}>
-              {typeof option === "string" ? option : option}
+              {searchOptionLabel(option)}
             </li>
           )}
           filterOptions={(options, { inputValue }) => {
             return options.filter((option) =>
-              option.toLowerCase().includes(inputValue.toLowerCase())
+              searchOptionLabel(option).toLowerCase().includes(inputValue.toLowerCase())
             );
           }}
-          noOptionsText="No matching tilematrixsets"
+          noOptionsText={configureText("field.noTileMatrixSets")}
           clearOnBlur={false}
           selectOnFocus
           handleHomeEndKeys
@@ -1206,7 +1219,7 @@ const getComponent = (
               <div
                 className={c.subtitle2}
                 dangerouslySetInnerHTML={{ __html: isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || "" }}
               ></div>
             </>
@@ -1214,7 +1227,7 @@ const getComponent = (
             <Tooltip 
               title={
                 isDisabled 
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || ""
               } 
               placement="top" 
@@ -1227,7 +1240,7 @@ const getComponent = (
       );
     case "colordropdown":
       let dropdown_value =
-        value || getIn(directConf, com.field, com.options?.[0]);
+        value ?? getIn(directConf, com.field, com.options?.[0]);
       inner = (
         <FormControl className={c.dropdown} variant="filled" size="small">
           <InputLabel>{com.name}</InputLabel>
@@ -1242,8 +1255,9 @@ const getComponent = (
               );
             }}
           >
-            {com.options?.map((o) => {
-              return <MenuItem value={o}>{o.toUpperCase()}</MenuItem>;
+            {com.options?.map((o, index) => {
+              const label = com.optionLabels?.[index] ?? o;
+              return <MenuItem value={o} key={o}>{label.toUpperCase()}</MenuItem>;
             })}
           </Select>
         </FormControl>
@@ -1398,7 +1412,7 @@ const getComponent = (
                 !selectedLayers.includes(option)
             );
           }}
-          noOptionsText="No matching layers"
+          noOptionsText={configureText("field.noLayers")}
           clearOnBlur={false}
           selectOnFocus
           handleHomeEndKeys
@@ -1486,7 +1500,7 @@ const getComponent = (
               })}
               <IconButton
                 className={c.objectArrayRemove}
-                aria-label="remove"
+                aria-label={configureText("field.remove")}
                 onClick={() => {
                   if (tool) {
                     const t = getToolFromConfiguration(
@@ -1544,7 +1558,7 @@ const getComponent = (
             </div>
             <div className={c.objectAdd}>
               <IconButton
-                aria-label="add"
+                aria-label={configureText("field.add")}
                 onClick={() => {
                   if (tool) {
                     const t = getToolFromConfiguration(
@@ -1660,7 +1674,7 @@ const getComponent = (
             {tools.map((o) => {
               return (
                 <MenuItem key={o} value={o}>
-                  {typeof o === "string" ? o.toUpperCase() : o}
+                  {metadataText(o, (key, options) => i18n.t(key, options))}
                 </MenuItem>
               );
             })}
@@ -1676,7 +1690,7 @@ const getComponent = (
                 className={c.subtitle2}
                 dangerouslySetInnerHTML={{
                   __html: isDisabled
-                    ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                    ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                     : com.description || "",
                 }}
               ></div>
@@ -1685,7 +1699,7 @@ const getComponent = (
             <Tooltip
               title={
                 isDisabled
-                  ? `${com.description || ""}\n\nNote: ${disabledMessage}`
+                  ? `${com.description || ""}\n\n${configureText("field.note")} ${disabledMessage}`
                   : com.description || ""
               }
               placement="top"
@@ -1712,7 +1726,7 @@ const makeConfigTabs = (tabs, value, onChange, c) => {
         }}
         variant="scrollable"
         scrollButtons="auto"
-        aria-label="scrollable auto tabs example"
+        aria-label={configureText("field.tabs")}
       >
         {tabs.map((tab) => (
           <Tab label={tab.name} />
@@ -1845,7 +1859,9 @@ const makeConfig = (
 };
 
 export default function Maker(props) {
-  const { config, layer, toolName, componentName, shadowed, inlineHelp } = props;
+  const { config: sourceConfig, layer, toolName, componentName, shadowed, inlineHelp } = props;
+  const t = useMetadataText();
+  const config = localizeMetadata(sourceConfig, t);
   const c = useStyles();
 
   const dispatch = useDispatch();

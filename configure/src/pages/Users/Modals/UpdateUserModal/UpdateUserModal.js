@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 // UpdateUserModal.js - 15 July 2025
 /* global mmgisglobal */
 
@@ -167,6 +168,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "updateUser";
 const UpdateUserModal = (props) => {
+  const ct = useConfigureText();
   const { queryUsers } = props;
   const c = useStyles();
 
@@ -200,7 +202,7 @@ const UpdateUserModal = (props) => {
         (res) => {
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to get available missions.",
+              text: res?.message || ct("ui.failed_to_get_available_missions_4b40cf"),
               severity: "error",
             })
           );
@@ -229,7 +231,7 @@ const UpdateUserModal = (props) => {
     if (!modal?.row?.id) {
       dispatch(
         setSnackBarText({
-          text: "Cannot update undefined User.",
+          text: ct("ui.cannot_update_undefined_user_a2017f"),
           severity: "error",
         })
       );
@@ -239,7 +241,7 @@ const UpdateUserModal = (props) => {
     if (userName !== modal.row.username) {
       dispatch(
         setSnackBarText({
-          text: "Confirmation Username does not match.",
+          text: ct("ui.confirmation_username_does_not_match_137062"),
           severity: "error",
         })
       );
@@ -258,7 +260,7 @@ const UpdateUserModal = (props) => {
         if (res.body?.updated_id === modal.row.id) {
           dispatch(
             setSnackBarText({
-              text: `Successfully updated '${modal.row.username}'.`,
+              text: ct("ui.successfully_updated_p0_478fee", { p0: modal.row.username }),
               severity: "success",
             })
           );
@@ -267,7 +269,7 @@ const UpdateUserModal = (props) => {
         } else {
           dispatch(
             setSnackBarText({
-              text: `Failed to update '${modal.row.username}'.`,
+              text: ct("ui.failed_to_update_p0_66d4be", { p0: modal.row.username }),
               severity: "error",
             })
           );
@@ -276,7 +278,7 @@ const UpdateUserModal = (props) => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: `Failed to update '${modal.row.username}'.`,
+            text: ct("ui.failed_to_update_p0_66d4be", { p0: modal.row.username }),
             severity: "error",
           })
         );
@@ -301,12 +303,12 @@ const UpdateUserModal = (props) => {
             <AccountBoxIcon className={c.backgroundIcon} />
             <div
               className={c.title}
-            >{`Update a User's Account: ${modal?.row?.username}`}</div>
+            >{ct("ui.update_a_user_s_account_p0_0887be", { p0: modal?.row?.username })}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -316,7 +318,7 @@ const UpdateUserModal = (props) => {
       <DialogContent className={c.content}>
         <TextField
           className={c.confirmInput}
-          label="Email Address"
+          label={ct("ui.email_address_09ba55")}
           variant="filled"
           value={email || modal?.row?.email}
           inputProps={{
@@ -326,10 +328,10 @@ const UpdateUserModal = (props) => {
             setEmail(e.target.value);
           }}
         />
-        <Typography className={c.subtitle2}>{`The user's email.`}</Typography>
+        <Typography className={c.subtitle2}>{ct("ui.the_user_s_email_b42e1d")}</Typography>
 
         <FormControl className={c.dropdown} variant="filled" size="small">
-          <InputLabel>Role</InputLabel>
+          <InputLabel>{ct("ui.role_c3f104")}</InputLabel>
           <Select
             value={permissions || modal?.row?.permission}
             onChange={(e) => {
@@ -340,18 +342,18 @@ const UpdateUserModal = (props) => {
               }
             }}
           >
-            <MenuItem value={"110"}>Administrator</MenuItem>
-            <MenuItem value={"001"}>User</MenuItem>
+            <MenuItem value={"110"}>{ct("ui.administrator_1eda23")}</MenuItem>
+            <MenuItem value={"001"}>{ct("ui.user_9f8a23")}</MenuItem>
           </Select>
         </FormControl>
         <Typography
           className={c.subtitle2}
-        >{`Admins have full control over mission configurations as well as elevated privileges in the Draw Tool. Users do not and are the most basic role.`}</Typography>
+        >{ct("ui.admins_have_full_control_over_mission_bcb452")}</Typography>
         
         {(permissions === "110" || (!permissions && modal?.row?.permission === "110")) && (
           <>
             <FormControl className={c.assignedMissions} variant="filled" size="small">
-              <InputLabel>Assigned Missions</InputLabel>
+              <InputLabel>{ct("ui.assigned_missions_0b49b4")}</InputLabel>
               <Select
                 className={c.selectDropdown}
                 multiple
@@ -378,12 +380,12 @@ const UpdateUserModal = (props) => {
             </FormControl>
             <Typography
               className={c.subtitle2}
-            >{`Select which missions this Admin can manage. Leave empty to restrict access to all missions. Only SuperAdmins can change modify this field.`}</Typography>
+            >{ct("ui.select_which_missions_this_admin_can_982b4b")}</Typography>
           </>
         )}
         <TextField
           className={c.confirmInput}
-          label="Confirm Username"
+          label={ct("ui.confirm_username_5edd50")}
           variant="filled"
           value={userName}
           inputProps={{
@@ -395,19 +397,15 @@ const UpdateUserModal = (props) => {
         />
         <Typography
           className={c.subtitle2}
-        >{`Because updating may grant privileges, enter '${modal?.row?.username}' above to confirm the update to this user's account.`}</Typography>
+        >{ct("ui.because_updating_may_grant_privileges_enter_4bb2d6", { p0: modal?.row?.username })}</Typography>
       </DialogContent>
       <DialogActions className={c.dialogActions}>
         <Button
           variant="contained"
           startIcon={<AdminPanelSettingsIcon size="small" />}
           onClick={handleSubmit}
-        >
-          Update
-        </Button>
-        <Button className={c.cancel} variant="outlined" onClick={handleClose}>
-          Cancel
-        </Button>
+        >{ct("ui.update_fb91e2")}</Button>
+        <Button className={c.cancel} variant="outlined" onClick={handleClose}>{ct("ui.cancel_77dfd2")}</Button>
       </DialogActions>
     </Dialog>
   );

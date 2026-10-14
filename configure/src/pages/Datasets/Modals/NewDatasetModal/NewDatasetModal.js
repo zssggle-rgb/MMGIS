@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -147,6 +148,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "newDataset";
 const NewDatasetModal = (props) => {
+  const ct = useConfigureText();
   const { queryDatasets } = props;
   const c = useStyles();
 
@@ -171,7 +173,7 @@ const NewDatasetModal = (props) => {
     if (file == null || fileName === null) {
       dispatch(
         setSnackBarText({
-          text: "Please upload a file.",
+          text: ct("ui.please_upload_a_file_4b2e92"),
           severity: "error",
         })
       );
@@ -181,7 +183,7 @@ const NewDatasetModal = (props) => {
     if (datasetName == null || datasetName == "") {
       dispatch(
         setSnackBarText({
-          text: "Please enter a name for the new Dataset.",
+          text: ct("ui.please_enter_a_name_for_the_b7cb53"),
           severity: "error",
         })
       );
@@ -192,7 +194,7 @@ const NewDatasetModal = (props) => {
       if (datasets[i].name === datasetName) {
         dispatch(
           setSnackBarText({
-            text: "Dataset name already exists.",
+            text: ct("ui.dataset_name_already_exists_40ebe8"),
             severity: "error",
           })
         );
@@ -203,7 +205,7 @@ const NewDatasetModal = (props) => {
     if (datasetName.match(/[|\\/~^:,;?!&%$@#*+\{\}\[\]<>]/)) {
       dispatch(
         setSnackBarText({
-          text: "Dataset names cannot contain the following symbols: |\\/~^:,;?!&%$@#*+.{}[]<>",
+          text: ct("ui.dataset_names_cannot_contain_the_following_840d7b"),
           severity: "error",
         })
       );
@@ -252,7 +254,7 @@ const NewDatasetModal = (props) => {
                 console.log(res?.message);
                 dispatch(
                   setSnackBarText({
-                    text: "Failed to upload a Dataset.",
+                    text: ct("ui.failed_to_upload_a_dataset_9144f4"),
                     severity: "error",
                   })
                 );
@@ -274,7 +276,7 @@ const NewDatasetModal = (props) => {
             (res) => {
               dispatch(
                 setSnackBarText({
-                  text: "Successfully created a new Dataset.",
+                  text: ct("ui.successfully_created_a_new_dataset_da77ee"),
                   severity: "success",
                 })
               );
@@ -287,7 +289,7 @@ const NewDatasetModal = (props) => {
               console.log(res?.message);
               dispatch(
                 setSnackBarText({
-                  text: "Failed to upload a Dataset.",
+                  text: ct("ui.failed_to_upload_a_dataset_9144f4"),
                   severity: "error",
                 })
               );
@@ -341,12 +343,12 @@ const NewDatasetModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <ShapeLineIcon className={c.backgroundIcon} />
-            <div className={c.title}>Make a New Dataset</div>
+            <div className={c.title}>{ct("ui.make_a_new_dataset_2b8cdf")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -355,17 +357,17 @@ const NewDatasetModal = (props) => {
       </DialogTitle>
       <DialogContent className={c.content}>
         <Typography className={c.subtitle}>
-          {`Datasets are .csv files that get stored in MMGIS' spatial database. Set a layer's "URL" to "datasets:{dataset_name}" to use it.`}
+          {ct("ui.datasets_are_csv_files_that_get_607930")}
         </Typography>
         <div className={c.dropzone}>
           <div {...getRootProps({ className: "dropzone" })}>
             <input {...getInputProps()} />
-            {isDragAccept && <p>All files will be accepted</p>}
-            {isDragReject && <p>Some files will be rejected</p>}
+            {isDragAccept && <p>{ct("ui.all_files_will_be_accepted_c4d789")}</p>}
+            {isDragReject && <p>{ct("ui.some_files_will_be_rejected_658078")}</p>}
             {!isDragActive && (
               <div className={c.dropzoneMessage}>
-                <p>Drag 'n' drop or click to select files...</p>
-                <p>Only *.csv files are accepted.</p>
+                <p>{ct("ui.drag_n_drop_or_click_to_21279e")}</p>
+                <p>{ct("ui.only_csv_files_are_accepted_f84a48")}</p>
               </div>
             )}
           </div>
@@ -373,11 +375,11 @@ const NewDatasetModal = (props) => {
 
         <div className={c.fileName}>
           <InsertDriveFileIcon />
-          <div>{fileName || "No File Selected"}</div>
+          <div>{fileName || ct("ui.no_file_selected_7dbe85")}</div>
         </div>
         <TextField
           className={c.missionNameInput}
-          label="Dataset Name"
+          label={ct("ui.dataset_name_e2803c")}
           variant="filled"
           value={datasetName}
           onChange={(e) => {
@@ -385,7 +387,7 @@ const NewDatasetModal = (props) => {
           }}
         />
         <Typography className={c.subtitle2}>
-          {`A new and unique name for a Dataset. No special characters allowed.`}
+          {ct("ui.a_new_and_unique_name_for_771f22")}
         </Typography>
       </DialogContent>
       <DialogActions>
@@ -396,9 +398,7 @@ const NewDatasetModal = (props) => {
           className={c.addSelected}
           variant="contained"
           onClick={handleSubmit}
-        >
-          Create Dataset
-        </Button>
+        >{ct("ui.create_dataset_ffd841")}</Button>
       </DialogActions>
     </Dialog>
   );

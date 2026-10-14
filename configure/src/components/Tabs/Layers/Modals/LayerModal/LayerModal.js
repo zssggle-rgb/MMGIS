@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../../i18n";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -152,6 +153,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "layer";
 const LayerModal = (props) => {
+  const ct = useConfigureText();
   const c = useStyles();
 
   const modal = useSelector((state) => state.core.modal[MODAL_NAME]);
@@ -342,8 +344,8 @@ const LayerModal = (props) => {
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -371,23 +373,19 @@ const LayerModal = (props) => {
               dispatch(setConfiguration(nextConfiguration));
               dispatch(
                 setSnackBarText({
-                  text: `Removed '${layer.name}'.`,
+                  text: ct("ui.removed_p0_b5b553", { p0: layer.name }),
                   severity: "success",
                 })
               );
               handleClose(true);
             }}
-          >
-            Remove Layer
-          </Button>
+          >{ct("ui.remove_layer_3c84dc")}</Button>
         </div>
-        <div className={c.uuid}>{`Layer UUID: ${layer.uuid}${
-          typeof layer.uuid === "number"
-            ? " (Will be formally assigned upon saving)"
-            : ""
-        }`}</div>
+        <div className={c.uuid}>{ct("ui.layer_uuid_p0_p1_fc4ae9", { p0: layer.uuid, p1: typeof layer.uuid === "number"
+            ? ct("layer.pendingUuid")
+            : "" })}</div>
         <div className={c.actionsRight}>
-          <Tooltip title="Clone Layer" placement="top" arrow>
+          <Tooltip title={ct("ui.clone_layer_db207c")} placement="top" arrow>
             <IconButton
               className={c.cloneButton}
               onClick={() => {
@@ -407,7 +405,7 @@ const LayerModal = (props) => {
                 dispatch(setConfiguration(nextConfiguration));
                 dispatch(
                   setSnackBarText({
-                    text: `Cloned '${layer.name}'.`,
+                    text: ct("ui.cloned_p0_0ac749", { p0: layer.name }),
                     severity: "success",
                   })
                 );
@@ -424,9 +422,7 @@ const LayerModal = (props) => {
             onClick={() => {
               handleClose();
             }}
-          >
-            Done
-          </Button>
+          >{ct("ui.done_e9b450")}</Button>
         </div>
       </DialogActions>
     </Dialog>

@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../i18n";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
@@ -114,6 +115,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GeneralOptions() {
+  const ct = useConfigureText();
   const c = useStyles();
 
   const configuration = useSelector((state) => state.core.configuration);
@@ -135,14 +137,14 @@ export default function GeneralOptions() {
           if (res.status === "success") {
             dispatch(
               setSnackBarText({
-                text: "Successfully saved the General Options.",
+                text: ct("ui.successfully_saved_the_general_options_4d2b92"),
                 severity: "success",
               })
             );
           } else
             dispatch(
               setSnackBarText({
-                text: res?.message || "Failed to save the General Options.",
+                text: res?.message || ct("ui.failed_to_save_the_general_options_8cef84"),
                 severity: "error",
               })
             );
@@ -150,7 +152,7 @@ export default function GeneralOptions() {
         (res) => {
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to save the General Options.",
+              text: res?.message || ct("ui.failed_to_save_the_general_options_8cef84"),
               severity: "error",
             })
           );
@@ -176,7 +178,7 @@ export default function GeneralOptions() {
         } else
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to get the General Options.",
+              text: res?.message || ct("ui.failed_to_get_the_general_options_f9cf61"),
               severity: "error",
             })
           );
@@ -184,7 +186,7 @@ export default function GeneralOptions() {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to get the General Options.",
+            text: res?.message || ct("ui.failed_to_get_the_general_options_f9cf61"),
             severity: "error",
           })
         );
@@ -210,9 +212,7 @@ export default function GeneralOptions() {
             }}
             variant="h6"
             component="div"
-          >
-            General Options
-          </Typography>
+          >{ct("ui.general_options_ba5b22")}</Typography>
         </div>
       </Toolbar>
       <div className={c.GeneralOptionsInner}>
@@ -226,9 +226,7 @@ export default function GeneralOptions() {
           onClick={() => {
             saveGeneralOptions();
           }}
-        >
-          Save General Options
-        </Button>
+        >{ct("ui.save_general_options_651419")}</Button>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { useConfigureText, i18n } from "../../../../i18n";
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -319,6 +320,7 @@ const useStyles = makeStyles((theme) => ({
 const MODAL_NAME = "stacCollectionItems";
 
 const StacCollectionItemsModal = () => {
+  const ct = useConfigureText();
   const c = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xl"));
@@ -385,7 +387,7 @@ const StacCollectionItemsModal = () => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to fetch STAC items.",
+            text: res?.message || ct("ui.failed_to_fetch_stac_items_fc3708"),
             severity: "error",
           })
         );
@@ -407,7 +409,7 @@ const StacCollectionItemsModal = () => {
         } catch (e) {
           dispatch(
             setSnackBarText({
-              text: `Invalid regex: ${e?.message || "Error"}`,
+              text: ct("ui.invalid_regex_p0_4dac2e", { p0: e?.message || ct("ui.error_7f2f6a") }),
               severity: "error",
             })
           );
@@ -594,7 +596,7 @@ const StacCollectionItemsModal = () => {
     if (!modal?.stacCollection?.id || !itemToDelete) {
       dispatch(
         setSnackBarText({
-          text: "Cannot delete undefined STAC Item.",
+          text: ct("ui.cannot_delete_undefined_stac_item_38f00d"),
           severity: "error",
         })
       );
@@ -604,7 +606,7 @@ const StacCollectionItemsModal = () => {
     if (deleteConfirmation !== itemToDelete) {
       dispatch(
         setSnackBarText({
-          text: "Confirmation item ID does not match.",
+          text: ct("ui.confirmation_item_id_does_not_match_cd71b5"),
           severity: "error",
         })
       );
@@ -622,7 +624,7 @@ const StacCollectionItemsModal = () => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: `Successfully deleted item '${itemToDelete}'.`,
+            text: ct("ui.successfully_deleted_item_p0_23f9a8", { p0: itemToDelete }),
             severity: "success",
           })
         );
@@ -634,7 +636,7 @@ const StacCollectionItemsModal = () => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || `Failed to delete item '${itemToDelete}'.`,
+            text: res?.message || ct("ui.failed_to_delete_item_p0_669535", { p0: itemToDelete }),
             severity: "error",
           })
         );
@@ -675,14 +677,14 @@ const StacCollectionItemsModal = () => {
   const handleConfirmBulkDelete = async () => {
     if (!modal?.stacCollection?.id) {
       dispatch(
-        setSnackBarText({ text: "No collection selected.", severity: "error" })
+        setSnackBarText({ text: ct("ui.no_collection_selected_028956"), severity: "error" })
       );
       return;
     }
     if (bulkDeleteConfirmation !== modal.stacCollection.id) {
       dispatch(
         setSnackBarText({
-          text: "Confirmation collection ID does not match.",
+          text: ct("ui.confirmation_collection_id_does_not_match_d3905e"),
           severity: "error",
         })
       );
@@ -698,7 +700,7 @@ const StacCollectionItemsModal = () => {
       if (success > 0) {
         dispatch(
           setSnackBarText({
-            text: `Deleted ${success} item(s).` ,
+            text: ct("ui.deleted_p0_item_s_25575e", { p0: success }) ,
             severity: "success",
           })
         );
@@ -707,7 +709,7 @@ const StacCollectionItemsModal = () => {
         const failedIds = failed.map((f) => f.id).slice(0, 5).join(", ");
         dispatch(
           setSnackBarText({
-            text: `Failed to delete ${failed.length} item(s). ${failedIds ? "Examples: " + failedIds : ""}`,
+            text: ct("ui.failed_to_delete_p0_item_s_aca4be", { p0: failed.length, p1: failedIds ? ct("stac.failedExamples", { ids: failedIds }) : "" }),
             severity: "error",
           })
         );
@@ -731,7 +733,7 @@ const StacCollectionItemsModal = () => {
   const formatDateTime = (dateTimeStr) => {
     if (!dateTimeStr) return "N/A";
     try {
-      return new Date(dateTimeStr).toLocaleString();
+      return new Date(dateTimeStr).toLocaleString(i18n.language);
     } catch {
       return dateTimeStr;
     }
@@ -771,13 +773,13 @@ const StacCollectionItemsModal = () => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <WidgetsIcon className={c.backgroundIcon} />
-            <div className={c.title}>STAC Collection Items</div>
+            <div className={c.title}>{ct("ui.stac_collection_items_abded7")}</div>
           </div>
           
           <IconButton
               className={c.closeIcon}
-              title="Close"
-              aria-label="close"
+              title={ct("ui.close_bbfa77")}
+              aria-label={ct("ui.close_da3886")}
               onClick={handleClose}
             >
               <CloseSharpIcon fontSize="inherit" />
@@ -789,22 +791,21 @@ const StacCollectionItemsModal = () => {
           
         <div className={c.flexBetween}>
           <div>
-            <Typography className={c.collectionTitle}>
-              Collection: {modal?.stacCollection?.id}
+            <Typography className={c.collectionTitle}>{ct("ui.collection_8fdd82")}{modal?.stacCollection?.id}
             </Typography>
             <Typography className={c.limitMessage}>
-              {isMobile ? 'Showing at most 10000 items.' : 'Showing at most 10000 items. Use search to narrow results if needed.'}
+              {isMobile ? ct("ui.showing_at_most_10000_items_f24edb") : ct("ui.showing_at_most_10000_items_use_b9e9e6")}
             </Typography>
           </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', flex: 1, justifyContent: 'flex-end' }}>
             <TextField
               size="small"
-              label="Search Items"
+              label={ct("ui.search_items_8fc607")}
               variant="filled"
               value={searchTerm}
               className={c.searchInput}
               onChange={handleSearchChange}
-              placeholder={useRegex ? "Regex over Item ID" : "Search by Item ID"}
+              placeholder={ct(useRegex ? "stac.itemRegex" : "stac.itemSearch")}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -819,15 +820,15 @@ const StacCollectionItemsModal = () => {
               classes={{ tooltip: c.regexTooltip }}
               title={
                 <div className={c.regexTooltipContent}>
-                  <div>Use JavaScript regular expressions:</div>
-                  <div>- Wildcard: <code>.*</code> (not <code>*</code>)</div>
-                  <div>- Any single char: <code>.</code></div>
-                  <div>- Anchors: <code>^</code> start, <code>$</code> end</div>
-                  <div>- Digits/word: <code>\\d+</code>, <code>\\w+</code></div>
-                  <div>- Character set: <code>[A-Za-z_]+</code></div>
-                  <div>- Either/or: <code>(cat|dog)</code></div>
-                  <div>- Escape dot: <code>\\.</code></div>
-                  <div style={{ marginTop: 6 }}>Example: <code>^IMG_.*_2024\\.tif$</code></div>
+                  <div>{ct("ui.use_javascript_regular_expressions_4d651f")}</div>
+                  <div>{ct("ui.wildcard_7b0d89")}<code>.*</code>{ct("ui.not_b51c3b")}<code>*</code>)</div>
+                  <div>{ct("ui.any_single_char_9c972b")}<code>.</code></div>
+                  <div>{ct("ui.anchors_2388c3")}<code>^</code>{ct("ui.start_e1b3fa")}<code>$</code>{ct("ui.end_7a92f3")}</div>
+                  <div>{ct("ui.digits_word_34674a")}<code>\\d+</code>, <code>\\w+</code></div>
+                  <div>{ct("ui.character_set_dcf166")}<code>[A-Za-z_]+</code></div>
+                  <div>{ct("ui.either_or_39d428")}<code>(cat|dog)</code></div>
+                  <div>{ct("ui.escape_dot_3077be")}<code>\\.</code></div>
+                  <div style={{ marginTop: 6 }}>{ct("ui.example_c63737")}<code>^IMG_.*_2024\\.tif$</code></div>
                 </div>
               }
             >
@@ -843,12 +844,12 @@ const StacCollectionItemsModal = () => {
                     }}
                   />
                 }
-                label="Regex"
+                label={ct("ui.regex_6e6819")}
               />
             </Tooltip>
             <TextField
               size="small"
-              label="From"
+              label={ct("ui.from_3f6605")}
               type="datetime-local"
               value={dateFrom}
               className={c.datePicker}
@@ -860,7 +861,7 @@ const StacCollectionItemsModal = () => {
             />
             <TextField
               size="small"
-              label="To"
+              label={ct("ui.to_ae79ea")}
               type="datetime-local"
               value={dateTo}
               className={c.datePicker}
@@ -878,7 +879,7 @@ const StacCollectionItemsModal = () => {
               handleClearBbox();
               setPage(0);
               fetchAllItems("");
-            }}>Clear Filters</Button>
+            }}>{ct("ui.clear_filters_381c4b")}</Button>
         </div>
         </div>
         <div className={c.flexBetween} style={{ height: "calc(100% - 88px)" }}>
@@ -906,8 +907,8 @@ const StacCollectionItemsModal = () => {
                     variant="outlined"
                     onClick={selectAllInResults}
                     disabled={filteredItems.length === 0}
-                  >{`Select All Results (${filteredItems.length})`}</Button>
-                  <Button variant="outlined" onClick={clearSelection} disabled={selectedItemIds.size === 0}>Clear Selection</Button>
+                  >{ct("ui.select_all_results_p0_939145", { p0: filteredItems.length })}</Button>
+                  <Button variant="outlined" onClick={clearSelection} disabled={selectedItemIds.size === 0}>{ct("ui.clear_selection_fae58c")}</Button>
                 
                   <span className={c.selectionSummary}>
                     {selectedItemIds.size > 0 ? `${selectedItemIds.size} selected` : ""}
@@ -920,7 +921,7 @@ const StacCollectionItemsModal = () => {
                     startIcon={<DeleteForeverIcon size="small" />}
                     onClick={openBulkDeleteModal}
                     disabled={selectedItemIds.size === 0}
-                  >{`Bulk Delete (${selectedItemIds.size})`}</Button>
+                  >{ct("ui.bulk_delete_p0_3fdee3", { p0: selectedItemIds.size })}</Button>
                 </div>
               </div>
             </div>
@@ -938,7 +939,7 @@ const StacCollectionItemsModal = () => {
               getAssetsHref={getAssetsHref}
               onViewJson={handleViewJson}
               onDeleteItem={handleDeleteItem}
-              noItemsText={searchTerm ? `No items found matching "${searchTerm}"` : "No items found in this collection"}
+              noItemsText={searchTerm ? ct("stac.noMatchingItems", { query: searchTerm }) : ct("stac.noCollectionItems")}
             />
 
             <TablePagination
@@ -992,4 +993,4 @@ const StacCollectionItemsModal = () => {
   );
 };
 
-export default StacCollectionItemsModal; 
+export default StacCollectionItemsModal;

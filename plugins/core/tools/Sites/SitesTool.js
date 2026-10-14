@@ -1,3 +1,4 @@
+import { uiMarkup, uiRenderedMarkup } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
@@ -55,12 +56,12 @@ var SitesTool = {
         const headerDiv = $('<div>')
             .addClass('mmgisToolHeader')
             .html(
-                '<div><div>' +
-                    '<div class="mmgisToolTitle">Sites</div>' +
+                uiRenderedMarkup('<div><div>' +
+                    uiMarkup("<div class=\"mmgisToolTitle\">Sites</div>") +
                     Help.getComponent(helpKey) +
-                '</div></div>'
+                '</div></div>')
             )
-        toolsContainer.append(headerDiv)
+        toolsContainer.append(uiRenderedMarkup(headerDiv))
 
         Help.finalize(helpKey)
 
@@ -72,12 +73,12 @@ var SitesTool = {
                 'height': '100%',
                 'overflow-y': 'auto'
             })
-        toolsContainer.append(tools)
+        toolsContainer.append(uiRenderedMarkup(tools))
 
         const sitesRadio = $('<div>')
             .attr('class', 'mmgisRadioBar2 sitesRadio')
             .css('width', '100%')
-        tools.append(sitesRadio)
+        tools.append(uiRenderedMarkup(sitesRadio))
 
         if (this.sitesVar == null) {
             console.warn('Warning: SitesTool found no sites.')
@@ -86,8 +87,8 @@ var SitesTool = {
                 var id = this.sitesVar[i].code.replace(/ /g, '_')
                 var newestSiteButton = $('<div>')
                     .attr('id', id + '_tool_site')
-                    .html(this.sitesVar[i].name)
-                sitesRadio.append(newestSiteButton)
+                    .html(uiRenderedMarkup(this.sitesVar[i].name))
+                sitesRadio.append(uiRenderedMarkup(newestSiteButton))
 
                 if (this.sitesVar[i].code == L_.site) {
                     newestSiteButton.attr('class', 'active')

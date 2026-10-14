@@ -1,3 +1,4 @@
+import { useConfigureText, i18n } from "../../i18n";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
@@ -270,6 +271,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function APITokens() {
+  const ct = useConfigureText();
   const c = useStyles();
 
   const dispatch = useDispatch();
@@ -289,54 +291,54 @@ export default function APITokens() {
   // API Examples configuration
   const apiExamples = [
     {
-      title: "General Usage",
-      code: `All Configure API calls require the header: "Authorization:Bearer ${token != null ? token : "<token>"}"`,
+      title: ct("ui.general_usage_3b0e5e"),
+      code: ct("token.headerNote", { header: `Authorization:Bearer ${token != null ? token : "<token>"}` }),
       note: null
     },
     {
-      title: "Get All Missions",
+      title: ct("ui.get_all_missions_4439b1"),
       code: `curl -X GET "${baseUrl}/api/configure/missions"`,
       note: {
-        text: "No authentication required for this endpoint",
+        text: ct("ui.no_authentication_required_for_this_endpoint_3f6701"),
         color: "default",
         variant: "outlined"
       }
     },
     {
-      title: "Get Mission Configuration",
+      title: ct("ui.get_mission_configuration_e5bd18"),
       code: `curl -X GET "${baseUrl}/api/configure/get?mission=YourMission"`,
       note: {
-        text: "No authentication required for this endpoint",
+        text: ct("ui.no_authentication_required_for_this_endpoint_3f6701"),
         color: "default",
         variant: "outlined"
       }
     },
     {
-      title: "Validate Configuration",
+      title: ct("ui.validate_configuration_e44301"),
       code: `curl -X POST -H "Authorization:Bearer ${token != null ? token : "<token>"}" -H "Content-Type: application/json" -d '{"config":{"msv":1,"projection":"EPSG:4326","look":{"zoom":5,"center":[0,0]},"layers":[]}}' "${baseUrl}/api/configure/validate"`
     },
     {
-      title: "Update Mission Configuration",
+      title: ct("ui.update_mission_configuration_0ccfd5"),
       code: `curl -X POST -H "Authorization:Bearer ${token != null ? token : "<token>"}" -H "Content-Type: application/json" -d '{"mission":"YourMission","config":{"msv":1,"projection":"EPSG:4326","look":{"zoom":5,"center":[0,0]},"layers":[]}}' "${baseUrl}/api/configure/upsert"`
     },
     {
-      title: "Add New Layer",
+      title: ct("ui.add_new_layer_78a66a"),
       code: `curl -X POST -H "Authorization:Bearer ${token != null ? token : "<token>"}" -H "Content-Type: application/json" -d '{"mission":"YourMission","layer":{"name":"NewLayer","type":"tile","url":"https://example.com/{z}/{x}/{y}.png","visibility":true},"placement":{"index":0}}' "${baseUrl}/api/configure/addLayer"`
     },
     {
-      title: "Update Existing Layer",
+      title: ct("ui.update_existing_layer_fd985a"),
       code: `curl -X POST -H "Authorization:Bearer ${token != null ? token : "<token>"}" -H "Content-Type: application/json" -d '{"mission":"YourMission","layerUUID":"layer-uuid-here","layer":{"opacity":0.7,"visibility":false}}' "${baseUrl}/api/configure/updateLayer"`
     },
     {
-      title: "Remove Layer",
+      title: ct("ui.remove_layer_3c84dc"),
       code: `curl -X POST -H "Authorization:Bearer ${token != null ? token : "<token>"}" -H "Content-Type: application/json" -d '{"mission":"YourMission","layerUUID":"layer-uuid-here"}' "${baseUrl}/api/configure/removeLayer"`
     },
     {
-      title: "Update Initial Map View",
+      title: ct("ui.update_initial_map_view_02e44c"),
       code: `curl -X POST -H "Authorization:Bearer ${token != null ? token : "<token>"}" -H "Content-Type: application/json" -d '{"mission":"YourMission","latitude":34.052235,"longitude":-118.243683,"zoom":10}' "${baseUrl}/api/configure/updateInitialView"`
     },
     {
-      title: "JavaScript/Fetch Example",
+      title: ct("ui.javascript_fetch_example_dd32ff"),
       code: `fetch('${baseUrl}/api/configure/missions', {
   method: 'GET',
   headers: {
@@ -347,7 +349,7 @@ export default function APITokens() {
 .then(data => console.log(data));`
     },
     {
-      title: "Python Example",
+      title: ct("ui.python_example_1b640e"),
       code: `import requests
 
 headers = {
@@ -359,19 +361,19 @@ response = requests.get('${baseUrl}/api/configure/missions', headers=headers)
 print(response.json())`
     },
     {
-      title: "Upload Dataset CSV (Datasets API)",
+      title: ct("ui.upload_dataset_csv_datasets_api_af6b5e"),
       code: `curl -i -X POST -H "Authorization:Bearer ${token != null ? token : "<token>"}" -F "name=my_dataset" -F "upsert=true" -F "header=[\"latitude\",\"longitude\",\"sample_id\",\"rock_type\"]" -F "data=@data.csv;type=text/csv" "${baseUrl}/api/datasets/upload"`,
       note: {
-        text: "Note: This uses the Datasets API, not the Configure API",
+        text: ct("ui.note_this_uses_the_datasets_api_d54604"),
         color: "default",
         variant: "outlined"
       }
     },
     {
-      title: "Upload GeoDataset (GeoDatasets API)",
+      title: ct("ui.upload_geodataset_geodatasets_api_163799"),
       code: `curl -X POST -H "Authorization:Bearer ${token != null ? token : "<token>"}" -H "Content-Type: application/json" --data-binary "@my_geojson.json" "${baseUrl}/api/geodatasets/recreate/my_geodataset"`,
       note: {
-        text: "Note: This uses the GeoDatasets API, not the Configure API",
+        text: ct("ui.note_this_uses_the_geodatasets_api_dd47e9"),
         color: "default",
         variant: "outlined"
       }
@@ -415,7 +417,7 @@ print(response.json())`
         } else {
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to get existing API keys.",
+              text: res?.message || ct("ui.failed_to_get_existing_api_keys_26a242"),
               severity: "error",
             })
           );
@@ -424,7 +426,7 @@ print(response.json())`
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to get existing API keys.",
+            text: res?.message || ct("ui.failed_to_get_existing_api_keys_26a242"),
             severity: "error",
           })
         );
@@ -440,7 +442,7 @@ print(response.json())`
         if (res.status === "success") {
           dispatch(
             setSnackBarText({
-              text: "Successfully generated an API key!",
+              text: ct("ui.successfully_generated_an_api_key_e273d0"),
               severity: "success",
             })
           );
@@ -450,7 +452,7 @@ print(response.json())`
         } else {
           dispatch(
             setSnackBarText({
-              ext: res?.message || "Failed to generate an API key.",
+              text: res?.message || ct("ui.failed_to_generate_an_api_key_8b5085"),
               severity: "error",
             })
           );
@@ -459,7 +461,7 @@ print(response.json())`
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to generate an API key.",
+            text: res?.message || ct("ui.failed_to_generate_an_api_key_8b5085"),
             severity: "error",
           })
         );
@@ -475,7 +477,7 @@ print(response.json())`
         if (res.status === "success") {
           dispatch(
             setSnackBarText({
-              text: "Successfully deleted token!",
+              text: ct("ui.successfully_deleted_token_c69c05"),
               severity: "success",
             })
           );
@@ -492,7 +494,7 @@ print(response.json())`
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to delete token.",
+            text: res?.message || ct("ui.failed_to_delete_token_89cbb7"),
             severity: "error",
           })
         );
@@ -513,15 +515,13 @@ print(response.json())`
             style={{ fontWeight: "bold", fontSize: "16px", lineHeight: "29px" }}
             variant="h6"
             component="div"
-          >
-            API Tokens
-          </Typography>
+          >{ct("ui.api_tokens_ee50ac")}</Typography>
         </div>
       </Toolbar>
       <div className={c.content}>
         <Typography className={c.subtitle}>
           {
-            "Generate an authentication token for programmatic control over the configuration and data endpoints. Each token inherits the mission permissions of the admin who creates it - SuperAdmin tokens have access to all missions, while regular Admin tokens are restricted to assigned missions. The generated token may be used in requests via the header: 'Authorization:Bearer <token>' and more information can be found at https://nasa-ammos.github.io/MMGIS/apis/configure#api-tokens"
+            ct("ui.generate_an_authentication_token_for_programmatic_3430b0")
           }
         </Typography>
         <Box sx={{ flexGrow: 1 }} className={clsx(c.row)}>
@@ -529,7 +529,7 @@ print(response.json())`
             <Grid item xs={4} md={4} lg={4} xl={4} key={0}>
               <TextField
                 className={c.text}
-                label={"Token Name"}
+                label={ct("ui.token_name_6e84ac")}
                 variant="filled"
                 size="small"
                 value={tokenName}
@@ -539,30 +539,30 @@ print(response.json())`
               />
               <Typography className={c.subtitle2}>
                 {
-                  "An optional name to be prefixed on the generated token in order to better identify it later. Otherwise, the original hash alone is used."
+                  ct("ui.an_optional_name_to_be_prefixed_73bd18")
                 }
               </Typography>
             </Grid>
 
             <Grid item xs={4} md={4} lg={4} xl={4} key={1}>
               <FormControl className={c.dropdown} variant="filled" size="small">
-                <InputLabel>{"Expire After"}</InputLabel>
+                <InputLabel>{ct("ui.expire_after_b5edd2")}</InputLabel>
                 <Select
                   value={expireAfter}
                   onChange={(e) => {
                     setExpireAfter(e.target.value);
                   }}
                 >
-                  <MenuItem value={"never"}>{"NEVER"}</MenuItem>
-                  <MenuItem value={"31557600000"}>{"1 YEAR"}</MenuItem>
-                  <MenuItem value={"2629800000"}>{"1 MONTH"}</MenuItem>
-                  <MenuItem value={"604800000"}>{"1 WEEK"}</MenuItem>
-                  <MenuItem value={"86400000"}>{"1 DAY"}</MenuItem>
-                  <MenuItem value={"3600000"}>{"1 HOUR"}</MenuItem>
+                  <MenuItem value={"never"}>{ct("ui.never_f8ed30")}</MenuItem>
+                  <MenuItem value={"31557600000"}>{ct("ui.1_year_e88955")}</MenuItem>
+                  <MenuItem value={"2629800000"}>{ct("ui.1_month_48641a")}</MenuItem>
+                  <MenuItem value={"604800000"}>{ct("ui.1_week_2f1aed")}</MenuItem>
+                  <MenuItem value={"86400000"}>{ct("ui.1_day_4677b5")}</MenuItem>
+                  <MenuItem value={"3600000"}>{ct("ui.1_hour_1e43af")}</MenuItem>
                 </Select>
               </FormControl>
               <Typography className={c.subtitle2}>
-                {"When should the next generated token cease to authenticate."}
+                {ct("ui.when_should_the_next_generated_token_09693d")}
               </Typography>
             </Grid>
 
@@ -575,15 +575,13 @@ print(response.json())`
                 onClick={() => {
                   generatedLongTermToken();
                 }}
-              >
-                Generate New Token
-              </Button>
+              >{ct("ui.generate_new_token_f02937")}</Button>
             </Grid>
           </Grid>
           <div className={c.generated}>
-            <div className={c.genTitle}>New Token</div>
+            <div className={c.genTitle}>{ct("ui.new_token_0fd3f6")}</div>
             <div className={c.generatedToken}>{token}</div>
-            <Tooltip title={"Copy Token to Clipboard"} placement="top" arrow>
+            <Tooltip title={ct("ui.copy_token_to_clipboard_729f5f")} placement="top" arrow>
               <IconButton
                 className={c.copy2clipboard}
                 onClick={() => {
@@ -591,7 +589,7 @@ print(response.json())`
                     copyToClipboard(token);
                     dispatch(
                       setSnackBarText({
-                        text: "Copied to Clipboard!",
+                        text: ct("ui.copied_to_clipboard_848211"),
                         severity: "success",
                       })
                     );
@@ -606,12 +604,12 @@ print(response.json())`
           <div className={c.tokenList}>
             <div className={c.tokenListHeader}>
               <div>ID</div>
-              <div>Token</div>
-              <div>Created By</div>
-              <div>Mission Access</div>
-              <div>Created At</div>
-              <div>Status</div>
-              <div>Actions</div>
+              <div>{ct("ui.token_a1141e")}</div>
+              <div>{ct("ui.created_by_43de2b")}</div>
+              <div>{ct("ui.mission_access_74126e")}</div>
+              <div>{ct("ui.created_at_5db154")}</div>
+              <div>{ct("ui.status_bae7d5")}</div>
+              <div>{ct("ui.actions_c3cd63")}</div>
             </div>
             {tokenList.map((t) => {
               // Handle legacy tokens without creator info
@@ -622,50 +620,47 @@ print(response.json())`
               let expireColor = "black";
               
               if (isLegacyToken) {
-                expireType = "Blocked";
+                expireType = ct("ui.blocked_99613c");
                 expireColor = "#d22d2d";
-                expires = "blocked";
+                expires = ct("ui.blocked_df88b8");
               } else if (t.period === "never") {
-                expires = "never expires";
-                expireType = "Active";
+                expires = ct("ui.never_expires_0074c1");
+                expireType = ct("ui.active_a733b8");
                 expireColor = "#77d22d";
               } else {
                 const timeDif = Date.now() - new Date(t.createdAt).getTime();
                 const timePeriod = parseInt(t.period);
                 if (timeDif >= timePeriod) {
-                  expires = "expired";
-                  expireType = "Expired";
+                  expires = ct("ui.expired_45a6f9");
+                  expireType = ct("ui.expired_a689a9");
                   expireColor = "#d22d2d";
                 } else {
-                  expires = `expires in ${(
-                    (timePeriod - timeDif) /
-                    86400000
-                  ).toFixed(2)} days`;
-                  expireType = "Active";
+                  expires = ct("token.remainingDays", { days: ((timePeriod - timeDif) / 86400000).toFixed(2) });
+                  expireType = ct("ui.active_a733b8");
                   expireColor = "#77d22d";
                 }
               }
               
               // Handle creator information
-              const creatorDisplay = isLegacyToken ? "Legacy Token" : (t.created_by_username || "Unknown");
+              const creatorDisplay = isLegacyToken ? ct("token.legacy") : (t.created_by_username || ct("token.unknown"));
               
               // Handle mission access display
-              let missionDisplay = "Unknown";
+              let missionDisplay = ct("token.unknown");
               if (isLegacyToken) {
-                missionDisplay = "BLOCKED - Legacy token";
+                missionDisplay = ct("token.legacyBlocked");
               } else if (t.created_by_permission === "111") {
-                missionDisplay = "All Missions (SuperAdmin)";
+                missionDisplay = ct("token.allMissions");
               } else if (t.created_by_permission === "110") {
                 const missions = t.created_by_missions || [];
                 if (missions.length === 0) {
-                  missionDisplay = "No missions assigned";
+                  missionDisplay = ct("token.noMissions");
                 } else if (missions.length <= 3) {
                   missionDisplay = missions.join(", ");
                 } else {
-                  missionDisplay = `${missions.slice(0, 2).join(", ")} +${missions.length - 2} more`;
+                  missionDisplay = ct("token.moreMissions", { names: missions.slice(0, 2).join(", "), count: missions.length - 2 });
                 }
               } else {
-                missionDisplay = "Not an admin";
+                missionDisplay = ct("token.notAdmin");
               }
 
               return (
@@ -674,7 +669,7 @@ print(response.json())`
                   <div title={t.token}>{t.token}</div>
                   <div title={creatorDisplay}>{creatorDisplay}</div>
                   <div title={missionDisplay}>{missionDisplay}</div>
-                  <div>{new Date(t.createdAt).toLocaleDateString()}</div>
+                  <div>{new Date(t.createdAt).toLocaleDateString(i18n.language)}</div>
                   <div>
                     <Tooltip title={expireType} placement="top" arrow>
                       <div style={{ background: expireColor }}></div>
@@ -697,20 +692,16 @@ print(response.json())`
           </div>
 
           <div className={c.examples}>
-            <Typography variant="h5" component="h2" sx={{ color: 'inherit', fontWeight: 'bold', mb: 2, borderBottom: 1, borderColor: 'divider', pb: 1 }}>
-              API Usage Examples
-            </Typography>
+            <Typography variant="h5" component="h2" sx={{ color: 'inherit', fontWeight: 'bold', mb: 2, borderBottom: 1, borderColor: 'divider', pb: 1 }}>{ct("ui.api_usage_examples_735a78")}</Typography>
 
             {apiExamples.map(renderExampleCard)}
 
             <Card className={c.docsCard}>
               <CardContent>
-                <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: 'inherit' }}>
-                  Documentation
-                </Typography>
+                <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: 'inherit' }}>{ct("ui.documentation_9e9cf3")}</Typography>
                 <Box className={c.docsBox} sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <div>Configure API:</div>
+                    <div>{ct("ui.configure_api_a0eb91")}</div>
                     <Link 
                       href="https://nasa-ammos.github.io/MMGIS/apis/configure" 
                       target="_blank"
@@ -721,7 +712,7 @@ print(response.json())`
                     </Link>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <div>GeoDatasets API:</div>
+                    <div>{ct("ui.geodatasets_api_51f4da")}</div>
                     <Link 
                       href="https://nasa-ammos.github.io/MMGIS/apis/geodatasets" 
                       target="_blank"
@@ -732,7 +723,7 @@ print(response.json())`
                     </Link>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <div>All APIs:</div>
+                    <div>{ct("ui.all_apis_8a2114")}</div>
                     <Link 
                       href="https://nasa-ammos.github.io/MMGIS/apis/" 
                       target="_blank"

@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../i18n";
 /* global mmgisglobal */
 
 import React, { useEffect, useState } from "react";
@@ -154,6 +155,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Main() {
+  const ct = useConfigureText();
   const c = useStyles();
 
   const dispatch = useDispatch();
@@ -192,7 +194,7 @@ export default function Main() {
         (res) => {
           dispatch(
             setSnackBarText({
-              text: res?.message || "Failed to get configuration for mission.",
+              text: res?.message || ct("ui.failed_to_get_configuration_for_mission_f268ae"),
               severity: "error",
             })
           );
@@ -307,7 +309,7 @@ export default function Main() {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: "Failed to sign-out.",
+            text: ct("ui.failed_to_sign_out_0368d4"),
             severity: "error",
           })
         );
@@ -322,10 +324,10 @@ export default function Main() {
           <div className={c.topbarPage}>
             <div className={c.left}></div>
             <div className={c.right}>
-              <Tooltip title="Signed in as" placement="bottom" arrow>
+              <Tooltip title={ct("ui.signed_in_as_a02107")} placement="bottom" arrow>
                 <div className={c.username}>{mmgisglobal?.user}</div>
               </Tooltip>
-              <Tooltip title="Sign-out" placement="bottom" arrow>
+              <Tooltip title={ct("ui.sign_out_41efbf")} placement="bottom" arrow>
                 <IconButton onClick={signout}>
                   <LogoutIcon fontSize="inherit" />
                 </IconButton>
@@ -338,23 +340,23 @@ export default function Main() {
         <div className={c.introWrapper}>
           <div className={c.topbar}>
             <div className={c.left}>
-              <Tooltip title="MMGIS GitHub" placement="bottom" arrow>
+              <Tooltip title={ct("ui.mmgis_github_755614")} placement="bottom" arrow>
                 <IconButton onClick={toGitHub}>
                   <GitHubIcon fontSize="inherit" />
                 </IconButton>
               </Tooltip>
 
-              <Tooltip title="MMGIS Documentation" placement="bottom" arrow>
+              <Tooltip title={ct("ui.mmgis_documentation_d8d33d")} placement="bottom" arrow>
                 <IconButton onClick={toDocs}>
                   <HelpIcon fontSize="inherit" />
                 </IconButton>
               </Tooltip>
             </div>
             <div className={c.right}>
-              <Tooltip title="Signed in as" placement="bottom" arrow>
+              <Tooltip title={ct("ui.signed_in_as_a02107")} placement="bottom" arrow>
                 <div className={c.username}>{mmgisglobal?.user}</div>
               </Tooltip>
-              <Tooltip title="Sign-out" placement="bottom" arrow>
+              <Tooltip title={ct("ui.sign_out_41efbf")} placement="bottom" arrow>
                 <IconButton onClick={signout}>
                   <LogoutIcon fontSize="inherit" />
                 </IconButton>
@@ -363,21 +365,21 @@ export default function Main() {
           </div>
           <div className={c.intro}>
             <div className={c.title}>MMGIS</div>
-            <div className={c.subtitle}>Configuration</div>
-            <div className={c.message}>Create or Select a Mission</div>
+            <div className={c.subtitle}>{ct("ui.configuration_754164")}</div>
+            <div className={c.message}>{ct("ui.create_or_select_a_mission_8459fe")}</div>
           </div>
         </div>
       ) : (
         <>
           <div className={c.topbar}>
             <div className={c.left}>
-              <Tooltip title="MMGIS GitHub" placement="bottom" arrow>
+              <Tooltip title={ct("ui.mmgis_github_755614")} placement="bottom" arrow>
                 <IconButton onClick={toGitHub}>
                   <GitHubIcon fontSize="inherit" />
                 </IconButton>
               </Tooltip>
 
-              <Tooltip title="MMGIS Documentation" placement="bottom" arrow>
+              <Tooltip title={ct("ui.mmgis_documentation_d8d33d")} placement="bottom" arrow>
                 <IconButton onClick={toDocs}>
                   <HelpIcon fontSize="inherit" />
                 </IconButton>
@@ -392,46 +394,46 @@ export default function Main() {
                 }}
                 sx={{ borderRight: 1, borderColor: "divider" }}
               >
-                <Tab icon={<HomeIcon />} iconPosition="start" label="Home" />
+                <Tab icon={<HomeIcon />} iconPosition="start" label={ct("ui.home_70f8bb")} />
                 <Tab
                   icon={<LayersIcon />}
                   iconPosition="start"
-                  label="Layers"
+                  label={ct("ui.layers_f055f1")}
                 />
                 <Tab
                   icon={<HandymanIcon />}
                   iconPosition="start"
-                  label="Tools"
+                  label={ct("ui.tools_4fa8cc")}
                 />
                 {hasComponents ? (
                   <Tab
                     icon={<ExtensionIcon />}
                     iconPosition="start"
-                    label="Components"
+                    label={ct("ui.components_928947")}
                   />
                 ) : null}
                 <Tab
                   icon={<ExploreIcon />}
                   iconPosition="start"
-                  label="Coordinates"
+                  label={ct("ui.coordinates_8ebebc")}
                 />
                 <Tab
                   icon={<AccessTimeIcon />}
                   iconPosition="start"
-                  label="Time"
+                  label={ct("ui.time_6c82e6")}
                 />
                 <Tab
                   icon={<ViewQuiltIcon />}
                   iconPosition="start"
-                  label="User Interface"
+                  label={ct("ui.user_interface_ed5170")}
                 />
               </Tabs>
             </div>
             <div className={c.right}>
-              <Tooltip title="Signed in as" placement="bottom" arrow>
+              <Tooltip title={ct("ui.signed_in_as_a02107")} placement="bottom" arrow>
                 <div className={c.username}>{mmgisglobal?.user}</div>
               </Tooltip>
-              <Tooltip title="Sign-out" placement="bottom" arrow>
+              <Tooltip title={ct("ui.sign_out_41efbf")} placement="bottom" arrow>
                 <IconButton onClick={signout}>
                   <LogoutIcon fontSize="inherit" />
                 </IconButton>

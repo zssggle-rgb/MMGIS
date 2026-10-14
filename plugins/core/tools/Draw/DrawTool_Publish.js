@@ -1,3 +1,4 @@
+import { uiLabel, uiMarkup, uiRenderedMarkup } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 
 import calls from '@pre/calls'
@@ -75,9 +76,9 @@ var Publish = {
                 "<div id='drawToolReview'>",
                     "<div id='drawToolReviewTopbar'>",
                         "<div id='drawToolReviewTopbarTitle'>",
-                            "Review",
+                            uiLabel("Review"),
                             "<div id='drawToolReviewRefresh'>",
-                                "<div>refresh</div>",
+                                uiMarkup("<div>refresh</div>"),
                                 "<i class='mdi mdi-refresh mdi-18px'></i>",
                             "</div>",
                         "</div>",
@@ -92,7 +93,7 @@ var Publish = {
                 "</div>"
             ].join('\n');
 
-        $('#drawTool').append(markup)
+        $('#drawTool').append(uiRenderedMarkup(markup))
 
         $('#drawToolReviewRefresh').on('click', function () {
             DrawTool.showReview()
@@ -113,10 +114,10 @@ var Publish = {
             $('#drawToolReviewContent ul *').remove()
             var liMarkup = [
                 '<li class="drawToolReviewTitle">',
-                'Issues',
+                uiLabel("Issues"),
                 '</li>',
             ].join('\n')
-            $('#drawToolReviewContent ul').append(liMarkup)
+            $('#drawToolReviewContent ul').append(uiRenderedMarkup(liMarkup))
 
             var noErrors = true
             for (var i = 0; i < d.body.issues.length; i++) {
@@ -159,7 +160,7 @@ var Publish = {
                     message,
                     '</li>',
                 ].join('\n')
-                $('#drawToolReviewContent ul').append(liMarkup)
+                $('#drawToolReviewContent ul').append(uiRenderedMarkup(liMarkup))
             }
 
             if (noErrors) {
@@ -167,10 +168,10 @@ var Publish = {
                 //We can show the Changes and publish button
                 var liMarkup = [
                     '<li class="drawToolReviewTitle">',
-                    'Changes',
+                    uiLabel("Changes"),
                     '</li>',
                 ].join('\n')
-                $('#drawToolReviewContent ul').append(liMarkup)
+                $('#drawToolReviewContent ul').append(uiRenderedMarkup(liMarkup))
 
                 //Changes
                 if (d.body.changes) {
@@ -179,7 +180,7 @@ var Publish = {
                     for (var i = 0; i < added.length; i++) {
                         var liMarkup = [
                             "<li class='changes'>",
-                            "<div class='added'>added</div>",
+                            uiMarkup("<div class='added'>added</div>"),
                             "<span title='" +
                                 added[i].uuid +
                                 "' shape_id='" +
@@ -189,7 +190,7 @@ var Publish = {
                                 '</span>',
                             '</li>',
                         ].join('\n')
-                        $('#drawToolReviewContent ul').append(liMarkup)
+                        $('#drawToolReviewContent ul').append(uiRenderedMarkup(liMarkup))
                     }
 
                     //Removed
@@ -197,7 +198,7 @@ var Publish = {
                     for (var i = 0; i < removed.length; i++) {
                         var liMarkup = [
                             "<li class='changes'>",
-                            "<div class='removed'>removed</div>",
+                            uiMarkup("<div class='removed'>removed</div>"),
                             "<span title='" +
                                 removed[i].uuid +
                                 "' shape_id='null'>" +
@@ -205,7 +206,7 @@ var Publish = {
                                 '</span>',
                             '</li>',
                         ].join('\n')
-                        $('#drawToolReviewContent ul').append(liMarkup)
+                        $('#drawToolReviewContent ul').append(uiRenderedMarkup(liMarkup))
                     }
 
                     //Changed
@@ -213,7 +214,7 @@ var Publish = {
                     for (var i = 0; i < changed.length; i++) {
                         var liMarkup = [
                             "<li class='changes'>",
-                            "<div class='changed'>changed</div>",
+                            uiMarkup("<div class='changed'>changed</div>"),
                             "<span title='" +
                                 changed[i].uuid +
                                 "' shape_id='" +
@@ -225,23 +226,23 @@ var Publish = {
                                 '</span>',
                             '</li>',
                         ].join('\n')
-                        $('#drawToolReviewContent ul').append(liMarkup)
+                        $('#drawToolReviewContent ul').append(uiRenderedMarkup(liMarkup))
                     }
                 }
 
                 var liMarkup = [
                     '<li id="drawToolReviewPublish">',
-                    '<div>Publish</div>',
+                    uiMarkup("<div>Publish</div>"),
                     '</li>',
                 ].join('\n')
-                $('#drawToolReviewContent ul').append(liMarkup)
+                $('#drawToolReviewContent ul').append(uiRenderedMarkup(liMarkup))
             } else {
                 var liMarkup = [
                     '<li id="drawToolReviewMessage">',
-                    'All errors must be resolved before publishing.',
+                    uiLabel("All errors must be resolved before publishing."),
                     '</li>',
                 ].join('\n')
-                $('#drawToolReviewContent ul').append(liMarkup)
+                $('#drawToolReviewContent ul').append(uiRenderedMarkup(liMarkup))
             }
 
             $('#drawToolReviewContent ul li > span').on(
@@ -282,7 +283,7 @@ var Publish = {
                         {},
                         function () {
                             $('#drawToolReviewPublish').html(
-                                '<div>Published!</div>'
+                                uiRenderedMarkup(uiMarkup("<div>Published!</div>"))
                             )
                             $('#drawToolReviewPublish').css({
                                 background: '#26ff2b',
@@ -293,7 +294,7 @@ var Publish = {
                         },
                         function () {
                             $('#drawToolReviewPublish').html(
-                                '<div>Publish Failed</div>'
+                                uiRenderedMarkup(uiMarkup("<div>Publish Failed</div>"))
                             )
                             $('#drawToolReviewPublish').css({
                                 background: '#ff2626',
@@ -301,7 +302,7 @@ var Publish = {
                             setTimeout(function () {
                                 publishing = false
                                 $('#drawToolReviewPublish').html(
-                                    '<div>Publish</div>'
+                                    uiRenderedMarkup(uiMarkup("<div>Publish</div>"))
                                 )
                                 $('#drawToolReviewPublish').css({
                                     background: '#5d26ff',

@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -142,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "updateDataset";
 const UpdateDatasetModal = (props) => {
+  const ct = useConfigureText();
   const { queryDatasets } = props;
   const c = useStyles();
 
@@ -166,7 +168,7 @@ const UpdateDatasetModal = (props) => {
     if (file == null || fileName === null) {
       dispatch(
         setSnackBarText({
-          text: "Please upload a file.",
+          text: ct("ui.please_upload_a_file_4b2e92"),
           severity: "error",
         })
       );
@@ -176,7 +178,7 @@ const UpdateDatasetModal = (props) => {
     if (datasetName == null || datasetName == "") {
       dispatch(
         setSnackBarText({
-          text: "Missing Dataset name.",
+          text: ct("ui.missing_dataset_name_46f61f"),
           severity: "error",
         })
       );
@@ -186,7 +188,7 @@ const UpdateDatasetModal = (props) => {
     if (datasetName.match(/[|\\/~^:,;?!&%$@#*+\{\}\[\]<>]/)) {
       dispatch(
         setSnackBarText({
-          text: "Dataset names cannot contain the following symbols: |\\/~^:,;?!&%$@#*+.{}[]<>",
+          text: ct("ui.dataset_names_cannot_contain_the_following_840d7b"),
           severity: "error",
         })
       );
@@ -235,7 +237,7 @@ const UpdateDatasetModal = (props) => {
                 console.log(res?.message);
                 dispatch(
                   setSnackBarText({
-                    text: "Failed to upload a Dataset.",
+                    text: ct("ui.failed_to_upload_a_dataset_9144f4"),
                     severity: "error",
                   })
                 );
@@ -257,7 +259,7 @@ const UpdateDatasetModal = (props) => {
             (res) => {
               dispatch(
                 setSnackBarText({
-                  text: "Successfully updated/replaced Dataset.",
+                  text: ct("ui.successfully_updated_replaced_dataset_09dbf7"),
                   severity: "success",
                 })
               );
@@ -270,7 +272,7 @@ const UpdateDatasetModal = (props) => {
               console.log(res?.message);
               dispatch(
                 setSnackBarText({
-                  text: "Failed to upload a Dataset.",
+                  text: ct("ui.failed_to_upload_a_dataset_9144f4"),
                   severity: "error",
                 })
               );
@@ -325,12 +327,12 @@ const UpdateDatasetModal = (props) => {
             <UploadIcon className={c.backgroundIcon} />
             <div
               className={c.title}
-            >{`Update/Replace this Dataset: ${modal?.dataset?.name}`}</div>
+            >{ct("ui.update_replace_this_dataset_p0_702ab3", { p0: modal?.dataset?.name })}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -339,17 +341,17 @@ const UpdateDatasetModal = (props) => {
       </DialogTitle>
       <DialogContent className={c.content}>
         <Typography className={c.subtitle}>
-          {`Overwrites the contents of the existing Dataset with that of the uploaded file.`}
+          {ct("ui.overwrites_the_contents_of_the_existing_3991b1")}
         </Typography>
         <div className={c.dropzone}>
           <div {...getRootProps({ className: "dropzone" })}>
             <input {...getInputProps()} />
-            {isDragAccept && <p>All files will be accepted</p>}
-            {isDragReject && <p>Some files will be rejected</p>}
+            {isDragAccept && <p>{ct("ui.all_files_will_be_accepted_c4d789")}</p>}
+            {isDragReject && <p>{ct("ui.some_files_will_be_rejected_658078")}</p>}
             {!isDragActive && (
               <div className={c.dropzoneMessage}>
-                <p>Drag 'n' drop or click to select files...</p>
-                <p>Only *.csv files are accepted.</p>
+                <p>{ct("ui.drag_n_drop_or_click_to_21279e")}</p>
+                <p>{ct("ui.only_csv_files_are_accepted_f84a48")}</p>
               </div>
             )}
           </div>
@@ -357,7 +359,7 @@ const UpdateDatasetModal = (props) => {
 
         <div className={c.fileName}>
           <InsertDriveFileIcon />
-          <div>{fileName || "No File Selected"}</div>
+          <div>{fileName || ct("ui.no_file_selected_7dbe85")}</div>
         </div>
       </DialogContent>
       <DialogActions>
@@ -368,9 +370,7 @@ const UpdateDatasetModal = (props) => {
           className={c.addSelected}
           variant="contained"
           onClick={handleSubmit}
-        >
-          Update/Replace Dataset
-        </Button>
+        >{ct("ui.update_replace_dataset_a50d39")}</Button>
       </DialogActions>
     </Dialog>
   );

@@ -5,7 +5,7 @@ function login() {
     document.getElementById("username").value === "" ||
     document.getElementById("pwd").value === ""
   ) {
-    document.getElementById("msg").innerHTML = "Missing username or password.";
+    document.getElementById("msg").textContent = MMGISAuth.text("Missing username or password.");
     document.getElementById("msg").style.opacity = 1;
     return;
   }
@@ -13,7 +13,7 @@ function login() {
   if (toggleState === "login") {
     $.ajax({
       type: "POST",
-      url: "api/users/login",
+      url: MMGISAuth.link("api/users/login"),
       data: {
         username: document.getElementById("username").value,
         password: document.getElementById("pwd").value,
@@ -32,14 +32,14 @@ function login() {
           window.location.reload();
         } else {
           //error
-          document.getElementById("msg").innerHTML =
-            "Invalid username or password";
+          document.getElementById("msg").textContent =
+            MMGISAuth.message(data) || MMGISAuth.text("Invalid username or password");
           document.getElementById("msg").style.opacity = 1;
         }
       },
-      error: function () {
+      error: function (xhr) {
         //error
-        document.getElementById("msg").innerHTML = "Server error.";
+        document.getElementById("msg").textContent = MMGISAuth.message(xhr.responseJSON || { status: "failure", message: xhr.statusText || "Server error." });
         document.getElementById("msg").style.opacity = 1;
       },
     });
@@ -48,14 +48,14 @@ function login() {
       document.getElementById("pwd").value !=
       document.getElementById("pwd_retype").value
     ) {
-      document.getElementById("msg").innerHTML = "Passwords don't match.";
+      document.getElementById("msg").textContent = MMGISAuth.text("Passwords don't match.");
       document.getElementById("msg").style.opacity = 1;
       return;
     }
 
     $.ajax({
       type: "POST",
-      url: "api/users/signup",
+      url: MMGISAuth.link("api/users/signup"),
       data: {
         username: document.getElementById("username").value,
         email: document.getElementById("email").value,
@@ -75,14 +75,14 @@ function login() {
           window.location.reload();
         } else {
           //error
-          document.getElementById("msg").innerHTML =
-            data.message || "Something went wrong.";
+          document.getElementById("msg").textContent =
+            MMGISAuth.message(data) || MMGISAuth.text("Something went wrong.");
           document.getElementById("msg").style.opacity = 1;
         }
       },
-      error: function () {
+      error: function (xhr) {
         //error
-        document.getElementById("msg").innerHTML = "Server error.";
+        document.getElementById("msg").textContent = MMGISAuth.message(xhr.responseJSON || { status: "failure", message: xhr.statusText || "Server error." });
         document.getElementById("msg").style.opacity = 1;
       },
     });
@@ -91,8 +91,8 @@ function login() {
 function toggle() {
   if (toggleState === "login") {
     document.getElementById("container").style.height = "635px";
-    document.getElementById("login").innerHTML = "Sign Up";
-    document.getElementById("toggle").innerHTML = "Or Log In";
+    document.getElementById("login").textContent = MMGISAuth.text("Sign Up");
+    document.getElementById("toggle").textContent = MMGISAuth.text("Or Log In");
 
     document.getElementById("email_label").style.display = "block";
 
@@ -106,8 +106,8 @@ function toggle() {
     toggleState = "signup";
   } else {
     document.getElementById("container").style.height = "440px";
-    document.getElementById("login").innerHTML = "Log In";
-    document.getElementById("toggle").innerHTML = "Or Sign Up";
+    document.getElementById("login").textContent = MMGISAuth.text("Log In");
+    document.getElementById("toggle").textContent = MMGISAuth.text("Or Sign Up");
 
     document.getElementById("email_label").style.display = "none";
 

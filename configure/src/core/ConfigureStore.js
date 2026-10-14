@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { calls } from "./calls";
 import { getAllValidationErrors } from "./validators";
+import { feedbackDescriptor } from "../i18n/feedback";
 
 window.newUUIDCount = 0;
 window.configId = parseInt(Math.random() * 100000);
@@ -115,6 +116,7 @@ export const ConfigureStore = createSlice({
         state.snackBarText = {
           text: String(action.payload.text),
           severity: action.payload.severity,
+          ...feedbackDescriptor({ ...action.payload, status: action.payload.severity === 'success' ? 'success' : action.payload.severity === 'error' ? 'failure' : undefined }),
         };
     },
     setValidationErrors: (state, action) => {
@@ -185,6 +187,10 @@ export const ConfigureStore = createSlice({
             };
           }
         }
+        state.snackBarText = {
+          ...state.snackBarText,
+          ...feedbackDescriptor({ ...state.snackBarText, status: 'failure' }),
+        };
         return;
       }
 

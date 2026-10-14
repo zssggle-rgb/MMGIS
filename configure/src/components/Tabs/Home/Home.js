@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../i18n";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setVersions } from "./HomeSlice";
@@ -96,6 +97,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home() {
+  const ct = useConfigureText();
   const c = useStyles();
 
   const dispatch = useDispatch();
@@ -123,7 +125,7 @@ export default function Home() {
           dispatch(
             setSnackBarText({
               text:
-                res?.message || "Failed to get the history for the mission.",
+                res?.message || ct("ui.failed_to_get_the_history_for_447680"),
               severity: "error",
             }),
           );
@@ -135,7 +137,7 @@ export default function Home() {
     downloadObject(configuration, `${mission}_WORKING_config`, ".json");
     dispatch(
       setSnackBarText({
-        text: "Successfully exported working Configuration JSON.",
+        text: ct("ui.successfully_exported_working_configuration_json_51a4a0"),
         severity: "success",
       }),
     );
@@ -169,7 +171,7 @@ export default function Home() {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Successfully saved config to base template.",
+            text: res?.message || ct("ui.successfully_saved_config_to_base_template_b8cd9e"),
             severity: "success",
           }),
         );
@@ -177,7 +179,7 @@ export default function Home() {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: res?.message || "Failed to save config to base template.",
+            text: res?.message || ct("ui.failed_to_save_config_to_base_11c483"),
             severity: "error",
           }),
         );
@@ -192,44 +194,44 @@ export default function Home() {
           <h2 className={c.title}>{mission}</h2>
           <div className={c.right}>
             <Tooltip
-              title={"Export Unsaved Config.JSON"}
+              title={ct("ui.export_unsaved_config_json_bd0740")}
               placement="bottom"
               arrow
             >
               <IconButton
                 className={c.exportIcon}
-                title="Export Unsaved"
-                aria-label="export unsaved"
+                title={ct("ui.export_unsaved_1c5829")}
+                aria-label={ct("ui.export_unsaved_9febaf")}
                 onClick={handleExport}
               >
                 <BrowserUpdatedIcon fontSize="medium" />
               </IconButton>
             </Tooltip>
-            <Tooltip title={"Upload Config.JSON"} placement="bottom" arrow>
+            <Tooltip title={ct("ui.upload_config_json_814da8")} placement="bottom" arrow>
               <IconButton
                 className={c.uploadIcon}
-                title="Upload"
-                aria-label="upload"
+                title={ct("ui.upload_8bdf05")}
+                aria-label={ct("ui.upload_bb73aa")}
                 onClick={handleUpload}
               >
                 <UploadIcon fontSize="medium" />
               </IconButton>
             </Tooltip>
-            <Tooltip title={"Clone Mission"} placement="bottom" arrow>
+            <Tooltip title={ct("ui.clone_mission_40dd12")} placement="bottom" arrow>
               <IconButton
                 className={c.cloneIcon}
-                title="Clone"
-                aria-label="clone"
+                title={ct("ui.clone_d8cdb5")}
+                aria-label={ct("ui.clone_5e0072")}
                 onClick={handleClone}
               >
                 <ContentCopyIcon fontSize="medium" />
               </IconButton>
             </Tooltip>
-            <Tooltip title={"Delete Mission"} placement="bottom" arrow>
+            <Tooltip title={ct("ui.delete_mission_2445c2")} placement="bottom" arrow>
               <IconButton
                 className={c.deleteIcon}
-                title="Delete"
-                aria-label="delete"
+                title={ct("ui.delete_f6fdbe")}
+                aria-label={ct("ui.delete_948598")}
                 onClick={handleDelete}
               >
                 <DeleteForeverIcon fontSize="medium" />
@@ -242,17 +244,14 @@ export default function Home() {
                 className={c.saveToBaseButton}
                 onClick={handleSaveToBase}
                 startIcon={<SaveIcon />}
-              >
-                Save to Base Blueprint{" "}
+              >{ct("ui.save_to_base_blueprint_fc99e6")}{" "}
                 <span
                   style={{
                     marginLeft: "4px",
                     fontSize: "0.75rem",
                     opacity: 0.9,
                   }}
-                >
-                  (Dev Only)
-                </span>
+                >{ct("ui.dev_only_21ac9d")}</span>
               </Button>
             )}
           </div>

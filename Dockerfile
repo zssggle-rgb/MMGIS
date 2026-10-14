@@ -16,6 +16,8 @@ ARG TARGETPLATFORM
 ARG TARGETARCH
 ARG PUBLIC_URL_ARG=
 ENV PUBLIC_URL=$PUBLIC_URL_ARG
+ARG SOURCE_COMMIT=unknown
+ENV MMGIS_BUILD_COMMIT=$SOURCE_COMMIT
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -94,19 +96,16 @@ RUN if [ -s plugin-python-requirements.txt ] && grep -qv '^#' plugin-python-requ
         echo "No plugin pip dependencies to install."; \
     fi
 
-# Build MMGIS main
-RUN npm run build
-
-# Build MMGIS Configure
-WORKDIR /usr/src/app/configure
-RUN rm -rf build/* && npm run build
-
-WORKDIR /usr/src/app
+# Build both frontends, their Pug templates and the final locale delivery manifest.
+RUN npm run build:delivery
 
 # ============================================
 # Stage 2: Runtime Stage
 # ============================================
 FROM oraclelinux:8.9 AS runtime
+ARG SOURCE_COMMIT=unknown
+LABEL org.opencontainers.image.source="https://github.com/zssggle-rgb/MMGIS" \
+      org.opencontainers.image.revision=$SOURCE_COMMIT
 
 # Runtime dependencies only (smaller, more secure)
 RUN dnf -y update && \

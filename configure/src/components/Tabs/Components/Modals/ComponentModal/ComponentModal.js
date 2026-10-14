@@ -1,3 +1,5 @@
+import { useConfigureText, useMetadataText } from "../../../../../i18n";
+import { metadataText } from "../../../../../i18n/metadata";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -145,6 +147,8 @@ const useStyles = makeStyles((theme) => ({
 const MODAL_NAME = "component";
 
 const ComponentModal = (props) => {
+  const ct = useConfigureText();
+  const tMeta = useMetadataText();
   const {} = props;
   const c = useStyles();
 
@@ -245,12 +249,12 @@ const ComponentModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <ExtensionIcon className={c.backgroundIcon} />
-            <div className={c.title}>{componentName}</div>
+            <div className={c.title}>{metadataText(componentName, tMeta)}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -261,10 +265,10 @@ const ComponentModal = (props) => {
         <div className={c.top}>
           <div className={c.info}>
             <Typography className={c.infoTitle}>
-              {componentConfig?.description}
+              {metadataText(componentConfig?.description, tMeta)}
             </Typography>
             <Typography className={c.infoDescription}>
-              {componentConfig?.descriptionFull?.title}
+              {metadataText(componentConfig?.descriptionFull?.title, tMeta)}
             </Typography>
           </div>
           <div className={c.topOptions}>
@@ -301,7 +305,7 @@ const ComponentModal = (props) => {
                     }}
                   />
                 }
-                label={componentActive ? "ON" : "OFF"}
+                label={ct(componentActive ? "status.enabled" : "status.disabled")}
                 labelPlacement="start"
               />
             </FormGroup>
@@ -311,7 +315,7 @@ const ComponentModal = (props) => {
                 variant="filled"
                 size="small"
                 value={component?.icon || componentConfig?.defaultIcon || ""}
-                label={"MDI Icon Name (optional)"}
+                label={ct("ui.mdi_icon_name_optional_09cf08")}
                 onChange={(e) => {
                   const nextConfiguration = JSON.parse(
                     JSON.stringify(configuration)
@@ -347,15 +351,11 @@ const ComponentModal = (props) => {
             inlineHelp={true}
           />
         ) : (
-          <Typography className={c.noFurtherConf}>
-            No further configuration
-          </Typography>
+          <Typography className={c.noFurtherConf}>{ct("ui.no_further_configuration_bed04e")}</Typography>
         )}
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={handleClose}>
-          Done
-        </Button>
+        <Button variant="contained" onClick={handleClose}>{ct("ui.done_e9b450")}</Button>
       </DialogActions>
     </Dialog>
   );

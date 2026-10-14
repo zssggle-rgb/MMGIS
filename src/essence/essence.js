@@ -1,3 +1,4 @@
+import { feedbackMessage } from '../i18n/feedback'
 /*
   Copyright 2019 NASA/JPL-Caltech
 
@@ -175,9 +176,9 @@ var essence = {
 
             const asMinutes = essence.webSocketRetryInterval / 60000 || ''
             Toast.error(
-                `Not connected to WebSocket. Retrying in ${
-                    asMinutes >= 1 ? parseInt(asMinutes) : asMinutes.toFixed(2)
-                } minute${asMinutes > 1 ? 's' : ''}...`,
+                feedbackMessage({ messageKey: 'feedback:wsRetry', messageParams: {
+                    minutes: asMinutes >= 1 ? parseInt(asMinutes) : Number(asMinutes).toFixed(2),
+                } }),
                 10000
             )
         }

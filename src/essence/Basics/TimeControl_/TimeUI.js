@@ -1,3 +1,4 @@
+import { bindUiTooltips, uiDropdownItems, uiLabel, uiMarkup, uiRenderedMarkup, uiTemplate, uiText } from '../../../i18n/legacy-ui'
 //Modal is a just a simple modal with a fullscreen backdrop
 
 /*use like:
@@ -106,7 +107,7 @@ const TimeUI = {
             _getUIStore().getState().isMobile == true ? 
                 ["<div id='timeUIHeader'>",
                     "<div class='left'>",
-                        "<div id='timeUITitle'>Time</div>",
+                        uiMarkup("<div id='timeUITitle'>Time</div>"),
                     "</div>",
                 "</div>"].join('\n') : '',
                 `<div id="mmgisTimeUITopBar">`,
@@ -134,11 +135,11 @@ const TimeUI = {
         markup += [
             `<div id="mmgisTimeUIMain">`,
                 `<div class="mmgisTimeUIInput" id="mmgisTimeUIStartWrapper">`,
-                `<span>Start Time</span>`,
+                uiTemplate`<span>Start Time</span>`,
                 `<input id="mmgisTimeUIStart"/>`,
             `</div>`,
             `<div class="mmgisTimeUIInput" id="mmgisTimeUIStartWrapperFake">`,
-                `<span>Start Time</span>`,
+                uiTemplate`<span>Start Time</span>`,
                 `<input id="mmgisTimeUIStartFake" type="text"/>`,
             `</div>`,
         ].join('\n')
@@ -161,11 +162,11 @@ const TimeUI = {
         // prettier-ignore
         markup += [
                 `<div class="mmgisTimeUIInput" id="mmgisTimeUIEndWrapper">`,
-                    `<span>End Time</span>`,
+                    uiTemplate`<span>End Time</span>`,
                     `<input id="mmgisTimeUIEnd"/>`,
                 `</div>`,
                 `<div class="mmgisTimeUIInput" id="mmgisTimeUIEndWrapperFake">`,
-                    `<span>End Time</span>`,
+                    uiTemplate`<span>End Time</span>`,
                     `<input id="mmgisTimeUIEndFake" type="text"/>`,
                 `</div>`,
             `</div>`,
@@ -253,18 +254,18 @@ const TimeUI = {
         const playPopoverMarkup = [
             `<div id="timeUIPlayPopover">`,
                 `<div id='mmgisTimeUIStepWithinBeyond'>`,
-                    `<div>Mode</div>`,
+                    uiTemplate`<div>Mode</div>`,
                     `<div id='mmgisTimeUIStepWithinBeyondDropdown' class='ui dropdown short'></div>`,
                 `</div>`,
                 `<div id='mmgisTimeUIStep'>`,
-                    `<div>Step</div>`,
+                    uiTemplate`<div>Step</div>`,
                     `<div style="display: flex;">`,
                         `<input id='mmgisTimeUIRateInput' type="number" min="0" max="99" step="0.5" value="1" default="1" placeholder="1">`,
                         `<div id='mmgisTimeUIStepDropdown' class='ui dropdown short'></div>`,
                     `</div>`,
                 `</div>`,
                 `<div id='mmgisTimeUIRate'>`,
-                    `<div>Every</div>`,
+                    uiTemplate`<div>Every</div>`,
                     `<div id='mmgisTimeUIRateDropdown' class='ui dropdown short'></div>`,
                 `</div>`,
 
@@ -310,26 +311,26 @@ const TimeUI = {
                     overflow: 'hidden',
                     height: '100%',
                 })
-                .html(markup)
-            $(staging).append(tools)
+                .html(uiRenderedMarkup(markup))
+            $(staging).append(uiRenderedMarkup(tools))
 
             const playPopover = $('<div>')
                 .attr('id', 'timeUIPlayPopover_global')
-                .html(playPopoverMarkup)
-            $('body').append(playPopover)
+                .html(uiRenderedMarkup(playPopoverMarkup))
+            $('body').append(uiRenderedMarkup(playPopover))
         } else {
-            const timeUIDiv = $('<div>').attr('id', 'timeUI').html(markup)
-            $('#splitscreens').append(timeUIDiv)
+            const timeUIDiv = $('<div>').attr('id', 'timeUI').html(uiRenderedMarkup(markup))
+            $('#splitscreens').append(uiRenderedMarkup(timeUIDiv))
 
             const playPopover = $('<div>')
                 .attr('id', 'timeUIPlayPopover_global')
-                .html(playPopoverMarkup)
-            $('body').append(playPopover)
+                .html(uiRenderedMarkup(playPopoverMarkup))
+            $('body').append(uiRenderedMarkup(playPopover))
 
             const quickSelectPopover = $('<div>')
                 .attr('id', 'timeUIQuickSelectPopover_global')
-                .html(quickSelectPopoverMarkup)
-            $('body').append(quickSelectPopover)
+                .html(uiRenderedMarkup(quickSelectPopoverMarkup))
+            $('body').append(uiRenderedMarkup(quickSelectPopover))
         }
 
         TimeUI.attachEvents()
@@ -845,47 +846,47 @@ const TimeUI = {
 
         if (_getUIStore().getState().isMobile !== true) {
             // tippy
-            tippy('#mmgisTimeUIMode', {
-                content: 'Mode',
+            bindUiTooltips(tippy('#mmgisTimeUIMode', {
+                content: uiText("Mode"),
                 placement: 'top',
                 theme: 'blue',
-            })
-            tippy('#mmgisTimeUIQuickSelectTrigger', {
-                content: 'Quick Select Period',
+            }), "Mode")
+            bindUiTooltips(tippy('#mmgisTimeUIQuickSelectTrigger', {
+                content: uiText("Quick Select Period"),
                 placement: 'top',
                 theme: 'blue',
-            })
-            tippy('#mmgisTimeUIPlayTrigger', {
-                content: 'Play',
+            }), "Quick Select Period")
+            bindUiTooltips(tippy('#mmgisTimeUIPlayTrigger', {
+                content: uiText("Play"),
                 placement: 'top',
                 theme: 'blue',
-            })
+            }), "Play")
 
-            tippy('#mmgisTimeUIPlay', {
-                content: 'Play / Pause',
+            bindUiTooltips(tippy('#mmgisTimeUIPlay', {
+                content: uiText("Play / Pause"),
                 placement: 'top',
                 theme: 'blue',
-            })
-            tippy('#mmgisTimeUIFitTime', {
-                content: 'Fit Time to Time-Window',
+            }), "Play / Pause")
+            bindUiTooltips(tippy('#mmgisTimeUIFitTime', {
+                content: uiText("Fit Time to Time-Window"),
                 placement: 'top',
                 theme: 'blue',
-            })
-            tippy('#mmgisTimeUIFitWindow', {
-                content: 'Fit Time-Window to Time',
+            }), "Fit Time to Time-Window")
+            bindUiTooltips(tippy('#mmgisTimeUIFitWindow', {
+                content: uiText("Fit Time-Window to Time"),
                 placement: 'top',
                 theme: 'blue',
-            })
-            tippy('#mmgisTimeUIFollowFeature', {
-                content: 'Follow Selected Feature',
+            }), "Fit Time-Window to Time")
+            bindUiTooltips(tippy('#mmgisTimeUIFollowFeature', {
+                content: uiText("Follow Selected Feature"),
                 placement: 'top',
                 theme: 'blue',
-            })
-            tippy('#mmgisTimeUIPresent', {
-                content: 'Present',
+            }), "Follow Selected Feature")
+            bindUiTooltips(tippy('#mmgisTimeUIPresent', {
+                content: uiText("Present"),
                 placement: 'top',
                 theme: 'blue',
-            })
+            }), "Present")
         }
 
         // Initialize live progress duration on load
@@ -897,10 +898,10 @@ const TimeUI = {
         }
         // Mode dropdown
         $('#mmgisTimeUIModeDropdown').html(
-            Dropy.construct(TimeUI.modes, 'Mode', TimeUI._startingModeIndex, {
+            uiRenderedMarkup(Dropy.construct(uiDropdownItems(TimeUI.modes), uiLabel('Mode'), TimeUI._startingModeIndex, {
                 openUp: true,
                 dark: true,
-            })
+            }))
         )
 
         Dropy.init($('#mmgisTimeUIModeDropdown'), TimeUI.changeMode)
@@ -915,10 +916,10 @@ const TimeUI = {
             'Minute',
         ]
         $('#mmgisTimeUIQuickSelectDropdown').html(
-            Dropy.construct(quickSelectOptions, 'Period', null, {
+            uiRenderedMarkup(Dropy.construct(uiDropdownItems(quickSelectOptions), uiLabel('Period'), null, {
                 openUp: true,
                 dark: true,
-            })
+            }))
         )
         Dropy.init(
             $('#mmgisTimeUIQuickSelectDropdown'),
@@ -927,15 +928,15 @@ const TimeUI = {
 
         // Step WithinBeyond dropdown
         $('#mmgisTimeUIStepWithinBeyondDropdown').html(
-            Dropy.construct(
-                ['Playback', 'Shift'],
-                'Mode',
+            uiRenderedMarkup(Dropy.construct(
+                uiDropdownItems(['Playback', 'Shift']),
+                uiLabel('Mode'),
                 TimeUI.stepWithinBeyondIndex,
                 {
                     openUp: true,
                     dark: true,
                 }
-            )
+            ))
         )
         Dropy.init($('#mmgisTimeUIStepWithinBeyondDropdown'), function (idx) {
             TimeUI.stepWithinBeyondIndex = idx
@@ -954,15 +955,15 @@ const TimeUI = {
         })
         // Step dropdown
         $('#mmgisTimeUIStepDropdown').html(
-            Dropy.construct(
-                Object.keys(MS).map((k) => `${k.capitalizeFirstLetter()}`),
-                'Step',
+            uiRenderedMarkup(Dropy.construct(
+                uiDropdownItems(Object.keys(MS).map((k) => `${k.capitalizeFirstLetter()}`)),
+                uiLabel('Step'),
                 TimeUI.stepIndex,
                 {
                     openUp: true,
                     dark: true,
                 }
-            )
+            ))
         )
         Dropy.init($('#mmgisTimeUIStepDropdown'), function (idx) {
             TimeUI.stepIndex = idx
@@ -970,15 +971,15 @@ const TimeUI = {
         })
         // Rate dropdown
         $('#mmgisTimeUIRateDropdown').html(
-            Dropy.construct(
-                TimeUI.intervalNames,
-                'Rate',
+            uiRenderedMarkup(Dropy.construct(
+                uiDropdownItems(TimeUI.intervalNames),
+                uiLabel('Rate'),
                 TimeUI.intervalIndex,
                 {
                     openUp: true,
                     dark: true,
                 }
-            )
+            ))
         )
         Dropy.init($('#mmgisTimeUIRateDropdown'), function (idx) {
             TimeUI.intervalIndex = idx
@@ -988,15 +989,15 @@ const TimeUI = {
 
         // Interval Duration dropdown
         $('#mmgisTimeUIIntervalDurationDropdown').html(
-            Dropy.construct(
-                Object.keys(MS).map((k) => `1 ${k.capitalizeFirstLetter()}`),
-                'Step',
+            uiRenderedMarkup(Dropy.construct(
+                uiDropdownItems(Object.keys(MS).map((k) => `1 ${k.capitalizeFirstLetter()}`)),
+                uiLabel('Step'),
                 TimeUI.stepIndex,
                 {
                     openUp: true,
                     dark: true,
                 }
-            )
+            ))
         )
         Dropy.init($('#mmgisTimeUIIntervalDurationDropdown'), function (idx) {
             TimeUI.stepIndex = idx
@@ -1004,15 +1005,15 @@ const TimeUI = {
         })
         // Interval Step dropdown
         $('#mmgisTimeUIIntervalStepDropdown').html(
-            Dropy.construct(
-                TimeUI.intervalNames,
-                'Rate',
+            uiRenderedMarkup(Dropy.construct(
+                uiDropdownItems(TimeUI.intervalNames),
+                uiLabel('Rate'),
                 TimeUI.intervalIndex,
                 {
                     openUp: true,
                     dark: true,
                 }
-            )
+            ))
         )
         Dropy.init($('#mmgisTimeUIIntervalStepDropdown'), function (idx) {
             TimeUI.intervalIndex = idx
@@ -1509,9 +1510,9 @@ const TimeUI = {
             let extentHandle = $('#mmgisTimeUITimelineExtentHandle')
             if (extentHandle.length === 0) {
                 $('#mmgisTimeUITimeline').append(
-                    '<div id="mmgisTimeUITimelineExtentHandle">' +
+                    uiRenderedMarkup('<div id="mmgisTimeUITimelineExtentHandle">' +
                         '<i class="mdi mdi-drag-horizontal mdi-18px"></i>' +
-                        '</div>'
+                        '</div>')
                 )
                 extentHandle = $('#mmgisTimeUITimelineExtentHandle')
             }
@@ -1782,7 +1783,7 @@ const TimeUI = {
             $('#mmgisTimeUIEnd').css('pointer-events', 'none')
             $('#mmgisTimeUIEndWrapper').css('cursor', 'not-allowed')
             // Rename label to Live Time
-            $('#mmgisTimeUIEndWrapper > span').text('Live Time')
+            $('#mmgisTimeUIEndWrapper > span').html(uiRenderedMarkup(uiMarkup("<span>Live Time</span>")))
             TimeUI.now = true
             TimeUI.togglePlay(false)
         } else {
@@ -1793,7 +1794,7 @@ const TimeUI = {
             $('#mmgisTimeUIEnd').css('pointer-events', 'inherit')
             $('#mmgisTimeUIEndWrapper').css('cursor', 'inherit')
             // Restore label to Active Time
-            $('#mmgisTimeUIEndWrapper > span').text('Active Time')
+            $('#mmgisTimeUIEndWrapper > span').html(uiRenderedMarkup(uiMarkup("<span>Active Time</span>")))
             TimeUI.now = false
 
             // Disable follow mode when Present mode is turned off
@@ -1814,7 +1815,7 @@ const TimeUI = {
                 !activeFeature.layer.options.layerName
             ) {
                 // Show toast message
-                Toast.info('Select a feature from a real-time layer first', 3000)
+                Toast.info(uiText("Select a feature from a real-time layer first"), 3000)
                 return
             }
 
@@ -1836,28 +1837,28 @@ const TimeUI = {
         const layer = L_.layers.data[layerName]
         if (!layer) {
             // Show toast message
-            Toast.error('Layer not found.', 3000)
+            Toast.error(uiText("Layer not found."), 3000)
             return false
         }
 
         // Layer must be time-enabled
         if (!layer.time || layer.time.enabled !== true) {
             // Show toast message
-            Toast.error('Selected layer does not support real-time updates.', 3000)
+            Toast.error(uiText("Selected layer does not support real-time updates."), 3000)
             return false
         }
 
         // Layer must fetch new data (global or requery types)
         if (layer.time.type !== 'global' && layer.time.type !== 'requery') {
             // Show toast message
-            Toast.error('Selected layer does not support real-time updates.', 3000)
+            Toast.error(uiText("Selected layer does not support real-time updates."), 3000)
             return false
         }
 
         // Present mode should be on for real-time following
         if (!TimeUI.now) {
             // Show toast message
-            Toast.error('Present Mode is not active.', 3000)
+            Toast.error(uiText("Present Mode is not active."), 3000)
             return false
         }
 
@@ -2334,7 +2335,7 @@ const TimeUI = {
         const container = $('#mmgisTimeUIYearsContainer')
         const rangeIndicator = $('#mmgisTimeUIYearsRange').detach()
         container.empty()
-        container.append(rangeIndicator)
+        container.append(uiRenderedMarkup(rangeIndicator))
 
         // Get last 20 years
         const currentYear = moment().year()
@@ -2361,14 +2362,14 @@ const TimeUI = {
                 TimeUI._selectYear(year)
             })
 
-            container.append(yearButton)
+            container.append(uiRenderedMarkup(yearButton))
         }
     },
     _populateMonthsRow() {
         const container = $('#mmgisTimeUIMonthsContainer')
         const rangeIndicator = $('#mmgisTimeUIMonthsRange').detach()
         container.empty()
-        container.append(rangeIndicator)
+        container.append(uiRenderedMarkup(rangeIndicator))
 
         // Get 12 months
         const months = moment.months()
@@ -2394,14 +2395,14 @@ const TimeUI = {
                 TimeUI._selectMonth(i)
             })
 
-            container.append(monthButton)
+            container.append(uiRenderedMarkup(monthButton))
         }
     },
     _populateDaysRow() {
         const container = $('#mmgisTimeUIDaysContainer')
         const rangeIndicator = $('#mmgisTimeUIDaysRange').detach()
         container.empty()
-        container.append(rangeIndicator)
+        container.append(uiRenderedMarkup(rangeIndicator))
 
         // Get the number of days in the selected month (use addOffset to get local time)
         const selectedMoment = moment(TimeUI._endTimestamp)
@@ -2424,7 +2425,7 @@ const TimeUI = {
                 TimeUI._selectDay(day)
             })
 
-            container.append(dayButton)
+            container.append(uiRenderedMarkup(dayButton))
         }
     },
     _selectYear(year) {
@@ -2500,7 +2501,7 @@ const TimeUI = {
         const container = $('#mmgisTimeUIHoursContainer')
         const rangeIndicator = $('#mmgisTimeUIHoursRange').detach()
         container.empty()
-        container.append(rangeIndicator)
+        container.append(uiRenderedMarkup(rangeIndicator))
 
         // Get the selected hour
         const selectedMoment = moment.utc(
@@ -2531,7 +2532,7 @@ const TimeUI = {
                 TimeUI._selectHour(hour)
             })
 
-            container.append(hourButton)
+            container.append(uiRenderedMarkup(hourButton))
         }
     },
     _selectHour(hour) {
@@ -2840,16 +2841,16 @@ const TimeUI = {
 
         // Add left arrow for start handle
         timeline.append(
-            '<div class="timeUIRangeShiftBtn timeUIRangeShiftLeft">' +
+            uiRenderedMarkup('<div class="timeUIRangeShiftBtn timeUIRangeShiftLeft">' +
                 '<i class="mdi mdi-menu-left mdi-36px"></i>' +
-                '</div>'
+                '</div>')
         )
 
         // Add right arrow for end handle
         timeline.append(
-            '<div class="timeUIRangeShiftBtn timeUIRangeShiftRight">' +
+            uiRenderedMarkup('<div class="timeUIRangeShiftBtn timeUIRangeShiftRight">' +
                 '<i class="mdi mdi-menu-right mdi-36px"></i>' +
-                '</div>'
+                '</div>')
         )
 
         // Position the buttons based on handle positions
@@ -3043,9 +3044,9 @@ const TimeUI = {
             if (minmax.max > 0) {
                 bins.forEach((b) => {
                     histoElm.append(
-                        `<div style="width:${(1 / NUM_BINS) * 100}%; opacity:${
+                        uiRenderedMarkup(`<div style="width:${(1 / NUM_BINS) * 100}%; opacity:${
                             (b > 0 ? 20 : 0) + (b / minmax.max) * 80
-                        }%;"></div>`
+                        }%;"></div>`)
                     )
                 })
             }
@@ -3511,14 +3512,14 @@ const TimeUI = {
             const left = F_.linearScale([s, e], [0, 100], bigTicks[i].ts)
             if (left >= 0 && left <= 100) {
                 timelineElm.append(
-                    [
+                    uiRenderedMarkup([
                         `<div class="mmgisTimeUITick" style="left: ${left}%">`,
                         `<div class="mmgisTimeUITickBig"></div>`,
                         `<div class="mmgisTimeUITickLabel" id="mmgisTimeUITickLabel_${i}">${
                             bigTicks[i].label
                         }${first ? `<br/><span>${unit}</span>` : ''}</div>`,
                         `</div>`,
-                    ].join('\n')
+                    ].join('\n'))
                 )
                 first = false
             }

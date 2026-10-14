@@ -1,3 +1,4 @@
+import { uiCanonical, uiDropdownItems, uiLabel, uiMarkup, uiRenderedMarkup, uiTemplate, uiText } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import { safeHTML } from '@essence/services/Sanitize'
 
@@ -50,7 +51,7 @@ const DrawTool_Templater = {
                         return [
                             `<li id='drawToolTemplater_${idx}' class='drawToolTemplater${t.type}'>`,
                                 `<div title='${t.field}'>${t.field}:</div>`,
-                                `<input type='number' placeholder="Enter Number" autocomplete="off"
+                                uiTemplate`<input type='number' placeholder="Enter Number" autocomplete="off"
                                     ${t.default != null && typeof t.default === 'number' ? ` value='${t.default}'` : ''}
                                     ${t.min != null && typeof t.min === 'number' ? ` min='${t.min}'` : ''}
                                     ${t.max != null && typeof t.max === 'number' ? ` max='${t.max}'` : ''}
@@ -62,7 +63,7 @@ const DrawTool_Templater = {
                         return [
                             `<li id='drawToolTemplater_${idx}' class='drawToolTemplater${t.type}'>`,
                                 `<div title='${t.field}'>${t.field}:</div>`,
-                                `<input type='text' placeholder="Enter Text" autocomplete="off"
+                                uiTemplate`<input type='text' placeholder="Enter Text" autocomplete="off"
                                     ${t.default != null ? ` value='${t.default}'` : ''}
                                     ${t.minLength != null && typeof t.min === 'number' ? ` minLength='${t.minLength}'` : ''}
                                     ${t.maxLength != null && typeof t.max === 'number' ? ` maxLength='${t.maxLength}'` : ''}
@@ -133,13 +134,13 @@ const DrawTool_Templater = {
             }).join('\n'),
             hasStartTime || hasEndTime ? [
                 `<li id='drawToolTemplater_setTime'>`,
-                    `<div id='drawToolTemplater_setTimeStart' class="${hasStartTime && hasStartTime.default.length > 0 ? 'active' : ''}"><i class='mdi mdi-clock mdi-18px'></i><div>Use Start Time</div></div>`,
-                    `<div id='drawToolTemplater_setTimeEnd' class="${hasEndTime && hasEndTime.default.length > 0 ? 'active' : ''}"><div>Use End Time</div><i class='mdi mdi-clock-outline mdi-18px'></i></div>`,
+                    uiTemplate`<div id='drawToolTemplater_setTimeStart' class="${hasStartTime && hasStartTime.default.length > 0 ? 'active' : ''}"><i class='mdi mdi-clock mdi-18px'></i><div>Use Start Time</div></div>`,
+                    uiTemplate`<div id='drawToolTemplater_setTimeEnd' class="${hasEndTime && hasEndTime.default.length > 0 ? 'active' : ''}"><div>Use End Time</div><i class='mdi mdi-clock-outline mdi-18px'></i></div>`,
                 `</li>`].join('\n') : null,
             "</ul>"
         ].join('\n')
 
-        $(`#${containerId}`).append(markup)
+        $(`#${containerId}`).append(uiRenderedMarkup(markup))
 
         const helperStates = {}
         let startTime, endTime
@@ -163,7 +164,7 @@ const DrawTool_Templater = {
                         0
                     )
                     $(`#drawToolFileModalTemplateDropdown_${idx}`).html(
-                        Dropy.construct(
+                        uiRenderedMarkup(Dropy.construct(
                             t.items || [],
                             t.field,
                             helperStates[idx],
@@ -171,7 +172,7 @@ const DrawTool_Templater = {
                                 openUp: false,
                                 dark: true,
                             }
-                        )
+                        ))
                     )
                     Dropy.init(
                         $(`#drawToolFileModalTemplateDropdown_${idx}`),
@@ -282,7 +283,7 @@ const DrawTool_Templater = {
                             ? helperStates[idx].length
                             : 0
                         if (maxPoints > 0 && currentCount >= maxPoints) {
-                            Toast.warning(`Maximum of ${maxPoints} points reached. Delete a point to add more.`, 4000)
+                            Toast.warning(uiText("Maximum of {{value0}} points reached. Delete a point to add more.", { value0: maxPoints, interpolation: { escapeValue: false } }), 4000)
                             return
                         }
 
@@ -337,7 +338,7 @@ const DrawTool_Templater = {
                 L_.TimeControl_.setTime(newStartTime, newEndTime)
 
                 // Show warning to user
-                Toast.warning(`Start time is later than end time. End time has been set to 1 day after start time.`, 6000)
+                Toast.warning(uiText("Start time is later than end time. End time has been set to 1 day after start time.", { interpolation: { escapeValue: false } }), 6000)
             } else {
                 // Normal case: just set the start time
                 L_.TimeControl_.setTime(newStartTime, currentEndTime)
@@ -376,7 +377,7 @@ const DrawTool_Templater = {
                 L_.TimeControl_.setTime(newStartTime, newEndTime)
 
                 // Show warning to user
-                Toast.warning(`End time is earlier than start time. Start time has been set to 1 day before end time.`, 6000)
+                Toast.warning(uiText("End time is earlier than start time. Start time has been set to 1 day before end time.", { interpolation: { escapeValue: false } }), 6000)
             } else {
                 // Normal case: just set the end time
                 L_.TimeControl_.setTime(currentStartTime, newEndTime)
@@ -575,7 +576,7 @@ const DrawTool_Templater = {
                     }
                 })
                 if (hadInvalid) {
-                    Toast.warning(`This feature has invalid form values: ${bestMessage}`, 6000)
+                    Toast.warning(uiText("This feature has invalid form values: {{value0}}", { value0: bestMessage, interpolation: { escapeValue: false } }), 6000)
                     return false
                 } else {
                     if (onlyIfChanged === true) {
@@ -639,7 +640,7 @@ const DrawTool_Templater = {
         listEl.empty()
 
         if (!points || points.length === 0) {
-            listEl.append('<li class="empty">No points added</li>')
+            listEl.append(uiRenderedMarkup(uiMarkup("<li class=\"empty\">No points added</li>")))
             // Still need to update button state even when no points
             const maxPoints = fieldConfig?.maxPoints || 0
             const addBtn = $(
@@ -671,7 +672,7 @@ const DrawTool_Templater = {
                 nameField = `<input class='drawToolTemplaterPointNameInput' type='text' data-point-idx='${i}' />`
             }
 
-            const li = $(`
+            const li = $(uiTemplate`
                 <li class='drawToolTemplaterPointItem' data-point-idx='${i}'>
                     <div class='drawToolTemplaterPointColor' style='background: ${
                         point.color
@@ -723,15 +724,15 @@ const DrawTool_Templater = {
                 const selectedIdx = currentNameIdx >= 0 ? currentNameIdx : 0
 
                 li.find('.drawToolTemplaterPointNameDropdown').html(
-                    Dropy.construct(
+                    uiRenderedMarkup(Dropy.construct(
                         processedNameOptions.map(opt => safeHTML(opt)),
-                        'Point Name',
+                        uiLabel('Point Name'),
                         selectedIdx,
                         {
                             openUp: false,
                             dark: true,
                         }
-                    )
+                    ))
                 )
                 Dropy.init(
                     li.find('.drawToolTemplaterPointNameDropdown'),
@@ -845,7 +846,7 @@ const DrawTool_Templater = {
                 )
             })
 
-            listEl.append(li)
+            listEl.append(uiRenderedMarkup(li))
         })
 
         // Check if max points reached and add visual indicator to Add Pt button
@@ -883,14 +884,14 @@ const DrawTool_Templater = {
     ) {
         // Check if already in point-adding mode
         if (DrawTool_Templater._addingPointState != null) {
-            Toast.warning('Already adding a point. Press ESC to cancel current operation.', 3000)
+            Toast.warning(uiText("Already adding a point. Press ESC to cancel current operation."), 3000)
             return
         }
 
         // Validate parent UUID
         if (!parentUUID || parentUUID === 'unknown') {
             console.error('Cannot add point: no parent feature UUID')
-            Toast.error('Error: Cannot add point to this feature', 3000)
+            Toast.error(uiText("Error: Cannot add point to this feature"), 3000)
             return
         }
 
@@ -930,7 +931,7 @@ const DrawTool_Templater = {
         $(document).on('keydown.addpoint', DrawTool_Templater._onEscKeyHandler)
 
         // Show user feedback
-        Toast.info('Click map to place point. Press ESC to cancel.', 10000
+        Toast.info(uiText("Click map to place point. Press ESC to cancel."), 10000
         )
 
         // Add active class to button
@@ -1018,7 +1019,7 @@ const DrawTool_Templater = {
             maxPoints > 0 &&
             state.helperStates[state.fieldIdx].length >= maxPoints
         ) {
-            Toast.warning(`Maximum of ${maxPoints} points reached.`, 3000)
+            Toast.warning(uiText("Maximum of {{value0}} points reached.", { value0: maxPoints, interpolation: { escapeValue: false } }), 3000)
             // End point-adding mode since max is reached
             DrawTool_Templater.endAddingPoint(false)
             return
@@ -1358,18 +1359,18 @@ const DrawTool_Templater = {
                 "<div id='drawToolTemplaterDesignHeading'>",
                     `<div id='drawToolTemplaterDesignHeadingName'>`,
                         `<div>${isReadOnly ? `Template: ${templateObj?.name}` : 'New Template'}</div>`,
-                        `<input id='drawToolTemplaterDesignHeadingNameInput' placeholder='Enter a Template Name' type='text' value='${templateObj?.name || ''}'></input>`,
+                        uiTemplate`<input id='drawToolTemplaterDesignHeadingNameInput' placeholder='Enter a Template Name' type='text' value='${templateObj?.name || ''}'></input>`,
                     "</div>",
                     "<div id='drawToolTemplaterDesignHeadingCancel' class='drawToolButton1'><i class='mdi mdi-close mdi-18px'></i></div>",
                 "</div>",
                 "<div id='drawToolTemplaterDesignContentWrapper'>",
                 "<ul id='drawToolTemplaterDesignContent'></ul>",
-                    "<div id='drawToolTemplaterDesignHeadingAdd' class='drawToolButton1'><div>Add Field</div><div><i class='mdi mdi-plus mdi-18px'></div></i></div>",
+                    uiMarkup("<div id='drawToolTemplaterDesignHeadingAdd' class='drawToolButton1'><div>Add Field</div><div><i class='mdi mdi-plus mdi-18px'></div></i></div>"),
                 "</div>",
             "</div>"
         ].join('\n')
 
-        $(`#${containerId}`).append(markup)
+        $(`#${containerId}`).append(uiRenderedMarkup(markup))
 
         tippy('#drawToolTemplaterDesignHeadingCancel', {
             content: `Remove New Template`,
@@ -1393,7 +1394,7 @@ const DrawTool_Templater = {
                     "<div class='drawToolTemplaterLiHead'>",
                         "<div class='drawToolTemplaterLiField'>",
                             `<div class='drawToolTemplaterLiIdx'><i class="mdi mdi-drag-vertical mdi-18px"></i></div>`,
-                            `<input id='drawToolTemplaterLiFieldInput_${idx}' placeholder='Field Name' type='text' value='${options.field || ''}'></input>`,
+                            uiTemplate`<input id='drawToolTemplaterLiFieldInput_${idx}' placeholder='Field Name' type='text' value='${options.field || ''}'></input>`,
                         "</div>",
                         "<div class='drawToolTemplaterLiType'>",
                             `<div id='drawToolTemplaterLiTypeDropdown_${idx}' class='ui dropdown short'></div>`,
@@ -1405,7 +1406,7 @@ const DrawTool_Templater = {
                 "</li>"
             ].join('\n')
 
-            $(`#drawToolTemplaterDesignContent`).append(liMarkup)
+            $(`#drawToolTemplaterDesignContent`).append(uiRenderedMarkup(liMarkup))
 
             $(`#drawToolTemplaterLiFieldInput_${idx}`).focus()
 
@@ -1430,29 +1431,29 @@ const DrawTool_Templater = {
                         typeMarkup = [
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 "<div>",
-                                    `<div>Default: </div>`,
+                                    uiTemplate`<div>Default: </div>`,
                                     `<div class="mmgis-checkbox"><input type="checkbox" ${opts.default === true ? 'checked ' : ''}id="design-checkbox-checkbox-${idx}"/><label for="design-checkbox-checkbox-${idx}"></label></div>`,
                                 "</div>",
                             "</div>",  
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedGeodataset'>`,
-                                    `<div>Intersect Layer: </div>`,
+                                    uiTemplate`<div>Intersect Layer: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedGeodataset' class='dropdown' style='width: 200px;'>`,
-                                        `<option value="">OFF</option>`,
+                                        uiTemplate`<option value="">OFF</option>`,
                                         L_.getListOfUsedGeoDatasets().map((d) => `<option value="${d.geodataset}" ${opts.intersectedGeodataset === d.geodataset ? 'selected' : ''}>${d.display_name} (${d.geodataset})</option>`).join('\n'),
                                     `</select>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedProp'>`,
-                                    `<div>and default to the value of: </div>`,
+                                    uiTemplate`<div>and default to the value of: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_intersectedProp' placeholder='path.to.property' type='text' value='${opts.intersectedProp != null ? opts.intersectedProp : ''}' style='width: 120px;'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedConflict'>`,
-                                    `<div>If Multiple Intersect: </div>`,
+                                    uiTemplate`<div>If Multiple Intersect: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedConflict' class='dropdown' style='width: 180px;'>`,
-                                        `<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
-                                        `<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
-                                        `<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
-                                        `<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
+                                        uiTemplate`<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
+                                        uiTemplate`<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
+                                        uiTemplate`<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
+                                        uiTemplate`<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
                                     `</select>`,
                                 "</div>",
                             `</div>`
@@ -1463,12 +1464,12 @@ const DrawTool_Templater = {
                         typeMarkup = [
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_default'>`,
-                                    `<div>Default: </div>`,
-                                    `<input id='drawToolTemplaterLiFieldInput_${idx}_default' placeholder='Default' type='text' value='${opts.default != null ? opts.default : ''}'></input>`,
+                                    uiTemplate`<div>Default: </div>`,
+                                    uiTemplate`<input id='drawToolTemplaterLiFieldInput_${idx}_default' placeholder='Default' type='text' value='${opts.default != null ? opts.default : ''}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_values'>`,
-                                    `<div>Values: </div>`,
-                                    `<input id='drawToolTemplaterLiFieldInput_${idx}' placeholder='Comma,separated,values,first,is,default' type='text' value='${(opts.items != null && Array.isArray(opts.items)) ? opts.items.join(',') : ''}'></input>`,
+                                    uiTemplate`<div>Values: </div>`,
+                                    uiTemplate`<input id='drawToolTemplaterLiFieldInput_${idx}' placeholder='Comma,separated,values,first,is,default' type='text' value='${(opts.items != null && Array.isArray(opts.items)) ? opts.items.join(',') : ''}'></input>`,
                                 "</div>",
                             "</div>"
                         ]
@@ -1478,45 +1479,45 @@ const DrawTool_Templater = {
                         typeMarkup = [
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_default'>`,
-                                    `<div>Default: </div>`,
-                                    `<input id='drawToolTemplaterLiFieldInput_${idx}_default' placeholder='Default' type='number' value='${opts.default != null ? opts.default : ''}'></input>`,
+                                    uiTemplate`<div>Default: </div>`,
+                                    uiTemplate`<input id='drawToolTemplaterLiFieldInput_${idx}_default' placeholder='Default' type='number' value='${opts.default != null ? opts.default : ''}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_min'>`,
-                                    `<div>Min: </div>`,
+                                    uiTemplate`<div>Min: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_min' type='number' value='${opts.min != null ? opts.min : '0'}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_max'>`,
-                                    `<div>Max: </div>`,
+                                    uiTemplate`<div>Max: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_max' type='number' value='${opts.max != null ? opts.max : '100'}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_step'>`,
-                                    `<div>Step: </div>`,
+                                    uiTemplate`<div>Step: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_step' type='number' value='${opts.step != null ? opts.step : '1'}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_required'>`,
-                                    `<div title='Required'>Req: </div>`,
+                                    uiTemplate`<div title='Required'>Req: </div>`,
                                     `<div class="mmgis-checkbox"><input type="checkbox" ${opts.required === true ? 'checked ' : ''}id="design-number-checkbox-${idx}"/><label for="design-number-checkbox-${idx}"></label></div>`,
                                 "</div>",
                             "</div>",  
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedGeodataset'>`,
-                                    `<div>Intersect Layer: </div>`,
+                                    uiTemplate`<div>Intersect Layer: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedGeodataset' class='dropdown' style='width: 200px;'>`,
-                                        `<option value="">OFF</option>`,
+                                        uiTemplate`<option value="">OFF</option>`,
                                         L_.getListOfUsedGeoDatasets().map((d) => `<option value="${d.geodataset}" ${opts.intersectedGeodataset === d.geodataset ? 'selected' : ''}>${d.display_name} (${d.geodataset})</option>`).join('\n'),
                                     `</select>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedProp'>`,
-                                    `<div>and default to the value of: </div>`,
+                                    uiTemplate`<div>and default to the value of: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_intersectedProp' placeholder='path.to.property' type='text' value='${opts.intersectedProp != null ? opts.intersectedProp : ''}' style='width: 120px;'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedConflict'>`,
-                                    `<div>If Multiple Intersect: </div>`,
+                                    uiTemplate`<div>If Multiple Intersect: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedConflict' class='dropdown' style='width: 180px;'>`,
-                                        `<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
-                                        `<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
-                                        `<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
-                                        `<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
+                                        uiTemplate`<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
+                                        uiTemplate`<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
+                                        uiTemplate`<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
+                                        uiTemplate`<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
                                     `</select>`,
                                 "</div>",
                             `</div>`
@@ -1528,41 +1529,41 @@ const DrawTool_Templater = {
                         typeMarkup = [
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_default'>`,
-                                    `<div>Default: </div>`,
+                                    uiTemplate`<div>Default: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_default' type='number' value='${opts.default != null ? opts.default : '0'}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_min'>`,
-                                    `<div>Min: </div>`,
+                                    uiTemplate`<div>Min: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_min' type='number' value='${opts.min != null ? opts.min : '0'}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_max'>`,
-                                    `<div>Max: </div>`,
+                                    uiTemplate`<div>Max: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_max' type='number' value='${opts.max != null ? opts.max : '100'}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_step'>`,
-                                    `<div>Step: </div>`,
+                                    uiTemplate`<div>Step: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_step' type='number' value='${opts.step != null ? opts.step : '1'}'></input>`,
                                 "</div>",
                             "</div>",  
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedGeodataset'>`,
-                                    `<div>Intersect Layer: </div>`,
+                                    uiTemplate`<div>Intersect Layer: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedGeodataset' class='dropdown' style='width: 200px;'>`,
-                                        `<option value="">OFF</option>`,
+                                        uiTemplate`<option value="">OFF</option>`,
                                         L_.getListOfUsedGeoDatasets().map((d) => `<option value="${d.geodataset}" ${opts.intersectedGeodataset === d.geodataset ? 'selected' : ''}>${d.display_name} (${d.geodataset})</option>`).join('\n'),
                                     `</select>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedProp'>`,
-                                    `<div>and default to the value of: </div>`,
+                                    uiTemplate`<div>and default to the value of: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_intersectedProp' placeholder='path.to.property' type='text' value='${opts.intersectedProp != null ? opts.intersectedProp : ''}' style='width: 120px;'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedConflict'>`,
-                                    `<div>If Multiple Intersect: </div>`,
+                                    uiTemplate`<div>If Multiple Intersect: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedConflict' class='dropdown' style='width: 180px;'>`,
-                                        `<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
-                                        `<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
-                                        `<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
-                                        `<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
+                                        uiTemplate`<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
+                                        uiTemplate`<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
+                                        uiTemplate`<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
+                                        uiTemplate`<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
                                     `</select>`,
                                 "</div>",
                             "</div>"
@@ -1573,46 +1574,46 @@ const DrawTool_Templater = {
                         typeMarkup = [
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_default'>`,
-                                    `<div>Default: </div>`,
-                                    `<input id='drawToolTemplaterLiFieldInput_${idx}_default' placeholder='Default' type='text' value='${opts.default != null ? opts.default : ''}'></input>`,
+                                    uiTemplate`<div>Default: </div>`,
+                                    uiTemplate`<input id='drawToolTemplaterLiFieldInput_${idx}_default' placeholder='Default' type='text' value='${opts.default != null ? opts.default : ''}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_min'>`,
-                                    `<div title='Min # of Characters'>Min: </div>`,
+                                    uiTemplate`<div title='Min # of Characters'>Min: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_min' type='number' value='${opts.minLength != null ? opts.minLength : '0'}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_max'>`,
-                                    `<div title='Max # of Characters'>Max: </div>`,
+                                    uiTemplate`<div title='Max # of Characters'>Max: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_max' type='number' value='${opts.maxLength != null ? opts.maxLength : '100'}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_regex'>`,
-                                    `<div>Regex: </div>`,
+                                    uiTemplate`<div>Regex: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_regex' type='text' value='${opts.regex != null ? opts.regex : ''}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_required'>`,
-                                    `<div title='Required'>Req: </div>`,
+                                    uiTemplate`<div title='Required'>Req: </div>`,
                                     `<div class="mmgis-checkbox"><input type="checkbox" ${opts.required === true ? 'checked ' : ''}id="design-number-checkbox-${idx}"/><label for="design-number-checkbox-${idx}"></label></div>`,
                                 "</div>",
                             `</div>`,  
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedGeodataset'>`,
-                                    `<div>Intersect Layer: </div>`,
+                                    uiTemplate`<div>Intersect Layer: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedGeodataset' class='dropdown' style='width: 200px;'>`,
-                                        `<option value="">OFF</option>`,
+                                        uiTemplate`<option value="">OFF</option>`,
                                         L_.getListOfUsedGeoDatasets().map((d) => `<option value="${d.geodataset}" ${opts.intersectedGeodataset === d.geodataset ? 'selected' : ''}>${d.display_name} (${d.geodataset})</option>`).join('\n'),
                                     `</select>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedProp'>`,
-                                    `<div>and default to the value of: </div>`,
+                                    uiTemplate`<div>and default to the value of: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_intersectedProp' placeholder='path.to.property' type='text' value='${opts.intersectedProp != null ? opts.intersectedProp : ''}' style='width: 120px;'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedConflict'>`,
-                                    `<div>If Multiple Intersect: </div>`,
+                                    uiTemplate`<div>If Multiple Intersect: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedConflict' class='dropdown' style='width: 180px;'>`,
-                                        `<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
-                                        `<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
-                                        `<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
-                                        `<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
-                                        `<option value="array" ${opts.intersectedConflict === 'array' ? 'selected': ''}>Comma-Separate All Intersections</option>`,
+                                        uiTemplate`<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
+                                        uiTemplate`<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
+                                        uiTemplate`<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
+                                        uiTemplate`<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
+                                        uiTemplate`<option value="array" ${opts.intersectedConflict === 'array' ? 'selected': ''}>Comma-Separate All Intersections</option>`,
                                     `</select>`,
                                 "</div>",
                             "</div>"
@@ -1623,38 +1624,38 @@ const DrawTool_Templater = {
                         typeMarkup = [
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_default'>`,
-                                    `<div>Default: </div>`,
-                                    `<input id='drawToolTemplaterLiFieldInput_${idx}_default' placeholder='Default' type='text' value='${opts.default != null ? opts.default : ''}'></input>`,
+                                    uiTemplate`<div>Default: </div>`,
+                                    uiTemplate`<input id='drawToolTemplaterLiFieldInput_${idx}_default' placeholder='Default' type='text' value='${opts.default != null ? opts.default : ''}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_max'>`,
-                                    `<div>Max length: </div>`,
+                                    uiTemplate`<div>Max length: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_max' type='number' value='${opts.maxLength != null ? opts.maxLength : ''}''></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_required'>`,
-                                    `<div title='Required'>Req: </div>`,
+                                    uiTemplate`<div title='Required'>Req: </div>`,
                                     `<div class="mmgis-checkbox"><input type="checkbox" ${opts.required === true ? 'checked ' : ''}id="design-textarea-checkbox-${idx}"/><label for="design-textarea-checkbox-${idx}"></label></div>`,
                                 "</div>",
                             "</div>",  
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedGeodataset'>`,
-                                    `<div>Intersect Layer: </div>`,
+                                    uiTemplate`<div>Intersect Layer: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedGeodataset' class='dropdown' style='width: 200px;'>`,
-                                        `<option value="">OFF</option>`,
+                                        uiTemplate`<option value="">OFF</option>`,
                                         L_.getListOfUsedGeoDatasets().map((d) => `<option value="${d.geodataset}" ${opts.intersectedGeodataset === d.geodataset ? 'selected' : ''}>${d.display_name} (${d.geodataset})</option>`).join('\n'),
                                     `</select>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedProp'>`,
-                                    `<div>and default to the value of: </div>`,
+                                    uiTemplate`<div>and default to the value of: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_intersectedProp' placeholder='path.to.property' type='text' value='${opts.intersectedProp != null ? opts.intersectedProp : ''}' style='width: 120px;'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedConflict'>`,
-                                    `<div>If Multiple Intersect: </div>`,
+                                    uiTemplate`<div>If Multiple Intersect: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedConflict' class='dropdown' style='width: 180px;'>`,
-                                        `<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
-                                        `<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
-                                        `<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
-                                        `<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
-                                        `<option value="array" ${opts.intersectedConflict === 'array' ? 'selected': ''}>Comma-Separate All Intersections</option>`,
+                                        uiTemplate`<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
+                                        uiTemplate`<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
+                                        uiTemplate`<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
+                                        uiTemplate`<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
+                                        uiTemplate`<option value="array" ${opts.intersectedConflict === 'array' ? 'selected': ''}>Comma-Separate All Intersections</option>`,
                                     `</select>`,
                                 "</div>",
                             "</div>"
@@ -1665,45 +1666,45 @@ const DrawTool_Templater = {
                         typeMarkup = [
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_default'>`,
-                                    `<div title='Use "NOW", "STARTTIME" and "ENDTIME" for dynamic defaults.'>Default: </div>`,
-                                    `<input id='drawToolTemplaterLiFieldInput_${idx}_default' placeholder='Default' type='text' value='${opts.default != null ? opts.default : ''}'></input>`,
+                                    uiTemplate`<div title='Use "NOW", "STARTTIME" and "ENDTIME" for dynamic defaults.'>Default: </div>`,
+                                    uiTemplate`<input id='drawToolTemplaterLiFieldInput_${idx}_default' placeholder='Default' type='text' value='${opts.default != null ? opts.default : ''}'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_format'>`,
-                                    `<div>Format: </div>`,
+                                    uiTemplate`<div>Format: </div>`,
                                     `<div id='drawToolTemplaterLiBody_${idx}_format' class='drawToolTemplaterLiBodyDropdown_format ui dropdown short' value='${opts.format != null ? opts.format : DrawTool_Templater._DATE_FORMATS[0]}'></div>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_isStart'>`,
-                                    `<div title="Use this field as the feature's Start Time">S<i class='mdi mdi-clock-out mdi-18px'></i>: </div>`,
+                                    uiTemplate`<div title="Use this field as the feature's Start Time">S<i class='mdi mdi-clock-out mdi-18px'></i>: </div>`,
                                     `<div class="mmgis-checkbox"><input type="checkbox" ${opts.isStart === true ? 'checked ' : ''}id="design-date-checkbox-${idx}-start"/><label for="design-date-checkbox-${idx}-start"></label></div>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_isEnd'>`,
-                                    `<div title="Use this field as the feature's End Time">E<i class='mdi mdi-clock-in mdi-18px'></i>: </div>`,
+                                    uiTemplate`<div title="Use this field as the feature's End Time">E<i class='mdi mdi-clock-in mdi-18px'></i>: </div>`,
                                     `<div class="mmgis-checkbox"><input type="checkbox" ${opts.isEnd === true ? 'checked ' : ''}id="design-date-checkbox-${idx}-end"/><label for="design-date-checkbox-${idx}-end"></label></div>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_required'>`,
-                                    `<div title='Required'>Req: </div>`,
+                                    uiTemplate`<div title='Required'>Req: </div>`,
                                     `<div class="mmgis-checkbox"><input type="checkbox" ${opts.required === true ? 'checked ' : ''}id="design-date-checkbox-${idx}"/><label for="design-date-checkbox-${idx}"></label></div>`,
                                 "</div>",
                             "</div>",  
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedGeodataset'>`,
-                                    `<div>Intersect Layer: </div>`,
+                                    uiTemplate`<div>Intersect Layer: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedGeodataset' class='dropdown' style='width: 200px;'>`,
-                                        `<option value="">OFF</option>`,
+                                        uiTemplate`<option value="">OFF</option>`,
                                         L_.getListOfUsedGeoDatasets().map((d) => `<option value="${d.geodataset}" ${opts.intersectedGeodataset === d.geodataset ? 'selected' : ''}>${d.display_name} (${d.geodataset})</option>`).join('\n'),
                                     `</select>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedProp'>`,
-                                    `<div>and default to the value of: </div>`,
+                                    uiTemplate`<div>and default to the value of: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_intersectedProp' placeholder='path.to.property' type='text' value='${opts.intersectedProp != null ? opts.intersectedProp : ''}' style='width: 120px;'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_intersectedConflict'>`,
-                                    `<div>If Multiple Intersect: </div>`,
+                                    uiTemplate`<div>If Multiple Intersect: </div>`,
                                     `<select id='drawToolTemplaterLiBody_${idx}_intersectedConflict' class='dropdown' style='width: 180px;'>`,
-                                        `<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
-                                        `<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
-                                        `<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
-                                        `<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
+                                        uiTemplate`<option value="default" ${opts.intersectedConflict === 'default' ? 'selected': ''}>Set as Default</option>`,
+                                        uiTemplate`<option value="null" ${opts.intersectedConflict === 'null' ? 'selected': ''}>Set as Null</option>`,
+                                        uiTemplate`<option value="first" ${opts.intersectedConflict === 'first' ? 'selected': ''}>Use First Intersection</option>`,
+                                        uiTemplate`<option value="last" ${opts.intersectedConflict === 'last' ? 'selected': ''}>Use Last Intersection</option>`,
                                     `</select>`,
                                 "</div>",
                             "</div>"
@@ -1714,7 +1715,7 @@ const DrawTool_Templater = {
                         typeMarkup = [
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_default'>`,
-                                    `<div>Value with single '#' to place incrementing number: </div>`,
+                                    uiTemplate`<div>Value with single '#' to place incrementing number: </div>`,
                                     `<input id='drawToolTemplaterLiFieldInput_${idx}_default' placeholder='ID-#' type='text' value='${opts.default != null ? opts.default : ''}'></input>`,
                                 "</div>",
                             "</div>"
@@ -1726,11 +1727,11 @@ const DrawTool_Templater = {
                         typeMarkup = [
                             `<div class='drawToolTemplaterLiBody_${type}'>`,
                                 `<div class='drawToolTemplaterLiBody_${type}_defaultName'>`,
-                                    `<div title='Single name or comma-separated list. Use # for auto-incrementing number (e.g., "Point #" or "A#, B#, C#")'>Default Name: </div>`,
-                                    `<input title='Single name or comma-separated list. Use # for auto-incrementing number (e.g., "Point #" or "A#, B#, C#")' id='drawToolTemplaterLiFieldInput_${idx}_defaultName' placeholder='Point #' type='text' value='${opts.defaultName != null ? opts.defaultName : 'Point #'}' style='width: 240px;'></input>`,
+                                    uiTemplate`<div title='Single name or comma-separated list. Use # for auto-incrementing number (e.g., "Point #" or "A#, B#, C#")'>Default Name: </div>`,
+                                    uiTemplate`<input title='Single name or comma-separated list. Use # for auto-incrementing number (e.g., "Point #" or "A#, B#, C#")' id='drawToolTemplaterLiFieldInput_${idx}_defaultName' placeholder='Point #' type='text' value='${opts.defaultName != null ? opts.defaultName : 'Point #'}' style='width: 240px;'></input>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_defaultColor'>`,
-                                    `<div>Default Color: </div>`,
+                                    uiTemplate`<div>Default Color: </div>`,
                                     `<div class='drawToolTemplaterColorSelector' id='drawToolTemplaterColorSelector_${idx}'>`,
                                         DrawTool_Templater._pointColors.map(color =>
                                             `<div class='drawToolTemplaterColorOption ${color === currentColor ? 'active' : ''}'
@@ -1741,8 +1742,8 @@ const DrawTool_Templater = {
                                     `</div>`,
                                 "</div>",
                                 `<div class='drawToolTemplaterLiBody_${type}_maxPoints'>`,
-                                    `<div title='Maximum number of points. 0 or empty = unlimited'>Max Points: </div>`,
-                                    `<input title='Maximum number of points. 0 or empty = unlimited' id='drawToolTemplaterLiFieldInput_${idx}_maxPoints' type='number' min='0' value='${opts.maxPoints != null ? opts.maxPoints : 0}' style='width: 80px;'></input>`,
+                                    uiTemplate`<div title='Maximum number of points. 0 or empty = unlimited'>Max Points: </div>`,
+                                    uiTemplate`<input title='Maximum number of points. 0 or empty = unlimited' id='drawToolTemplaterLiFieldInput_${idx}_maxPoints' type='number' min='0' value='${opts.maxPoints != null ? opts.maxPoints : 0}' style='width: 80px;'></input>`,
                                 "</div>",
                             "</div>"
                         ]
@@ -1752,7 +1753,7 @@ const DrawTool_Templater = {
                 }
 
                 // Add html
-                $(`#drawToolTemplaterLiBody_${idx}`).html(typeMarkup.join('\n'))
+                $(`#drawToolTemplaterLiBody_${idx}`).html(uiRenderedMarkup(typeMarkup.join('\n')))
 
                 // Init color selector for point type
                 if (type === 'point') {
@@ -1776,15 +1777,15 @@ const DrawTool_Templater = {
                     0
                 )
                 $(`#drawToolTemplaterLiBody_${idx}_format`).html(
-                    Dropy.construct(
+                    uiRenderedMarkup(Dropy.construct(
                         DrawTool_Templater._DATE_FORMATS,
-                        'Formats',
+                        uiLabel('Formats'),
                         initialFormatIndex,
                         {
                             openUp: false,
                             dark: true,
                         }
-                    )
+                    ))
                 )
                 Dropy.init(
                     $(`#drawToolTemplaterLiBody_${idx}_format`),
@@ -1803,15 +1804,15 @@ const DrawTool_Templater = {
             let initialTypeIdx =
                 DrawTool_Templater._TEMPLATE_TYPES.indexOf(initialType)
             $(`#drawToolTemplaterLiTypeDropdown_${idx}`).html(
-                Dropy.construct(
-                    DrawTool_Templater._TEMPLATE_TYPES,
-                    'Types',
+                uiRenderedMarkup(Dropy.construct(
+                    uiDropdownItems(DrawTool_Templater._TEMPLATE_TYPES),
+                    uiLabel('Types'),
                     initialTypeIdx,
                     {
                         openUp: false,
                         dark: true,
                     }
-                )
+                ))
             )
             Dropy.init($(`#drawToolTemplaterLiTypeDropdown_${idx}`), (idx2) => {
                 setType(idx2)
@@ -1871,11 +1872,11 @@ const DrawTool_Templater = {
                 item.field = $(this)
                     .find('.drawToolTemplaterLiField > input')
                     .val()
-                item.type = $(this)
+                item.type = uiCanonical($(this)
                     .find(
                         '.drawToolTemplaterLiType .dropy__content li > a.selected'
                     )
-                    .text()
+                    .get(0))
                 switch (item.type) {
                     case 'checkbox':
                         item.default = $(this)
@@ -2144,7 +2145,7 @@ const DrawTool_Templater = {
         }
         // Validate
         if (template.name == null || template.name == '') {
-            Toast.warning(`Please enter a template name`, 6000)
+            Toast.warning(uiText("Please enter a template name", { interpolation: { escapeValue: false } }), 6000)
             return false
         }
         if (reservedTemplatesNames.includes(template.name)) {
@@ -2154,7 +2155,7 @@ const DrawTool_Templater = {
                     template.template
                 )
             ) {
-                Toast.warning(`Use a different template name. A template by the name '${template.name}' already exists.`, 6000)
+                Toast.warning(uiText("Use a different template name. A template by the name '{{value0}}' already exists.", { value0: template.name, interpolation: { escapeValue: false } }), 6000)
                 return false
             }
         }
@@ -2166,32 +2167,32 @@ const DrawTool_Templater = {
         for (let i = 0; i < template.template.length; i++) {
             const t = template.template[i]
             if (t.field == null || t.field == '') {
-                Toast.warning(`Template cannot contain empty 'Field Names'`, 6000)
+                Toast.warning(uiText("Template cannot contain empty 'Field Names'", { interpolation: { escapeValue: false } }), 6000)
                 return false
             }
             if (t.field == 'uuid') {
-                Toast.warning(`Template cannot contain the field name 'uuid'`, 6000)
+                Toast.warning(uiText("Template cannot contain the field name 'uuid'", { interpolation: { escapeValue: false } }), 6000)
                 return false
             }
             // Validate field name format (alphanumeric, spaces, dash, underscore, dot only)
             if (!/^[a-zA-Z0-9 _\-\.]+$/.test(t.field)) {
-                Toast.warning(`Template field name '${t.field}' contains invalid characters. Only letters, numbers, spaces, dashes, underscores, and dots are allowed.`, 6000)
+                Toast.warning(uiText("Template field name '{{value0}}' contains invalid characters. Only letters, numbers, spaces, dashes, underscores, and dots are allowed.", { value0: t.field, interpolation: { escapeValue: false } }), 6000)
                 return false
             }
             if (t.type === 'date') {
                 if (t.isStart && t.isEnd) {
-                    Toast.warning(`Template cannot use same date field as Start Time and End Time.`, 6000)
+                    Toast.warning(uiText("Template cannot use same date field as Start Time and End Time.", { interpolation: { escapeValue: false } }), 6000)
                     return false
                 } else if (t.isStart) {
                     if (hasADateStartTime === false) hasADateStartTime = true
                     else {
-                        Toast.warning(`Template cannot use multiple date fields as Start Times.`, 6000)
+                        Toast.warning(uiText("Template cannot use multiple date fields as Start Times.", { interpolation: { escapeValue: false } }), 6000)
                         return false
                     }
                 } else if (t.isEnd) {
                     if (hasADateEndTime === false) hasADateEndTime = true
                     else {
-                        Toast.warning(`Template cannot use multiple date fields as End Times.`, 6000)
+                        Toast.warning(uiText("Template cannot use multiple date fields as End Times.", { interpolation: { escapeValue: false } }), 6000)
                         return false
                     }
                 }
@@ -2201,12 +2202,12 @@ const DrawTool_Templater = {
                     new RegExp(t.regex)
                 } catch (error) {
                     // no good
-                    Toast.warning(`Template cannot contain invalid regex: ${t.regex}`, 6000)
+                    Toast.warning(uiText("Template cannot contain invalid regex: {{value0}}", { value0: t.regex, interpolation: { escapeValue: false } }), 6000)
                     return false
                 }
             }
             if (invalids[t.field] != null) {
-                Toast.warning(`Template field: ${invalids[t.field]}`, 6000)
+                Toast.warning(uiText("Template field: {{value0}}", { value0: invalids[t.field], interpolation: { escapeValue: false } }), 6000)
                 return false
             }
         }
@@ -2435,9 +2436,9 @@ const DrawTool_Templater = {
                         intersectResult?.body?.features?.length != 1
                     ) {
                         if (intersectResult?.body?.features?.length === 0)
-                            Toast.warning(`No intersected feature for templating. Using fallbacks.`, 5000)
+                            Toast.warning(uiText("No intersected feature for templating. Using fallbacks.", { interpolation: { escapeValue: false } }), 5000)
                         else
-                            Toast.info(`Multiple intersected features for templating. Using fallbacks.`, 5000)
+                            Toast.info(uiText("Multiple intersected features for templating. Using fallbacks.", { interpolation: { escapeValue: false } }), 5000)
                     }
                 }
 

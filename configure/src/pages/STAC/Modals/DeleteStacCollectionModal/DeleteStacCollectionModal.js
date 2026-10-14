@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -163,6 +164,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "deleteStacCollection";
 const DeleteStacCollectionModal = (props) => {
+  const ct = useConfigureText();
   const { querySTAC } = props;
   const c = useStyles();
 
@@ -183,7 +185,7 @@ const DeleteStacCollectionModal = (props) => {
     if (!modal?.stacCollection?.id) {
       dispatch(
         setSnackBarText({
-          text: "Cannot delete undefined STAC Collection.",
+          text: ct("ui.cannot_delete_undefined_stac_collection_ba4260"),
           severity: "error",
         })
       );
@@ -193,7 +195,7 @@ const DeleteStacCollectionModal = (props) => {
     if (stacCollectionName !== modal.stacCollection.id) {
       dispatch(
         setSnackBarText({
-          text: "Confirmation STAC Collection name does not match.",
+          text: ct("ui.confirmation_stac_collection_name_does_not_86e690"),
           severity: "error",
         })
       );
@@ -211,7 +213,7 @@ const DeleteStacCollectionModal = (props) => {
         if (res["deleted collection"] === modal.stacCollection.id) {
           dispatch(
             setSnackBarText({
-              text: `Successfully deleted the '${modal.stacCollection.id}' STAC Collection.`,
+              text: ct("ui.successfully_deleted_the_p0_stac_collection_051cfa", { p0: modal.stacCollection.id }),
               severity: "success",
             })
           );
@@ -220,7 +222,7 @@ const DeleteStacCollectionModal = (props) => {
         } else {
           dispatch(
             setSnackBarText({
-              text: `Failed to delete the '${modal.stacCollection.id}' STAC Collection.`,
+              text: ct("ui.failed_to_delete_the_p0_stac_40791a", { p0: modal.stacCollection.id }),
               severity: "error",
             })
           );
@@ -229,7 +231,7 @@ const DeleteStacCollectionModal = (props) => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: `Failed to delete the '${modal.stacCollection.id}' STAC Collection.`,
+            text: ct("ui.failed_to_delete_the_p0_stac_40791a", { p0: modal.stacCollection.id }),
             severity: "error",
           })
         );
@@ -276,12 +278,12 @@ const DeleteStacCollectionModal = (props) => {
         <div className={c.flexBetween}>
           <div className={c.flexBetween}>
             <ShapeLineIcon className={c.backgroundIcon} />
-            <div className={c.title}>Delete a STAC Collection</div>
+            <div className={c.title}>{ct("ui.delete_a_stac_collection_6c1b45")}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -291,13 +293,13 @@ const DeleteStacCollectionModal = (props) => {
       <DialogContent className={c.content}>
         <Typography
           className={c.layerName}
-        >{`Deleting: ${modal?.stacCollection?.id}`}</Typography>
+        >{ct("ui.deleting_p0_644b33", { p0: modal?.stacCollection?.id })}</Typography>
         {occurrences.length > 0 && (
           <>
             <div className={c.hasOccurrencesTitle}>
               <WarningIcon />
               <Typography className={c.hasOccurrences}>
-                {`This STAC Collection is currently in use in the following layers:`}
+                {ct("ui.this_stac_collection_is_currently_in_1fd851")}
               </Typography>
             </div>
             <div className={c.occurrences}>{occurrences}</div>
@@ -305,7 +307,7 @@ const DeleteStacCollectionModal = (props) => {
         )}
         <TextField
           className={c.confirmInput}
-          label="Confirm STAC Collection Name"
+          label={ct("ui.confirm_stac_collection_name_9b24a2")}
           variant="filled"
           value={stacCollectionName}
           onChange={(e) => {
@@ -314,7 +316,7 @@ const DeleteStacCollectionModal = (props) => {
         />
         <Typography
           className={c.confirmMessage}
-        >{`Enter '${modal?.stacCollection?.id}' above and click 'Delete' to confirm the permanent deletion of this STAC Collection.`}</Typography>
+        >{ct("ui.enter_p0_above_and_click_delete_8789f3", { p0: modal?.stacCollection?.id })}</Typography>
       </DialogContent>
       <DialogActions className={c.dialogActions}>
         <Button
@@ -322,12 +324,8 @@ const DeleteStacCollectionModal = (props) => {
           variant="contained"
           startIcon={<DeleteForeverIcon size="small" />}
           onClick={handleSubmit}
-        >
-          Delete
-        </Button>
-        <Button className={c.cancel} variant="outlined" onClick={handleClose}>
-          Cancel
-        </Button>
+        >{ct("ui.delete_f6fdbe")}</Button>
+        <Button className={c.cancel} variant="outlined" onClick={handleClose}>{ct("ui.cancel_77dfd2")}</Button>
       </DialogActions>
     </Dialog>
   );

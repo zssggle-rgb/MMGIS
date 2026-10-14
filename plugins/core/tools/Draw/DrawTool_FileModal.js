@@ -1,3 +1,4 @@
+import { uiLabel, uiMarkup, uiRenderedMarkup, uiText } from '../../../../src/i18n/legacy-ui'
 import $ from 'jquery'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
@@ -23,28 +24,28 @@ const DrawTool_FileModal = {
                     "<div>",
                         "<i class='mdi mdi-file-plus mdi-24px'></i>",
                         "<div id='drawToolFileModalHeadingName'>",
-                            "New File",
+                            uiLabel("New File"),
                         "</div>",
                     "</div>",
                     "<div id='drawToolFileUpload'>",
-                        "Upload",
+                        uiLabel("Upload"),
                         "<i class='mdi mdi-upload mdi-18px'></i>",
-                        "<input title='Upload' type=file accept='.json, .geojson, .rksml, .shp, .dbf' multiple>",
+                        uiMarkup("<input title='Upload' type=file accept='.json, .geojson, .rksml, .shp, .dbf' multiple>"),
                     "</div>",
                     "<div id='drawToolDrawFilesNewLoading'><div></div></div>",
                 "</div>",
                 "<div id='drawToolFileModalBody'>",
                     "<div class='flexbetween'>",
                         "<div id='drawToolFileModalBodyName'>",
-                            "<div><div>File Name</div></div>",
-                            "<input class='drawToolFileModalName' placeholder='Enter a new filename' type='text' value=''></input>",
+                            uiMarkup("<div><div>File Name</div></div>"),
+                            uiMarkup("<input class='drawToolFileModalName' placeholder='Enter a new filename' type='text' value=''></input>"),
                         "</div>",
                         "<div id='drawToolFileModalBodyTemplate'>",
-                            "<div>Property Template<i id='drawToolFileModalBodyTemplateInfo' class='mdi mdi-information mdi-14px'></i></div>",
+                            uiMarkup("<div>Property Template<i id='drawToolFileModalBodyTemplateInfo' class='mdi mdi-information mdi-14px'></i></div>"),
                             "<div>",
                                 "<div id='drawToolFileModalTemplateDropdown' class='ui dropdown short'></div>",
-                                "<span>or</span>",
-                                "<div id='drawToolFileModalTemplateNew' class='drawToolButton1'>NEW</div>",
+                                uiMarkup("<span>or</span>"),
+                                uiMarkup("<div id='drawToolFileModalTemplateNew' class='drawToolButton1'>NEW</div>"),
                             "</div>",
                         "</div>",
                     "</div>",
@@ -52,8 +53,8 @@ const DrawTool_FileModal = {
                     "<div id='drawToolFileModalTemplateContainer'></div>",
                 "</div>",
                 "<div id='drawToolFileModalActions'>",
-                    "<div id='drawToolFileModalActionsCancel' class='drawToolButton1'>Cancel</div>",
-                    "<div id='drawToolFileModalActionsCreate' class='drawToolButton1'>CREATE</div>",
+                    uiMarkup("<div id='drawToolFileModalActionsCancel' class='drawToolButton1'>Cancel</div>"),
+                    uiMarkup("<div id='drawToolFileModalActionsCreate' class='drawToolButton1'>CREATE</div>"),
                 "</div>",
             "</div>"
         ].join('\n')
@@ -262,9 +263,9 @@ const DrawTool_FileModal = {
 
                 function uploaded(body, file) {
                     $('#drawToolFileModelUploadedFrom').text(
-                        `Uploaded from: ${body.file_name} (${F_.humanFileSize(
+                        uiText("Uploaded from: {{value0}} ({{value1}})", { value0: body.file_name, value1: F_.humanFileSize(
                             file.size
-                        )})`
+                        ), interpolation: { escapeValue: false } })
                     )
                     $('.drawToolFileModalName').val(
                         (body.file_name || '').replace(/\.[^/.]+$/, '')
@@ -312,7 +313,7 @@ const DrawTool_FileModal = {
 
             DrawTool_FileModal.newFileModalTemplateIndex = 0
             $('#drawToolFileModalTemplateDropdown').html(
-                Dropy.construct(
+                uiRenderedMarkup(Dropy.construct(
                     templateItems,
                     'Templates',
                     DrawTool_FileModal.newFileModalTemplateIndex,
@@ -320,7 +321,7 @@ const DrawTool_FileModal = {
                         openUp: false,
                         dark: true,
                     }
-                )
+                ))
             )
             Dropy.init($('#drawToolFileModalTemplateDropdown'), function (idx) {
                 DrawTool_FileModal.newFileModalTemplateIndex = idx
@@ -345,11 +346,11 @@ const DrawTool_FileModal = {
                 const intent = 'all'
                 //templateItems[DrawTool_FileModal.newFileModalTemplateIndex]
                 if (val == null || val === '') {
-                    Toast.warning('Please enter a file name.', 6000)
+                    Toast.warning(uiText("Please enter a file name."), 6000)
                     return
                 }
                 if (/[&\'\"<>]/g.test(val)) {
-                    Toast.warning('Invalid file name.', 6000)
+                    Toast.warning(uiText("Invalid file name."), 6000)
                     return
                 }
                 let chosenTemplate =

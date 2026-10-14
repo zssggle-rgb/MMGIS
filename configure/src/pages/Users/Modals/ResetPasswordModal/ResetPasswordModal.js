@@ -1,3 +1,4 @@
+import { useConfigureText } from "../../../../i18n";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -211,6 +212,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MODAL_NAME = "resetPassword";
 const ResetPasswordModal = (props) => {
+  const ct = useConfigureText();
   const { queryUsers } = props;
   const c = useStyles();
 
@@ -239,7 +241,7 @@ const ResetPasswordModal = (props) => {
     if (!modal?.row?.id) {
       dispatch(
         setSnackBarText({
-          text: "Cannot update undefined User.",
+          text: ct("ui.cannot_update_undefined_user_a2017f"),
           severity: "error",
         })
       );
@@ -249,7 +251,7 @@ const ResetPasswordModal = (props) => {
     if (userName !== modal.row.username) {
       dispatch(
         setSnackBarText({
-          text: "Confirmation Username does not match.",
+          text: ct("ui.confirmation_username_does_not_match_137062"),
           severity: "error",
         })
       );
@@ -268,14 +270,14 @@ const ResetPasswordModal = (props) => {
           setPasswordResetLinkExpiration(res.body.resetTokenExpiration);
           dispatch(
             setSnackBarText({
-              text: `Successfully generated a password reset link for '${modal.row.username}'.`,
+              text: ct("ui.successfully_generated_a_password_reset_link_880204", { p0: modal.row.username }),
               severity: "success",
             })
           );
         } else {
           dispatch(
             setSnackBarText({
-              text: `Failed to generate a password reset link for '${modal.row.username}'.`,
+              text: ct("ui.failed_to_generate_a_password_reset_1bedf5", { p0: modal.row.username }),
               severity: "error",
             })
           );
@@ -284,7 +286,7 @@ const ResetPasswordModal = (props) => {
       (res) => {
         dispatch(
           setSnackBarText({
-            text: `Failed to generate a password reset link for '${modal.row.username}'.`,
+            text: ct("ui.failed_to_generate_a_password_reset_1bedf5", { p0: modal.row.username }),
             severity: "error",
           })
         );
@@ -309,12 +311,12 @@ const ResetPasswordModal = (props) => {
             <AccountBoxIcon className={c.backgroundIcon} />
             <div
               className={c.title}
-            >{`Generate a Password Reset Link for: ${modal?.row?.username}`}</div>
+            >{ct("ui.generate_a_password_reset_link_for_bc338c", { p0: modal?.row?.username })}</div>
           </div>
           <IconButton
             className={c.closeIcon}
-            title="Close"
-            aria-label="close"
+            title={ct("ui.close_bbfa77")}
+            aria-label={ct("ui.close_da3886")}
             onClick={handleClose}
           >
             <CloseSharpIcon fontSize="inherit" />
@@ -326,27 +328,27 @@ const ResetPasswordModal = (props) => {
           <DialogContent className={c.content}>
             <Typography
               className={c.subtitle2}
-            >{`Generates a single-use password reset link for the user. Generating this link does not disable a user from logging in with their current password.`}</Typography>
+            >{ct("ui.generates_a_single_use_password_reset_2e1da0")}</Typography>
 
             <FormControl className={c.dropdown} variant="filled" size="small">
-              <InputLabel>Expires</InputLabel>
+              <InputLabel>{ct("ui.expires_a99be3")}</InputLabel>
               <Select
                 value={expires || 3600000}
                 onChange={(e) => {
                   setExpires(e.target.value);
                 }}
               >
-                <MenuItem value={3600000}>1 hour</MenuItem>
-                <MenuItem value={28800000}>8 hours</MenuItem>
-                <MenuItem value={86400000}>1 day</MenuItem>
-                <MenuItem value={259200000}>3 days</MenuItem>
-                <MenuItem value={604800000}>1 week</MenuItem>
+                <MenuItem value={3600000}>{ct("ui.1_hour_f030c3")}</MenuItem>
+                <MenuItem value={28800000}>{ct("ui.8_hours_191800")}</MenuItem>
+                <MenuItem value={86400000}>{ct("ui.1_day_2d8a6f")}</MenuItem>
+                <MenuItem value={259200000}>{ct("ui.3_days_09ad9d")}</MenuItem>
+                <MenuItem value={604800000}>{ct("ui.1_week_fdb8d5")}</MenuItem>
               </Select>
             </FormControl>
             <Typography className={c.subtitle2}>{``}</Typography>
             <TextField
               className={c.confirmInput}
-              label="Confirm Username"
+              label={ct("ui.confirm_username_5edd50")}
               variant="filled"
               value={userName}
               inputProps={{
@@ -358,23 +360,19 @@ const ResetPasswordModal = (props) => {
             />
             <Typography
               className={c.subtitle2}
-            >{`Confirm their username before generating a password reset link.`}</Typography>
+            >{ct("ui.confirm_their_username_before_generating_a_ab81a4")}</Typography>
           </DialogContent>
           <DialogActions className={c.dialogActions}>
             <Button
               variant="contained"
               startIcon={<AdminPanelSettingsIcon size="small" />}
               onClick={handleSubmit}
-            >
-              Generate
-            </Button>
+            >{ct("ui.generate_fc45f9")}</Button>
             <Button
               className={c.cancel}
               variant="outlined"
               onClick={handleClose}
-            >
-              Cancel
-            </Button>
+            >{ct("ui.cancel_77dfd2")}</Button>
           </DialogActions>
         </>
       ) : (
@@ -382,16 +380,16 @@ const ResetPasswordModal = (props) => {
           <DialogContent className={c.content}>
             <Typography
               className={c.message}
-            >{`Securely send this password reset link to the user:`}</Typography>
+            >{ct("ui.securely_send_this_password_reset_link_5ff1e5")}</Typography>
             <div className={c.generated}>
-              <div className={c.resetLinkTitle}>Reset Link:</div>
+              <div className={c.resetLinkTitle}>{ct("ui.reset_link_06f2d6")}</div>
               <textarea
                 readonly={true}
                 className={c.resetLink}
                 id="resetPasswordLink"
               >{`${publicUrlMainSite}/resetPassword?t=${passwordResetLink}`}</textarea>
               <Tooltip
-                title={"Copy Reset Link to Clipboard"}
+                title={ct("ui.copy_reset_link_to_clipboard_077c8b")}
                 placement="top"
                 arrow
               >
@@ -403,7 +401,7 @@ const ResetPasswordModal = (props) => {
                       document.execCommand("copy");
                       dispatch(
                         setSnackBarText({
-                          text: "Copied Password Reset Link to Clipboard!",
+                          text: ct("ui.copied_password_reset_link_to_clipboard_4ad83a"),
                           severity: "success",
                         })
                       );
@@ -415,15 +413,15 @@ const ResetPasswordModal = (props) => {
               </Tooltip>
             </div>
             <div className={c.message2}>
-              <div>{"Username:"}</div>
+              <div>{ct("ui.username_17dfb0")}</div>
               <div>{modal.row.username}</div>
             </div>
             <div className={c.message2}>
-              <div>{"Email:"}</div>
+              <div>{ct("ui.email_4c4e6b")}</div>
               <div>{modal.row.email}</div>
             </div>
             <div className={c.message2}>
-              <div>{"Link Expires At:"}</div>
+              <div>{ct("ui.link_expires_at_62cdca")}</div>
               <div>{new Date(passwordResetLinkExpiration).toString()}</div>
             </div>
           </DialogContent>
@@ -432,9 +430,7 @@ const ResetPasswordModal = (props) => {
               className={c.cancel}
               variant="outlined"
               onClick={handleClose}
-            >
-              Done
-            </Button>
+            >{ct("ui.done_e9b450")}</Button>
           </DialogActions>
         </>
       )}

@@ -1,48 +1,54 @@
 doctype html
-html(lang='en')
+- const uiAssetRoot = uiRoot + (uiRoot.endsWith("/") ? "" : "/")
+html(lang=uiLocale data-mmgis-root=uiRoot)
   head
-    title MMGIS / Login
+    title= uiText("MMGIS / Login")
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    link(rel='shortcut icon' href=ROOT_PATH + 'public/images/logos/logo.png')
-    link(type='text/css' rel='stylesheet' href=ROOT_PATH + 'public/login.css')
+    link(rel='shortcut icon' href=uiAssetRoot + 'public/images/logos/logo.png')
+    link(type='text/css' rel='stylesheet' href=uiAssetRoot + 'public/login.css')
     script.
       allowSignup = #{AUTH_LOCAL_ALLOW_SIGNUP}
-    script(type='text/javascript' src=ROOT_PATH + 'public/jquery.min.js')
-    script(type='text/javascript' src=ROOT_PATH + 'public/login.js')
+    script(type='text/javascript' src=uiAssetRoot + uiLegacyScript)
+    script(type='text/javascript' src=uiAssetRoot + 'public/jquery.min.js')
+    script(type='text/javascript' src=uiAssetRoot + 'public/login.js')
     style.
-      @font-face { font-family: "Source Sans Pro"; src: url(#{ROOT_PATH}public/fonts/sourcesanspro/SourceSansPro-Regular.ttf); }
-      body { background-image: url(#{ROOT_PATH}public/images/contours.png) !important; }
+      @font-face { font-family: "Source Sans Pro"; src: url(#{uiAssetRoot}public/fonts/sourcesanspro/SourceSansPro-Regular.ttf); }
+      body { background-image: url(#{uiAssetRoot}public/images/contours.png) !important; }
   body.mmgisScrollbar
+    include ui-language.pug
     .header
-      img(src=ROOT_PATH + 'public/images/logos/local_login_brand.png' alt='Branding' style='left: 44px; transform: unset; height: 60px; opacity: 0.5;')
+      img(src=uiAssetRoot + 'public/images/logos/local_login_brand.png' alt=uiText("Branding") style='left: 44px; transform: unset; height: 60px; opacity: 0.5;')
     #container(style='z-index: 1;')
-      img(src=ROOT_PATH + 'public/images/logos/mmgis.png' alt='MMGIS')
+      img(src=uiAssetRoot + 'public/images/logos/mmgis.png' alt='MMGIS')
       span#msg.error
       form.box(name='form1')
         h4
-          | Log in
-          span to your account.
-        h5 If you do not have an account,<br>sign up or request one from your administrator.
-        label#username_label(for="username" style="position: absolute; color: #a1a4ad; top: 203px; left: 50%; transform: translateX(-50%); background: #1c1c1c; border-radius: 10px; font-size: 14px; width: 100px; text-align: center;") Username
-        input#username(type='text' name='username' placeholder='Username' autocomplete='off')
-        label#email_label(for="email" style="position: absolute; color: #a1a4ad; top: 270px; left: 50%; transform: translateX(-50%); background: #1c1c1c; border-radius: 10px; font-size: 14px; width: 100px; text-align: center;") Email
-        input#email(type='text' name='email' placeholder='Email' autocomplete='off')
-        div#email_description An email is optional.
-        label#pwd_label(for="pwd" style="position: absolute; color: #a1a4ad; top: 270px; left: 50%; transform: translateX(-50%); background: #1c1c1c; border-radius: 10px; font-size: 14px; width: 100px; text-align: center;") Password
-        input#pwd(type='password' name='password' placeholder='Password' autocomplete='off')
-        div#pwd_description Must be at least 8 characters long and contain at least: 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol.
-        label#pwd_retype_label(for="pwd_retype" style="position: absolute; color: #a1a4ad; top: 464px; left: 50%; transform: translateX(-50%); background: #1c1c1c; border-radius: 10px; font-size: 14px; width: 120px; text-align: center;") Retype Password
-        input#pwd_retype(type='password' name='password' placeholder='Retype Password' autocomplete='off')
-        div#login.btn1(onClick='login()' title='Log in to MMGIS!') Log In
+          = uiText("Log in")
+          span= uiText("to your account.")
+        h5
+          = uiText("If you do not have an account,")
+          br
+          = uiText("sign up or request one from your administrator.")
+        label#username_label(for="username" style="position: absolute; color: #a1a4ad; top: 203px; left: 50%; transform: translateX(-50%); background: #1c1c1c; border-radius: 10px; font-size: 14px; width: 100px; text-align: center;")= uiText("Username")
+        input#username(type='text' name='username' placeholder=uiText("Username") autocomplete='off')
+        label#email_label(for="email" style="position: absolute; color: #a1a4ad; top: 270px; left: 50%; transform: translateX(-50%); background: #1c1c1c; border-radius: 10px; font-size: 14px; width: 100px; text-align: center;")= uiText("Email")
+        input#email(type='text' name='email' placeholder=uiText("Email") autocomplete='off')
+        div#email_description= uiText("An email is optional.")
+        label#pwd_label(for="pwd" style="position: absolute; color: #a1a4ad; top: 270px; left: 50%; transform: translateX(-50%); background: #1c1c1c; border-radius: 10px; font-size: 14px; width: 100px; text-align: center;")= uiText("Password")
+        input#pwd(type='password' name='password' placeholder=uiText("Password") autocomplete='off')
+        div#pwd_description= uiText("Must be at least 8 characters long and contain at least: 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol.")
+        label#pwd_retype_label(for="pwd_retype" style="position: absolute; color: #a1a4ad; top: 464px; left: 50%; transform: translateX(-50%); background: #1c1c1c; border-radius: 10px; font-size: 14px; width: 120px; text-align: center;")= uiText("Retype Password")
+        input#pwd_retype(type='password' name='password' placeholder=uiText("Retype Password") autocomplete='off')
+        div#login.btn1(onClick='login()' title=uiText("Log in to MMGIS!"))= uiText("Log In")
         div#toggleWrapper
-          div#toggle(onClick='toggle()') Or Sign Up
+          div#toggle(onClick='toggle()')= uiText("Or Sign Up")
     .footer(style='position: absolute; bottom: 0; padding: 44px; box-sizing: border-box; width: 100%; color: #adadad; font-size: 14px; display: flex; justify-content: flex-end; text-align: end;')
 
       div
-        div Contact: #{CONTACT_INFO}
-        div Clearance Number: #{CLEARANCE_NUMBER}
+        div #{uiText('Contact:')} #{CONTACT_INFO}
+        div #{uiText('Clearance Number:')} #{CLEARANCE_NUMBER}
         div(style='display: flex;')
-        a(href='http://www.jpl.nasa.gov/copyrights.cfm' style='margin-right: 10px;') PRIVACY
-        a(href='http://www.jpl.nasa.gov/imagepolicy/') IMAGE POLICY
+        a(href='http://www.jpl.nasa.gov/copyrights.cfm' style='margin-right: 10px;')= uiText("PRIVACY")
+        a(href='http://www.jpl.nasa.gov/imagepolicy/')= uiText("IMAGE POLICY")
   footer
     script(id="_fed_an_ua_tag" type="text/javascript" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NASA&subagency=MMGIS&dclink=true&sp=search,s")

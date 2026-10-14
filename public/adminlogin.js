@@ -1,5 +1,9 @@
 let setup = false;
 
+function back() {
+  window.location.href = MMGISAuth.link(document.documentElement.dataset.mmgisRoot || '/');
+}
+
 function login() {
   if (setup) {
     setupLogin();
@@ -10,14 +14,14 @@ function login() {
     document.getElementById("username").value == "" ||
     document.getElementById("pwd").value == ""
   ) {
-    document.getElementById("msg").innerHTML = "Missing username or password.";
+    document.getElementById("msg").textContent = MMGISAuth.text("Missing username or password.");
     document.getElementById("msg").style.opacity = 1;
     return;
   }
 
   $.ajax({
     type: "POST",
-    url: "api/users/login",
+    url: MMGISAuth.link("api/users/login"),
     data: {
       username: document.getElementById("username").value,
       password: document.getElementById("pwd").value,
@@ -37,14 +41,14 @@ function login() {
         location.reload();
       } else {
         //error
-        document.getElementById("msg").innerHTML =
-          "Invalid username or password.";
+        document.getElementById("msg").textContent =
+          MMGISAuth.message(data) || MMGISAuth.text("Invalid username or password.");
         document.getElementById("msg").style.opacity = 1;
       }
     },
-    error: function () {
+    error: function (xhr) {
       //error
-      document.getElementById("msg").innerHTML = "Server error.";
+      document.getElementById("msg").textContent = MMGISAuth.message(xhr.responseJSON || { status: "failure", message: xhr.statusText || "Server error." });
       document.getElementById("msg").style.opacity = 1;
     },
   });
@@ -56,7 +60,7 @@ function setupLogin() {
     document.getElementById("pwd").value == "" ||
     document.getElementById("pwd_retype").value == ""
   ) {
-    document.getElementById("msg").innerHTML = "Missing username or password.";
+    document.getElementById("msg").textContent = MMGISAuth.text("Missing username or password.");
     document.getElementById("msg").style.opacity = 1;
     return;
   }
@@ -65,14 +69,14 @@ function setupLogin() {
     document.getElementById("pwd").value !=
     document.getElementById("pwd_retype").value
   ) {
-    document.getElementById("msg").innerHTML = "Passwords do not match.";
+    document.getElementById("msg").textContent = MMGISAuth.text("Passwords do not match.");
     document.getElementById("msg").style.opacity = 1;
     return;
   }
 
   $.ajax({
     type: "POST",
-    url: "api/users/first_signup",
+    url: MMGISAuth.link("api/users/first_signup"),
     data: {
       username: document.getElementById("username").value,
       password: document.getElementById("pwd").value,
@@ -86,13 +90,13 @@ function setupLogin() {
         location.reload();
       } else {
         //error
-        document.getElementById("msg").innerHTML = data.message;
+        document.getElementById("msg").textContent = MMGISAuth.message(data);
         document.getElementById("msg").style.opacity = 1;
       }
     },
-    error: function () {
+    error: function (xhr) {
       //error
-      document.getElementById("msg").innerHTML = "Server error.";
+      document.getElementById("msg").textContent = MMGISAuth.message(xhr.responseJSON || { status: "failure", message: xhr.statusText || "Server error." });
       document.getElementById("msg").style.opacity = 1;
     },
   });
@@ -107,7 +111,7 @@ $(document).ready(function () {
 
   $.ajax({
     type: "POST",
-    url: "api/users/has",
+    url: MMGISAuth.link("api/users/has"),
     data: {},
     success: function (data) {
       if (data.status == "success") {
@@ -117,7 +121,7 @@ $(document).ready(function () {
           $(".container").css("height", "520px");
           $("#pwd_retype").css("display", "block");
           $(".btn1").css("top", "81%");
-          $(".btn1").text("Create Administrator Account");
+          $(".btn1").text(MMGISAuth.text("Create Administrator Account"));
         }
       }
     },
@@ -126,6 +130,6 @@ $(document).ready(function () {
   $("#backIcon").on("click", function () {
     // Remove last directory from pathname
     const path = window.location.pathname.split("/");
-    window.location.href = path.slice(0, path.length - 1).join("/") || "/";
+    window.location.href = MMGISAuth.link(path.slice(0, path.length - 1).join("/") || "/");
   });
 });

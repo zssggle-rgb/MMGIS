@@ -1,3 +1,4 @@
+import { useMapText } from '../../../../../i18n'
 /**
  * Compass — directional compass overlay for the Leaflet map.
  *
@@ -11,10 +12,13 @@
  */
 import React, { useState, useEffect, useCallback } from 'react'
 import { createRoot } from 'react-dom/client'
+import { I18nextProvider } from 'react-i18next'
+import { i18n } from '../../../../../i18n'
 import F_ from '../../../Formulae_/Formulae_'
 import Map_ from '../../../Map_/Map_'
 
 function CompassWidget() {
+    const t = useMapText()
     const [bearing, setBearing] = useState(0)
 
     const update = useCallback(() => {
@@ -59,7 +63,7 @@ function CompassWidget() {
                 <div className="angle">{displayAngle}°</div>
                 <div className="help">
                     <div />
-                    North
+                    {t('compass.north')}
                 </div>
             </div>
         </div>
@@ -86,7 +90,7 @@ const Compass = {
         leafletContainer.appendChild(_container)
 
         _root = createRoot(_container)
-        _root.render(<CompassWidget />)
+        _root.render(<I18nextProvider i18n={i18n}><CompassWidget /></I18nextProvider>)
     },
 
     refresh: function () {

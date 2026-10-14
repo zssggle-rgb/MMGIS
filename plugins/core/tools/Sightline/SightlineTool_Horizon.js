@@ -1,3 +1,4 @@
+import { uiTemplate, uiText } from '../../../../src/i18n/legacy-ui'
 import F_ from '@basics/Formulae_/Formulae_'
 import L_ from '@basics/Layers_/Layers_'
 import Map_ from '@basics/Map_/Map_'
@@ -192,7 +193,7 @@ const SightlineTool_Horizon = {
             ? (dems[el.demIndex != null ? el.demIndex : 0] || dems[0]).path
             : store.vars?.dem
         if (!demUrl) {
-            Toast.warning('No DEM configured for horizon profile.', 4000)
+            Toast.warning(uiText("No DEM configured for horizon profile."), 4000)
             return
         }
         if (!F_.isUrlAbsolute(demUrl)) demUrl = L_.missionPath + demUrl
@@ -252,7 +253,7 @@ const SightlineTool_Horizon = {
                     try {
                         parsed = JSON.parse(data)
                     } catch (e) {
-                        Toast.error('Failed to parse horizon profile.', 4000)
+                        Toast.error(uiText("Failed to parse horizon profile."), 4000)
                         return
                     }
                 }
@@ -269,7 +270,7 @@ const SightlineTool_Horizon = {
                 if (opts.onDone) opts.onDone()
             },
             function () {
-                Toast.error('Failed to fetch horizon profile.', 4000)
+                Toast.error(uiText("Failed to fetch horizon profile."), 4000)
             }
         )
     },

@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import { bindUiAttribute } from '../../../i18n/legacy-ui'
 import L_ from '../Layers_/Layers_'
 import { toolModules, toolConfigs } from '../../../pre/tools'
 import useUIStore from '../UserInterface_/store/uiStore'
@@ -345,7 +346,6 @@ let ToolController_ = {
 
         const closeBtn = $('<div>')
             .addClass('tool-close-btn')
-            .attr('title', 'Close Tool')
             .css({
                 position: 'absolute',
                 top: '6px',
@@ -372,6 +372,9 @@ let ToolController_ = {
             .on('click', function () {
                 ToolController_.closeActiveTool()
             })
+
+        bindUiAttribute(closeBtn[0], 'title', 'Close Tool')
+        bindUiAttribute(closeBtn[0], 'aria-label', 'Close Tool')
 
         // Ensure the container has position:relative for absolute positioning
         const firstChild = container.children().first()

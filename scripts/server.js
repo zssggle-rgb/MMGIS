@@ -61,6 +61,7 @@ const rootDir = `${__dirname}/..`;
 
 ///////////////////////////
 const app = express();
+app.use(require('../API/i18n/http').uiLanguage);
 
 const isDocker = utils.isDocker();
 process.env.IS_DOCKER = isDocker ? "true" : "false";
@@ -589,6 +590,7 @@ let helmetConfig = {
       fontSrc: ["*", "data:", "blob:", "'unsafe-inline'"],
       connectSrc: ["*"],
       mediaSrc: ["*", "data:", "blob:"],
+      upgradeInsecureRequests: process.env.HTTPS === "true" ? [] : null,
       frameAncestors: process.env.FRAME_ANCESTORS
         ? JSON.parse(process.env.FRAME_ANCESTORS)
         : "'none'",
